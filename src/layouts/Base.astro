@@ -1,11 +1,6 @@
 ---
 import { getMenu, getEmDashCollection, getSiteSettings, getWidgetArea } from "emdash";
-import {
-	WidgetArea,
-	EmDashHead,
-	EmDashBodyStart,
-	EmDashBodyEnd,
-} from "emdash/ui";
+import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import LiveSearch from "emdash/ui/search";
 import { Font } from "astro:assets";
@@ -1377,6 +1372,8 @@ const isLoggedIn = !!Astro.locals.user;
 			margin: 0;
 			padding: 0.45em 0 0.45em 2em;
 			border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+			/* the seeded address carries the demo's hard line breaks */
+			white-space: pre-line;
 		}
 
 		.footer-widgets-section
@@ -1418,6 +1415,11 @@ const isLoggedIn = !!Astro.locals.user;
 
 		.footer-widgets-section
 			:global(.widget:nth-child(3) .widget__content p:nth-of-type(5))::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b44c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
+		}
+
+		.footer-widgets-section
+			:global(.widget:nth-child(3) .widget__content p:nth-of-type(6))::before {
 			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b44c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
 		}
 

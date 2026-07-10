@@ -390,7 +390,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "935 Pennsylvania Avenue, NW Washington, D.C. 20535-0001",
+									"text": "935 Pennsylvania Avenue,\nNW Washington,\nD.C. 20535-0001",
 									"_key": "fw2s"
 								}
 							]
@@ -428,6 +428,18 @@
 									"_type": "span",
 									"text": "E-mail: william@spooky.fox",
 									"_key": "fw5s"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "fw-web",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "fw-web-s",
+									"text": "Website: https://spooky.fox"
 								}
 							]
 						},
