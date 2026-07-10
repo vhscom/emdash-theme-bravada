@@ -584,28 +584,30 @@ html.js .aos.aos-fade {
 }
 
 /* ============================================================
-   Back-to-top — gold square, white chevron, teal on hover
+   Back-to-top — demo #footer #toTop: white square with a soft
+   shadow; teal chevron that swaps for a gold one on hover (the
+   resting icon slides up and out, the second slides in below)
    ============================================================ */
 
 #toTop {
 	position: fixed;
-	right: 1em;
-	bottom: 1em;
-	z-index: 90;
+	right: 2em;
+	bottom: 2em;
+	z-index: 250;
 	width: 52px;
 	height: 52px;
+	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	border: none;
-	background: var(--color-gold);
-	color: #f3f7f6;
+	background: var(--color-surface);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+	color: var(--color-teal);
 	cursor: pointer;
 	opacity: 0;
 	pointer-events: none;
-	transition:
-		0.3s ease opacity,
-		0.3s ease background;
+	transition: 0.2s ease-out all;
 }
 
 #toTop.visible {
@@ -613,6 +615,26 @@ html.js .aos.aos-fade {
 	pointer-events: auto;
 }
 
-#toTop:hover {
-	background: var(--color-teal-solid);
+#toTop svg {
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	transform: translateY(0) scale(1);
+	transition: all 0.4s ease-out;
+}
+
+#toTop svg + svg {
+	color: var(--color-gold);
+	opacity: 0;
+	transform: translateY(20px) scale(0.25);
+}
+
+#toTop:hover svg:first-child {
+	opacity: 0;
+	transform: translateY(-20px) scale(0.25);
+}
+
+#toTop:hover svg + svg {
+	opacity: 1;
+	transform: translateY(0) scale(1);
 }

@@ -312,6 +312,17 @@
 					"title": "About Us",
 					"content": [
 						{
+							"_type": "image",
+							"_key": "fw-about-img",
+							"asset": {
+								"_ref": "footer-about-image",
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/square_presentation-300x300.jpg"
+							},
+							"alt": "Our team at work",
+							"width": 300,
+							"height": 300
+						},
+						{
 							"_type": "block",
 							"style": "normal",
 							"_key": "fw1",
