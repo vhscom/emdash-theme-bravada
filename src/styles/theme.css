@@ -486,7 +486,7 @@ body {
 }
 
 .breakup-title span.animated-letter {
-	color: var(--color-gold);
+	color: var(--letter-accent, var(--color-gold));
 }
 
 .breakup-title .caption-title-word > span:nth-child(n) span.cry-single.animated-letter {

@@ -7,9 +7,10 @@
  * light subtitle, a pair of buttons (outline-white / gold) that slide
  * in from the left, and a bouncing scroll chevron (.meta-arrow).
  *
- * `effect` selects the overlay gradient from Bravada Plus's four demo
- * personalities: bravada (default), ripley, sculpt, sundown. Editable
- * on the block in the admin.
+ * `effect` selects the hero TEXT effect — the accent the animated
+ * letters flash during the break-up — from Bravada Plus's four demo
+ * personalities: bravada (gold), ripley (petrol), sculpt (plum),
+ * sundown (red). Editable on the block in the admin.
  */
 interface HeroButton {
 	label: string;
@@ -23,7 +24,7 @@ interface HeroNode {
 	image?: string;
 	imageAlt?: string;
 	buttons?: HeroButton[];
-	/** Overlay personality: bravada | ripley | sculpt | sundown */
+	/** Animated-letter accent: bravada | ripley | sculpt | sundown */
 	effect?: string;
 }
 
@@ -120,7 +121,7 @@ const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
 		vertical-align: middle;
 	}
 
-	/* Overlay scrim at 0.6 — gradient per Bravada Plus personality */
+	/* Bravada's overlay scrim: #08415c → #1c110a at 0.6 */
 	.lp-staticslider::after {
 		content: "";
 		position: absolute;
@@ -131,16 +132,22 @@ const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
 		pointer-events: none;
 	}
 
-	[data-effect="ripley"] .lp-staticslider::after {
-		background: linear-gradient(190deg, #05c1af 0%, #ffb847 100%);
+	/* Text-effect variants: the color the break-up letters flash
+	   (measured from each personality's customizer CSS) */
+	[data-effect="bravada"] {
+		--letter-accent: #e9b44c;
 	}
 
-	[data-effect="sculpt"] .lp-staticslider::after {
-		background: linear-gradient(180deg, #f18f01 0%, #332142 100%);
+	[data-effect="ripley"] {
+		--letter-accent: #227c9d;
 	}
 
-	[data-effect="sundown"] .lp-staticslider::after {
-		background: linear-gradient(180deg, #1c110a 8%, #724614 100%);
+	[data-effect="sculpt"] {
+		--letter-accent: #332142;
+	}
+
+	[data-effect="sundown"] {
+		--letter-accent: #bf211e;
 	}
 
 	.staticslider-caption {
