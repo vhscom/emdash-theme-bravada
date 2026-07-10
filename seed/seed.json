@@ -215,6 +215,59 @@
 					"url": "/rss.xml"
 				}
 			]
+		},
+		{
+			"name": "mobile",
+			"label": "Mobile Menu",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Home",
+					"url": "/"
+				},
+				{
+					"type": "custom",
+					"label": "Blog",
+					"url": "/posts"
+				},
+				{
+					"type": "custom",
+					"label": "Categories",
+					"url": "/posts",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Coffee",
+							"url": "/category/coffee"
+						},
+						{
+							"type": "custom",
+							"label": "Office",
+							"url": "/category/office"
+						},
+						{
+							"type": "custom",
+							"label": "Plants",
+							"url": "/category/plants"
+						},
+						{
+							"type": "custom",
+							"label": "Views",
+							"url": "/category/views"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "About Us",
+					"url": "/pages/about-us"
+				},
+				{
+					"type": "custom",
+					"label": "Contact",
+					"url": "/pages/contact"
+				}
+			]
 		}
 	],
 	"widgetAreas": [
@@ -380,7 +433,8 @@
 							"label": "See now",
 							"url": "/pages/about-us"
 						}
-					]
+					],
+					"effect": "bravada"
 				}
 			]
 		},
@@ -807,7 +861,8 @@
 									"label": "See now",
 									"url": "/pages/about-us"
 								}
-							]
+							],
+							"effect": "bravada"
 						},
 						{
 							"_type": "bravada.blocks",

@@ -51,6 +51,11 @@ const fullTitle = title.includes(siteTitle) ? title : `${title} — ${siteTitle}
 // Fetch primary menu defined in seed
 const menu = await getMenu("primary");
 
+// Bravada's fullscreen burger menu renders its own menu so admins can
+// customize it independently in the admin (Menus → "mobile"); it
+// falls back to the primary menu when no mobile menu is defined.
+const mobileMenu = (await getMenu("mobile")) ?? menu;
+
 // Optional "social" menu. If a site defines a `social` menu in its seed,
 // it'll render in the footer's "Connect" column. Otherwise that column
 // just shows RSS, avoiding duplication with the "Navigate" column above.
@@ -175,8 +180,102 @@ const isLoggedIn = !!Astro.locals.user;
 						</a>
 					)
 				}
+				<button
+					type="button"
+					class="hamburger"
+					aria-label="Menu"
+					aria-expanded="false"
+					aria-controls="mobile-menu"
+				>
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
 			</nav>
 		</header>
+
+		<!-- Bravada fullscreen mobile menu (nav#mobile-menu): teal layer,
+		     Playfair links dropping in staggered, collapsible submenus -->
+		<nav id="mobile-menu" aria-label="Mobile" hidden>
+			<button type="button" id="nav-cancel" aria-label="Close menu">
+				<svg
+					width="26"
+					height="26"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+					><line x1="18" y1="6" x2="6" y2="18"></line><line
+						x1="6"
+						y1="6"
+						x2="18"
+						y2="18"></line></svg
+				>
+			</button>
+			<ul id="mobile-nav">
+				<li class="mobile-search">
+					<form role="search" method="get" action="/search">
+						<label>
+							<span class="sr-only">Search for:</span>
+							<input
+								type="search"
+								name="q"
+								placeholder="Search"
+								autocomplete="off"
+							/>
+						</label>
+					</form>
+				</li>
+				{
+					mobileMenu?.items.map((item) => (
+						<li
+							class:list={[
+								"mobile-item",
+								{ "has-children": item.children.length > 0 },
+							]}
+						>
+							<a href={item.url} target={item.target}>
+								<span>{item.label}</span>
+							</a>
+							{item.children.length > 0 && (
+								<>
+									<button
+										type="button"
+										class="dropdown-toggle"
+										aria-expanded="false"
+										aria-label={`Expand ${item.label}`}
+									>
+										<svg
+											width="18"
+											height="18"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											aria-hidden="true"
+											><polyline points="6 9 12 15 18 9" /></svg
+										>
+									</button>
+									<ul class="mobile-sub-menu">
+										{item.children.map((child) => (
+											<li>
+												<a href={child.url} target={child.target}>
+													<span>{child.label}</span>
+												</a>
+											</li>
+										))}
+									</ul>
+								</>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</nav>
 
 		<!-- Bravada menu-search-animated: fullscreen dark layer with a
 		     centered pill input that slides up; live results below it -->
@@ -574,9 +673,11 @@ const isLoggedIn = !!Astro.locals.user;
 				margin-inline-start: auto;
 			}
 
+			/* Demo #access: no gap between items — each link carries
+			   0 2em padding (1.4em under 1200px), so the hover wash pill
+			   hugs the label like the original */
 			.nav-links {
 				display: flex;
-				gap: var(--spacing-8);
 				margin: 0;
 				padding: 0;
 				list-style: none;
@@ -598,8 +699,15 @@ const isLoggedIn = !!Astro.locals.user;
 			}
 
 			.nav-links .menu-item > a {
-				display: inline-block;
+				display: block;
+				padding: 0 2em;
 				line-height: var(--nav-height);
+			}
+
+			@media (max-width: 1200px) {
+				.nav-links .menu-item > a {
+					padding: 0 1.4em;
+				}
 			}
 
 			/* Dropdowns: Bravada's dark teal submenu panel. It slides DOWN
@@ -855,6 +963,241 @@ const isLoggedIn = !!Astro.locals.user;
 				min-height: calc(100vh - var(--nav-height) - 300px);
 			}
 
+			.sr-only {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				padding: 0;
+				margin: -1px;
+				overflow: hidden;
+				clip: rect(0, 0, 0, 0);
+				white-space: nowrap;
+				border: 0;
+			}
+
+			/* Hamburger (Bravada .hamburger): three right-aligned bars
+			   (100/75/45%) that fill on hover and morph into an X */
+			.hamburger {
+				display: none;
+				position: relative;
+				width: 36px;
+				height: 20px;
+				margin-left: 1em;
+				border: 0;
+				padding: 0;
+				background: transparent;
+				cursor: pointer;
+				transition: 0.5s ease-in-out;
+			}
+
+			.hamburger span {
+				display: block;
+				position: absolute;
+				right: 0;
+				height: 2px;
+				width: 100%;
+				border-radius: 3px;
+				background: var(--color-menu-link);
+				transition: 0.25s ease-in-out;
+			}
+
+			.site-header.over-hero:not(.header-fixed) .hamburger span {
+				background: #ffffff;
+			}
+
+			.hamburger span:nth-child(1) {
+				top: 0;
+				transform-origin: left top;
+			}
+
+			.hamburger span:nth-child(2) {
+				top: 9px;
+				width: 75%;
+				transform-origin: left center;
+			}
+
+			.hamburger span:nth-child(3) {
+				top: 18px;
+				width: 45%;
+				transform-origin: left bottom;
+			}
+
+			.hamburger:hover span {
+				width: 100%;
+			}
+
+			:global(body.burgermenu-active) .hamburger span {
+				width: 100%;
+				background: #ffffff;
+			}
+
+			:global(body.burgermenu-active) .hamburger span:nth-child(1) {
+				top: -3px;
+				transform: rotate(45deg);
+			}
+
+			:global(body.burgermenu-active) .hamburger span:nth-child(2) {
+				width: 0;
+				opacity: 0;
+				transform: translateX(-50%);
+			}
+
+			:global(body.burgermenu-active) .hamburger span:nth-child(3) {
+				top: 22px;
+				transform: rotate(-45deg);
+			}
+
+			/* Fullscreen mobile menu (nav#mobile-menu): teal layer, fade in,
+			   items drop in staggered (delays set inline by script) */
+			#mobile-menu {
+				position: fixed;
+				inset: 0;
+				z-index: 998;
+				display: flex;
+				flex-flow: column;
+				align-items: center;
+				justify-content: center;
+				overflow-y: auto;
+				overflow-x: hidden;
+				padding: 2em;
+				background: var(--color-submenu-bg);
+				color: #ffffff;
+				opacity: 0;
+				pointer-events: none;
+				transition: 0.5s ease-out opacity;
+			}
+
+			#mobile-menu[hidden] {
+				display: none;
+			}
+
+			:global(body.burgermenu-active) #mobile-menu {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			#nav-cancel {
+				position: absolute;
+				top: 0;
+				right: 0;
+				z-index: 99;
+				padding: 1em;
+				border: 0;
+				background: transparent;
+				color: inherit;
+				cursor: pointer;
+			}
+
+			#mobile-nav {
+				margin: 0;
+				padding: 0;
+				max-width: 100%;
+				list-style: none;
+				text-align: center;
+			}
+
+			#mobile-nav > li {
+				position: relative;
+				margin-bottom: min(4vw, 1.75em);
+				line-height: 1.1;
+				opacity: 0;
+				transform: translateY(-30px);
+				transition: 0.2s ease-out all;
+			}
+
+			:global(body.burgermenu-active) #mobile-nav > li {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			#mobile-nav a {
+				display: inline-block;
+				font-family: var(--font-heading);
+				font-size: clamp(1.3rem, 5vw, 2.5em);
+				font-weight: 700;
+				color: #ffffff;
+				text-decoration: none;
+				transition: 0.3s ease-out color;
+			}
+
+			#mobile-nav a:hover {
+				color: var(--color-gold);
+			}
+
+			#mobile-nav .dropdown-toggle {
+				position: absolute;
+				top: 0.25em;
+				right: -1.6em;
+				border: 0;
+				padding: 0.25em;
+				background: transparent;
+				color: inherit;
+				cursor: pointer;
+				transform: rotateX(0);
+				transition: 0.6s all ease-in-out;
+			}
+
+			#mobile-nav .dropdown-toggle.toggle-on {
+				transform: rotateX(-180deg);
+			}
+
+			#mobile-nav .has-children > a.toggled-on {
+				border-bottom: 3px solid;
+			}
+
+			.mobile-sub-menu {
+				display: none;
+				max-height: 0;
+				margin: 1em auto 0.5em;
+				padding: 0;
+				list-style: none;
+				opacity: 0;
+				transition:
+					0.5s max-height ease-in-out,
+					0.3s opacity ease-in-out;
+			}
+
+			.mobile-sub-menu.toggled-on {
+				display: block;
+				max-height: 1500px;
+				opacity: 0.9;
+				transition:
+					1s max-height ease-in-out,
+					0.3s 0.3s opacity ease-in-out;
+			}
+
+			.mobile-sub-menu li {
+				margin-bottom: 0.75em;
+			}
+
+			.mobile-sub-menu a {
+				font-size: clamp(1.1rem, 4vw, 2em);
+			}
+
+			.mobile-search {
+				width: 100%;
+			}
+
+			.mobile-search input[type="search"] {
+				width: min(20em, 80vw);
+				padding: 0.4em 1.2em;
+				border: 2px solid #ffffff;
+				border-radius: 100px;
+				background: transparent;
+				font-family: var(--font-heading);
+				font-size: 1.1em;
+				text-align: center;
+				color: #ffffff;
+			}
+
+			.mobile-search input[type="search"]::placeholder {
+				color: rgba(255, 255, 255, 0.7);
+			}
+
+			:global(body.noscroll) {
+				overflow: hidden;
+			}
+
 			/* Footer — Bravada #colophon/#footer: dark band, widget columns */
 		.site-footer {
 			background: var(--color-footer-bg);
@@ -1037,34 +1380,22 @@ const isLoggedIn = !!Astro.locals.user;
 				}
 			}
 
+			/* Burger breakpoint: the inline menu gives way to the
+			   fullscreen mobile menu (Bravada shows the hamburger once
+			   the menu no longer fits) */
+			@media (max-width: 800px) {
+				.nav-right .nav-links {
+					display: none;
+				}
+
+				.hamburger {
+					display: inline-block;
+				}
+			}
+
 			@media (max-width: 640px) {
-				.site-header {
-					position: relative;
-					border-bottom: none;
-				}
-
-				.nav {
-					display: grid;
-					grid-template-columns: minmax(0, 1fr) auto;
-					align-items: center;
-					height: auto;
-					column-gap: var(--spacing-3);
-					row-gap: var(--spacing-2);
-					padding: var(--spacing-3) var(--spacing-4);
-				}
-
 				.site-title {
-					grid-column: 1;
-					grid-row: 1;
 					font-size: var(--font-size-base);
-					min-width: 0;
-				}
-
-				.nav-right {
-					grid-column: 1 / -1;
-					grid-row: 2;
-					display: grid;
-					row-gap: var(--spacing-2);
 				}
 
 				:global(.site-search-input) {
@@ -1075,21 +1406,8 @@ const isLoggedIn = !!Astro.locals.user;
 					right: 1em;
 				}
 
-				.nav-links {
-					grid-column: 1;
-					display: flex;
-					column-gap: var(--spacing-3);
-					row-gap: var(--spacing-1);
-					flex-wrap: wrap;
-					justify-content: flex-start;
-				}
-
 				.nav-admin {
-					grid-column: 2;
-					grid-row: 1;
-					justify-self: end;
 					font-size: var(--font-size-xs);
-					margin-inline-start: 0;
 					white-space: nowrap;
 				}
 
@@ -1169,6 +1487,73 @@ const isLoggedIn = !!Astro.locals.user;
 			} else {
 				aosEls.forEach((el) => el.classList.remove("aos"));
 			}
+		</script>
+
+		<script>
+			// Bravada fullscreen burger menu (cryoutMobileMenuInit): fade the
+			// teal layer in, drop items in with staggered delays, morph the
+			// hamburger into an X, collapse submenus behind dropdown toggles.
+			const burger = document.querySelector<HTMLButtonElement>(".hamburger");
+			const mobileMenu = document.getElementById("mobile-menu");
+			const navCancel = document.getElementById("nav-cancel");
+
+			// Staggered entrance (demo: transition-delay = 0.03s * index)
+			mobileMenu
+				?.querySelectorAll<HTMLElement>("#mobile-nav > li")
+				.forEach((li, i) => {
+					li.style.transitionDelay = `${0.03 * i}s`;
+				});
+
+			function setBurger(open: boolean) {
+				if (!mobileMenu) return;
+				if (open) {
+					mobileMenu.hidden = false;
+					requestAnimationFrame(() =>
+						requestAnimationFrame(() => {
+							document.body.classList.add("burgermenu-active", "noscroll");
+						})
+					);
+				} else {
+					document.body.classList.remove("burgermenu-active", "noscroll");
+					setTimeout(() => {
+						mobileMenu.hidden = true;
+					}, 500);
+				}
+				burger?.setAttribute("aria-expanded", String(open));
+			}
+
+			burger?.addEventListener("click", () =>
+				setBurger(!document.body.classList.contains("burgermenu-active"))
+			);
+			navCancel?.addEventListener("click", () => setBurger(false));
+			document.addEventListener("keydown", (e) => {
+				if (
+					e.key === "Escape" &&
+					document.body.classList.contains("burgermenu-active")
+				) {
+					setBurger(false);
+					burger?.focus();
+				}
+			});
+			// Close when a link is followed (anchors on the same page)
+			mobileMenu?.querySelectorAll("a").forEach((a) => {
+				a.addEventListener("click", () => setBurger(false));
+			});
+
+			// Submenu accordions
+			mobileMenu
+				?.querySelectorAll<HTMLButtonElement>(".dropdown-toggle")
+				.forEach((btn) => {
+					btn.addEventListener("click", () => {
+						const li = btn.closest("li");
+						const sub = li?.querySelector(".mobile-sub-menu");
+						const link = li?.querySelector(":scope > a");
+						const open = btn.classList.toggle("toggle-on");
+						sub?.classList.toggle("toggled-on", open);
+						link?.classList.toggle("toggled-on", open);
+						btn.setAttribute("aria-expanded", String(open));
+					});
+				});
 		</script>
 
 		<script>

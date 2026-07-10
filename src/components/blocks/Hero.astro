@@ -1,11 +1,15 @@
 ---
 /**
  * bravada.hero — Bravada's landing-page static slider (.lp-slider /
- * .lp-staticslider): a full-bleed image under a blue→umber gradient
- * scrim, huge Playfair caption with randomly gilded letters, light
- * subtitle and a pair of buttons (outline-white / gold) that slide in
- * from the left. Inserted into any Portable Text field via the
- * "Hero slider" section (/section in the editor).
+ * .lp-staticslider): a full-bleed image under a gradient scrim, huge
+ * Playfair caption whose letters periodically break up (a random
+ * handful turn gold and swap out/in — cryoutSliderTitleBreakUp), a
+ * light subtitle, a pair of buttons (outline-white / gold) that slide
+ * in from the left, and a bouncing scroll chevron (.meta-arrow).
+ *
+ * `effect` selects the overlay gradient from Bravada Plus's four demo
+ * personalities: bravada (default), ripley, sculpt, sundown. Editable
+ * on the block in the admin.
  */
 interface HeroButton {
 	label: string;
@@ -19,14 +23,19 @@ interface HeroNode {
 	image?: string;
 	imageAlt?: string;
 	buttons?: HeroButton[];
+	/** Overlay personality: bravada | ripley | sculpt | sundown */
+	effect?: string;
 }
 
 // astro-portabletext hands custom type components the block as `node`
 const { node } = Astro.props as { node: HeroNode };
 const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
+
+const EFFECTS = ["bravada", "ripley", "sculpt", "sundown"];
+const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
 ---
 
-<section class="lp-slider full-bleed">
+<section class="lp-slider full-bleed" data-effect={effect}>
 	<div class="lp-staticslider">
 		{image && <img class="lp-staticslider-image" src={image} alt={imageAlt} />}
 		<div class="staticslider-caption">
@@ -49,27 +58,87 @@ const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
 				}
 			</div>
 		</div>
+		<a href="#lp-after-slider" class="meta-arrow" aria-label="Scroll to content">
+			<svg
+				width="26"
+				height="26"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg
+			>
+		</a>
 	</div>
 </section>
+<span id="lp-after-slider"></span>
 
 <script>
-	// Bravada gilds a scatter of caption letters in gold. Deterministic
-	// (index-hashed) so it doesn't reshuffle between navigations.
+	// Bravada cryoutSliderTitleBreakUp (faithful port): each letter gets
+	// two stacked copies (cry-single visible, cry-double hidden); every
+	// ~3.5s a random handful gain .animated-letter — they turn gold and
+	// the single slides out while the double slides in.
 	for (const el of document.querySelectorAll<HTMLElement>(
 		".staticslider-caption-title"
 	)) {
-		if (el.dataset.gilded) continue;
-		el.dataset.gilded = "1";
-		const text = el.textContent ?? "";
+		if (el.dataset.breakup) continue;
+		el.dataset.breakup = "1";
+		const text = (el.textContent ?? "").trim();
+		const words = text.split(/\s+/);
 		el.textContent = "";
-		[...text].forEach((ch, i) => {
-			if (/[a-z]/i.test(ch) && (i * 7 + 3) % 9 === 1) {
-				const span = document.createElement("span");
-				span.className = "gilded";
-				span.textContent = ch;
-				el.appendChild(span);
-			} else {
-				el.appendChild(document.createTextNode(ch));
+		for (const [wi, word] of words.entries()) {
+			const em = document.createElement("em");
+			em.className = "caption-title-word";
+			for (const ch of word) {
+				const outer = document.createElement("span");
+				for (const cls of ["cry-single", "cry-double"]) {
+					const copy = document.createElement("span");
+					copy.className = cls;
+					copy.textContent = ch;
+					outer.appendChild(copy);
+				}
+				em.appendChild(outer);
+			}
+			el.appendChild(em);
+			if (wi < words.length - 1) el.appendChild(document.createTextNode(" "));
+		}
+		el.classList.add("animated-title");
+
+		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) continue;
+
+		const clearLen = text.replace(/\s+/g, "").length;
+		let n = Math.max(2, Math.floor(clearLen / 4));
+		n = Math.min(n, 7);
+		const singles = [...el.querySelectorAll("span.cry-single")];
+		const doubles = [...el.querySelectorAll("span.cry-double")];
+
+		const titleAnimation = () => {
+			for (const sp of [...singles, ...doubles])
+				sp.classList.remove("animated-letter");
+			// force reflow so re-added animations restart
+			void el.offsetWidth;
+			for (let i = 0; i < n; i++) {
+				const k = Math.floor(Math.random() * singles.length);
+				singles[k].classList.add("animated-letter");
+				doubles[k].classList.add("animated-letter");
+			}
+		};
+		setTimeout(titleAnimation, 1000);
+		setInterval(titleAnimation, 3500);
+	}
+
+	// Chevron scrolls smoothly to whatever follows the slider
+	for (const arrow of document.querySelectorAll<HTMLAnchorElement>(
+		".lp-slider .meta-arrow"
+	)) {
+		arrow.addEventListener("click", (e) => {
+			const slider = arrow.closest(".lp-slider");
+			const next = slider?.nextElementSibling;
+			if (next) {
+				e.preventDefault();
+				next.scrollIntoView({ behavior: "smooth" });
 			}
 		});
 	}
@@ -95,7 +164,7 @@ const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
 		vertical-align: middle;
 	}
 
-	/* Bravada's header overlay: #08415c → #1c110a at 0.6 */
+	/* Overlay scrim at 0.6 — gradient per Bravada Plus personality */
 	.lp-staticslider::after {
 		content: "";
 		position: absolute;
@@ -104,6 +173,18 @@ const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
 		background: linear-gradient(180deg, #08415c 0%, #1c110a 100%);
 		opacity: 0.6;
 		pointer-events: none;
+	}
+
+	[data-effect="ripley"] .lp-staticslider::after {
+		background: linear-gradient(190deg, #05c1af 0%, #ffb847 100%);
+	}
+
+	[data-effect="sculpt"] .lp-staticslider::after {
+		background: linear-gradient(180deg, #f18f01 0%, #332142 100%);
+	}
+
+	[data-effect="sundown"] .lp-staticslider::after {
+		background: linear-gradient(180deg, #1c110a 8%, #724614 100%);
 	}
 
 	.staticslider-caption {
@@ -136,8 +217,104 @@ const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
 		animation: 0.5s 0.25s slide-right ease-out forwards;
 	}
 
-	.staticslider-caption-title :global(.gilded) {
+	/* Letter break-up (bravada-animated-title): stacked letter copies;
+	   animated ones turn gold and swap out/in */
+	.staticslider-caption-title :global(.caption-title-word) {
+		display: inline-block;
+		font-style: normal;
+	}
+
+	.staticslider-caption-title :global(.caption-title-word > span) {
+		position: relative;
+		display: inline-block;
+	}
+
+	.staticslider-caption-title :global(span.cry-single) {
+		position: relative;
+	}
+
+	.staticslider-caption-title :global(span.cry-double) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+	}
+
+	.staticslider-caption-title :global(span.cry-single),
+	.staticslider-caption-title :global(span.cry-double) {
+		transition: color 0.5s ease-out;
+	}
+
+	.staticslider-caption-title :global(span.animated-letter) {
 		color: var(--color-gold);
+	}
+
+	.staticslider-caption-title
+		:global(.caption-title-word > span:nth-child(n) span.cry-single.animated-letter) {
+		animation: 1.5s 0.25s letter-slide-left-hide ease-in-out forwards;
+	}
+
+	.staticslider-caption-title
+		:global(.caption-title-word > span:nth-child(2n) span.cry-single.animated-letter) {
+		animation: 1.5s 0.25s letter-slide-right-hide ease-in-out forwards;
+	}
+
+	.staticslider-caption-title
+		:global(.caption-title-word > span:nth-child(n) span.cry-double.animated-letter) {
+		animation: 1s letter-slide-right-show ease-in-out forwards;
+	}
+
+	.staticslider-caption-title
+		:global(.caption-title-word > span:nth-child(2n) span.cry-double.animated-letter) {
+		animation: 1s letter-slide-left-show ease-in-out forwards;
+	}
+
+	@keyframes letter-slide-left-hide {
+		from {
+			opacity: 1;
+			transform: translateX(0);
+		}
+
+		to {
+			opacity: 0;
+			transform: translateX(-150%);
+		}
+	}
+
+	@keyframes letter-slide-right-hide {
+		from {
+			opacity: 1;
+			transform: translateX(0);
+		}
+
+		to {
+			opacity: 0;
+			transform: translateX(150%);
+		}
+	}
+
+	@keyframes letter-slide-right-show {
+		from {
+			opacity: 0;
+			transform: translateX(150%);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@keyframes letter-slide-left-show {
+		from {
+			opacity: 0;
+			transform: translateX(-150%);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
 	}
 
 	.staticslider-caption-text {
@@ -174,12 +351,46 @@ const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
 		}
 	}
 
+	/* Bouncing scroll chevron (.meta-arrow, 2.2s ease-out infinite) */
+	.meta-arrow {
+		position: absolute;
+		z-index: 15;
+		left: 0;
+		right: 0;
+		bottom: 50px;
+		width: 100px;
+		height: 40px;
+		margin: 0 auto;
+		text-align: center;
+		color: #ffffff;
+	}
+
+	.meta-arrow:hover {
+		color: var(--color-gold);
+	}
+
+	.meta-arrow svg {
+		animation: meta-arrow 2.2s ease-out infinite;
+	}
+
+	@keyframes meta-arrow {
+		60%,
+		100% {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		.staticslider-caption-title,
 		.staticslider-caption-text,
 		.staticslider-caption-buttons {
 			animation: none;
 			opacity: 1;
+		}
+
+		.meta-arrow svg {
+			animation: none;
 		}
 	}
 
@@ -195,6 +406,10 @@ const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
 
 		.staticslider-caption-buttons :global(a + a) {
 			margin-left: 0.75em;
+		}
+
+		.meta-arrow {
+			bottom: 20px;
 		}
 	}
 </style>
