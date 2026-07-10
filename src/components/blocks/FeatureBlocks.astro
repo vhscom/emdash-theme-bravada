@@ -227,7 +227,8 @@ function iconSvg(name: string | undefined): string | null {
 
 	/* --- dark variant (lp-blocks2) --- */
 	.lp-blocks-dark .lp-blocks-inside {
-		grid-column-gap: 4%;
+		/* Demo blocks have 4% column and ~7% combined row margins */
+		gap: 4.5em 4%;
 		max-width: var(--wide-width);
 		padding: 2em 1em 5em;
 		background: transparent;
@@ -298,8 +299,7 @@ function iconSvg(name: string | undefined): string | null {
 		background: transparent;
 	}
 
-	.lp-blocks-dark :global(.ghost-header .ghost-title),
-	.lp-blocks-dark :global(.ghost-header .ghost-sub) {
+	.lp-blocks-dark :global(.ghost-header .ghost-title) {
 		color: #ffffff;
 	}
 
