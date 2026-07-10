@@ -337,14 +337,47 @@
 					]
 				},
 				{
-					"type": "component",
-					"componentId": "core:recent-posts",
-					"title": "Recent Posts",
-					"settings": {
-						"count": 4,
-						"showDate": false,
-						"showThumbnails": true
-					}
+					"type": "content",
+					"title": "Portfolio",
+					"content": [
+						{
+							"_type": "bravada.widgetportfolio",
+							"_key": "fw-portfolio",
+							"columns": 3,
+							"items": [
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+									"title": "New York vol. 27",
+									"url": "/#lp-portfolio"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+									"title": "Presentation Paper",
+									"url": "/#lp-portfolio"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+									"title": "Empty Cards",
+									"url": "/#lp-portfolio"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+									"title": "Notebook",
+									"url": "/#lp-portfolio"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+									"title": "Disk cover",
+									"url": "/#lp-portfolio"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+									"title": "Pen & Paper",
+									"url": "/#lp-portfolio"
+								}
+							]
+						}
+					]
 				},
 				{
 					"type": "content",

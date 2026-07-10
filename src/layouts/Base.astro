@@ -1,5 +1,5 @@
 ---
-import { getMenu, getEmDashCollection, getSiteSettings } from "emdash";
+import { getMenu, getEmDashCollection, getSiteSettings, getWidgetArea } from "emdash";
 import {
 	WidgetArea,
 	EmDashHead,
@@ -10,6 +10,7 @@ import { createPublicPageContext } from "emdash/page";
 import LiveSearch from "emdash/ui/search";
 import { Font } from "astro:assets";
 import { resolveBlogSiteIdentity } from "../utils/site-identity";
+import RichText from "../components/RichText.astro";
 import "../styles/tokens.css";
 import "../styles/theme.css";
 
@@ -63,6 +64,11 @@ const socialMenu = await getMenu("social");
 
 // Fetch pages for footer
 const { entries: pages } = await getEmDashCollection("pages");
+
+// Footer widgets are rendered manually (not via <WidgetArea>) so that
+// content widgets can carry the theme's custom Portable Text blocks —
+// the demo's footer Portfolio grid is a bravada.widgetportfolio block.
+const footerWidgets = await getWidgetArea("footer");
 
 // Build public page context for plugin contributions
 // SEO data is passed here and rendered securely by EmDashHead
@@ -297,7 +303,22 @@ const isLoggedIn = !!Astro.locals.user;
 		<footer class="site-footer">
 			<div class="footer-inner">
 				<div class="footer-widgets-section">
-					<WidgetArea name="footer" />
+					<div class="widget-area">
+						{
+							footerWidgets?.widgets.map((widget) => (
+								<section class="widget">
+									{widget.title && (
+										<h2 class="widget__title">{widget.title}</h2>
+									)}
+									{widget.type === "content" && widget.content && (
+										<div class="widget__content">
+											<RichText value={widget.content} />
+										</div>
+									)}
+								</section>
+							))
+						}
+					</div>
 				</div>
 				<div class="footer-bottom">
 					<nav class="footer-socials" aria-label="Social links">

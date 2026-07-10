@@ -34,7 +34,7 @@ const filters = [...new Set(items.flatMap((i) => i.tags ?? []))];
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 
-<section class="lp-portfolio full-bleed">
+<section class="lp-portfolio full-bleed" id="lp-portfolio">
 	<SectionHeader title={title} description={description} />
 	<div class="lp-portfolio-inside" style={`--lp-port-cols: ${cols}`}>
 		{

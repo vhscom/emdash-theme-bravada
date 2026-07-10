@@ -1,0 +1,101 @@
+---
+/**
+ * bravada.widgetportfolio — the demo footer's Cryout Portfolio widget:
+ * a 3-column grid of square thumbnails in 5px translucent frames.
+ * Images rest at 80% opacity and zoom to 130% on hover while a white
+ * title plate slides up from the bottom edge (demo .widget-portfolio
+ * / .widget-portfolio-item / .portfolio-image spec).
+ */
+interface PortfolioThumb {
+	image: string;
+	title?: string;
+	url?: string;
+}
+
+interface WidgetPortfolioNode {
+	items?: PortfolioThumb[];
+	columns?: number;
+}
+
+const { node } = Astro.props as { node: WidgetPortfolioNode };
+const { items = [], columns = 3 } = node;
+---
+
+<div class="widget-portfolio" style={`--wp-cols: ${columns}`}>
+	{
+		items.map((item) => (
+			<div class="widget-portfolio-item">
+				<a
+					href={item.url ?? "#"}
+					title={item.title}
+					class="portfolio-image"
+				>
+					<img src={item.image} alt={item.title ?? ""} loading="lazy" />
+					{item.title && <span class="portfolio-title">{item.title}</span>}
+				</a>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.widget-portfolio {
+		display: grid;
+		grid-template-columns: repeat(var(--wp-cols, 3), 1fr);
+		gap: 6%;
+		row-gap: 1em;
+	}
+
+	.widget-portfolio-item {
+		position: relative;
+		overflow: hidden;
+		border: 5px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.portfolio-image {
+		display: block;
+		overflow: hidden;
+		line-height: 0;
+	}
+
+	.portfolio-image img {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		opacity: 0.8;
+		transform: scale(1);
+		transition: 0.5s ease all;
+		border: 0 !important;
+	}
+
+	.widget-portfolio-item:hover .portfolio-image img {
+		opacity: 1;
+		transform: scale(1.3);
+	}
+
+	/* White title plate slides up from below the frame on hover */
+	.portfolio-title {
+		position: absolute;
+		z-index: 3;
+		left: 0;
+		bottom: -20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		padding: 7px 5px;
+		font-size: 0.8em;
+		font-weight: 400;
+		line-height: 1.3;
+		text-align: center;
+		color: #444444;
+		background: #ffffff;
+		opacity: 0;
+		transition: 0.3s all ease;
+	}
+
+	.widget-portfolio-item:hover .portfolio-title {
+		opacity: 1;
+		bottom: 0;
+	}
+</style>
