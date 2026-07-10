@@ -8,12 +8,12 @@ import {
 	getSiteSettings,
 } from "emdash";
 import {
-	Image,
 	Comments,
 	CommentForm,
 	WidgetArea,
 } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
 import RichText from "../../components/RichText.astro";
 import PostCard from "../../components/PostCard.astro";
 import { getReadingTime } from "../../utils/reading-time";
@@ -95,6 +95,12 @@ const otherPostsWithTags = otherPosts.map((p) => ({
 	bylines: p.data.bylines ?? [],
 }));
 
+const headerMeta = [
+	...(post.data.bylines ?? []).slice(0, 2).map((c) => c.byline.displayName),
+]
+	.filter(Boolean)
+	.join(", ");
+
 const publishDate =
 	post.data.publishedAt?.toLocaleDateString("en-US", {
 		year: "numeric",
@@ -114,17 +120,19 @@ const publishDate =
 	publishedTime={post.data.publishedAt?.toISOString() ?? null}
 	modifiedTime={post.data.updatedAt.toISOString()}
 	content={{ collection: "posts", id: post.data.id, slug }}
+	overHero
 >
+	<PageHeader
+		title={post.data.title}
+		subtitle={[headerMeta, publishDate, `${readingTime} min read`]
+			.filter(Boolean)
+			.join("  ·  ")}
+		image={featuredImageUrl}
+		imageAlt={post.data.title}
+		crumbs={[{ label: "Blog", href: "/posts" }, { label: post.data.title }]}
+		titleAttrs={post.edit.title}
+	/>
 	<article class="article">
-		{/* Hero: Full-width featured image */}
-		{
-			post.data.featured_image && (
-				<div class="article-hero" {...post.edit.featured_image}>
-					<Image image={post.data.featured_image} />
-				</div>
-			)
-		}
-
 		{/* Three-column layout */}
 		<div class="article-grid">
 			{/* Left gutter: Meta information */}
@@ -218,7 +226,6 @@ const publishDate =
 						}
 						<span>{readingTime} min read</span>
 					</div>
-					<h1 class="article-title" {...post.edit.title}>{post.data.title}</h1>
 					{
 						post.data.excerpt && (
 							<p class="article-excerpt" {...post.edit.excerpt}>{post.data.excerpt}</p>

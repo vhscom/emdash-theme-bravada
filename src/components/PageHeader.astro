@@ -1,0 +1,222 @@
+---
+/**
+ * Bravada inner-page header (#header-image-main, fullscreen): every
+ * non-landing page opens on a full-viewport image under the demo's
+ * gradient scrim, with the page title centered in Playfair — its
+ * letters running the same gold break-up animation as the slider —
+ * an optional meta line, and breadcrumbs pinned to the bottom edge.
+ * Pages using it pass overHero to Base so the menu floats on top.
+ */
+interface Crumb {
+	label: string;
+	href?: string;
+}
+
+interface Props {
+	title: string;
+	/** Small line under the title (entry meta, result counts, …) */
+	subtitle?: string;
+	/** Header image URL; defaults to the demo's lake panorama */
+	image?: string;
+	imageAlt?: string;
+	crumbs?: Crumb[];
+	/** Visual-editing attributes spread onto the title */
+	titleAttrs?: Record<string, string>;
+}
+
+const DEFAULT_IMAGE =
+	"https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/slider/static.jpg";
+
+const {
+	title,
+	subtitle,
+	image = DEFAULT_IMAGE,
+	imageAlt = "",
+	crumbs = [],
+	titleAttrs = {},
+} = Astro.props;
+---
+
+<section class="page-hero full-bleed">
+	<img class="page-hero-image" src={image} alt={imageAlt} />
+	<div class="page-hero-caption">
+		<div class="page-hero-caption-inside">
+			<h1 class="page-hero-title breakup-title" {...titleAttrs}>{title}</h1>
+			{subtitle && <p class="page-hero-sub">{subtitle}</p>}
+			<slot name="meta" />
+		</div>
+	</div>
+	{
+		crumbs.length > 0 && (
+			<nav class="page-hero-crumbs" aria-label="Breadcrumb">
+				<a href="/" class="crumb-home" aria-label="Home">
+					<svg
+						width="14"
+						height="14"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+						><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
+					>
+				</a>
+				{crumbs.map((crumb) => (
+					<>
+						<span class="crumb-sep" aria-hidden="true">
+							/
+						</span>
+						{crumb.href ? (
+							<a href={crumb.href}>{crumb.label}</a>
+						) : (
+							<span class="crumb-current">{crumb.label}</span>
+						)}
+					</>
+				))}
+			</nav>
+		)
+	}
+</section>
+
+<script>
+	import { initTitleBreakup } from "../utils/breakup-client";
+
+	initTitleBreakup(".page-hero-title");
+</script>
+
+<style>
+	.page-hero {
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+		background-color: var(--tint-slider);
+	}
+
+	.page-hero-image {
+		display: block;
+		width: 100%;
+		height: 100vh;
+		height: 100svh;
+		min-height: 420px;
+		object-fit: cover;
+	}
+
+	/* The demo's blue→umber scrim at 0.6 */
+	.page-hero::after {
+		content: "";
+		position: absolute;
+		z-index: 2;
+		inset: 0;
+		background: linear-gradient(180deg, #08415c 0%, #1c110a 100%);
+		opacity: 0.6;
+		pointer-events: none;
+	}
+
+	.page-hero-caption {
+		position: absolute;
+		z-index: 3;
+		inset: 0;
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		padding: 85px 2.5em 0;
+		color: #ffffff;
+	}
+
+	.page-hero-caption-inside {
+		max-width: 85%;
+		margin: 0 auto;
+	}
+
+	.page-hero-title {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: clamp(2.5em, 5vw, 5em);
+		line-height: 1.3;
+		font-weight: 700;
+		color: #ffffff;
+		opacity: 0;
+		animation: 0.5s 0.25s page-hero-in ease-out forwards;
+	}
+
+	.page-hero-sub {
+		margin: 1.5em auto 0;
+		max-width: 80%;
+		font-size: 1.1em;
+		font-weight: 300;
+		letter-spacing: 1px;
+		opacity: 0;
+		animation: 0.5s 0.5s page-hero-in ease-out forwards;
+	}
+
+	.page-hero-caption-inside :global([slot="meta"]),
+	.page-hero-caption-inside :global(.page-hero-meta) {
+		opacity: 0;
+		animation: 0.5s 0.5s page-hero-in ease-out forwards;
+	}
+
+	@keyframes page-hero-in {
+		from {
+			opacity: 0;
+			transform: translateX(-40px);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	/* Breadcrumbs pinned bottom-center (demo #breadcrumbs-container) */
+	.page-hero-crumbs {
+		position: absolute;
+		z-index: 4;
+		left: 0;
+		right: 0;
+		bottom: 1.2em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75em;
+		font-size: 0.85em;
+		color: #ffffff;
+	}
+
+	.page-hero-crumbs a {
+		display: inline-flex;
+		align-items: center;
+		color: #ffffff;
+		text-decoration: none;
+		opacity: 0.85;
+		transition: 0.2s ease-out all;
+	}
+
+	.page-hero-crumbs a:hover {
+		color: var(--color-gold);
+		opacity: 1;
+	}
+
+	.crumb-sep {
+		opacity: 0.5;
+	}
+
+	.crumb-current {
+		opacity: 0.85;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.page-hero-title,
+		.page-hero-sub {
+			animation: none;
+			opacity: 1;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.page-hero-caption {
+			font-size: 0.8em;
+		}
+	}
+</style>

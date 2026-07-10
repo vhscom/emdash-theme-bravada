@@ -6,6 +6,8 @@ import {
 	decodeSlug,
 } from "emdash";
 import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ArchiveLayout from "../../components/ArchiveLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 import { getReadingTime } from "../../utils/reading-time";
 
@@ -23,39 +25,41 @@ const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
-// Single batched query for tags on every post tagged with this term,
-// rather than calling getEntryTerms() per post.
+// Single batched query for tags on every post in this category, rather
+// than calling getEntryTerms() per post.
 const tagsByEntry = await getTermsForEntries(
 	"posts",
 	posts.map((p) => p.data.id),
 	"tag",
 );
-const filteredPosts = posts.map((post) => ({
+const cards = posts.map((post) => ({
 	post,
-	tags: tagsByEntry.get(post.data.id) ?? [],
+	tags: (tagsByEntry.get(post.data.id) ?? []).map((t) => ({
+		slug: t.slug,
+		label: t.label,
+	})),
+	bylines: post.data.bylines ?? [],
 }));
 ---
 
 <Base
 	title={`Posts tagged "${term.label}"`}
 	description={`All posts tagged with ${term.label}`}
+	overHero
 >
-	<section class="archive-section">
-		<header class="archive-header">
-			<span class="archive-label">Tag</span>
-			<h1 class="archive-title">{term.label}</h1>
-			<p class="archive-count">
-				{filteredPosts.length}
-				{filteredPosts.length === 1 ? "post" : "posts"}
-			</p>
-		</header>
+	<PageHeader
+		title={term.label}
+		subtitle={`Tag · ${posts.length} ${posts.length === 1 ? "post" : "posts"}`}
+		crumbs={[{ label: "Blog", href: "/posts" }, { label: term.label }]}
+	/>
 
+	<ArchiveLayout>
 		{
-			filteredPosts.length === 0 ? (
-				<p class="no-posts">No posts with this tag yet.</p>
+			cards.length === 0 ? (
+				<p class="empty">No posts with this tag yet.</p>
 			) : (
-				<div class="posts-grid">
-					{filteredPosts.map(({ post, tags }) => (
+				<div class="archive-grid">
+					{cards.map(({ post, tags, bylines }) => (
 						<PostCard
 							title={post.data.title}
 							excerpt={post.data.excerpt}
@@ -63,68 +67,30 @@ const filteredPosts = posts.map((post) => ({
 							href={`/posts/${post.id}`}
 							date={post.data.publishedAt ?? undefined}
 							readingTime={getReadingTime(post.data.content)}
-							tags={tags.map((t) => ({ slug: t.slug, label: t.label }))}
+							tags={tags}
+							bylines={bylines}
 						/>
 					))}
 				</div>
 			)
 		}
-	</section>
+	</ArchiveLayout>
 </Base>
 
 <style>
-	.archive-section {
-		max-width: var(--wide-width);
-		margin: 0 auto;
-		padding: var(--spacing-12) var(--spacing-6);
-	}
-
-	.archive-header {
-		margin-bottom: var(--spacing-12);
-		padding-bottom: var(--spacing-8);
-		border-bottom: 1px solid var(--color-border-subtle);
-	}
-
-	.archive-label {
-		display: block;
-		font-size: var(--font-size-xs);
-		font-weight: 500;
-		color: var(--color-brand);
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wider);
-		margin-bottom: var(--spacing-2);
-	}
-
-	.archive-title {
-		font-size: var(--font-size-4xl);
-		font-weight: var(--font-weight-display);
-		letter-spacing: var(--tracking-tight);
-		margin-bottom: var(--spacing-2);
-	}
-
-	.archive-count {
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
-	}
-
-	.posts-grid {
+	.archive-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-12) var(--spacing-8);
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2em;
+		align-items: start;
 	}
 
-	.no-posts {
+	.empty {
 		color: var(--color-muted);
 	}
 
-	@media (max-width: 900px) {
-		.posts-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
-	@media (max-width: 600px) {
-		.posts-grid {
+	@media (max-width: 640px) {
+		.archive-grid {
 			grid-template-columns: 1fr;
 		}
 	}

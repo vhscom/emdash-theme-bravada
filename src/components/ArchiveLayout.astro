@@ -1,0 +1,168 @@
+---
+/**
+ * Bravada archive shell: content column with the "sidebar" widget
+ * area to the right (demo blog: two-column masonry + 320px sidebar of
+ * white widget cards — gold search box, recent posts, categories).
+ * Widgets are admin-editable (Appearance → Widgets → Sidebar).
+ */
+import { WidgetArea } from "emdash/ui";
+---
+
+<div class="archive-shell">
+	<main class="archive-main">
+		<slot />
+	</main>
+	<aside class="archive-sidebar">
+		<WidgetArea name="sidebar" />
+	</aside>
+</div>
+
+<style>
+	.archive-shell {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 320px;
+		gap: 2.5em;
+		max-width: var(--wide-width);
+		margin: 0 auto;
+		padding: 4em var(--spacing-6);
+	}
+
+	.archive-main {
+		min-width: 0;
+	}
+
+	/* Sidebar widgets as white cards (demo #secondary .widget) */
+	.archive-sidebar :global(.widget-area) {
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
+	}
+
+	.archive-sidebar :global(.widget) {
+		background: var(--color-surface);
+		padding: 1.75em;
+		font-size: var(--font-size-sm);
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+	}
+
+	.archive-sidebar :global(.widget__title),
+	.archive-sidebar :global(.widget-title) {
+		display: inline-block;
+		margin-bottom: 1em;
+		font-family: var(--font-heading);
+		font-size: 1.2em;
+		font-weight: 700;
+		line-height: 1.6;
+		color: var(--color-heading);
+		background-image: linear-gradient(
+			to bottom,
+			var(--gold-strip) 0%,
+			var(--gold-strip) 100%
+		);
+		background-repeat: no-repeat;
+		background-size: 100% 0.5em;
+		background-position: 0 85%;
+	}
+
+	.archive-sidebar :global(.widget ul) {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.archive-sidebar :global(.widget li) {
+		padding: 0.5em 0;
+		border-bottom: 1px solid var(--color-border-subtle);
+	}
+
+	.archive-sidebar :global(.widget li:last-child) {
+		border-bottom: none;
+	}
+
+	.archive-sidebar :global(.widget a) {
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		transition: color 0.2s ease-out;
+	}
+
+	.archive-sidebar :global(.widget a:hover) {
+		color: var(--color-brand-hover);
+	}
+
+	/* Search widget: input with the demo's gold submit block */
+	.archive-sidebar :global(.widget-search),
+	.archive-sidebar :global(form[role="search"]) {
+		display: flex;
+		gap: 0;
+	}
+
+	.archive-sidebar :global(.widget-search__input),
+	.archive-sidebar :global(input[type="search"]) {
+		flex: 1;
+		min-width: 0;
+		padding: 0.7em 1em;
+		border: 1px solid var(--color-border);
+		border-radius: 0;
+		background: var(--color-bg);
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		color: var(--color-text);
+	}
+
+	.archive-sidebar :global(.widget-search__input:focus),
+	.archive-sidebar :global(input[type="search"]:focus) {
+		outline: none;
+		border-color: var(--color-gold);
+	}
+
+	.archive-sidebar :global(.widget-search__button),
+	.archive-sidebar :global(button[type="submit"]) {
+		padding: 0 1em;
+		border: none;
+		background: var(--color-gold);
+		color: #ffffff;
+		font-weight: 700;
+		font-size: var(--font-size-sm);
+		cursor: pointer;
+		transition: background 0.2s ease-out;
+	}
+
+	.archive-sidebar :global(.widget-search__button:hover),
+	.archive-sidebar :global(button[type="submit"]:hover) {
+		background: var(--color-teal-solid);
+	}
+
+	/* Count badges (categories/tags/archives) */
+	.archive-sidebar :global(.widget-categories__count),
+	.archive-sidebar :global(.widget-archives__count),
+	.archive-sidebar :global(.widget-tags__count) {
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+	}
+
+	/* Tag cloud pills */
+	.archive-sidebar :global(.widget-tags__cloud) {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+	}
+
+	.archive-sidebar :global(.widget-tags__cloud li) {
+		padding: 0;
+		border: none;
+	}
+
+	.archive-sidebar :global(.widget-tags__link) {
+		display: inline-block;
+		padding: 0.15em 0.7em;
+		border: 1px solid var(--color-border);
+		font-size: var(--font-size-xs);
+	}
+
+	@media (max-width: 960px) {
+		.archive-shell {
+			grid-template-columns: 1fr;
+			padding: 2.5em var(--spacing-4);
+		}
+	}
+</style>

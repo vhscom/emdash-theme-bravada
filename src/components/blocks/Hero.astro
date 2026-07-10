@@ -40,7 +40,7 @@ const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
 		{image && <img class="lp-staticslider-image" src={image} alt={imageAlt} />}
 		<div class="staticslider-caption">
 			<div class="staticslider-caption-inside">
-				{title && <h2 class="staticslider-caption-title">{title}</h2>}
+				{title && <h2 class="staticslider-caption-title breakup-title">{title}</h2>}
 				{subtitle && <div class="staticslider-caption-text">{subtitle}</div>}
 				{
 					buttons.length > 0 && (
@@ -76,58 +76,11 @@ const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
 <span id="lp-after-slider"></span>
 
 <script>
-	// Bravada cryoutSliderTitleBreakUp (faithful port): each letter gets
-	// two stacked copies (cry-single visible, cry-double hidden); every
-	// ~3.5s a random handful gain .animated-letter — they turn gold and
-	// the single slides out while the double slides in.
-	for (const el of document.querySelectorAll<HTMLElement>(
-		".staticslider-caption-title"
-	)) {
-		if (el.dataset.breakup) continue;
-		el.dataset.breakup = "1";
-		const text = (el.textContent ?? "").trim();
-		const words = text.split(/\s+/);
-		el.textContent = "";
-		for (const [wi, word] of words.entries()) {
-			const em = document.createElement("em");
-			em.className = "caption-title-word";
-			for (const ch of word) {
-				const outer = document.createElement("span");
-				for (const cls of ["cry-single", "cry-double"]) {
-					const copy = document.createElement("span");
-					copy.className = cls;
-					copy.textContent = ch;
-					outer.appendChild(copy);
-				}
-				em.appendChild(outer);
-			}
-			el.appendChild(em);
-			if (wi < words.length - 1) el.appendChild(document.createTextNode(" "));
-		}
-		el.classList.add("animated-title");
+	import { initTitleBreakup } from "../../utils/breakup-client";
 
-		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) continue;
-
-		const clearLen = text.replace(/\s+/g, "").length;
-		let n = Math.max(2, Math.floor(clearLen / 4));
-		n = Math.min(n, 7);
-		const singles = [...el.querySelectorAll("span.cry-single")];
-		const doubles = [...el.querySelectorAll("span.cry-double")];
-
-		const titleAnimation = () => {
-			for (const sp of [...singles, ...doubles])
-				sp.classList.remove("animated-letter");
-			// force reflow so re-added animations restart
-			void el.offsetWidth;
-			for (let i = 0; i < n; i++) {
-				const k = Math.floor(Math.random() * singles.length);
-				singles[k].classList.add("animated-letter");
-				doubles[k].classList.add("animated-letter");
-			}
-		};
-		setTimeout(titleAnimation, 1000);
-		setInterval(titleAnimation, 3500);
-	}
+	// Bravada letter break-up on the slider caption (shared util; the
+	// letter CSS lives in theme.css under .breakup-title)
+	initTitleBreakup(".staticslider-caption-title");
 
 	// Chevron scrolls smoothly to whatever follows the slider
 	for (const arrow of document.querySelectorAll<HTMLAnchorElement>(
@@ -218,106 +171,6 @@ const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
 		color: #ffffff;
 		opacity: 0;
 		animation: 0.5s 0.25s slide-right ease-out forwards;
-	}
-
-	/* Letter break-up (bravada-animated-title): stacked letter copies;
-	   animated ones turn gold and swap out/in */
-	.staticslider-caption-title :global(.caption-title-word) {
-		display: inline-block;
-		font-style: normal;
-	}
-
-	.staticslider-caption-title :global(.caption-title-word > span) {
-		position: relative;
-		display: inline-block;
-	}
-
-	.staticslider-caption-title :global(span.cry-single) {
-		position: relative;
-	}
-
-	.staticslider-caption-title :global(span.cry-double) {
-		position: absolute;
-		top: 0;
-		left: 0;
-		opacity: 0;
-	}
-
-	.staticslider-caption-title :global(span.cry-single),
-	.staticslider-caption-title :global(span.cry-double) {
-		transition: color 0.5s ease-out;
-	}
-
-	.staticslider-caption-title :global(span.animated-letter) {
-		color: var(--color-gold);
-	}
-
-	.staticslider-caption-title
-		:global(.caption-title-word > span:nth-child(n) span.cry-single.animated-letter) {
-		animation: 1.5s 0.25s letter-slide-left-hide ease-in-out forwards;
-	}
-
-	.staticslider-caption-title
-		:global(.caption-title-word > span:nth-child(2n) span.cry-single.animated-letter) {
-		animation: 1.5s 0.25s letter-slide-right-hide ease-in-out forwards;
-	}
-
-	.staticslider-caption-title
-		:global(.caption-title-word > span:nth-child(n) span.cry-double.animated-letter) {
-		animation: 1s letter-slide-right-show ease-in-out forwards;
-	}
-
-	.staticslider-caption-title
-		:global(.caption-title-word > span:nth-child(2n) span.cry-double.animated-letter) {
-		animation: 1s letter-slide-left-show ease-in-out forwards;
-	}
-
-	@keyframes letter-slide-left-hide {
-		from {
-			opacity: 1;
-			transform: translateX(0);
-		}
-
-		to {
-			opacity: 0;
-			transform: translateX(-150%);
-		}
-	}
-
-	@keyframes letter-slide-right-hide {
-		from {
-			opacity: 1;
-			transform: translateX(0);
-		}
-
-		to {
-			opacity: 0;
-			transform: translateX(150%);
-		}
-	}
-
-	@keyframes letter-slide-right-show {
-		from {
-			opacity: 0;
-			transform: translateX(150%);
-		}
-
-		to {
-			opacity: 1;
-			transform: translateX(0);
-		}
-	}
-
-	@keyframes letter-slide-left-show {
-		from {
-			opacity: 0;
-			transform: translateX(-150%);
-		}
-
-		to {
-			opacity: 1;
-			transform: translateX(0);
-		}
 	}
 
 	.staticslider-caption-text {

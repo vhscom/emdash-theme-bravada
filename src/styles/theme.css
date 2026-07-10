@@ -437,6 +437,106 @@ body {
 	background-position: 0 100%;
 }
 
+/* ============================================================
+   Letter break-up titles (bravada-animated-title) — shared by the
+   landing slider and inner-page headers. initTitleBreakup() stacks
+   two copies per letter; .animated-letter turns gold and swaps.
+   ============================================================ */
+
+.breakup-title .caption-title-word {
+	display: inline-block;
+	font-style: normal;
+}
+
+.breakup-title .caption-title-word > span {
+	position: relative;
+	display: inline-block;
+}
+
+.breakup-title span.cry-single {
+	position: relative;
+}
+
+.breakup-title span.cry-double {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+}
+
+.breakup-title span.cry-single,
+.breakup-title span.cry-double {
+	transition: color 0.5s ease-out;
+}
+
+.breakup-title span.animated-letter {
+	color: var(--color-gold);
+}
+
+.breakup-title .caption-title-word > span:nth-child(n) span.cry-single.animated-letter {
+	animation: 1.5s 0.25s bk-slide-left-hide ease-in-out forwards;
+}
+
+.breakup-title .caption-title-word > span:nth-child(2n) span.cry-single.animated-letter {
+	animation: 1.5s 0.25s bk-slide-right-hide ease-in-out forwards;
+}
+
+.breakup-title .caption-title-word > span:nth-child(n) span.cry-double.animated-letter {
+	animation: 1s bk-slide-right-show ease-in-out forwards;
+}
+
+.breakup-title .caption-title-word > span:nth-child(2n) span.cry-double.animated-letter {
+	animation: 1s bk-slide-left-show ease-in-out forwards;
+}
+
+@keyframes bk-slide-left-hide {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateX(-150%);
+	}
+}
+
+@keyframes bk-slide-right-hide {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateX(150%);
+	}
+}
+
+@keyframes bk-slide-right-show {
+	from {
+		opacity: 0;
+		transform: translateX(150%);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes bk-slide-left-show {
+	from {
+		opacity: 0;
+		transform: translateX(-150%);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
 /* --- Full-bleed helper for landing bands rendered inside a content
    column (slider, blocks, boxes, text bands, portfolio, reviews) --- */
 

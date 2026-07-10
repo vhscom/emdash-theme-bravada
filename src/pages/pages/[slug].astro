@@ -2,6 +2,7 @@
 import { getEmDashEntry, decodeSlug } from "emdash";
 import RichText from "../../components/RichText.astro";
 import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -16,17 +17,27 @@ if (!page) {
 }
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+// Pages that open with their own Bravada slider (e.g. a landing page)
+// skip the standard fullscreen page header.
+const hasOwnHero = page.data.content?.[0]?._type === "bravada.hero";
 ---
 
 <Base
 	title={page.data.title}
 	content={{ collection: "pages", id: page.data.id, slug }}
+	overHero
 >
+	{
+		!hasOwnHero && (
+			<PageHeader
+				title={page.data.title}
+				crumbs={[{ label: page.data.title }]}
+				titleAttrs={page.edit.title}
+			/>
+		)
+	}
 	<article class="page-article">
-		<header class="page-header">
-			<h1 class="page-title" {...page.edit.title}>{page.data.title}</h1>
-		</header>
-
 		<div class="page-content">
 			<RichText value={page.data.content} />
 		</div>
@@ -34,20 +45,18 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 </Base>
 
 <style>
+	/* Demo static page: content on a white card inside the shell */
 	.page-article {
-		max-width: var(--max-width);
-		margin: 0 auto;
-		padding: var(--spacing-16) var(--spacing-6) var(--spacing-16);
+		max-width: calc(var(--wide-width) - 4em);
+		margin: 4em auto;
+		padding: 3.5em clamp(1.5em, 5vw, 4em);
+		background: var(--color-surface);
 	}
 
-	.page-header {
-		margin-bottom: var(--spacing-8);
-	}
-
-	.page-title {
-		font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-4xl));
-		font-weight: var(--font-weight-display);
-		line-height: var(--leading-tight);
+	@media (max-width: 800px) {
+		.page-article {
+			margin: 2em auto;
+		}
 	}
 
 	.page-content :global(p) {
