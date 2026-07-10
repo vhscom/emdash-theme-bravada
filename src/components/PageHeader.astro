@@ -1,4 +1,5 @@
 ---
+import { getSiteSettings } from "emdash";
 /**
  * Bravada inner-page header (#header-image-main, fullscreen): every
  * non-landing page opens on a full-viewport image under the demo's
@@ -30,15 +31,21 @@ const DEFAULT_IMAGE =
 const {
 	title,
 	subtitle,
-	image = DEFAULT_IMAGE,
+	image,
 	imageAlt = "",
 	crumbs = [],
 	titleAttrs = {},
 } = Astro.props;
+
+// Admins can swap every inner-page header photo from the admin
+// (Settings → SEO → default OG image); the demo panorama is the
+// fallback when neither a per-page image nor a site default is set.
+const settings = await getSiteSettings();
+const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE;
 ---
 
 <section class="page-hero full-bleed">
-	<img class="page-hero-image" src={image} alt={imageAlt} />
+	<img class="page-hero-image" src={headerImage} alt={imageAlt} />
 	<div class="page-hero-caption">
 		<div class="page-hero-caption-inside">
 			<h1 class="page-hero-title breakup-title" {...titleAttrs}>{title}</h1>
