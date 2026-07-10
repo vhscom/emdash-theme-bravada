@@ -1043,7 +1043,8 @@ const isLoggedIn = !!Astro.locals.user;
 			   layer: the menu links slide away (demo .burgermenu-active
 			   #access) and the hamburger — morphed into an X — stays exactly
 			   where it was clicked, acting as the close button. */
-			:global(body.burgermenu-active) .site-header {
+			:global(body.burgermenu-active) .site-header,
+			:global(body.burgermenu-active) .site-header.over-hero.header-fixed {
 				z-index: 1001;
 				background: transparent;
 				box-shadow: none;
