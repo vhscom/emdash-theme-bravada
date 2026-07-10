@@ -171,27 +171,10 @@ const isLoggedIn = !!Astro.locals.user;
 		<!-- Bravada fullscreen mobile menu (nav#mobile-menu): teal layer,
 		     Playfair links dropping in staggered, collapsible submenus -->
 		<nav id="mobile-menu" aria-label="Mobile" hidden>
-			<button type="button" id="nav-cancel" aria-label="Close menu">
-				<svg
-					width="26"
-					height="26"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					aria-hidden="true"
-					><line x1="18" y1="6" x2="6" y2="18"></line><line
-						x1="6"
-						y1="6"
-						x2="18"
-						y2="18"></line></svg
-				>
-			</button>
 			<ul id="mobile-nav">
 				<li class="mobile-search">
-					<form role="search" method="get" action="/search">
-						<button type="submit" class="mobile-searchsubmit" aria-label="Search">
+					<div class="mobile-search-shell">
+						<span class="mobile-search-glyph" aria-hidden="true">
 							<svg
 								width="26"
 								height="26"
@@ -201,24 +184,23 @@ const isLoggedIn = !!Astro.locals.user;
 								stroke-width="2"
 								stroke-linecap="round"
 								stroke-linejoin="round"
-								aria-hidden="true"
 								><circle cx="11" cy="11" r="8"></circle><line
 									x1="21"
 									y1="21"
 									x2="16.65"
 									y2="16.65"></line></svg
 							>
-						</button>
-						<label>
-							<span class="sr-only">Search for:</span>
-							<input
-								type="search"
-								name="q"
-								placeholder="Search"
-								autocomplete="off"
-							/>
-						</label>
-					</form>
+						</span>
+						<LiveSearch
+							placeholder="Search"
+							class="mobile-live-search"
+							inputClass="mobile-search-input"
+							resultsClass="mobile-search-results"
+							resultClass="site-search-result"
+							collections={["posts", "pages"]}
+							searchPage="/search"
+						/>
+					</div>
 				</li>
 				{
 					mobileMenu?.items.map((item) => (
@@ -1057,16 +1039,34 @@ const isLoggedIn = !!Astro.locals.user;
 				pointer-events: auto;
 			}
 
-			#nav-cancel {
-				position: absolute;
-				top: 0;
-				right: 0;
-				z-index: 99;
-				padding: 1em;
-				border: 0;
+			/* While the burger menu is open the header floats above the teal
+			   layer: the menu links slide away (demo .burgermenu-active
+			   #access) and the hamburger — morphed into an X — stays exactly
+			   where it was clicked, acting as the close button. */
+			:global(body.burgermenu-active) .site-header {
+				z-index: 1001;
 				background: transparent;
-				color: inherit;
-				cursor: pointer;
+				box-shadow: none;
+			}
+
+			:global(body.burgermenu-active) .nav-right .nav-links,
+			:global(body.burgermenu-active) .nav-admin {
+				opacity: 0;
+				transform: translateX(50px);
+				pointer-events: none;
+			}
+
+			.nav-right .nav-links,
+			.nav-admin {
+				transition: 0.3s ease-out all;
+			}
+
+			:global(body.burgermenu-active) .site-title {
+				color: #ffffff !important;
+			}
+
+			:global(body.burgermenu-active) .site-title::before {
+				background: var(--color-gold);
 			}
 
 			#mobile-nav {
@@ -1091,7 +1091,7 @@ const isLoggedIn = !!Astro.locals.user;
 				transform: translateY(0);
 			}
 
-			#mobile-nav a {
+			#mobile-nav .mobile-item a {
 				display: inline-block;
 				font-family: var(--font-heading);
 				font-size: clamp(1.3rem, 5vw, 2.5em);
@@ -1101,7 +1101,7 @@ const isLoggedIn = !!Astro.locals.user;
 				transition: 0.3s ease-out color;
 			}
 
-			#mobile-nav a:hover {
+			#mobile-nav .mobile-item a:hover {
 				color: var(--color-gold);
 			}
 
@@ -1157,56 +1157,97 @@ const isLoggedIn = !!Astro.locals.user;
 
 			/* Burger-menu search (demo #mobile-nav .searchform): a giant
 			   Playfair input with only a 2px underline, transparent
-			   background, and the search glyph sitting at the left */
+			   background, and the search glyph sitting at the left. Powered
+			   by EmDash LiveSearch — suggestions drop in below; Enter with
+			   no suggestion focused jumps to /search?q=… */
 			.mobile-search {
+				position: relative;
+				z-index: 10;
 				width: 100%;
 			}
 
-			.mobile-search form {
+			.mobile-search-shell {
 				position: relative;
 				display: inline-block;
 				width: min(11em, 84vw);
 			}
 
-			.mobile-search .mobile-searchsubmit {
+			.mobile-search-glyph {
 				position: absolute;
 				left: 0;
 				bottom: 0.55em;
 				z-index: 9;
-				border: 0;
-				padding: 0;
-				background: transparent;
 				color: inherit;
-				cursor: pointer;
+				pointer-events: none;
 			}
 
-			.mobile-search input[type="search"] {
+			.mobile-search-shell :global(.mobile-live-search) {
 				display: block;
 				width: 100%;
-				border: 0;
-				border-bottom: 2px solid;
-				border-radius: 0;
-				padding: 0 0 0.2em 1.2em;
-				background: transparent;
-				font-family: var(--font-heading);
-				font-size: 2.5em;
-				font-size: clamp(1.3rem, 5vw, 2.5em);
-				line-height: 1.2;
-				color: inherit;
+				position: relative;
 			}
 
-			.mobile-search input[type="search"]:focus {
+			:global(.mobile-search-input) {
+				display: block;
+				width: 100% !important;
+				border: 0 !important;
+				border-bottom: 2px solid !important;
+				border-radius: 0 !important;
+				padding: 0 0 0.2em 1.2em !important;
+				background: transparent !important;
+				font-family: var(--font-heading) !important;
+				font-size: clamp(1.3rem, 5vw, 2.5em) !important;
+				line-height: 1.2;
+				color: inherit !important;
+			}
+
+			:global(.mobile-search-input):focus {
 				outline: none;
 			}
 
-			.mobile-search input[type="search"]::placeholder {
+			:global(.mobile-search-input)::placeholder {
 				color: inherit;
 				opacity: 1;
 			}
 
-			.mobile-search input[type="search"]::-webkit-search-cancel-button {
+			:global(.mobile-search-input)::-webkit-search-cancel-button {
 				-webkit-appearance: none;
 				appearance: none;
+			}
+
+			/* Suggestion panel under the underline, light like the demo's
+			   content surfaces so results stay readable on the teal layer */
+			:global(.mobile-search-results) {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				margin-top: var(--spacing-2);
+				text-align: left;
+				background: var(--color-surface);
+				border: 1px solid var(--color-border);
+				border-radius: var(--radius-lg);
+				box-shadow: var(--shadow-lg);
+				max-height: min(45vh, 380px);
+				overflow-y: auto;
+				z-index: 1000;
+			}
+
+			:global(.mobile-search-results .emdash-live-search-loading),
+			:global(.mobile-search-results .emdash-live-search-no-results) {
+				padding: var(--spacing-4);
+				text-align: center;
+				color: var(--color-muted);
+				font-size: var(--font-size-sm);
+				font-family: var(--font-body);
+			}
+
+			/* Result rows reuse .site-search-result styles; reset the giant
+			   Playfair inherited from the menu */
+			:global(.mobile-search-results .site-search-result) {
+				font-family: var(--font-body);
+				font-size: var(--font-size-base);
+				font-weight: 400;
 			}
 
 			:global(body.noscroll) {
@@ -1520,7 +1561,6 @@ const isLoggedIn = !!Astro.locals.user;
 			// hamburger into an X, collapse submenus behind dropdown toggles.
 			const burger = document.querySelector<HTMLButtonElement>(".hamburger");
 			const mobileMenu = document.getElementById("mobile-menu");
-			const navCancel = document.getElementById("nav-cancel");
 
 			// Staggered entrance (demo: transition-delay = 0.03s * index)
 			mobileMenu
@@ -1550,7 +1590,6 @@ const isLoggedIn = !!Astro.locals.user;
 			burger?.addEventListener("click", () =>
 				setBurger(!document.body.classList.contains("burgermenu-active"))
 			);
-			navCancel?.addEventListener("click", () => setBurger(false));
 			document.addEventListener("keydown", (e) => {
 				if (
 					e.key === "Escape" &&
