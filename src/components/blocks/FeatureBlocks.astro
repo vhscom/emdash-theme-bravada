@@ -74,12 +74,12 @@ function iconSvg(name: string | undefined): string | null {
 	]}
 >
 	<SectionHeader title={title} description={description} />
-	<div class="lp-blocks-inside" style={`--lp-cols: ${cols}`}>
+	<div class:list={["lp-blocks-inside", `lp-rows-${cols}`]} style={`--lp-cols: ${cols}`}>
 		{
 			items.map((item) => {
 				const svg = iconSvg(item.icon);
 				return (
-					<div class="lp-block">
+					<div class="lp-block aos">
 						{item.icon && (
 							<div class="lp-block-icon">
 								{svg ? (

@@ -16,8 +16,8 @@ const { title, description } = Astro.props;
 {
 	(title || description) && (
 		<header class="ghost-header">
-			{title && <h2 class="ghost-title">{title}</h2>}
-			{description && <p class="ghost-sub">{description}</p>}
+			{title && <h2 class="ghost-title aos">{title}</h2>}
+			{description && <p class="ghost-sub aos">{description}</p>}
 		</header>
 	)
 }

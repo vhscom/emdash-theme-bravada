@@ -51,17 +51,17 @@ const paras = paragraphs ?? (text ? [text] : []);
 	style={tintStyle(tint)}
 >
 	<div class="lp-text-inside">
-		<div class="lp-text-background aos aos-up">
+		<div class="lp-text-background">
 			{
 				image && (
-					<div class="lp-text-image">
+					<div class="lp-text-image aos">
 						<img src={image} alt={imageAlt} loading="lazy" />
 					</div>
 				)
 			}
 			<div class="lp-text-card">
-				{title && <h3 class="lp-text-title hl-gold">{title}</h3>}
-				<div class="lp-text-content">
+				{title && <h3 class="lp-text-title hl-gold aos">{title}</h3>}
+				<div class="lp-text-content aos">
 					{paras.map((p) => <p>{p}</p>)}
 					{
 						buttons.length > 0 && (

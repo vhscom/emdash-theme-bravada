@@ -55,7 +55,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 			{
 				items.map((item) => (
 					<div
-						class="lp-port"
+						class="lp-port aos"
 						data-types={(item.tags ?? []).map(slug).join(" ")}
 					>
 						<a href={item.url ?? "#"} aria-label={item.title}>

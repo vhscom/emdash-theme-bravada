@@ -56,12 +56,12 @@ const readMore = (t?: string) => `Read More “${t ?? ""}”`;
 >
 	<SectionHeader title={title} description={description} />
 	<div
-		class:list={["lp-boxes-inside", `accent-${accent}`]}
+		class:list={["lp-boxes-inside", `accent-${accent}`, `lp-rows-${cols}`]}
 		style={`--lp-box-cols: ${cols}`}
 	>
 		{
 			items.map((box) => (
-				<div class="lp-box aos aos-fade">
+				<div class="lp-box aos">
 					<div class="lp-box-inside">
 						<div class="lp-box-image">
 							{box.url && (

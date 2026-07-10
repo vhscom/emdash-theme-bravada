@@ -486,6 +486,177 @@ html.js .aos.aos-fade {
 	opacity: 0;
 }
 
+/* --- Demo-exact landing reveals (bravada-plus "LP ONSCROLL"):
+   each element keeps .aos until it scrolls into view, then the
+   transition below plays. Timings/offsets match the shipped CSS. --- */
+
+/* Ghost section headers: the giant title rises while the Playfair
+   subtext drifts DOWN over it */
+.ghost-title,
+.ghost-sub {
+	transition: 0.4s 0.2s ease-out all;
+}
+
+html.js .ghost-title.aos {
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+html.js .ghost-sub.aos {
+	opacity: 0;
+	transform: translateY(-20px);
+}
+
+/* Text areas: the photo slides down into place; title (with its gold
+   strip growing out) and copy rise up after it */
+.lp-text-image {
+	transition:
+		0.4s 0.2s ease-out opacity,
+		0.4s 0.2s ease-out transform;
+}
+
+html.js .lp-text-image.aos {
+	opacity: 0;
+	transform: translateY(-50px);
+}
+
+.lp-text-title {
+	transition: 0.3s 0.4s ease-out all;
+}
+
+html.js .lp-text-title.aos {
+	opacity: 0;
+	background-size: 0 0.4em;
+	transform: translateY(50px);
+}
+
+.lp-text-content {
+	transition:
+		0.4s 0.4s ease transform,
+		0.4s 0.4s ease opacity;
+}
+
+html.js .lp-text-content.aos {
+	opacity: 0;
+	transform: translateY(50px);
+}
+
+/* Icon blocks: columns arrive from alternating directions */
+.lp-blocks .lp-block {
+	transition:
+		0.4s ease transform,
+		0.4s ease opacity;
+}
+
+html.js .lp-blocks .lp-block.aos {
+	opacity: 0;
+	transform: translateX(-50px);
+}
+
+html.js .lp-rows-3 .lp-block.aos:nth-child(3n + 2),
+html.js .lp-rows-4 .lp-block.aos:nth-child(4n + 2) {
+	transform: translateY(-50px);
+}
+
+html.js .lp-rows-3 .lp-block.aos:nth-child(3n + 3),
+html.js .lp-rows-4 .lp-block.aos:nth-child(4n + 3) {
+	transform: translateY(50px);
+}
+
+html.js .lp-rows-4 .lp-block.aos:nth-child(4n + 4) {
+	transform: translateX(50px);
+}
+
+/* Boxes: static/overlay fade in; animated boxes slide in from
+   alternating directions with the demo's staggered delays */
+.lp-boxes .lp-box {
+	transition:
+		0.5s ease-out opacity,
+		0.4s ease-out transform,
+		0.25s ease-out top;
+}
+
+html.js .lp-boxes-static .lp-box.aos,
+html.js .lp-boxes-overlay .lp-box.aos {
+	opacity: 0;
+}
+
+html.js .lp-boxes-animated .lp-box.aos {
+	opacity: 0;
+	transform: translateX(-50px);
+}
+
+html.js .lp-boxes-animated .lp-rows-3 .lp-box.aos:nth-child(3n + 2),
+html.js .lp-boxes-animated .lp-rows-4 .lp-box.aos:nth-child(4n + 2) {
+	transform: translateY(-50px);
+}
+
+html.js .lp-boxes-animated .lp-rows-3 .lp-box.aos:nth-child(3n + 3),
+html.js .lp-boxes-animated .lp-rows-4 .lp-box.aos:nth-child(4n + 3) {
+	transform: translateY(50px);
+}
+
+html.js .lp-boxes-animated .lp-rows-4 .lp-box.aos:nth-child(4n + 4) {
+	transform: translateX(50px);
+}
+
+.lp-rows-3 .lp-box:nth-child(3n + 2),
+.lp-rows-4 .lp-box:nth-child(4n + 2) {
+	transition-delay: 0.3s, 0.3s, 0s;
+}
+
+.lp-rows-3 .lp-box:nth-child(3n + 3),
+.lp-rows-4 .lp-box:nth-child(4n + 3) {
+	transition-delay: 0.15s, 0.15s, 0s;
+}
+
+.lp-rows-4 .lp-box:nth-child(4n + 4) {
+	transition-delay: 0.45s, 0.45s, 0s;
+}
+
+/* Portfolio: pieces scale up from 85% in the demo's shuffled order */
+.lp-port > a {
+	transition:
+		0.75s ease transform,
+		0.75s ease opacity;
+}
+
+html.js .lp-port.aos > a {
+	opacity: 0;
+	transform: scale(0.85);
+}
+
+.lp-port:nth-child(4n + 2) > a {
+	transition-delay: 0.4s;
+}
+
+.lp-port:nth-child(4n + 3) > a {
+	transition-delay: 0.2s;
+}
+
+.lp-port:nth-child(4n + 4) > a {
+	transition-delay: 0.6s;
+}
+
+/* Testimonials: the gold cards float up one after another */
+.lp-tt .lp-tt-text {
+	transition: 0.5s ease-out all;
+	transform-origin: 40px bottom;
+}
+
+html.js .lp-tt.aos .lp-tt-text {
+	opacity: 0;
+	transform: translateY(35px);
+}
+
+.lp-testimonials-inside .lp-tt:nth-child(3n + 2) .lp-tt-text {
+	transition-delay: 0.5s;
+}
+
+.lp-testimonials-inside .lp-tt:nth-child(3n + 3) .lp-tt-text {
+	transition-delay: 0.25s;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.aos-left,
 	.aos-right,
@@ -495,7 +666,9 @@ html.js .aos.aos-fade {
 		transition: none;
 	}
 
-	html.js .aos {
+	html.js .aos,
+	html.js .aos.lp-port > a,
+	html.js .aos.lp-tt .lp-tt-text {
 		transform: none !important;
 		opacity: 1 !important;
 	}
