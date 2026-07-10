@@ -240,17 +240,22 @@ function iconSvg(name: string | undefined): string | null {
 		text-align: left;
 	}
 
+	/* Demo .lp-blocks2 .lp-block-icon: the teal tile is the WRAPPER
+	   (68px: 30px glyph + 1.2em padding at 1rem); only the white glyph
+	   swaps horizontally inside it — the tile itself never moves */
 	.lp-blocks-dark .lp-block-icon {
 		float: left;
 		height: auto;
 		width: auto;
 		margin: -1.5em 0 0 2.5em;
+		background: var(--color-teal-solid);
 	}
 
 	.lp-blocks-dark .lp-block-icon .blicon {
 		position: relative;
+		font-size: 1rem;
 		padding: 1.2em;
-		background: var(--color-teal-solid);
+		background: transparent;
 		color: #ffffff;
 	}
 
@@ -261,17 +266,19 @@ function iconSvg(name: string | undefined): string | null {
 
 	.lp-blocks-dark .lp-block-icon .blicon + .blicon {
 		position: absolute;
-		top: 0;
-		left: 0;
+		inset: 0;
+		opacity: 0;
 		transform: translateX(-40px) scale(0.65);
 	}
 
 	.lp-blocks-dark .lp-block:hover .blicon {
 		transform: translateX(40px) scale(0.65);
+		opacity: 0;
 	}
 
 	.lp-blocks-dark .lp-block:hover .blicon + .blicon {
 		transform: translateX(0) scale(1);
+		opacity: 1;
 	}
 
 	.lp-blocks-dark .lp-block-content {
