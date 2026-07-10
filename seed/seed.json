@@ -3,7 +3,7 @@
 	"version": "1",
 	"meta": {
 		"name": "Bravada",
-		"description": "A port of the Bravada WordPress theme (Cryout Creations): landing-page heros, icon blocks, featured boxes and text bands as reusable sections, over a magazine-style blog.",
+		"description": "A faithful port of the Bravada WordPress theme (Cryout Creations): static slider, icon blocks, featured boxes, text areas, portfolio, testimonials and a masonry blog feed, rebuilt as EmDash sections over a magazine-style blog.",
 		"author": "vhs"
 	},
 	"settings": {
@@ -85,16 +85,20 @@
 			],
 			"terms": [
 				{
-					"slug": "development",
-					"label": "Development"
+					"slug": "coffee",
+					"label": "Coffee"
 				},
 				{
-					"slug": "design",
-					"label": "Design"
+					"slug": "office",
+					"label": "Office"
 				},
 				{
-					"slug": "notes",
-					"label": "Notes"
+					"slug": "plants",
+					"label": "Plants"
+				},
+				{
+					"slug": "views",
+					"label": "Views"
 				}
 			]
 		},
@@ -108,35 +112,25 @@
 			],
 			"terms": [
 				{
-					"slug": "webdev",
-					"label": "Web Development"
+					"slug": "photography",
+					"label": "Photography"
 				},
 				{
-					"slug": "opinion",
-					"label": "Opinion"
+					"slug": "technology",
+					"label": "Technology"
 				},
 				{
-					"slug": "tools",
-					"label": "Tools"
-				},
-				{
-					"slug": "creativity",
-					"label": "Creativity"
+					"slug": "miniatures",
+					"label": "Miniatures"
 				}
 			]
 		}
 	],
 	"bylines": [
 		{
-			"id": "byline-editorial",
-			"slug": "emdash-editorial",
-			"displayName": "EmDash Editorial"
-		},
-		{
-			"id": "byline-guest",
-			"slug": "guest-contributor",
-			"displayName": "Guest Contributor",
-			"isGuest": true
+			"id": "byline-cryout",
+			"slug": "cryout",
+			"displayName": "Cryout"
 		}
 	],
 	"menus": [
@@ -151,13 +145,45 @@
 				},
 				{
 					"type": "custom",
-					"label": "About",
-					"url": "/pages/about"
+					"label": "Blog",
+					"url": "/posts"
 				},
 				{
 					"type": "custom",
-					"label": "Posts",
-					"url": "/posts"
+					"label": "Categories",
+					"url": "/posts",
+					"children": [
+						{
+							"type": "custom",
+							"label": "Coffee",
+							"url": "/category/coffee"
+						},
+						{
+							"type": "custom",
+							"label": "Office",
+							"url": "/category/office"
+						},
+						{
+							"type": "custom",
+							"label": "Plants",
+							"url": "/category/plants"
+						},
+						{
+							"type": "custom",
+							"label": "Views",
+							"url": "/category/views"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "About Us",
+					"url": "/pages/about-us"
+				},
+				{
+					"type": "custom",
+					"label": "Contact",
+					"url": "/pages/contact"
 				}
 			]
 		},
@@ -167,15 +193,26 @@
 			"items": [
 				{
 					"type": "custom",
-					"label": "GitHub",
-					"url": "https://github.com",
+					"label": "Mastodon",
+					"url": "https://mastodon.social/@username",
 					"target": "_blank"
 				},
 				{
 					"type": "custom",
-					"label": "Mastodon",
-					"url": "https://mastodon.social",
+					"label": "Facebook",
+					"url": "https://www.facebook.com/profile",
 					"target": "_blank"
+				},
+				{
+					"type": "custom",
+					"label": "Twitter",
+					"url": "https://www.twitter.com/profile",
+					"target": "_blank"
+				},
+				{
+					"type": "custom",
+					"label": "RSS",
+					"url": "/rss.xml"
 				}
 			]
 		}
@@ -209,38 +246,104 @@
 						"count": 5,
 						"showDate": true
 					}
-				},
-				{
-					"type": "component",
-					"componentId": "core:archives",
-					"title": "Archives",
-					"settings": {
-						"type": "monthly",
-						"limit": 6
-					}
 				}
 			]
 		},
 		{
 			"name": "footer",
 			"label": "Footer",
-			"description": "Widget area displayed in the site footer",
+			"description": "Three widget columns in the dark site footer",
 			"widgets": [
 				{
 					"type": "content",
-					"title": "About",
+					"title": "About Us",
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "fw1",
 							"children": [
 								{
 									"_type": "span",
-									"text": "A blog about software, design, and the occasional stray thought.",
-									"_key": "k1"
+									"text": "Nullam mi diam, tempus maximus iaculis sit amet, gravida sit amet nunc. Proin at sodales ex. Duis viverra arcu aliquet neque cursus commodo.",
+									"_key": "fw1s"
 								}
-							],
-							"_key": "k0"
+							]
+						}
+					]
+				},
+				{
+					"type": "component",
+					"componentId": "core:recent-posts",
+					"title": "Recent Posts",
+					"settings": {
+						"count": 4,
+						"showDate": false
+					}
+				},
+				{
+					"type": "content",
+					"title": "Contact Info",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "fw2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "935 Pennsylvania Avenue, NW Washington, D.C. 20535-0001",
+									"_key": "fw2s"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "fw3",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Phone: +1 (202) 555-0200",
+									"_key": "fw3s"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "fw4",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Mobile: +1 (202) 555-3112",
+									"_key": "fw4s"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "fw5",
+							"children": [
+								{
+									"_type": "span",
+									"text": "E-mail: william@spooky.fox",
+									"_key": "fw5s"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "fw6",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Opening Hours: 07:00 – 21:30",
+									"_key": "fw6s"
+								}
+							]
 						}
 					]
 				}
@@ -249,34 +352,33 @@
 	],
 	"sections": [
 		{
-			"slug": "hero-banner",
-			"title": "Hero banner",
-			"description": "Full-bleed Bravada hero: background image under a teal scrim, big display title, tagline and gold call-to-action buttons",
+			"slug": "hero-slider",
+			"title": "Hero slider",
+			"source": "theme",
+			"description": "Bravada's static slider: full-bleed image under a gradient scrim with a giant Playfair caption and two buttons",
 			"keywords": [
 				"hero",
-				"banner",
 				"slider",
+				"banner",
 				"header",
 				"cta"
 			],
-			"source": "theme",
 			"content": [
 				{
 					"_type": "bravada.hero",
-					"_key": "sec-hero",
-					"size": "tall",
-					"title": "There is only Bravada",
-					"subtitle": "It goes anywhere, it's for everyone and everything — a landing page built from sections you can drop into any page.",
-					"image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&h=1080&fit=crop",
-					"imageAlt": "City skyline at dusk",
+					"_key": "lp-slider",
+					"title": "Have enough courage to start and enough heart to finish.",
+					"subtitle": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum.",
+					"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/slider/static.jpg",
+					"imageAlt": "Have enough courage to start and enough heart to finish.",
 					"buttons": [
 						{
-							"label": "Read the blog",
+							"label": "Read more",
 							"url": "/posts"
 						},
 						{
-							"label": "About",
-							"url": "/pages/about"
+							"label": "See now",
+							"url": "/pages/about-us"
 						}
 					]
 				}
@@ -285,78 +387,109 @@
 		{
 			"slug": "icon-blocks",
 			"title": "Icon blocks",
-			"description": "A centered row of icon + title + text features (Bravada's landing-page blocks)",
+			"source": "theme",
+			"description": "A white inset band of icon + title + text features with swap-on-hover line icons (landing-page blocks)",
 			"keywords": [
 				"features",
 				"icons",
 				"blocks",
 				"columns"
 			],
-			"source": "theme",
 			"content": [
 				{
 					"_type": "bravada.blocks",
-					"_key": "sec-blocks",
-					"title": "Features",
-					"description": "Why you'll feel at home",
+					"_key": "lp-blocks1",
+					"variant": "light",
+					"columns": 3,
 					"items": [
 						{
-							"icon": "✍️",
-							"title": "Writing first",
-							"text": "A reading rhythm tuned for long-form posts, with Playfair Display headings over Mulish body text.",
-							"url": "/posts"
+							"icon": "trophy",
+							"title": "Premium quality",
+							"text": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere.",
+							"url": "/posts/coffee-at-the-office"
 						},
 						{
-							"icon": "🧩",
-							"title": "Sections",
-							"text": "Heros, boxes and bands are reusable sections — type /section in the editor to drop one anywhere."
+							"icon": "briefcase",
+							"title": "Fast delivery",
+							"text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis.",
+							"url": "/posts/throught-the-lens"
 						},
 						{
-							"icon": "📱",
-							"title": "Responsive",
-							"text": "Mobile-first and scales to any screen, just like the original theme promised."
+							"icon": "notebook",
+							"title": "Great typography",
+							"text": "Proin ornare ex tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sodales nec lorem a elementum.",
+							"url": "/posts/everything-is-small"
+						},
+						{
+							"icon": "megaphone",
+							"title": "Clean Code",
+							"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada velit augue, et mattis mauris sodales ullamcorper.",
+							"url": "/posts/a-morning-with-technology"
+						},
+						{
+							"icon": "pointer",
+							"title": "Translations",
+							"text": "Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui, interdum auctor libero dolor non orci. Aenean blandit molestie lacus a tempus.",
+							"url": "/posts/everything-is-small"
+						},
+						{
+							"icon": "smartphone",
+							"title": "Creative",
+							"text": "Praesent ac libero id enim pulvinar mattis. Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
+							"url": "/posts/everything-is-small"
 						}
 					]
 				}
 			]
 		},
 		{
-			"slug": "featured-boxes",
-			"title": "Featured boxes",
-			"description": "Full-bleed grid of linked image tiles with the Bravada zoom-under-teal hover (landing-page boxes)",
-			"keywords": [
-				"boxes",
-				"grid",
-				"tiles",
-				"featured",
-				"images"
-			],
+			"slug": "icon-blocks-dark",
+			"title": "Icon blocks (dark)",
 			"source": "theme",
+			"description": "White feature cards with teal icon tiles on the dark footer-colored band",
+			"keywords": [
+				"features",
+				"icons",
+				"blocks",
+				"dark"
+			],
 			"content": [
 				{
-					"_type": "bravada.boxes",
-					"_key": "sec-boxes",
-					"title": "Explore",
-					"description": "Featured collections",
+					"_type": "bravada.blocks",
+					"_key": "lp-blocks2",
+					"variant": "dark",
 					"columns": 3,
+					"description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
 					"items": [
 						{
-							"image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&h=675&fit=crop",
-							"title": "Development",
-							"text": "Notes on building for the web.",
-							"url": "/category/development"
+							"icon": "screen",
+							"title": "Premium quality",
+							"text": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere."
 						},
 						{
-							"image": "https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=900&h=675&fit=crop",
-							"title": "Design",
-							"text": "Craft, color and typography.",
-							"url": "/category/design"
+							"icon": "layers",
+							"title": "Fast delivery",
+							"text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis."
 						},
 						{
-							"image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=900&h=675&fit=crop",
-							"title": "Notes",
-							"text": "The occasional stray thought.",
-							"url": "/posts"
+							"icon": "folder",
+							"title": "Great typography",
+							"text": "Proin ornare ex tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sodales nec lorem a elementum."
+						},
+						{
+							"icon": "megaphone",
+							"title": "Clean Code",
+							"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada velit augue, et mattis mauris sodales ullamcorper."
+						},
+						{
+							"icon": "check",
+							"title": "Unlimited Socials",
+							"text": "Curabitur at convallis nisi. Aenean vel convallis lacus, et scelerisque est. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
+						},
+						{
+							"icon": "plus",
+							"title": "Responsive",
+							"text": "Nulla nec bibendum tellus. Sed rutrum nibh non odio efficitur, et faucibus metus porttitor. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
 						}
 					]
 				}
@@ -365,89 +498,286 @@
 		{
 			"slug": "text-band",
 			"title": "Text band",
-			"description": "Ghost section header over centered copy on a full-bleed teal band, with an optional gold button (landing-page text area)",
+			"source": "theme",
+			"description": "White card on a tinted band with an offset photo, gold-underlined Playfair title and outline buttons (landing-page text area)",
 			"keywords": [
 				"text",
 				"band",
 				"cta",
-				"section"
+				"section",
+				"image"
 			],
-			"source": "theme",
 			"content": [
 				{
 					"_type": "bravada.text",
-					"_key": "sec-text",
-					"style": "band",
-					"title": "Get started",
-					"description": "Make it your own",
-					"text": "Everything on this page is editable content — open the Home page in the admin, and rearrange, reword or remove any band.",
-					"button": {
-						"label": "Open the admin",
-						"url": "/_emdash/admin"
-					}
+					"_key": "lp-text-one",
+					"title": "Keep your options open",
+					"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/05/wheel_phone.jpg",
+					"imageAlt": "Photographing a ferris wheel with a phone",
+					"imageSide": "left",
+					"tint": "#F9F7F5",
+					"paragraphs": [
+						"Nulla feugiat condimentum neque, id laoreet ipsum posuere ac. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+						"Fusce ac augue ut enim tincidunt blandit nec id velit. Maecenas sodales fringilla orci id fermentum. Vivamus porta fermentum tortor vitae bibendum. Ut blandit lacinia luctus."
+					],
+					"buttons": [
+						{
+							"label": "Turn left",
+							"url": "/posts/a-morning-with-technology",
+							"style": "primary"
+						},
+						{
+							"label": "Go right",
+							"url": "/posts/a-morning-with-technology",
+							"style": "secondary"
+						}
+					]
 				}
 			]
 		},
 		{
-			"slug": "newsletter-signup",
-			"title": "Newsletter Signup",
-			"description": "A call-to-action block for newsletter subscriptions",
-			"keywords": [
-				"newsletter",
-				"subscribe",
-				"email",
-				"cta"
-			],
+			"slug": "featured-boxes-static",
+			"title": "Featured boxes (static)",
 			"source": "theme",
+			"description": "White cards with a gold tape strip, image zoom and lift on hover, over an accent backdrop band",
+			"keywords": [
+				"boxes",
+				"grid",
+				"tiles",
+				"featured",
+				"images"
+			],
 			"content": [
 				{
-					"_type": "block",
-					"style": "h3",
-					"children": [
+					"_type": "bravada.boxes",
+					"_key": "lp-boxes-1",
+					"variant": "static",
+					"columns": 4,
+					"accent": "gold",
+					"tint": "#F8F8F8",
+					"title": "A glorious title",
+					"description": "And a less glorious and more mundane description to go underneath",
+					"items": [
 						{
-							"_type": "span",
-							"text": "Stay in the loop",
-							"_key": "k1"
-						}
-					],
-					"_key": "k0"
-				},
-				{
-					"_type": "block",
-					"style": "normal",
-					"children": [
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03-413x300.jpg",
+							"title": "Bedside table",
+							"text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
+							"url": "/posts/everything-is-small"
+						},
 						{
-							"_type": "span",
-							"text": "Get notified when new posts are published. No spam, unsubscribe anytime.",
-							"_key": "k3"
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-07-413x300.jpg",
+							"title": "Orange feelings",
+							"text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
+							"url": "/posts/some-coffee-art"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-06-413x300.jpg",
+							"title": "Straw vase",
+							"text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
+							"url": "/posts/a-birds-eye-view"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-02-413x300.jpg",
+							"title": "Bagged emotions",
+							"text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
+							"url": "/posts/throught-the-lens"
 						}
-					],
-					"_key": "k2"
+					]
 				}
 			]
 		},
 		{
-			"slug": "about-author",
-			"title": "About the Author",
-			"description": "Brief author bio for use in posts or pages",
-			"keywords": [
-				"author",
-				"bio",
-				"about"
-			],
+			"slug": "featured-boxes-animated",
+			"title": "Featured boxes (animated)",
 			"source": "theme",
+			"description": "Image tiles with text pinned over a slow zoom under a teal overlay ramp",
+			"keywords": [
+				"boxes",
+				"grid",
+				"tiles",
+				"animated",
+				"images"
+			],
 			"content": [
 				{
-					"_type": "block",
-					"style": "normal",
-					"children": [
+					"_type": "bravada.boxes",
+					"_key": "lp-boxes-2",
+					"variant": "animated",
+					"columns": 3,
+					"accent": "teal",
+					"tint": "#F8F8F8",
+					"title": "And another one",
+					"description": "I should've used a lorem ipsum generator for this",
+					"items": [
 						{
-							"_type": "span",
-							"text": "A software developer who writes about building things on the web. Based somewhere with good coffee and reliable internet.",
-							"_key": "k1"
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-01-413x300.jpg",
+							"title": "Some coffee art",
+							"text": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
+							"url": "/posts/some-coffee-art"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-02-413x300.jpg",
+							"title": "Throught the lens",
+							"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
+							"url": "/posts/throught-the-lens"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-03-413x300.jpg",
+							"title": "Everything is small",
+							"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
+							"url": "/posts/everything-is-small"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-04-413x300.jpg",
+							"title": "A bird's eye view",
+							"text": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc.",
+							"url": "/posts/a-birds-eye-view"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-05-413x300.jpg",
+							"title": "A morning with technology",
+							"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis.",
+							"url": "/posts/a-morning-with-technology"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-15-413x300.jpg",
+							"title": "Running from the afternoon",
+							"text": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna.",
+							"url": "/posts/running-from-the-afternoon"
 						}
-					],
-					"_key": "k0"
+					]
+				}
+			]
+		},
+		{
+			"slug": "portfolio-grid",
+			"title": "Portfolio grid",
+			"source": "theme",
+			"description": "Filterable project grid with floating square images over white caption plates",
+			"keywords": [
+				"portfolio",
+				"projects",
+				"filter",
+				"gallery"
+			],
+			"content": [
+				{
+					"_type": "bravada.portfolio",
+					"_key": "lp-portfolio",
+					"columns": 4,
+					"title": "Our Latest Work",
+					"description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
+					"more": {
+						"label": "All portfolios",
+						"url": "/posts"
+					},
+					"items": [
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+							"title": "New York vol. 27",
+							"tags": [
+								"Brands",
+								"Business Cards"
+							],
+							"url": "/posts/some-coffee-art"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+							"title": "Presentation Paper",
+							"tags": [
+								"Brands",
+								"Sketch"
+							],
+							"url": "/posts/throught-the-lens"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+							"title": "Empty Cards",
+							"tags": [
+								"Business Cards"
+							],
+							"url": "/posts/everything-is-small"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+							"title": "Notebook",
+							"tags": [
+								"Brands"
+							],
+							"url": "/posts/a-birds-eye-view"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+							"title": "Disk cover",
+							"tags": [
+								"Discs"
+							],
+							"url": "/posts/a-morning-with-technology"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+							"title": "Pen & Paper",
+							"tags": [
+								"Brands",
+								"Sketch"
+							],
+							"url": "/posts/running-from-the-afternoon"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+							"title": "Flyer Presentation",
+							"tags": [
+								"Brands",
+								"Sketch"
+							],
+							"url": "/posts/coffee-at-the-office"
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+							"title": "Brand Sketch",
+							"tags": [
+								"Brands",
+								"Sketch"
+							],
+							"url": "/posts/some-coffee-art"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "testimonials",
+			"title": "Testimonials",
+			"source": "theme",
+			"description": "Gold review cards with overlapping round portraits and teal Playfair captions",
+			"keywords": [
+				"testimonials",
+				"reviews",
+				"quotes"
+			],
+			"content": [
+				{
+					"_type": "bravada.testimonials",
+					"_key": "lp-testimonials",
+					"title": "Honest reviews",
+					"description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
+					"items": [
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member03.jpeg",
+							"title": "Constantly Great!",
+							"text": "Duis finibus imperdiet diam. Aliquam elementum non massa non gravida. Maecenas vel tortor non ipsum pellentesque auctor. Integer turpis odio, pharetra ut ante non, iaculis egestas enim. Sed consequat ipsum non diam gravida viverra. Vivamus dolor eros, convallis ut sagittis a, dignissim et purus."
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member04.jpeg",
+							"title": "Best theme",
+							"text": "Voluptatem ut repellat sit optio sunt vitae fuga. Velit rerum aliquid temporibus. Ab quaerat et ducimus ut cum dolorem totam omnis. Nesciunt et non qui maiores quisquam et tenetur. Consequatur quo praesentium quia. Excepturi sequi minima eius ea explicabo explicabo non suscipit."
+						},
+						{
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member02.jpeg",
+							"title": "Amazing feedback",
+							"text": "Iste laboriosam fugit quisquam sequi. Facilis consequuntur saepe quod dolor voluptate architecto modi aut. Modi fuga aliquid ut qui. Quia dolore non sed aut laborum. Aspernatur enim ut labore. Voluptatem dolorum laboriosam ea amet in."
+						}
+					]
 				}
 			]
 		}
@@ -463,119 +793,532 @@
 					"content": [
 						{
 							"_type": "bravada.hero",
-							"_key": "home-hero",
-							"size": "tall",
-							"title": "There is only Bravada",
-							"subtitle": "It goes anywhere, it's for everyone and everything — a landing page built from sections you can drop into any page.",
-							"image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&h=1080&fit=crop",
-							"imageAlt": "City skyline at dusk",
+							"_key": "lp-slider",
+							"title": "Have enough courage to start and enough heart to finish.",
+							"subtitle": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum.",
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/slider/static.jpg",
+							"imageAlt": "Have enough courage to start and enough heart to finish.",
 							"buttons": [
 								{
-									"label": "Read the blog",
+									"label": "Read more",
 									"url": "/posts"
 								},
 								{
-									"label": "About",
-									"url": "/pages/about"
+									"label": "See now",
+									"url": "/pages/about-us"
 								}
 							]
 						},
 						{
 							"_type": "bravada.blocks",
-							"_key": "home-blocks",
-							"title": "Features",
-							"description": "Why you'll feel at home",
-							"items": [
-								{
-									"icon": "✍️",
-									"title": "Writing first",
-									"text": "A reading rhythm tuned for long-form posts, with Playfair Display headings over Mulish body text.",
-									"url": "/posts"
-								},
-								{
-									"icon": "🧩",
-									"title": "Sections",
-									"text": "Heros, boxes and bands are reusable sections — type /section in the editor to drop one anywhere."
-								},
-								{
-									"icon": "📱",
-									"title": "Responsive",
-									"text": "Mobile-first and scales to any screen, just like the original theme promised."
-								}
-							]
-						},
-						{
-							"_type": "bravada.boxes",
-							"_key": "home-boxes",
-							"title": "Explore",
-							"description": "Featured collections",
+							"_key": "lp-blocks1",
+							"variant": "light",
 							"columns": 3,
 							"items": [
 								{
-									"image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&h=675&fit=crop",
-									"title": "Development",
-									"text": "Notes on building for the web.",
-									"url": "/category/development"
+									"icon": "trophy",
+									"title": "Premium quality",
+									"text": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere.",
+									"url": "/posts/coffee-at-the-office"
 								},
 								{
-									"image": "https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=900&h=675&fit=crop",
-									"title": "Design",
-									"text": "Craft, color and typography.",
-									"url": "/category/design"
+									"icon": "briefcase",
+									"title": "Fast delivery",
+									"text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis.",
+									"url": "/posts/throught-the-lens"
 								},
 								{
-									"image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=900&h=675&fit=crop",
-									"title": "Notes",
-									"text": "The occasional stray thought.",
-									"url": "/posts"
+									"icon": "notebook",
+									"title": "Great typography",
+									"text": "Proin ornare ex tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sodales nec lorem a elementum.",
+									"url": "/posts/everything-is-small"
+								},
+								{
+									"icon": "megaphone",
+									"title": "Clean Code",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada velit augue, et mattis mauris sodales ullamcorper.",
+									"url": "/posts/a-morning-with-technology"
+								},
+								{
+									"icon": "pointer",
+									"title": "Translations",
+									"text": "Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui, interdum auctor libero dolor non orci. Aenean blandit molestie lacus a tempus.",
+									"url": "/posts/everything-is-small"
+								},
+								{
+									"icon": "smartphone",
+									"title": "Creative",
+									"text": "Praesent ac libero id enim pulvinar mattis. Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
+									"url": "/posts/everything-is-small"
 								}
 							]
 						},
 						{
 							"_type": "bravada.text",
-							"_key": "home-text",
-							"style": "band",
-							"title": "Get started",
-							"description": "Make it your own",
-							"text": "Everything on this page is editable content — open the Home page in the admin, and rearrange, reword or remove any band.",
-							"button": {
-								"label": "Open the admin",
-								"url": "/_emdash/admin"
-							}
+							"_key": "lp-text-one",
+							"title": "Keep your options open",
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/05/wheel_phone.jpg",
+							"imageAlt": "Photographing a ferris wheel with a phone",
+							"imageSide": "left",
+							"tint": "#F9F7F5",
+							"paragraphs": [
+								"Nulla feugiat condimentum neque, id laoreet ipsum posuere ac. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+								"Fusce ac augue ut enim tincidunt blandit nec id velit. Maecenas sodales fringilla orci id fermentum. Vivamus porta fermentum tortor vitae bibendum. Ut blandit lacinia luctus."
+							],
+							"buttons": [
+								{
+									"label": "Turn left",
+									"url": "/posts/a-morning-with-technology",
+									"style": "primary"
+								},
+								{
+									"label": "Go right",
+									"url": "/posts/a-morning-with-technology",
+									"style": "secondary"
+								}
+							]
+						},
+						{
+							"_type": "bravada.boxes",
+							"_key": "lp-boxes-1",
+							"variant": "static",
+							"columns": 4,
+							"accent": "gold",
+							"tint": "#F8F8F8",
+							"title": "A glorious title",
+							"description": "And a less glorious and more mundane description to go underneath",
+							"items": [
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03-413x300.jpg",
+									"title": "Bedside table",
+									"text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
+									"url": "/posts/everything-is-small"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-07-413x300.jpg",
+									"title": "Orange feelings",
+									"text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
+									"url": "/posts/some-coffee-art"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-06-413x300.jpg",
+									"title": "Straw vase",
+									"text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
+									"url": "/posts/a-birds-eye-view"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-02-413x300.jpg",
+									"title": "Bagged emotions",
+									"text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
+									"url": "/posts/throught-the-lens"
+								}
+							]
+						},
+						{
+							"_type": "bravada.text",
+							"_key": "lp-text-four",
+							"title": "Checking it out",
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/square_forest.jpg",
+							"imageAlt": "Aerial view of an autumn forest",
+							"imageSide": "right",
+							"tint": "#EEEBE9",
+							"paragraphs": [
+								"Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+							]
+						},
+						{
+							"_type": "bravada.boxes",
+							"_key": "lp-boxes-2",
+							"variant": "animated",
+							"columns": 3,
+							"accent": "teal",
+							"tint": "#F8F8F8",
+							"title": "And another one",
+							"description": "I should've used a lorem ipsum generator for this",
+							"items": [
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-01-413x300.jpg",
+									"title": "Some coffee art",
+									"text": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
+									"url": "/posts/some-coffee-art"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-02-413x300.jpg",
+									"title": "Throught the lens",
+									"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
+									"url": "/posts/throught-the-lens"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-03-413x300.jpg",
+									"title": "Everything is small",
+									"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
+									"url": "/posts/everything-is-small"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-04-413x300.jpg",
+									"title": "A bird's eye view",
+									"text": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc.",
+									"url": "/posts/a-birds-eye-view"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-05-413x300.jpg",
+									"title": "A morning with technology",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis.",
+									"url": "/posts/a-morning-with-technology"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-15-413x300.jpg",
+									"title": "Running from the afternoon",
+									"text": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna.",
+									"url": "/posts/running-from-the-afternoon"
+								}
+							]
+						},
+						{
+							"_type": "bravada.text",
+							"_key": "lp-text-two",
+							"title": "The leader is a ghost",
+							"tint": "#F6F3F6",
+							"paragraphs": [
+								"Pellentesque placerat massa ac leo facilisis, vel convallis nisl condimentum. Donec nec leo eget urna fringilla pharetra. Vestibulum ultricies sapien sit amet massa interdum, vel gravida magna porta. Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat in turpis quis efficitur."
+							],
+							"buttons": [
+								{
+									"label": "Follow",
+									"url": "/posts/some-coffee-art",
+									"style": "primary"
+								},
+								{
+									"label": "Hold still",
+									"url": "/posts/some-coffee-art",
+									"style": "secondary"
+								}
+							]
+						},
+						{
+							"_type": "bravada.boxes",
+							"_key": "lp-boxes-3",
+							"variant": "overlay",
+							"columns": 4,
+							"accent": "gold",
+							"tint": "#F6F3F6",
+							"items": [
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03-413x300.jpg",
+									"title": "Bedside table",
+									"text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
+									"url": "/posts/everything-is-small"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-07-413x300.jpg",
+									"title": "Orange feelings",
+									"text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
+									"url": "/posts/some-coffee-art"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-06-413x300.jpg",
+									"title": "Straw vase",
+									"text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
+									"url": "/posts/a-birds-eye-view"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-02-413x300.jpg",
+									"title": "Bagged emotions",
+									"text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
+									"url": "/posts/throught-the-lens"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08-413x300.jpg",
+									"title": "Miniature tree of life",
+									"text": "Suspendisse congue eros neque, id condimentum quam porta id. Vivamus purus justo.",
+									"url": "/posts/a-birds-eye-view"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-05-413x300.jpg",
+									"title": "Sweetest morning",
+									"text": "Fusce id interdum lectus. Ut eu nisi mi. Nullam rhoncus mollis leo mollis feugiat.",
+									"url": "/posts/coffee-at-the-office"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-01-413x300.jpg",
+									"title": "Feeling lazy",
+									"text": "Sed porttitor malesuada malesuada. Nullam vehicula sapien non dolor consequat.",
+									"url": "/posts/a-morning-with-technology"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-04-413x300.jpg",
+									"title": "Homework first",
+									"text": "Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
+									"url": "/posts/running-from-the-afternoon"
+								}
+							]
+						},
+						{
+							"_type": "bravada.portfolio",
+							"_key": "lp-portfolio",
+							"columns": 4,
+							"title": "Our Latest Work",
+							"description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
+							"more": {
+								"label": "All portfolios",
+								"url": "/posts"
+							},
+							"items": [
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+									"title": "New York vol. 27",
+									"tags": [
+										"Brands",
+										"Business Cards"
+									],
+									"url": "/posts/some-coffee-art"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+									"title": "Presentation Paper",
+									"tags": [
+										"Brands",
+										"Sketch"
+									],
+									"url": "/posts/throught-the-lens"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+									"title": "Empty Cards",
+									"tags": [
+										"Business Cards"
+									],
+									"url": "/posts/everything-is-small"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+									"title": "Notebook",
+									"tags": [
+										"Brands"
+									],
+									"url": "/posts/a-birds-eye-view"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+									"title": "Disk cover",
+									"tags": [
+										"Discs"
+									],
+									"url": "/posts/a-morning-with-technology"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+									"title": "Pen & Paper",
+									"tags": [
+										"Brands",
+										"Sketch"
+									],
+									"url": "/posts/running-from-the-afternoon"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+									"title": "Flyer Presentation",
+									"tags": [
+										"Brands",
+										"Sketch"
+									],
+									"url": "/posts/coffee-at-the-office"
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+									"title": "Brand Sketch",
+									"tags": [
+										"Brands",
+										"Sketch"
+									],
+									"url": "/posts/some-coffee-art"
+								}
+							]
+						},
+						{
+							"_type": "bravada.text",
+							"_key": "lp-text-three",
+							"title": "Never put it down",
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/square_presentation.jpg",
+							"imageAlt": "Team working around a screen",
+							"imageSide": "left",
+							"tint": "#EEEBE9",
+							"paragraphs": [
+								"Nunc vitae velit consequat, ultricies nisl vitae, pharetra eros. Morbi tincidunt felis id mauris mattis, at tristique risus ultrices. Sed cursus ornare est, nec interdum orci lacinia a."
+							],
+							"buttons": [
+								{
+									"label": "Relaxation",
+									"url": "/posts/everything-is-small",
+									"style": "secondary"
+								}
+							]
+						},
+						{
+							"_type": "bravada.testimonials",
+							"_key": "lp-testimonials",
+							"title": "Honest reviews",
+							"description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
+							"items": [
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member03.jpeg",
+									"title": "Constantly Great!",
+									"text": "Duis finibus imperdiet diam. Aliquam elementum non massa non gravida. Maecenas vel tortor non ipsum pellentesque auctor. Integer turpis odio, pharetra ut ante non, iaculis egestas enim. Sed consequat ipsum non diam gravida viverra. Vivamus dolor eros, convallis ut sagittis a, dignissim et purus."
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member04.jpeg",
+									"title": "Best theme",
+									"text": "Voluptatem ut repellat sit optio sunt vitae fuga. Velit rerum aliquid temporibus. Ab quaerat et ducimus ut cum dolorem totam omnis. Nesciunt et non qui maiores quisquam et tenetur. Consequatur quo praesentium quia. Excepturi sequi minima eius ea explicabo explicabo non suscipit."
+								},
+								{
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member02.jpeg",
+									"title": "Amazing feedback",
+									"text": "Iste laboriosam fugit quisquam sequi. Facilis consequuntur saepe quod dolor voluptate architecto modi aut. Modi fuga aliquid ut qui. Quia dolore non sed aut laborum. Aspernatur enim ut labore. Voluptatem dolorum laboriosam ea amet in."
+								}
+							]
+						},
+						{
+							"_type": "bravada.blocks",
+							"_key": "lp-blocks2",
+							"variant": "dark",
+							"columns": 3,
+							"description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
+							"items": [
+								{
+									"icon": "screen",
+									"title": "Premium quality",
+									"text": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere."
+								},
+								{
+									"icon": "layers",
+									"title": "Fast delivery",
+									"text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis."
+								},
+								{
+									"icon": "folder",
+									"title": "Great typography",
+									"text": "Proin ornare ex tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sodales nec lorem a elementum."
+								},
+								{
+									"icon": "megaphone",
+									"title": "Clean Code",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada velit augue, et mattis mauris sodales ullamcorper."
+								},
+								{
+									"icon": "check",
+									"title": "Unlimited Socials",
+									"text": "Curabitur at convallis nisi. Aenean vel convallis lacus, et scelerisque est. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
+								},
+								{
+									"icon": "plus",
+									"title": "Responsive",
+									"text": "Nulla nec bibendum tellus. Sed rutrum nibh non odio efficitur, et faucibus metus porttitor. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
+								}
+							]
+						},
+						{
+							"_type": "bravada.text",
+							"_key": "lp-text-five",
+							"title": "A day in the life",
+							"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/square_house.jpg",
+							"imageAlt": "A house at dusk",
+							"imageSide": "right",
+							"tint": "#EEEEEE",
+							"paragraphs": [
+								"Fusce semper, lectus vitae pulvinar luctus, nisi arcu luctus elit, et sodales metus metus auctor metus. Maecenas congue risus dolor."
+							],
+							"buttons": [
+								{
+									"label": "Work with us",
+									"url": "/pages/contact",
+									"style": "primary"
+								},
+								{
+									"label": "Ride with us",
+									"url": "/pages/contact",
+									"style": "secondary"
+								}
+							]
 						}
 					]
 				}
 			},
 			{
-				"id": "about",
-				"slug": "about",
+				"id": "about-us",
+				"slug": "about-us",
 				"status": "published",
 				"data": {
-					"title": "About",
+					"title": "About Us",
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "a0",
 							"children": [
 								{
 									"_type": "span",
-									"text": "A place for writing about software, design, and the occasional stray thought. No posting schedule, no newsletter funnel. Just things I wanted to write down.",
-									"_key": "k1"
+									"text": "Nullam mi diam, tempus maximus iaculis sit amet, gravida sit amet nunc. Proin at sodales ex. Duis viverra arcu aliquet neque cursus commodo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+									"_key": "a0s"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "a2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Built with Astro and EmDash. The source is open if you want to see how it works.",
-									"_key": "k3"
+									"text": "This site is a port of the Bravada WordPress theme by Cryout Creations, rebuilt for EmDash. Every band on the landing page is an editable section — open the Home page in the admin and rearrange, reword or remove any of them.",
+									"_key": "a2s"
 								}
-							],
-							"_key": "k2"
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "contact",
+				"slug": "contact",
+				"status": "published",
+				"data": {
+					"title": "Contact",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "c0",
+							"children": [
+								{
+									"_type": "span",
+									"text": "935 Pennsylvania Avenue, NW Washington, D.C. 20535-0001",
+									"_key": "c0s"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "c2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Phone: +1 (202) 555-0200 · Mobile: +1 (202) 555-3112",
+									"_key": "c2s"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "c4",
+							"children": [
+								{
+									"_type": "span",
+									"text": "E-mail: william@spooky.fox · Opening Hours: 07:00 – 21:30",
+									"_key": "c4s"
+								}
+							]
 						}
 					]
 				}
@@ -584,653 +1327,645 @@
 		"posts": [
 			{
 				"id": "post-1",
-				"slug": "building-for-the-long-term",
+				"slug": "some-coffee-art",
 				"status": "published",
 				"data": {
-					"title": "Building for the Long Term",
-					"excerpt": "The frameworks will change. The databases will change. What survives is the clarity of your thinking.",
+					"title": "Some coffee art",
+					"excerpt": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=800&fit=crop",
-							"alt": "Code on a monitor in a dark room",
-							"filename": "building-long-term.jpg"
+							"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-01.jpg",
+							"alt": "Some coffee art",
+							"filename": "demo-image-01.jpg"
 						}
 					},
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k0",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Every few years the industry collectively decides that everything we've been doing is wrong and there's a better way. New frameworks, new paradigms, new build tools. The churn is relentless, and if you're not careful, you spend more time migrating than building.",
-									"_key": "k1"
+									"text": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec sagittis eget, porta vel purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+									"_key": "k0s"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "I've been writing software long enough to have seen several of these cycles. jQuery to Backbone to Angular to React to whatever comes next. Each transition felt urgent at the time. Looking back, the things that actually mattered were rarely about the framework.",
-									"_key": "k3"
+									"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+									"_key": "k2s"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
+							"_key": "k4",
 							"children": [
 								{
 									"_type": "span",
-									"text": "What survives",
-									"_key": "k5"
+									"text": "Creatively curated",
+									"_key": "k4s"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k6",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Clean data models survive. Clear boundaries between systems survive. Good naming survives. The decision to keep things simple when you could have made them clever - that definitely survives.",
-									"_key": "k7"
+									"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+									"_key": "k6s"
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k8",
 							"children": [
 								{
 									"_type": "span",
-									"text": "What doesn't survive is code that was written to impress, abstractions built for problems that never materialized, and architectures designed around a framework's opinions rather than the domain's reality.",
-									"_key": "k9"
+									"text": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean blandit molestie lacus a tempus.",
+									"_key": "k8s"
 								}
-							],
-							"_key": "k8"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "The best code I've written is boring. It reads like prose, does one thing well, and doesn't require a PhD in category theory to understand. The worst code I've written was technically impressive at the time.",
-									"_key": "k11"
-								}
-							],
-							"_key": "k10"
+							]
 						}
 					]
 				},
 				"bylines": [
 					{
-						"byline": "byline-editorial"
-					},
-					{
-						"byline": "byline-guest",
-						"roleLabel": "Guest essay"
+						"byline": "byline-cryout"
 					}
 				],
 				"taxonomies": {
 					"category": [
-						"development"
+						"coffee",
+						"office",
+						"views"
 					],
 					"tag": [
-						"opinion"
+						"photography"
 					]
 				}
 			},
 			{
 				"id": "post-2",
-				"slug": "the-case-for-static",
+				"slug": "throught-the-lens",
 				"status": "published",
 				"data": {
-					"title": "The Case for Static",
-					"excerpt": "Static sites aren't a step backwards. They're what you get when you take performance and simplicity seriously.",
+					"title": "Throught the lens",
+					"excerpt": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. Donec aliquam purus non euismod scelerisque.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=800&fit=crop",
-							"alt": "Laptop and coffee on a wooden table",
-							"filename": "case-for-static.jpg"
+							"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-02.jpg",
+							"alt": "Throught the lens",
+							"filename": "demo-image-02.jpg"
 						}
 					},
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k0",
 							"children": [
 								{
 									"_type": "span",
-									"text": "There's a certain irony in the fact that the web started static, went dynamic, and is now swinging back toward static again. But the static sites of today aren't the hand-coded HTML pages of 1998. They're generated, optimized, and deployed to edge networks that serve them in milliseconds.",
-									"_key": "k1"
+									"text": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec sagittis eget, porta vel purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+									"_key": "k0s"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The pitch for server-rendered everything was compelling: dynamic content, personalization, real-time data. But most sites don't need most of that most of the time. A blog post doesn't need to be rendered on every request. A product page doesn't change every second.",
-									"_key": "k3"
+									"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+									"_key": "k2s"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
+							"_key": "k4",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The performance argument",
-									"_key": "k5"
+									"text": "Through a glass, brightly",
+									"_key": "k4s"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k6",
 							"children": [
 								{
 									"_type": "span",
-									"text": "A static file served from a CDN is as fast as the web gets. No cold starts, no database queries, no server-side rendering overhead. The Time to First Byte is essentially the network latency to your nearest edge node. You can't beat physics.",
-									"_key": "k7"
+									"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+									"_key": "k6s"
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k8",
 							"children": [
 								{
 									"_type": "span",
-									"text": "And when you do need dynamic behavior, you can add it surgically. An island of interactivity in a sea of static HTML. The best of both worlds, without paying the cost of either at all times.",
-									"_key": "k9"
+									"text": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean blandit molestie lacus a tempus.",
+									"_key": "k8s"
 								}
-							],
-							"_key": "k8"
+							]
 						}
 					]
 				},
 				"bylines": [
 					{
-						"byline": "byline-editorial"
+						"byline": "byline-cryout"
 					}
 				],
 				"taxonomies": {
 					"category": [
-						"development"
+						"coffee",
+						"office"
 					],
 					"tag": [
-						"webdev",
-						"opinion"
+						"photography"
 					]
 				}
 			},
 			{
 				"id": "post-3",
-				"slug": "learning-in-public",
+				"slug": "everything-is-small",
 				"status": "published",
 				"data": {
-					"title": "Learning in Public",
-					"excerpt": "Writing about what you're learning is the fastest way to find out what you don't actually understand.",
+					"title": "Everything is small",
+					"excerpt": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?w=1200&h=800&fit=crop",
-							"alt": "Notebook and pen on a desk",
-							"filename": "learning-in-public.jpg"
+							"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-03.jpg",
+							"alt": "Everything is small",
+							"filename": "demo-image-03.jpg"
 						}
 					},
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k0",
 							"children": [
 								{
 									"_type": "span",
-									"text": "I started writing about things I was learning not because I had anything original to say, but because I kept forgetting what I'd figured out. The blog posts were notes to my future self, published publicly more out of laziness than courage.",
-									"_key": "k1"
+									"text": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec sagittis eget, porta vel purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+									"_key": "k0s"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "What I didn't expect was how much the writing itself would accelerate the learning. There's a particular kind of clarity that comes from trying to explain something to someone else. The gaps in your understanding, which you can happily ignore when the knowledge lives only in your head, become painfully obvious when you try to put it into sentences.",
-									"_key": "k3"
+									"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+									"_key": "k2s"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
+							"_key": "k4",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The fear of being wrong",
-									"_key": "k5"
+									"text": "Small things considered",
+									"_key": "k4s"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k6",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The biggest barrier isn't time or writing skill. It's the fear of publishing something that turns out to be wrong. But here's the thing: being wrong publicly is one of the most efficient ways to learn. Someone will correct you, often kindly, and you'll remember that correction forever.",
-									"_key": "k7"
+									"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+									"_key": "k6s"
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k8",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The posts that helped me most weren't written by experts. They were written by people one step ahead of me on the same path, in language that hadn't yet been polished into abstraction. There's a place for that kind of writing, and it's more valuable than most people realize.",
-									"_key": "k9"
+									"text": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean blandit molestie lacus a tempus.",
+									"_key": "k8s"
 								}
-							],
-							"_key": "k8"
+							]
 						}
 					]
 				},
+				"bylines": [
+					{
+						"byline": "byline-cryout"
+					}
+				],
 				"taxonomies": {
 					"category": [
-						"notes"
+						"office"
 					],
 					"tag": [
-						"opinion"
+						"miniatures"
 					]
 				}
 			},
 			{
 				"id": "post-4",
-				"slug": "small-tools-big-impact",
+				"slug": "a-birds-eye-view",
 				"status": "published",
 				"data": {
-					"title": "Small Tools, Big Impact",
-					"excerpt": "The best developer tools do one thing well and get out of your way. A love letter to focused software.",
+					"title": "A bird's eye view",
+					"excerpt": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci…",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1575026615908-666710ae5e47?w=1200&h=800&fit=crop",
-							"alt": "Wrenches and hand tools hanging on a workshop wall",
-							"filename": "small-tools.jpg"
+							"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-04.jpg",
+							"alt": "A bird's eye view",
+							"filename": "demo-image-04.jpg"
 						}
 					},
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k0",
 							"children": [
 								{
 									"_type": "span",
-									"text": "There's a class of software that doesn't get enough appreciation. Not the frameworks or the platforms or the IDEs, but the small, sharp tools that solve one problem so well you stop thinking about them. They become invisible, which is the highest compliment you can pay a tool.",
-									"_key": "k1"
+									"text": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec sagittis eget, porta vel purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+									"_key": "k0s"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "I'm talking about things like ripgrep, which searches code so fast it changed how I think about searching. Or jq, which makes JSON feel like a first-class data format in the terminal. Or curl, which has been quietly powering the internet's plumbing for decades.",
-									"_key": "k3"
+									"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+									"_key": "k2s"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
+							"_key": "k4",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The Unix philosophy, revisited",
-									"_key": "k5"
+									"text": "Fresh beginnings",
+									"_key": "k4s"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k6",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Do one thing well. The advice is old enough to be a cliche, but the best modern tools still follow it. They don't try to be platforms. They don't have plugin ecosystems or configuration languages or startup wizards. They do their job and they compose with other tools that do theirs.",
-									"_key": "k7"
+									"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+									"_key": "k6s"
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k8",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The temptation is always to add more. One more feature, one more option, one more integration. But every addition is a decision someone has to make, a path through the code that has to be maintained, a thing that can break. The best tools resist this. They stay small, and in staying small, they stay reliable.",
-									"_key": "k9"
+									"text": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean blandit molestie lacus a tempus.",
+									"_key": "k8s"
 								}
-							],
-							"_key": "k8"
+							]
 						}
 					]
 				},
+				"bylines": [
+					{
+						"byline": "byline-cryout"
+					}
+				],
 				"taxonomies": {
 					"category": [
-						"development"
+						"office",
+						"plants",
+						"views"
 					],
 					"tag": [
-						"tools"
+						"photography"
 					]
 				}
 			},
 			{
 				"id": "post-5",
-				"slug": "designing-with-constraints",
+				"slug": "a-morning-with-technology",
 				"status": "published",
 				"data": {
-					"title": "Designing with Constraints",
-					"excerpt": "Limitations aren't obstacles to creativity. They're the structure that makes creativity possible.",
+					"title": "A morning with technology",
+					"excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per…",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=1200&h=800&fit=crop",
-							"alt": "Pencils and design tools on a desk",
-							"filename": "designing-with-constraints.jpg"
+							"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-05.jpg",
+							"alt": "A morning with technology",
+							"filename": "demo-image-05.jpg"
 						}
 					},
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k0",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Give a designer a blank canvas and unlimited time, and they'll often produce something mediocre. Give them a tight brief, a small screen, and a deadline, and they'll surprise you. This isn't a paradox - it's how creativity actually works.",
-									"_key": "k1"
+									"text": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec sagittis eget, porta vel purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+									"_key": "k0s"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Constraints force decisions. When you can't use more than two typefaces, you have to choose carefully. When the page has to load in under a second, every element earns its place. When the interface has to work on a 320px screen, you discover what's truly essential.",
-									"_key": "k3"
+									"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+									"_key": "k2s"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
+							"_key": "k4",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Embracing the box",
-									"_key": "k5"
+									"text": "The morning routine",
+									"_key": "k4s"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k6",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The web itself is a constraint. HTML flows in one direction. CSS has a box model. Browsers have viewport sizes and font rendering quirks. You can fight these constraints or you can work with them, and the results are dramatically different.",
-									"_key": "k7"
+									"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+									"_key": "k6s"
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k8",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The designs I admire most don't look like they were forced through a framework. They look like they grew naturally from the medium, respecting its grain rather than working against it. That only happens when you treat constraints as creative partners rather than enemies.",
-									"_key": "k9"
+									"text": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean blandit molestie lacus a tempus.",
+									"_key": "k8s"
 								}
-							],
-							"_key": "k8"
+							]
 						}
 					]
 				},
+				"bylines": [
+					{
+						"byline": "byline-cryout"
+					}
+				],
 				"taxonomies": {
 					"category": [
-						"design"
+						"office",
+						"views"
 					],
 					"tag": [
-						"creativity"
+						"technology"
 					]
 				}
 			},
 			{
 				"id": "post-6",
-				"slug": "a-weekend-with-a-side-project",
+				"slug": "running-from-the-afternoon",
 				"status": "published",
 				"data": {
-					"title": "A Weekend with a Side Project",
-					"excerpt": "No stakeholders, no deadlines, no Jira tickets. Just you and a dumb idea that might turn into something.",
+					"title": "Running from the afternoon",
+					"excerpt": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna. Ut efficitur venenatis porta. Mauris in dictum elit, porttitor…",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&h=800&fit=crop",
-							"alt": "Code on a screen with a dark theme",
-							"filename": "weekend-side-project.jpg"
+							"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-15.jpg",
+							"alt": "Running from the afternoon",
+							"filename": "demo-image-15.jpg"
 						}
 					},
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k0",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Saturday morning. Coffee's made, the house is quiet, and I've got an idea that's been nagging at me all week. Not a good idea, necessarily - just a persistent one. A small tool that does a thing I keep doing manually. How hard could it be?",
-									"_key": "k1"
+									"text": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec sagittis eget, porta vel purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+									"_key": "k0s"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "This is the best kind of programming. No requirements document, no sprint planning, no pull request reviews. Just a text editor and a problem. The freedom to make terrible architectural decisions, rewrite everything twice, and follow tangents that turn out to be dead ends.",
-									"_key": "k3"
+									"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+									"_key": "k2s"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
+							"_key": "k4",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Why side projects matter",
-									"_key": "k5"
+									"text": "Chasing the light",
+									"_key": "k4s"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k6",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Side projects are where you learn things your day job would never teach you. Not because the problems are harder, but because you're free to take risks. Try a language you've never used. Build something without a framework. Deploy to a platform you've only read about. The stakes are zero, which makes the learning maximum.",
-									"_key": "k7"
+									"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+									"_key": "k6s"
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k8",
 							"children": [
 								{
 									"_type": "span",
-									"text": "By Sunday evening, the thing sort of works. It's rough, the error handling is nonexistent, and the README is a single sentence. But it solves the problem I set out to solve, and I learned three things I didn't know on Friday. Not a bad weekend.",
-									"_key": "k9"
+									"text": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean blandit molestie lacus a tempus.",
+									"_key": "k8s"
 								}
-							],
-							"_key": "k8"
+							]
 						}
 					]
 				},
+				"bylines": [
+					{
+						"byline": "byline-cryout"
+					}
+				],
 				"taxonomies": {
 					"category": [
-						"development"
+						"office"
 					],
 					"tag": [
-						"creativity"
+						"technology"
 					]
 				}
 			},
 			{
 				"id": "post-7",
-				"slug": "notes-on-simplicity",
+				"slug": "coffee-at-the-office",
 				"status": "published",
 				"data": {
-					"title": "Notes on Simplicity",
-					"excerpt": "Simplicity isn't the absence of complexity. It's the result of understanding a problem well enough to solve it cleanly.",
+					"title": "Coffee at the office",
+					"excerpt": "Nullam mi diam, tempus maximus iaculis sit amet, gravida sit amet nunc. Proin at sodales ex. Duis viverra arcu aliquet neque cursus commodo.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1559051668-e1fa58f25786?w=1200&h=800&fit=crop",
-							"alt": "Geometric pattern carved into white paper",
-							"filename": "notes-on-simplicity.jpg"
+							"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-06.jpg",
+							"alt": "Coffee at the office",
+							"filename": "demo-image-06.jpg"
 						}
 					},
 					"content": [
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k0",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Every piece of software starts simple. A few files, a clear purpose, a small surface area. Then features get added, edge cases get handled, and before long you're looking at something that requires a diagram to understand. This isn't inevitable, but it takes discipline to prevent.",
-									"_key": "k1"
+									"text": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec sagittis eget, porta vel purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+									"_key": "k0s"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The hard part of simplicity isn't the initial design. It's the ongoing resistance to complication. Every feature request, every bug fix, every refactor is an opportunity to add complexity. Saying no is the most important design skill, and the least celebrated.",
-									"_key": "k3"
+									"text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
+									"_key": "k2s"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
+							"_key": "k4",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Removing as a feature",
-									"_key": "k5"
+									"text": "One more cup",
+									"_key": "k4s"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k6",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The best version of a product often has fewer features than the previous one. Not because features were missing, but because someone had the courage to remove things that weren't earning their keep. Every feature has a cost - in maintenance, in cognitive load, in the weight of the interface.",
-									"_key": "k7"
+									"text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+									"_key": "k6s"
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
 							"style": "normal",
+							"_key": "k8",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Simplicity is a practice, not a destination. You never arrive at simple. You just keep asking: is this necessary? Could this be clearer? Is there a way to solve this problem by removing something instead of adding something? The answer is yes more often than you'd expect.",
-									"_key": "k9"
+									"text": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean blandit molestie lacus a tempus.",
+									"_key": "k8s"
 								}
-							],
-							"_key": "k8"
+							]
 						}
 					]
 				},
+				"bylines": [
+					{
+						"byline": "byline-cryout"
+					}
+				],
 				"taxonomies": {
 					"category": [
-						"notes"
+						"coffee",
+						"office"
 					],
 					"tag": [
-						"opinion"
-					]
-				}
-			},
-			{
-				"id": "post-draft",
-				"slug": "work-in-progress",
-				"status": "draft",
-				"data": {
-					"title": "Work in Progress",
-					"excerpt": "This post is still being written.",
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "This is a draft post that won't appear in the public listing.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						}
+						"miniatures"
 					]
 				}
 			}

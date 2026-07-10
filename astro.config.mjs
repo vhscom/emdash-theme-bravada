@@ -30,7 +30,7 @@ export default defineConfig({
 			provider: fontProviders.google(),
 			name: "Mulish",
 			cssVariable: "--font-body",
-			weights: [400, 500, 600, 700],
+			weights: [300, 400, 500, 600, 700, 900],
 			fallbacks: ["sans-serif"],
 		},
 		{

@@ -1,63 +1,96 @@
 /*
   theme.css — Bravada for EmDash.
 
-  A port of the Bravada WordPress theme (Cryout Creations) onto the
-  EmDash blog template. Design tokens overridden here beat the
-  @layer base defaults in tokens.css.
+  A faithful port of the Bravada WordPress theme (Cryout Creations),
+  matched against https://demos.cryoutcreations.eu/wp/bravada/ and the
+  theme's shipped stylesheet + customizer output. Token overrides here
+  beat the @layer base defaults in tokens.css.
 
-  Palette: Bravada defaults — teal accent (theme_accent2, darkened from
-  #0f8b8d for WCAG AA 4.5:1) as the interactive color, gold
-  (theme_accent1 #e9b44c) for highlights and buttons.
+  Original palette, kept as-is (per the original, not WCAG-adjusted):
+    accent1 gold  #E9B44C — links, buttons, highlights
+    accent2 teal  #0F8B8D — hovers, icons, secondary accents
+    headings      #162521
+    body text     #707070 on site background #F3F7F6
+    footer        #1E3231
+    submenus      #066664
 */
 
 :root {
 	/* --- Bravada palette --- */
 	--color-bg: light-dark(#f3f7f6, #101817); /* theme_sitebackground */
-	--color-bg-subtle: light-dark(#eaf0ef, #15201f);
-	--color-text: light-dark(#3b4341, #d6dedc); /* Bravada #707070, darkened for AA */
-	--color-text-secondary: light-dark(#5b6462, #a3b0ad);
-	--color-muted: light-dark(#7d8886, #74827f);
-	--color-border: light-dark(#dde5e3, #29403e);
-	--color-border-subtle: light-dark(#e7edec, #1d2f2e);
-	--color-surface: light-dark(#ffffff, #162423); /* theme_contentbackground */
-	--color-brand: light-dark(#0c7476, #3db9bb); /* theme_accent2 teal */
-	--color-brand-hover: light-dark(#0b6e70, #62cbcd);
-	--color-on-brand: white;
+	--color-bg-subtle: light-dark(#f9f7f5, #15201f);
+	--color-text: light-dark(#707070, #b9c3c1); /* Bravada body text */
+	--color-text-secondary: light-dark(#707070, #a3b0ad);
+	--color-muted: light-dark(#a7a7a7, #74827f); /* entry meta */
+	--color-border: light-dark(#ebebeb, #29403e);
+	--color-border-subtle: light-dark(#f0f0f0, #1d2f2e);
+	--color-surface: light-dark(#ffffff, #162423); /* content background */
+
+	/* Links are GOLD in Bravada; hovers go teal. */
+	--color-brand: light-dark(#e9b44c, #e9b44c); /* theme_accent1 */
+	--color-brand-hover: light-dark(#0f8b8d, #3db9bb); /* theme_accent2 */
+	--color-on-brand: #ffffff;
 
 	/* Bravada-specific tokens */
-	--color-gold: #e9b44c; /* theme_accent1 — highlights/buttons */
-	--color-on-gold: #162521;
+	--color-gold: #e9b44c; /* theme_accent1 */
+	--color-teal: light-dark(#0f8b8d, #3db9bb); /* theme_accent2 */
+	--color-teal-solid: #0f8b8d;
 	--color-heading: light-dark(#162521, #eef4f3); /* theme_headingstext */
-	--color-footer-bg: light-dark(#1e3231, #0c1514); /* theme_footerbackground */
-	--color-footer-text: light-dark(#dbdbdb, #b8c4c2);
-	--color-footer-muted: #96a19e; /* AA 4.5:1 on the dark footer */
+	--color-menu-link: light-dark(#444444, #d6dedc); /* top menu items */
+	--color-submenu-bg: #066664; /* dropdown background */
+	/* Wordmark ribbon: demo teal in light; Bravada's deeper submenu
+	   teal in dark so the gold Playfair wordmark keeps AA (large text)
+	   against it — #E9B44C on #0F8B8D is ~2.1:1, on #066664 ~3.4:1. */
+	--color-ribbon: light-dark(#0f8b8d, #066664);
+	--color-footer-bg: #1e3231; /* theme_footerbackground */
+	--color-footer-text: #dbdbdb;
+	--color-footer-muted: #96a19e;
+	--gold-strip: rgba(233, 180, 76, 0.4); /* highlight strips */
 
-	/* Playfair Display headings over Mulish body — the Bravada pairing */
+	/* Landing band tints (Plus customizer values), with matched dark
+	   twins so the bands follow the color scheme */
+	--tint-slider: light-dark(#f9f7f5, #15201f);
+	--tint-blocks1: light-dark(#f9f7f5, #15201f);
+	--tint-boxes: light-dark(#f8f8f8, #131c1b);
+	--tint-boxes-alt: light-dark(#f6f3f6, #171f21);
+	--tint-warm: light-dark(#eeebe9, #1a1f1d); /* portfolio, testimonials */
+	--tint-cool: light-dark(#eeeeee, #141a19); /* text-five */
+
+	/* Playfair Display headings over Muli body — the Bravada pairing */
 	--font-heading: var(--font-display);
-	--font-weight-heading: 600;
+	--font-weight-heading: 700;
 	--font-weight-display: 700;
+
+	/* Bravada types at 16px with a very airy 1.8 line height */
+	--leading-relaxed: 1.8;
+	--tracking-tight: 0;
+	--tracking-snug: 0;
+
+	/* Bravada containers: 1240px shell */
+	--wide-width: 1240px;
+	--nav-height: 75px;
 }
 
 /* light-dark() fallback (Safari < 17.5, Chrome < 123): light values */
 @supports not (color: light-dark(#000, #fff)) {
 	:root {
 		--color-bg: #f3f7f6;
-		--color-bg-subtle: #eaf0ef;
-		--color-text: #3b4341;
-		--color-text-secondary: #5b6462;
-		--color-muted: #7d8886;
-		--color-border: #dde5e3;
-		--color-border-subtle: #e7edec;
+		--color-bg-subtle: #f9f7f5;
+		--color-text: #707070;
+		--color-text-secondary: #707070;
+		--color-muted: #a7a7a7;
+		--color-border: #ebebeb;
+		--color-border-subtle: #f0f0f0;
 		--color-surface: #ffffff;
-		--color-brand: #0c7476;
-		--color-brand-hover: #0b6e70;
+		--color-brand: #e9b44c;
+		--color-brand-hover: #0f8b8d;
+		--color-teal: #0f8b8d;
 		--color-heading: #162521;
-		--color-footer-bg: #1e3231;
-		--color-footer-text: #dbdbdb;
+		--color-menu-link: #444444;
 	}
 }
 
-/* Headings take the display face and Bravada's near-black heading color */
+/* Headings: Playfair Display 700, Bravada's near-black */
 h1,
 h2,
 h3,
@@ -69,12 +102,11 @@ h6 {
 
 ::selection {
 	background: var(--color-gold);
-	color: var(--color-on-gold);
+	color: #162521;
 }
 
 /* Translate-based reveals shift elements past the viewport edge before
-   they animate in; without clipping, iOS Safari lets the page pan
-   sideways. clip (not hidden) preserves position: sticky. */
+   they animate in; clip (not hidden) preserves position: sticky. */
 html,
 body {
 	overflow-x: clip;
@@ -87,77 +119,168 @@ body {
 	}
 }
 
-/* --- Header: Bravada wordmark on a gold ribbon; uppercase sans menu --- */
+/* ============================================================
+   Header — Bravada's fixed menu (bravada-fixed-menu / over-menu)
+   ============================================================ */
 
+/* Site title: Playfair wordmark on an accent ribbon (#site-title
+   a::before). The ribbon is right-anchored and stops 1.2em short on
+   the LEFT, so the first letter pokes off it; on hover it grows to
+   full width (.15s ease-out) and on :active it collapses to nothing —
+   Bravada's signature wordmark animation. Normal state: teal ribbon,
+   gold text; over a hero: gold ribbon, white text. */
 .site-title {
 	position: relative;
 	z-index: 1;
-	padding: 0.1em 0.45em;
-	letter-spacing: 0.05em;
+	padding: 0 6px;
 	font-family: var(--font-heading);
 	font-weight: 700;
-	color: var(--color-on-gold) !important;
+	font-size: 1.3em;
+	line-height: 1.55;
+	letter-spacing: 0.05em;
+	color: var(--color-gold) !important;
+	transition: 0.15s ease-out all;
 }
 
 .site-title::before {
 	content: "";
 	position: absolute;
 	z-index: -1;
-	inset: 0;
-	background: var(--color-gold);
-	transition: filter 0.2s ease-out;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: calc(100% - 1.2em);
+	background: var(--color-ribbon);
+	transition: 0.15s ease-out all;
 }
 
 .site-title:hover::before {
-	filter: brightness(1.08);
+	width: 100%;
 }
 
+.site-title:active::before {
+	width: 0;
+}
+
+/* Menu links: plain Muli, #444, generously spaced */
 .nav-links a {
-	font-weight: 600;
-	font-size: var(--font-size-sm);
-	text-transform: uppercase;
-	letter-spacing: var(--tracking-wide);
+	font-weight: 400;
+	font-size: 1em;
+	color: var(--color-menu-link);
+	transition: color 0.2s ease-out;
 }
 
-/* --- Gold highlighter strip (Bravada's signature title treatment) --- */
-
-.hl-gold {
-	display: inline;
-	background-image: linear-gradient(
-		to bottom,
-		color-mix(in srgb, var(--color-gold) 40%, transparent) 0%,
-		color-mix(in srgb, var(--color-gold) 40%, transparent) 100%
-	);
-	background-repeat: no-repeat;
-	background-size: 100% 0.6em;
-	background-position: 0 100%;
+/* Top-level hover: a translucent wash pill grows out behind the label
+   (#access > div > ul > li > a > span::before in the demo). Dark wash
+   on the solid header, white wash when floating over the hero. */
+.nav-links > .menu-item > a > span {
+	position: relative;
+	display: inline-block;
 }
 
-/* --- Gold button with Bravada's arrow-slide hover --- */
+.nav-links > .menu-item > a > span::before {
+	content: "";
+	position: absolute;
+	left: -15px;
+	right: 0;
+	width: 0;
+	height: 100%;
+	padding: 0 15px;
+	background: light-dark(#000000, #ffffff);
+	opacity: 0;
+	transition: 0.2s ease-out all;
+}
+
+.nav-links > .menu-item > a:hover > span::before,
+.nav-links > .menu-item > a:focus-visible > span::before {
+	opacity: 0.1;
+	width: calc(100% + 30px);
+}
+
+.site-header.over-hero:not(.header-fixed)
+	.nav-links
+	> .menu-item
+	> a
+	> span::before {
+	background: #ffffff;
+}
+
+/* Dropdown-parent indicator: small chevron at half opacity, full on
+   hover (Bravada's iconmeta arrow) */
+.nav-links > .menu-item.has-children > a > span::after {
+	content: "";
+	display: inline-block;
+	width: 0.45em;
+	height: 0.45em;
+	margin-left: 0.5em;
+	margin-bottom: 0.15em;
+	border-right: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: rotate(45deg);
+	opacity: 0.5;
+	transition: 0.3s ease-out opacity;
+	vertical-align: middle;
+}
+
+.nav-links > .menu-item.has-children:hover > a > span::after {
+	opacity: 1;
+}
+
+/* Over-hero (transparent) header state, toggled off once scrolled */
+.site-header.over-hero:not(.header-fixed) {
+	background: transparent;
+	border-bottom: none;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+.site-header.over-hero:not(.header-fixed) .site-title {
+	color: #ffffff !important;
+}
+
+.site-header.over-hero:not(.header-fixed) .site-title::before {
+	background: var(--color-gold);
+}
+
+.site-header.over-hero:not(.header-fixed) .nav-links > .menu-item > a {
+	color: #ffffff;
+}
+
+.site-header.over-hero:not(.header-fixed) .nav-links > .menu-item > a:hover {
+	color: var(--color-gold);
+}
+
+/* ============================================================
+   Buttons — gold with white text; hover swaps to teal, and an
+   arrow slides in from the left (Bravada's signature hover)
+   ============================================================ */
 
 .btn-gold {
 	display: inline-block;
-	padding: 0.8em 2.2em;
+	padding: 15px 30px 15px 40px;
+	padding-right: calc(50px - 1em);
 	background: var(--color-gold);
-	color: var(--color-on-gold) !important;
-	font-weight: 600;
+	color: #ffffff !important;
+	font-weight: 700;
+	font-size: 1em;
 	text-decoration: none;
-	border-radius: var(--radius);
-	transition: all 0.3s ease-in-out;
+	border: 3px solid transparent;
+	transition: 0.3s ease-in-out all;
 }
 
 .btn-gold::after {
 	content: "→";
 	display: inline-block;
-	margin-left: -14px;
+	margin-left: -20px;
 	padding-left: 10px;
 	opacity: 0;
 	transition: 0.3s ease-in-out all;
 }
 
 .btn-gold:hover {
-	background: color-mix(in srgb, var(--color-gold) 85%, white);
-	padding-right: 1.6em;
+	background: var(--color-teal-solid);
+	padding-right: calc(45px - 1em);
+	padding-left: 25px;
 }
 
 .btn-gold:hover::after {
@@ -165,48 +288,165 @@ body {
 	margin-left: 0;
 }
 
-/* --- Ghost section header (.lp-section-header): giant 900-weight title
-   at 10% opacity with the description overlapping it from below --- */
+/* Outline variant (the slider's odd buttons): white border on media */
+.btn-outline-white {
+	display: inline-block;
+	padding: 15px 30px 15px 40px;
+	padding-right: calc(50px - 1em);
+	background: transparent;
+	border: 3px solid #ffffff;
+	color: #ffffff !important;
+	font-weight: 700;
+	font-size: 1em;
+	text-decoration: none;
+	transition: 0.3s ease-in-out all;
+}
+
+.btn-outline-white::after {
+	content: "→";
+	display: inline-block;
+	margin-left: -20px;
+	padding-left: 10px;
+	opacity: 0;
+	transition: 0.3s ease-in-out all;
+}
+
+.btn-outline-white:hover {
+	background: rgba(0, 0, 0, 0.2);
+	padding-right: calc(45px - 1em);
+	padding-left: 25px;
+}
+
+.btn-outline-white:hover::after {
+	opacity: 1;
+	margin-left: 0;
+}
+
+/* Text-band buttons (short-cry btn): colored text in a 2px outline
+   that scales away on hover (lp-port-readmore treatment) */
+.btn-cry {
+	position: relative;
+	display: inline-block;
+	margin-right: 1.5em;
+	outline: 2px solid;
+	padding: 0.55em 1.6em;
+	font-size: 0.9em;
+	font-weight: 700;
+	text-align: center;
+	text-decoration: none;
+	transition: all 0.35s ease-out;
+}
+
+.btn-cry::after {
+	content: "";
+	position: absolute;
+	z-index: 3;
+	inset: 0;
+	outline: 2px solid;
+	opacity: 1;
+	transition: 0.3s ease-out all;
+}
+
+.btn-cry:hover {
+	opacity: 0.8;
+}
+
+.btn-cry:hover::after {
+	transform: scale(1.25, 1.4);
+	opacity: 0;
+}
+
+.btn-cry.btn-cry-primary {
+	color: var(--color-gold) !important;
+}
+
+.btn-cry.btn-cry-primary:hover {
+	color: #c7922a !important;
+}
+
+.btn-cry.btn-cry-secondary {
+	color: var(--color-teal) !important;
+}
+
+.btn-cry.btn-cry-secondary:hover {
+	color: #00696b !important;
+}
+
+/* ============================================================
+   Ghost section header (.lp-section-header): a giant 900-weight
+   Muli title at 10% opacity, with the Playfair description
+   overlapping it from below
+   ============================================================ */
 
 .ghost-header {
 	display: flex;
 	flex-flow: column wrap-reverse;
 	align-items: center;
 	text-align: center;
-	margin: 0 auto var(--spacing-10);
+	margin: 2em auto 1em;
+	padding: 0 1em;
 }
 
 .ghost-header .ghost-title {
 	order: 1;
 	margin: 0;
+	max-width: 90%;
+	font-family: var(--font-body);
 	font-size: clamp(2.5em, 10vw, 5em);
 	line-height: 1;
 	font-weight: 900;
 	opacity: 0.1;
+	color: var(--color-heading);
 }
 
 .ghost-header .ghost-sub {
 	position: relative;
 	order: 2;
 	margin: -1.4em 0 0;
+	max-width: 45%;
 	font-size: 1.4em;
 	line-height: 1.2;
 	font-family: var(--font-heading);
 	color: var(--color-heading);
 }
 
+@media (max-width: 800px) {
+	.ghost-header .ghost-sub {
+		max-width: 90%;
+	}
+}
+
+/* ============================================================
+   Gold highlighter strips (widget titles, text-band titles,
+   animated box titles) — Bravada's signature underline
+   ============================================================ */
+
+.hl-gold {
+	display: inline;
+	background-image: linear-gradient(
+		to bottom,
+		var(--gold-strip) 0%,
+		var(--gold-strip) 100%
+	);
+	background-repeat: no-repeat;
+	background-size: 100% 0.4em;
+	background-position: 0 100%;
+}
+
 /* --- Full-bleed helper for landing bands rendered inside a content
-   column (hero, boxes, text bands) --- */
+   column (slider, blocks, boxes, text bands, portfolio, reviews) --- */
 
 .full-bleed {
 	width: 100vw;
 	margin-inline: calc(50% - 50vw);
 }
 
-/* --- Bravada on-scroll reveals (.animated-onscroll-lp system) ---
-   Elements carry .aos + a direction class; the IntersectionObserver in
-   Base.astro removes .aos when they enter the viewport. Only hidden
-   when JS is running (html.js), so no-JS visitors see everything. */
+/* ============================================================
+   Bravada on-scroll reveals (.animated-onscroll-lp system)
+   Elements carry .aos + a direction class; the observer in
+   Base.astro removes .aos when they enter the viewport. Only
+   hidden when JS is running (html.js).
+   ============================================================ */
 
 .aos-left,
 .aos-right,
@@ -257,92 +497,46 @@ html.js .aos.aos-fade {
 	}
 }
 
-/* --- Post cards: Bravada lp-boxes-animated hover — slow 2s image zoom
-   under a teal overlay ramp, gold highlighter sweeping the title.
-   (No lift: a moving hover target under a stationary cursor
-   oscillates.) --- */
-
-.post-card .card-title {
-	display: inline;
-	background-image: linear-gradient(
-		to bottom,
-		color-mix(in srgb, var(--color-gold) 40%, transparent) 0%,
-		color-mix(in srgb, var(--color-gold) 40%, transparent) 100%
-	);
-	background-repeat: no-repeat;
-	background-size: 0% 0.6em;
-	background-position: 0 100%;
-	transition: background-size 200ms ease-out;
-}
-
-.post-card:hover .card-title {
-	background-size: 100% 0.6em;
-}
-
-.post-card .card-image {
-	position: relative;
-	overflow: hidden;
-}
-
-.post-card .card-image img {
-	transition: 2s ease-out all;
-}
-
-.post-card:hover .card-image img,
-.post-card:focus-within .card-image img {
-	transform: scale(1.5);
-}
-
-.post-card .card-image::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background: var(--color-brand);
-	opacity: 0;
-	transition: 0.5s ease-out opacity;
-	pointer-events: none;
-}
-
-.post-card:hover .card-image::after,
-.post-card:focus-within .card-image::after {
-	opacity: 0.45;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.post-card .card-image img,
-	.post-card .card-image::after {
-		transition: none;
-	}
-
-	.post-card:hover .card-image img {
-		transform: none;
-	}
-}
-
-/* --- Dark Bravada footer: retarget the tokens the template footer
-   consumes, so its scoped styles pick up the dark treatment without a
-   specificity fight --- */
+/* ============================================================
+   Dark Bravada footer — retarget the tokens the template footer
+   consumes so its scoped styles pick up the dark treatment
+   ============================================================ */
 
 .site-footer {
 	--color-bg-subtle: var(--color-footer-bg);
 	--color-bg: color-mix(in srgb, var(--color-footer-bg) 80%, black);
 	--color-surface: color-mix(in srgb, var(--color-footer-bg) 88%, white);
-	--color-border: color-mix(in srgb, var(--color-footer-bg) 80%, white);
-	--color-border-subtle: color-mix(in srgb, var(--color-footer-bg) 90%, white);
+	--color-border: rgba(255, 255, 255, 0.075);
+	--color-border-subtle: rgba(255, 255, 255, 0.075);
 	--color-text: var(--color-footer-text);
 	--color-text-secondary: var(--color-footer-text);
 	--color-muted: var(--color-footer-muted);
 	--color-heading: #ffffff;
 }
 
-.site-footer .footer-logo {
-	font-family: var(--font-heading);
-	color: #ffffff;
+/* ============================================================
+   Portable Text content — Bravada .entry-content signatures
+   ============================================================ */
+
+.page-content h1,
+.article-content h1,
+.page-content h2,
+.article-content h2,
+.page-content h3,
+.article-content h3,
+.page-content h4,
+.article-content h4 {
+	color: var(--color-heading);
 }
 
-/* --- Portable Text content: Bravada .entry-content signatures --- */
+.page-content h5,
+.article-content h5,
+.page-content h6,
+.article-content h6 {
+	color: var(--color-teal);
+}
 
-/* Centered italic blockquote with a giant faded quote mark hanging above */
+/* Centered italic blockquote with a giant faded quote mark above */
 .page-content blockquote,
 .article-content blockquote {
 	position: relative;
@@ -383,4 +577,38 @@ html.js .aos.aos-fade {
 .page-content a:not([class]):hover,
 .article-content a:not([class]):hover {
 	text-decoration-thickness: 2px;
+}
+
+/* ============================================================
+   Back-to-top — gold square, white chevron, teal on hover
+   ============================================================ */
+
+#toTop {
+	position: fixed;
+	right: 1em;
+	bottom: 1em;
+	z-index: 90;
+	width: 52px;
+	height: 52px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	background: var(--color-gold);
+	color: #f3f7f6;
+	cursor: pointer;
+	opacity: 0;
+	pointer-events: none;
+	transition:
+		0.3s ease opacity,
+		0.3s ease background;
+}
+
+#toTop.visible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+#toTop:hover {
+	background: var(--color-teal-solid);
 }

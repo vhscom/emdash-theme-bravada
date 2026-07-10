@@ -1,82 +1,200 @@
 ---
+import { tintStyle } from "../../utils/tint";
 /**
- * bravada.text — Bravada's landing-page text areas (.lp-text): a ghost
- * section header over centered copy, optionally on a full-bleed teal
- * band ("band" style, Bravada's lp-text-background) with a gold CTA.
+ * bravada.text — Bravada's landing-page text areas (.lp-text): a white
+ * card on a tinted full-bleed band, with an optional photo that pokes
+ * 6.5em out of the card (left or right, alternating in the demo), a
+ * Playfair title underlined by the gold highlighter strip, body copy
+ * and outlined text-buttons (gold primary / teal secondary).
  */
-import SectionHeader from "./SectionHeader.astro";
+interface TextButton {
+	label: string;
+	url: string;
+	style?: "primary" | "secondary";
+}
 
 interface TextNode {
 	title?: string;
-	description?: string;
+	/** One or more paragraphs */
 	text?: string;
-	button?: { label: string; url: string };
-	/** "plain" (default) or "band" — full-bleed teal background */
-	style?: "plain" | "band";
+	paragraphs?: string[];
+	image?: string;
+	imageAlt?: string;
+	/** Which side the photo pokes out of. Default "left". */
+	imageSide?: "left" | "right";
+	/** Band background tint (hex). Demo alternates warm neutrals. */
+	tint?: string;
+	buttons?: TextButton[];
 }
 
 // astro-portabletext hands custom type components the block as `node`
 const { node } = Astro.props as { node: TextNode };
-const { title, description, text, button, style = "plain" } = node;
+const {
+	title,
+	text,
+	paragraphs,
+	image,
+	imageAlt = "",
+	imageSide = "left",
+	tint,
+	buttons = [],
+} = node;
+const paras = paragraphs ?? (text ? [text] : []);
 ---
 
-<section class:list={["lp-text", { "lp-text-band": style === "band", "full-bleed": style === "band" }]}>
-	<div class="lp-text-inside aos aos-up">
-		<SectionHeader title={title} description={description} />
-		{text && <p class="lp-text-content">{text}</p>}
-		{
-			button?.url && (
-				<p class="lp-text-cta">
-					<a class="btn-gold" href={button.url}>
-						{button.label}
-					</a>
-				</p>
-			)
-		}
+<section
+	class:list={[
+		"lp-text",
+		"full-bleed",
+		{ "has-image": !!image, "image-right": imageSide === "right" },
+	]}
+	style={tintStyle(tint)}
+>
+	<div class="lp-text-inside">
+		<div class="lp-text-background aos aos-up">
+			{
+				image && (
+					<div class="lp-text-image">
+						<img src={image} alt={imageAlt} loading="lazy" />
+					</div>
+				)
+			}
+			<div class="lp-text-card">
+				{title && <h3 class="lp-text-title hl-gold">{title}</h3>}
+				<div class="lp-text-content">
+					{paras.map((p) => <p>{p}</p>)}
+					{
+						buttons.length > 0 && (
+							<p class="lp-text-buttons">
+								{buttons.map((b, i) => (
+									<a
+										class:list={[
+											"btn-cry",
+											(b.style ?? (i === 0 ? "primary" : "secondary")) ===
+											"primary"
+												? "btn-cry-primary"
+												: "btn-cry-secondary",
+										]}
+										href={b.url}
+									>
+										{b.label}
+									</a>
+								))}
+							</p>
+						)
+					}
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 
 <style>
 	.lp-text {
-		margin: var(--spacing-16) 0;
+		overflow: hidden;
+		background-color: var(--tint-warm);
 	}
 
 	.lp-text-inside {
-		max-width: var(--content-width);
+		max-width: var(--wide-width);
+		margin: 3em auto;
+		padding: 0 2.5em;
+	}
+
+	.lp-text-background {
+		display: flex;
+		align-items: center;
+		padding: 4em;
+		background-color: var(--color-surface);
+	}
+
+	.lp-text-image {
+		position: relative;
+		order: 0;
+		width: 45%;
+		line-height: 0;
+		flex-shrink: 0;
+	}
+
+	.lp-text-image img {
+		position: relative;
+		left: -6.5em;
+		top: 0;
+		max-width: 100%;
+		transition: 0.3s ease-out all;
+	}
+
+	.lp-text-background:hover .lp-text-image img {
+		top: -7px;
+	}
+
+	.image-right .lp-text-image {
+		order: 2;
+	}
+
+	.image-right .lp-text-image img {
+		left: auto;
+		right: -6.5em;
+	}
+
+	.lp-text-card {
+		position: relative;
+		z-index: 9;
+		width: 90%;
 		margin: 0 auto;
-		text-align: center;
+	}
+
+	.has-image .lp-text-card {
+		width: 50%;
+		flex: 1;
+		text-align: left;
+	}
+
+	.lp-text-title {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 2.617924em;
+		line-height: 1.3;
+		font-weight: 700;
+		color: var(--color-heading);
 	}
 
 	.lp-text-content {
-		margin: 0;
-		font-size: var(--font-size-lg);
-		line-height: var(--leading-relaxed);
-		color: var(--color-text-secondary);
+		margin-top: 1.5em;
 	}
 
-	.lp-text-cta {
-		margin: var(--spacing-8) 0 0;
+	.lp-text-content p {
+		margin: 0 0 1em;
 	}
 
-	.lp-text-band {
-		padding: var(--spacing-16) var(--spacing-6);
-		background: linear-gradient(
-			160deg,
-			light-dark(#123c3d, #0b2323),
-			light-dark(#0c7476, #14494a)
-		);
+	.lp-text-buttons {
+		margin-top: 2em !important;
 	}
 
-	.lp-text-band .lp-text-content {
-		color: rgb(255 255 255 / 0.88);
-	}
+	@media (max-width: 900px) {
+		.lp-text-background {
+			flex-flow: column;
+			padding: 2em;
+		}
 
-	.lp-text-band :global(.ghost-title) {
-		color: #ffffff;
-		opacity: 0.14;
-	}
+		.lp-text-image {
+			width: auto;
+		}
 
-	.lp-text-band :global(.ghost-sub) {
-		color: #ffffff;
+		.lp-text-image img {
+			left: 0 !important;
+			right: 0 !important;
+			margin: -5em auto 0;
+		}
+
+		.has-image .lp-text-card {
+			width: auto;
+			max-width: 480px;
+			margin-top: 2em;
+		}
+
+		.lp-text-title {
+			font-size: 1.5em;
+		}
 	}
 </style>

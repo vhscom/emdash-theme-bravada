@@ -1,10 +1,11 @@
 ---
 /**
- * bravada.hero — the Bravada landing-page slider (.lp-slider /
- * .lp-staticslider) as a single full-bleed hero band: background image
- * under a dark teal scrim, display-face title, tagline and gold CTA
- * buttons. Inserted into any Portable Text field via the "Hero banner"
- * section (/section in the editor).
+ * bravada.hero — Bravada's landing-page static slider (.lp-slider /
+ * .lp-staticslider): a full-bleed image under a blue→umber gradient
+ * scrim, huge Playfair caption with randomly gilded letters, light
+ * subtitle and a pair of buttons (outline-white / gold) that slide in
+ * from the left. Inserted into any Portable Text field via the
+ * "Hero slider" section (/section in the editor).
  */
 interface HeroButton {
 	label: string;
@@ -18,100 +19,182 @@ interface HeroNode {
 	image?: string;
 	imageAlt?: string;
 	buttons?: HeroButton[];
-	/** "tall" gives the full front-page treatment; default is a band */
-	size?: "band" | "tall";
 }
 
 // astro-portabletext hands custom type components the block as `node`
 const { node } = Astro.props as { node: HeroNode };
-const { title, subtitle, image, imageAlt = "", buttons = [], size = "band" } = node;
+const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
 ---
 
-<section class:list={["lp-hero", "full-bleed", { "lp-hero-tall": size === "tall" }]}>
-	{image && <img class="lp-hero-bg" src={image} alt={imageAlt} />}
-	<div class="lp-hero-inner">
-		{title && <h1 class="lp-hero-title aos aos-up">{title}</h1>}
-		{subtitle && <p class="lp-hero-sub aos aos-up">{subtitle}</p>}
-		{
-			buttons.length > 0 && (
-				<div class="lp-hero-buttons aos aos-fade">
-					{buttons.map((b) => (
-						<a class="btn-gold" href={b.url}>
-							{b.label}
-						</a>
-					))}
-				</div>
-			)
-		}
+<section class="lp-slider full-bleed">
+	<div class="lp-staticslider">
+		{image && <img class="lp-staticslider-image" src={image} alt={imageAlt} />}
+		<div class="staticslider-caption">
+			<div class="staticslider-caption-inside">
+				{title && <h2 class="staticslider-caption-title">{title}</h2>}
+				{subtitle && <div class="staticslider-caption-text">{subtitle}</div>}
+				{
+					buttons.length > 0 && (
+						<div class="staticslider-caption-buttons">
+							{buttons.map((b, i) => (
+								<a
+									class={i % 2 === 0 ? "btn-outline-white" : "btn-gold"}
+									href={b.url}
+								>
+									{b.label}
+								</a>
+							))}
+						</div>
+					)
+				}
+			</div>
+		</div>
 	</div>
 </section>
 
+<script>
+	// Bravada gilds a scatter of caption letters in gold. Deterministic
+	// (index-hashed) so it doesn't reshuffle between navigations.
+	for (const el of document.querySelectorAll<HTMLElement>(
+		".staticslider-caption-title"
+	)) {
+		if (el.dataset.gilded) continue;
+		el.dataset.gilded = "1";
+		const text = el.textContent ?? "";
+		el.textContent = "";
+		[...text].forEach((ch, i) => {
+			if (/[a-z]/i.test(ch) && (i * 7 + 3) % 9 === 1) {
+				const span = document.createElement("span");
+				span.className = "gilded";
+				span.textContent = ch;
+				el.appendChild(span);
+			} else {
+				el.appendChild(document.createTextNode(ch));
+			}
+		});
+	}
+</script>
+
 <style>
-	.lp-hero {
+	.lp-slider {
+		background-color: var(--tint-slider);
+	}
+
+	.lp-staticslider {
 		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 380px;
-		padding: var(--spacing-20) var(--spacing-6);
 		overflow: hidden;
-		/* teal scrim doubles as the no-image background */
-		background: linear-gradient(
-			160deg,
-			light-dark(#123c3d, #0b2323),
-			light-dark(#0c7476, #14494a)
-		);
-	}
-
-	.lp-hero-tall {
-		min-height: min(70vh, 640px);
-	}
-
-	.lp-hero-bg {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	/* scrim over the image, matching Bravada's slider overlay; z-index
-	   lifts it above the .lp-hero-bg img that follows it in the DOM */
-	.lp-hero:has(.lp-hero-bg)::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		z-index: 1;
-		background: color-mix(in srgb, #123c3d 55%, transparent);
-	}
-
-	.lp-hero-inner {
-		position: relative;
-		z-index: 2;
-		max-width: var(--content-width);
 		text-align: center;
 	}
 
-	.lp-hero-title {
-		margin: 0;
-		font-size: clamp(var(--font-size-3xl), 6vw, var(--font-size-5xl));
-		font-weight: var(--font-weight-display);
-		letter-spacing: var(--tracking-tight);
+	.lp-staticslider-image {
+		display: block;
+		width: 100%;
+		min-height: 480px;
+		max-height: 92vh;
+		object-fit: cover;
+		vertical-align: middle;
+	}
+
+	/* Bravada's header overlay: #08415c → #1c110a at 0.6 */
+	.lp-staticslider::after {
+		content: "";
+		position: absolute;
+		z-index: 2;
+		inset: 0;
+		background: linear-gradient(180deg, #08415c 0%, #1c110a 100%);
+		opacity: 0.6;
+		pointer-events: none;
+	}
+
+	.staticslider-caption {
+		position: absolute;
+		z-index: 3;
+		inset: 0;
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		width: 100%;
+		margin: 0 auto;
+		padding: 85px 2.5em 0;
 		color: #ffffff;
 	}
 
-	.lp-hero-sub {
-		margin: var(--spacing-4) 0 0;
-		font-size: var(--font-size-lg);
-		line-height: var(--leading-relaxed);
-		color: rgb(255 255 255 / 0.85);
+	.staticslider-caption-inside {
+		max-width: 85%;
+		margin: 0 auto;
+		text-align: center;
 	}
 
-	.lp-hero-buttons {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: var(--spacing-4);
-		margin-top: var(--spacing-8);
+	.staticslider-caption-title {
+		margin: 0 0 0.1em;
+		font-family: var(--font-heading);
+		font-size: clamp(2.5em, 5vw, 5em);
+		line-height: 1.3;
+		font-weight: 700;
+		color: #ffffff;
+		opacity: 0;
+		animation: 0.5s 0.25s slide-right ease-out forwards;
+	}
+
+	.staticslider-caption-title :global(.gilded) {
+		color: var(--color-gold);
+	}
+
+	.staticslider-caption-text {
+		max-width: 80%;
+		margin: 3em auto;
+		font-size: 1.2em;
+		line-height: 1.5;
+		font-weight: 300;
+		letter-spacing: 1px;
+		opacity: 0;
+		animation: 0.5s 0.5s slide-right ease-out forwards;
+	}
+
+	.staticslider-caption-buttons {
+		display: table;
+		margin: 3em auto;
+		opacity: 0;
+		animation: 0.5s 0.75s slide-right ease-out forwards;
+	}
+
+	.staticslider-caption-buttons :global(a + a) {
+		margin-left: 1.5em;
+	}
+
+	@keyframes slide-right {
+		from {
+			opacity: 0;
+			transform: translateX(-40px);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.staticslider-caption-title,
+		.staticslider-caption-text,
+		.staticslider-caption-buttons {
+			animation: none;
+			opacity: 1;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.staticslider-caption {
+			font-size: 0.8em;
+		}
+
+		.staticslider-caption-text,
+		.staticslider-caption-buttons {
+			margin: 2em auto;
+		}
+
+		.staticslider-caption-buttons :global(a + a) {
+			margin-left: 0.75em;
+		}
 	}
 </style>

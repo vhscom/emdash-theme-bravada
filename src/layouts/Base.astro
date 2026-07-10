@@ -26,6 +26,8 @@ interface Props {
 	author?: string | null;
 	/** Pass content reference for plugin page contributions on content pages */
 	content?: { collection: string; id: string; slug?: string | null };
+	/** Bravada over-menu: transparent header floating over a hero */
+	overHero?: boolean;
 }
 
 const {
@@ -40,6 +42,7 @@ const {
 	modifiedTime,
 	author,
 	content,
+	overHero = false,
 } = Astro.props;
 const { siteTitle, siteTagline, siteLogo } = resolveBlogSiteIdentity(await getSiteSettings());
 // If title already includes site title (from getSeoMeta), use as-is
@@ -107,7 +110,7 @@ const isLoggedIn = !!Astro.locals.user;
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />
-		<header class="site-header">
+		<header class:list={["site-header", { "over-hero": overHero }]}>
 			<nav class="nav">
 				<a href="/" class="site-title">
 					{siteLogo
@@ -116,23 +119,54 @@ const isLoggedIn = !!Astro.locals.user;
 					}
 				</a>
 				<div class="nav-right">
-					<LiveSearch
-						placeholder="Search..."
-						class="site-search"
-						inputClass="site-search-input"
-						resultsClass="site-search-results"
-						resultClass="site-search-result"
-						collections={["posts", "pages"]}
-					/>
-					<div class="nav-links">
+					<ul class="nav-links">
 						{
 							menu?.items.map((item) => (
-								<a href={item.url} target={item.target}>
-									{item.label}
-								</a>
+								<li class:list={["menu-item", { "has-children": item.children.length > 0 }]}>
+									<a href={item.url} target={item.target}>
+										<span>{item.label}</span>
+									</a>
+									{item.children.length > 0 && (
+										<ul class="sub-menu">
+											{item.children.map((child) => (
+												<li>
+													<a href={child.url} target={child.target}>
+														<span>{child.label}</span>
+													</a>
+												</li>
+											))}
+										</ul>
+									)}
+								</li>
 							))
 						}
-					</div>
+						<li class="menu-item menu-main-search">
+							<button
+								type="button"
+								class="search-toggle"
+								aria-label="Search"
+								aria-expanded="false"
+								aria-controls="menu-search-overlay"
+							>
+								<svg
+									width="17"
+									height="17"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2.5"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+									><circle cx="11" cy="11" r="8"></circle><line
+										x1="21"
+										y1="21"
+										x2="16.65"
+										y2="16.65"></line></svg
+								>
+							</button>
+						</li>
+					</ul>
 				</div>
 				{
 					isLoggedIn && (
@@ -144,72 +178,96 @@ const isLoggedIn = !!Astro.locals.user;
 			</nav>
 		</header>
 
+		<!-- Bravada menu-search-animated: fullscreen dark layer with a
+		     centered pill input that slides up; live results below it -->
+		<div
+			id="menu-search-overlay"
+			class="menu-search-overlay"
+			hidden
+			role="dialog"
+			aria-modal="true"
+			aria-label="Search"
+		>
+			<button type="button" class="search-cancel" aria-label="Close search">
+				<svg
+					width="28"
+					height="28"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+					><line x1="18" y1="6" x2="6" y2="18"></line><line
+						x1="6"
+						y1="6"
+						x2="18"
+						y2="18"></line></svg
+				>
+			</button>
+			<div class="search-shell">
+				<LiveSearch
+					placeholder="Search…"
+					class="site-search"
+					inputClass="site-search-input"
+					resultsClass="site-search-results"
+					resultClass="site-search-result"
+					collections={["posts", "pages"]}
+				/>
+			</div>
+		</div>
+
 		<main>
 			<slot />
 		</main>
 
 		<footer class="site-footer">
 			<div class="footer-inner">
-				<div class="footer-grid">
-					<div class="footer-brand">
-						<a href="/" class="footer-logo">
-							{siteLogo
-								? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="footer-logo-img" />
-								: siteTitle
-							}
-						</a>
-						<p class="footer-tagline">{siteTagline}</p>
-					</div>
-					<div class="footer-nav">
-						<h4 class="footer-heading">Navigate</h4>
-						<ul class="footer-links">
-							<li><a href="/">Home</a></li>
-							<li><a href="/posts">All Posts</a></li>
-							{
-								pages
-									.filter((page) => (page.data.slug || page.id) !== "home")
-									.slice(0, 3)
-									.map((page) => (
-									<li>
+				<div class="footer-widgets-section">
+					<WidgetArea name="footer" />
+				</div>
+				<div class="footer-bottom">
+					<nav class="footer-socials" aria-label="Social links">
+						{
+							socialMenu?.items.map((item) => (
+								<a
+									href={item.url}
+									target={item.target}
+									rel={
+										item.target === "_blank"
+											? "noopener noreferrer"
+											: undefined
+									}
+								>
+									{item.label}
+								</a>
+							))
+						}
+					</nav>
+					<p class="footer-copyright">
+						©{new Date().getFullYear()} {siteTitle} — {siteTagline}
+						· Powered by <a href="https://emdashcms.com">EmDash</a>
+					</p>
+					<nav class="footermenu" aria-label="Footer">
+						<a href="/">Home</a>
+						<span class="sep">/</span>
+						<a href="/posts">Blog</a>
+						<span class="sep">/</span>
+						{
+							pages
+								.filter((page) => (page.data.slug || page.id) !== "home")
+								.slice(0, 2)
+								.map((page) => (
+									<>
 										<a href={`/pages/${page.data.slug || page.id}`}>
 											{page.data.title}
 										</a>
-									</li>
+										<span class="sep">/</span>
+									</>
 								))
-							}
-						</ul>
-					</div>
-					<div class="footer-nav">
-						<h4 class="footer-heading">Connect</h4>
-						<ul class="footer-links">
-							{
-								socialMenu?.items.map((item) => (
-									<li>
-										<a
-											href={item.url}
-											target={item.target}
-											rel={
-												item.target === "_blank"
-													? "noopener noreferrer"
-													: undefined
-											}
-										>
-											{item.label}
-										</a>
-									</li>
-								))
-							}
-							<li><a href="/rss.xml">RSS Feed</a></li>
-						</ul>
-					</div>
-					<div class="footer-widgets-section">
-						<WidgetArea name="footer" />
-					</div>
-				</div>
-				<div class="footer-bottom">
-					<p class="footer-copyright">
-						Powered by <a href="https://emdashcms.com">EmDash</a>
-					</p>
+						}
+						<a href="/rss.xml">RSS</a>
+					</nav>
 					<div class="theme-switcher">
 						<button
 							type="button"
@@ -454,14 +512,30 @@ const isLoggedIn = !!Astro.locals.user;
 		</style>
 
 		<style>
+			/* Bravada fixed menu: 75px bar pinned to the top. Solid white
+			   normally; transparent when floating over a hero until the
+			   page scrolls (.header-fixed added by script). */
 			.site-header {
 				position: sticky;
 				top: 0;
 				z-index: 100;
-				background: color-mix(in srgb, var(--color-bg) 65%, transparent);
-				backdrop-filter: blur(12px);
-				-webkit-backdrop-filter: blur(12px);
-				border-bottom: 1px solid var(--color-border-subtle);
+				background: var(--color-surface);
+				box-shadow: 0 1px 0 var(--color-border-subtle);
+				transition:
+					background 0.3s ease,
+					box-shadow 0.3s ease;
+			}
+
+			.site-header.over-hero {
+				position: fixed;
+				left: 0;
+				right: 0;
+				box-shadow: none;
+			}
+
+			.site-header.over-hero.header-fixed {
+				background: var(--color-surface);
+				box-shadow: 0 1px 0 var(--color-border-subtle);
 			}
 
 			.nav {
@@ -502,8 +576,15 @@ const isLoggedIn = !!Astro.locals.user;
 
 			.nav-links {
 				display: flex;
-				gap: var(--spacing-5);
-				font-size: var(--font-size-sm);
+				gap: var(--spacing-8);
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				font-size: var(--font-size-base);
+			}
+
+			.nav-links .menu-item {
+				position: relative;
 			}
 
 			.nav-links a {
@@ -514,6 +595,90 @@ const isLoggedIn = !!Astro.locals.user;
 
 			.nav-links a:hover {
 				color: var(--color-brand);
+			}
+
+			.nav-links .menu-item > a {
+				display: inline-block;
+				line-height: var(--nav-height);
+			}
+
+			/* Dropdowns: Bravada's dark teal submenu panel. It slides DOWN
+			   into place from -25px (demo: #access ul ul) with a soft
+			   drop shadow; item labels get a translucent white wash on
+			   hover (.sub-menu li a:hover span). */
+			.nav-links .sub-menu {
+				position: absolute;
+				top: 100%;
+				left: -1em;
+				z-index: 200;
+				min-width: 200px;
+				margin: 0;
+				padding: 0.4em 0;
+				list-style: none;
+				background: var(--color-submenu-bg);
+				box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05);
+				opacity: 0;
+				visibility: hidden;
+				transform: translateY(-25px);
+				transition: 0.2s all ease-in;
+			}
+
+			.nav-links .menu-item:hover > .sub-menu,
+			.nav-links .menu-item:focus-within > .sub-menu {
+				opacity: 1;
+				visibility: visible;
+				transform: translateY(0);
+			}
+
+			.nav-links .sub-menu a {
+				display: block;
+				padding: 0;
+				color: #ffffff !important;
+				font-size: var(--font-size-sm);
+			}
+
+			.nav-links .sub-menu a span {
+				display: block;
+				padding: 0.35em 1.5em;
+				transition: 0.2s ease-out all;
+			}
+
+			.nav-links .sub-menu a:hover span,
+			.nav-links .sub-menu a:focus-visible span {
+				background: rgba(255, 255, 255, 0.1);
+			}
+
+			/* Search icon in the menu (Bravada menu-main-search) */
+			.menu-main-search .search-toggle {
+				display: flex;
+				align-items: center;
+				height: var(--nav-height);
+				padding: 0 0.2em;
+				border: none;
+				background: none;
+				color: var(--color-menu-link);
+				cursor: pointer;
+				transition: color 0.2s ease-out;
+			}
+
+			.menu-main-search .search-toggle:hover {
+				color: var(--color-brand);
+			}
+
+			.menu-main-search .search-toggle:focus-visible,
+			.search-cancel:focus-visible {
+				outline: 2px solid var(--color-teal);
+				outline-offset: 2px;
+			}
+
+			.menu-main-search .search-toggle:focus:not(:focus-visible) {
+				outline: none;
+			}
+
+			.site-header.over-hero:not(.header-fixed)
+				.menu-main-search
+				.search-toggle {
+				color: #ffffff;
 			}
 
 			.nav-admin {
@@ -527,36 +692,92 @@ const isLoggedIn = !!Astro.locals.user;
 				color: var(--color-text);
 			}
 
-			/* Search styling */
-			.site-search {
+			/* Fullscreen menu search (Bravada #access .menu-search-animated):
+			   dark layer, white pill input sliding up from +150px */
+			.menu-search-overlay {
+				position: fixed;
+				inset: 0;
+				z-index: 1000;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				padding: 1em;
+				background: rgba(0, 0, 0, 0.8);
+			}
+
+			.menu-search-overlay[hidden] {
+				display: none;
+			}
+
+			.search-cancel {
+				position: absolute;
+				top: 1em;
+				right: 3em;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 44px;
+				height: 44px;
+				border: none;
+				background: none;
+				color: rgba(255, 255, 255, 0.75);
+				cursor: pointer;
+				transition: color 0.2s ease-out;
+			}
+
+			.search-cancel:hover {
+				color: #ffffff;
+			}
+
+			.search-shell {
+				width: min(860px, 92vw);
+			}
+
+			.search-shell :global(.site-search) {
 				position: relative;
-				width: var(--search-input-width);
-				--emdash-search-border-focus: var(--color-brand);
+				display: block;
+				width: 100%;
+				--emdash-search-border-focus: transparent;
 			}
 
 			:global(.site-search-input) {
-				width: var(--search-input-width);
-				padding: var(--spacing-2) var(--spacing-3);
-				font-family: var(--font-body);
-				font-size: var(--font-size-sm);
-				border: 1px solid var(--color-border);
-				border-radius: var(--radius);
-				background: var(--color-bg);
-				color: var(--color-text);
-				transition:
-					border-color var(--transition-fast),
-					box-shadow var(--transition-fast);
+				width: 100% !important;
+				height: 3.5em !important;
+				padding: 0 1.5em !important;
+				border: 0 !important;
+				border-radius: 100px !important;
+				font-family: var(--font-body) !important;
+				font-size: 1.5em !important;
+				line-height: 2 !important;
+				font-weight: 400;
+				text-align: center;
+				background: #ffffff !important;
+				color: #555555 !important;
+				box-shadow: 0 0 15px 15px rgba(0, 0, 0, 0.25);
+				opacity: 0;
+				transform: translateY(150px);
+				transition: 0.25s ease-in-out all;
+			}
+
+			.menu-search-overlay.is-active :global(.site-search-input) {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			:global(.site-search-input)::-webkit-search-cancel-button {
+				-webkit-appearance: none;
+				appearance: none;
 			}
 
 			:global(.site-search-input)::placeholder {
-				color: var(--color-muted);
+				color: #a7a7a7;
 			}
 
 			:global(.site-search-input):focus,
 			:global(.site-search-input):focus-visible {
 				outline: none;
-				border-color: var(--color-brand) !important;
-				box-shadow: 0 0 0 3px var(--color-brand-ring);
+				border: 0 !important;
 			}
 
 			:global(.site-search-results) {
@@ -564,12 +785,12 @@ const isLoggedIn = !!Astro.locals.user;
 				top: 100%;
 				left: 0;
 				right: 0;
-				margin-top: var(--spacing-2);
-				background: var(--color-bg);
+				margin-top: var(--spacing-3);
+				background: var(--color-surface);
 				border: 1px solid var(--color-border);
 				border-radius: var(--radius-lg);
 				box-shadow: var(--shadow-lg);
-				max-height: 400px;
+				max-height: min(50vh, 400px);
 				overflow-y: auto;
 				z-index: 1000;
 			}
@@ -634,122 +855,139 @@ const isLoggedIn = !!Astro.locals.user;
 				min-height: calc(100vh - var(--nav-height) - 300px);
 			}
 
-			/* Footer */
-			.site-footer {
-				background: var(--color-bg-subtle);
-				border-top: 1px solid var(--color-border-subtle);
-			}
+			/* Footer — Bravada #colophon/#footer: dark band, widget columns */
+		.site-footer {
+			background: var(--color-footer-bg);
+			color: var(--color-footer-text);
+		}
 
-			.footer-inner {
-				max-width: var(--wide-width);
-				margin: 0 auto;
-				padding: var(--spacing-16) var(--spacing-6) var(--spacing-8);
-			}
+		.footer-inner {
+			max-width: var(--wide-width);
+			margin: 0 auto;
+			padding: var(--spacing-12) var(--spacing-8) var(--spacing-8);
+		}
 
-			.footer-grid {
-				display: grid;
-				grid-template-columns: 2fr 1fr 1fr 1fr;
-				gap: var(--spacing-12);
-				margin-bottom: var(--spacing-12);
-			}
+		/* Three widget columns (footer-three) */
+		.footer-widgets-section :global(.widget-area) {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: var(--spacing-12);
+			margin-bottom: var(--spacing-12);
+		}
 
-			.footer-brand {
-				max-width: 280px;
-			}
+		.footer-widgets-section :global(.widget) {
+			color: var(--color-footer-text);
+			font-size: var(--font-size-sm);
+			line-height: var(--leading-relaxed);
+		}
 
-			.footer-logo {
-				font-size: var(--font-size-lg);
-				font-weight: 600;
-				color: var(--color-text);
-				text-decoration: none;
-				letter-spacing: var(--tracking-snug);
-			}
+		/* Widget titles: Playfair on the gold highlighter strip */
+		.footer-widgets-section :global(.widget__title),
+		.footer-widgets-section :global(.widget-title) {
+			display: inline-block;
+			margin-bottom: var(--spacing-4);
+			font-family: var(--font-heading);
+			font-size: 1.2em;
+			font-weight: 700;
+			line-height: 1.6;
+			color: #ffffff;
+			background-image: linear-gradient(
+				to bottom,
+				var(--gold-strip) 0%,
+				var(--gold-strip) 100%
+			);
+			background-repeat: no-repeat;
+			background-size: 100% 0.6em;
+			background-position: 0 100%;
+		}
 
-			.footer-logo-img {
-				height: 24px;
-				width: auto;
-			}
+		.footer-widgets-section :global(.widget__content) {
+			color: var(--color-footer-text);
+		}
 
-			.footer-tagline {
-				margin-top: var(--spacing-3);
-				font-size: var(--font-size-sm);
-				color: var(--color-muted);
-				line-height: var(--leading-relaxed);
-			}
+		.footer-widgets-section :global(.widget a) {
+			color: var(--color-footer-text);
+		}
 
-			.footer-nav {
-				min-width: 0;
-			}
+		.footer-widgets-section :global(.widget a:hover) {
+			color: var(--color-gold);
+		}
 
-			.footer-heading {
-				font-size: var(--font-size-xs);
-				font-weight: 500;
-				text-transform: uppercase;
-				letter-spacing: var(--tracking-wider);
-				color: var(--color-muted);
-				margin-bottom: var(--spacing-4);
-			}
+		.footer-widgets-section :global(.widget img) {
+			max-width: 100%;
+			height: auto;
+		}
 
-			.footer-links {
-				list-style: none;
-			}
+		.footer-widgets-section :global(.widget ul) {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
 
-			.footer-links li {
-				margin-bottom: var(--spacing-2);
-			}
+		.footer-widgets-section :global(.widget li) {
+			padding: var(--spacing-1) 0;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+		}
 
-			.footer-links a {
-				color: var(--color-text-secondary);
-				text-decoration: none;
-				font-size: var(--font-size-sm);
-				transition: color var(--transition-fast);
-			}
+		.footer-bottom {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: var(--spacing-3);
+			padding-top: var(--spacing-6);
+			border-top: 1px solid rgba(255, 255, 255, 0.075);
+			text-align: center;
+		}
 
-			.footer-links a:hover {
-				color: var(--color-text);
-			}
+		.footer-socials {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: var(--spacing-5);
+		}
 
-			.footer-widgets-section :global(.widget-area) {
-				display: block;
-			}
+		.footer-socials a {
+			color: var(--color-footer-text);
+			text-decoration: none;
+			font-size: var(--font-size-sm);
+			transition: color 0.2s;
+		}
 
-			.footer-widgets-section :global(.widget) {
-				color: var(--color-text-secondary);
-			}
+		.footer-socials a:hover {
+			color: var(--color-gold);
+		}
 
-			.footer-widgets-section :global(.widget__title) {
-				font-size: var(--font-size-xs);
-				font-weight: 500;
-				text-transform: uppercase;
-				letter-spacing: var(--tracking-wider);
-				color: var(--color-muted);
-				margin-bottom: var(--spacing-4);
-			}
+		.footer-copyright {
+			font-size: var(--font-size-sm);
+			color: var(--color-footer-muted);
+		}
 
-			.footer-widgets-section :global(.widget__content) {
-				color: var(--color-text-secondary);
-				font-size: var(--font-size-sm);
-				line-height: var(--leading-relaxed);
-			}
+		.footer-copyright a {
+			color: var(--color-footer-text);
+		}
 
-			.footer-bottom {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding-top: var(--spacing-6);
-				border-top: 1px solid var(--color-border);
-			}
+		.footermenu {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: var(--spacing-2);
+			font-size: var(--font-size-sm);
+		}
 
-			.footer-copyright {
-				font-size: var(--font-size-sm);
-				color: var(--color-muted);
-			}
+		.footermenu a {
+			color: var(--color-footer-text);
+			text-decoration: none;
+		}
 
-			.footer-copyright a {
-				color: var(--color-text-secondary);
-			}
+		.footermenu a:hover {
+			color: var(--color-gold);
+		}
 
-			/* Theme switcher */
+		.footermenu .sep {
+			color: var(--color-footer-muted);
+		}
+
+		/* Theme switcher */
 			.theme-switcher {
 				display: flex;
 				gap: var(--spacing-1);
@@ -829,16 +1067,12 @@ const isLoggedIn = !!Astro.locals.user;
 					row-gap: var(--spacing-2);
 				}
 
-				.site-search {
-					grid-column: 1;
-					width: 100%;
-					max-width: none;
+				:global(.site-search-input) {
+					font-size: var(--font-size-lg) !important;
 				}
 
-				:global(.site-search-input) {
-					width: 100% !important;
-					padding: var(--spacing-1) var(--spacing-2) !important;
-					font-size: var(--font-size-sm) !important;
+				.search-cancel {
+					right: 1em;
 				}
 
 				.nav-links {
@@ -880,6 +1114,40 @@ const isLoggedIn = !!Astro.locals.user;
 			}
 		</style>
 
+		<button id="toTop" aria-label="Back to top">
+			<svg
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg
+			>
+		</button>
+
+		<script>
+			// Bravada fixed-menu scroll state: the over-hero header turns
+			// solid once the page scrolls past the top; the back-to-top
+			// button fades in after a screenful.
+			const header = document.querySelector(".site-header");
+			const toTop = document.getElementById("toTop");
+
+			function onScroll() {
+				const y = window.scrollY;
+				header?.classList.toggle("header-fixed", y > 30);
+				toTop?.classList.toggle("visible", y > window.innerHeight);
+			}
+
+			onScroll();
+			window.addEventListener("scroll", onScroll, { passive: true });
+
+			toTop?.addEventListener("click", () => {
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			});
+		</script>
+
 		<script>
 			// Bravada on-scroll reveals: elements start with .aos + a
 			// direction class (see theme.css); remove .aos when they enter
@@ -904,16 +1172,48 @@ const isLoggedIn = !!Astro.locals.user;
 		</script>
 
 		<script>
-			// ⌘K / Ctrl+K to focus search
+			// Bravada animated menu search: the nav icon opens a fullscreen
+			// dark layer; the pill input slides up once it's visible.
+			// Esc, ✕, or a click on the backdrop closes it. ⌘K/Ctrl+K opens
+			// it too.
+			const overlay = document.getElementById("menu-search-overlay");
+			const toggle = document.querySelector<HTMLButtonElement>(".search-toggle");
+			const cancel = overlay?.querySelector<HTMLButtonElement>(".search-cancel");
+			const input = overlay?.querySelector<HTMLInputElement>(".site-search-input");
+
+			function openSearch() {
+				if (!overlay) return;
+				overlay.hidden = false;
+				toggle?.setAttribute("aria-expanded", "true");
+				// Two frames so the unhide commits before the slide-up plays
+				requestAnimationFrame(() =>
+					requestAnimationFrame(() => {
+						overlay.classList.add("is-active");
+						input?.focus();
+					})
+				);
+			}
+
+			function closeSearch() {
+				if (!overlay || overlay.hidden) return;
+				overlay.classList.remove("is-active");
+				toggle?.setAttribute("aria-expanded", "false");
+				setTimeout(() => {
+					overlay.hidden = true;
+				}, 250);
+				toggle?.focus();
+			}
+
+			toggle?.addEventListener("click", openSearch);
+			cancel?.addEventListener("click", closeSearch);
+			overlay?.addEventListener("click", (e) => {
+				if (e.target === overlay) closeSearch();
+			});
 			document.addEventListener("keydown", (e) => {
+				if (e.key === "Escape") closeSearch();
 				if ((e.metaKey || e.ctrlKey) && e.key === "k") {
 					e.preventDefault();
-					const searchInput = document.querySelector(
-						".site-search-input"
-					) as HTMLInputElement;
-					if (searchInput) {
-						searchInput.focus();
-					}
+					overlay?.hidden ? openSearch() : input?.focus();
 				}
 			});
 		</script>

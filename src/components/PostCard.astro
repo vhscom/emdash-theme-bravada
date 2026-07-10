@@ -1,4 +1,10 @@
 ---
+/**
+ * Bravada article card (#lp-posts / .content-masonry .article-inner):
+ * a flat white card with a category strip above the featured image,
+ * Playfair title (gold on hover, like the demo), light author/date
+ * meta, excerpt, and a "Read more" link whose arrow slides in.
+ */
 import type { MediaValue, ContentBylineCredit } from "emdash";
 import { Image } from "emdash/ui";
 
@@ -9,6 +15,7 @@ interface Props {
 	href: string;
 	date?: Date;
 	readingTime?: number;
+	categories?: Array<{ slug: string; label: string }>;
 	tags?: Array<{ slug: string; label: string }>;
 	bylines?: ContentBylineCredit[];
 }
@@ -20,6 +27,7 @@ const {
 	href,
 	date,
 	readingTime,
+	categories,
 	tags,
 	bylines,
 } = Astro.props;
@@ -27,169 +35,154 @@ const {
 const formattedDate = date
 	? date.toLocaleDateString("en-US", {
 			year: "numeric",
-			month: "short",
+			month: "long",
 			day: "numeric",
 		})
 	: null;
+const author = bylines?.[0]?.byline.displayName;
 ---
 
 <article class="post-card">
-	<a href={href} class="card-link">
-		{
-			featuredImage ? (
-				<div class="card-image">
-					<Image image={featuredImage} />
-				</div>
-			) : (
-				<div class="card-placeholder" />
-			)
-		}
-		<div class="card-body">
-			<div class="card-meta">
-				{
-					bylines && bylines.length > 0 && (
-						<>
-							<div class="card-bylines">
-								{bylines.slice(0, 1).map((credit) => (
-									<span class="card-byline">
-										{credit.byline.avatarMediaId && (
-											<img
-												src={`/_emdash/api/media/file/${credit.byline.avatarMediaId}`}
-												alt={credit.byline.displayName}
-												class="card-byline-avatar"
-											/>
-										)}
-										<span class="card-byline-name">
-											{credit.byline.displayName}
-										</span>
-									</span>
-								))}
-								{bylines.length > 1 && (
-									<span
-										class="byline-more"
-										data-tooltip={bylines
-											.slice(1)
-											.map((c) => c.byline.displayName)
-											.join(", ")}
-										title={bylines
-											.slice(1)
-											.map((c) => c.byline.displayName)
-											.join(", ")}
-										tabindex="0"
-									>
-										+{bylines.length - 1}
-									</span>
-								)}
-							</div>
-							{(formattedDate || readingTime) && <span class="meta-dot" />}
-						</>
-					)
-				}
-				{formattedDate && <time>{formattedDate}</time>}
-				{formattedDate && readingTime && <span class="meta-dot" />}
-				{readingTime && <span>{readingTime} min</span>}
-			</div>
-			<h2 class="card-title">{title}</h2>
-			{excerpt && <p class="card-excerpt">{excerpt}</p>}
-		</div>
-	</a>
 	{
-		tags && tags.length > 0 && (
-			<div class="card-tags">
-				{tags.slice(0, 2).map((tag) => (
-					<a href={`/tag/${tag.slug}`} class="card-tag">
-						{tag.label}
-					</a>
+		categories && categories.length > 0 && (
+			<div class="card-categories">
+				{categories.map((cat, i) => (
+					<>
+						{i > 0 && <span class="sep">, </span>}
+						<a href={`/category/${cat.slug}`}>{cat.label}</a>
+					</>
 				))}
 			</div>
 		)
 	}
+	{
+		featuredImage && (
+			<a href={href} class="card-image" tabindex="-1" aria-hidden="true">
+				<Image image={featuredImage} />
+			</a>
+		)
+	}
+	<div class="card-body">
+		<h2 class="card-title-row">
+			<a href={href} class="card-title-link"
+				><span class="card-title">{title}</span></a
+			>
+		</h2>
+		<div class="card-meta">
+			{author && <span class="card-author">{author}</span>}
+			{author && formattedDate && <span class="sep">·</span>}
+			{formattedDate && <time>{formattedDate}</time>}
+			{readingTime && <span class="sep">·</span>}
+			{readingTime && <span>{readingTime} min</span>}
+		</div>
+		{excerpt && <p class="card-excerpt">{excerpt}</p>}
+		{
+			tags && tags.length > 0 && (
+				<div class="card-tags">
+					{tags.slice(0, 3).map((tag) => (
+						<a href={`/tag/${tag.slug}`} class="card-tag">
+							{tag.label}
+						</a>
+					))}
+				</div>
+			)
+		}
+		<footer class="card-continue">
+			<a href={href} class="continue-reading-link">
+				Read more<span class="continue-arrow">→</span>
+				<span class="sr-only">“{title}”</span>
+			</a>
+		</footer>
+	</div>
 </article>
 
 <style>
 	.post-card {
 		display: flex;
 		flex-direction: column;
+		background: var(--color-surface);
 	}
 
-	.card-link {
+	.card-categories {
+		padding: var(--spacing-3) var(--spacing-5);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+	}
+
+	.card-categories a {
+		color: var(--color-muted);
+		text-decoration: none;
+		transition: color 0.2s ease-out;
+	}
+
+	.card-categories a:hover {
+		color: var(--color-brand-hover);
+	}
+
+	.card-image {
 		display: block;
+		overflow: hidden;
+	}
+
+	.card-image :global(img) {
+		display: block;
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		transition: 0.4s ease-out transform;
+	}
+
+	.post-card:hover .card-image :global(img) {
+		transform: scale(1.05);
+	}
+
+	.card-body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: var(--spacing-5);
+	}
+
+	.card-title-row {
+		margin: 0 0 var(--spacing-2);
+	}
+
+	.card-title-link {
 		text-decoration: none;
 		color: inherit;
 	}
 
-	.card-image {
-		aspect-ratio: 16 / 10;
-		overflow: hidden;
-		border-radius: var(--radius-lg);
-		background: var(--color-surface);
-		margin-bottom: var(--spacing-4);
+	.card-title {
+		font-family: var(--font-heading);
+		font-size: 1.7rem;
+		line-height: 1.2;
+		font-weight: 700;
+		color: var(--color-heading);
+		transition: color 0.25s ease-out;
 	}
 
-	.card-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.3s ease;
-	}
-
-	.card-link:hover .card-image img {
-		transform: scale(1.03);
-	}
-
-	.card-placeholder {
-		aspect-ratio: 16 / 10;
-		border-radius: var(--radius-lg);
-		background: var(--color-surface);
-		margin-bottom: var(--spacing-4);
-	}
-
-	.card-body {
-		flex: 1;
+	.post-card:hover .card-title,
+	.card-title-link:hover .card-title {
+		color: var(--color-gold);
 	}
 
 	.card-meta {
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
-		column-gap: var(--spacing-3);
-		row-gap: 0;
+		column-gap: var(--spacing-2);
+		margin-bottom: var(--spacing-3);
 		font-size: var(--font-size-sm);
+		font-weight: 300;
 		color: var(--color-muted);
-		margin-bottom: var(--spacing-2);
-	}
-
-	.card-meta time,
-	.card-meta span:not(.meta-dot) {
-		white-space: nowrap;
-	}
-
-	.meta-dot {
-		width: 3px;
-		height: 3px;
-		border-radius: 50%;
-		background: var(--color-muted);
-	}
-
-	.card-title {
-		font-size: var(--font-size-xl);
-		font-weight: var(--font-weight-heading);
-		line-height: var(--leading-snug);
-		letter-spacing: var(--tracking-snug);
-		margin-bottom: var(--spacing-2);
-		transition: color var(--transition-fast);
-	}
-
-	.card-link:hover .card-title {
-		color: var(--color-brand);
 	}
 
 	.card-excerpt {
 		font-size: var(--font-size-base);
 		line-height: var(--leading-relaxed);
-		color: var(--color-text-secondary);
+		color: var(--color-text);
 		display: -webkit-box;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
@@ -202,78 +195,53 @@ const formattedDate = date
 	}
 
 	.card-tag {
-		display: inline-block;
-		padding: var(--tag-padding-y) var(--spacing-2);
 		font-size: var(--font-size-xs);
-		color: var(--color-text-secondary);
-		background: var(--color-surface);
-		border-radius: var(--radius);
+		font-style: italic;
+		color: var(--color-muted);
 		text-decoration: none;
-		transition:
-			color var(--transition-fast),
-			background var(--transition-fast);
 	}
 
 	.card-tag:hover {
-		color: var(--color-text);
-		background: var(--color-border);
+		color: var(--color-brand-hover);
 	}
 
-	/* Byline styles */
-	.card-bylines {
-		display: flex;
-		align-items: center;
-		gap: 2px;
-		white-space: nowrap;
+	/* Read more with Bravada's sliding arrow */
+	.card-continue {
+		margin-top: auto;
+		padding-top: var(--spacing-4);
 	}
 
-	.card-byline {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--spacing-1);
+	.continue-reading-link {
+		font-weight: 700;
+		font-size: 0.9em;
+		text-decoration: none;
+		color: var(--color-gold);
+		transition: 0.2s ease-out all;
 	}
 
-	.card-byline-avatar {
-		width: var(--avatar-size-xs);
-		height: var(--avatar-size-xs);
-		border-radius: 50%;
-		object-fit: cover;
+	.continue-arrow {
+		display: inline-block;
+		margin-left: -10px;
+		padding-left: 5px;
+		opacity: 0;
+		transition: all 0.2s ease-out;
 	}
 
-	.card-byline-name {
-		font-weight: 500;
-		color: var(--color-text-secondary);
+	.continue-reading-link:hover .continue-arrow,
+	.continue-reading-link:focus-visible .continue-arrow {
+		margin-left: 0;
+		opacity: 1;
 	}
 
-	.byline-more {
-		position: relative;
-		font-size: var(--font-size-xs);
-		color: var(--color-muted);
-		margin-left: 2px;
-		cursor: default;
-		border-radius: var(--radius);
-		outline-offset: 2px;
-	}
-
-	.byline-more:focus-visible {
-		outline: 2px solid var(--color-brand);
-	}
-
-	.byline-more[data-tooltip]:hover::after,
-	.byline-more[data-tooltip]:focus-visible::after {
-		content: attr(data-tooltip);
+	.sr-only {
 		position: absolute;
-		bottom: calc(100% + 6px);
-		left: 50%;
-		transform: translateX(-50%);
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
 		white-space: nowrap;
-		background: var(--color-text);
-		color: var(--color-bg);
-		font-size: var(--font-size-xs);
-		font-weight: 400;
-		padding: var(--spacing-1) var(--spacing-2);
-		border-radius: var(--radius);
-		pointer-events: none;
-		z-index: 10;
+		border: 0;
 	}
 </style>

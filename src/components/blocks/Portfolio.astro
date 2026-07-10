@@ -1,0 +1,311 @@
+---
+/**
+ * bravada.portfolio — Bravada's landing-page portfolio (.lp-portfolio):
+ * a filter bar over a grid of project cards. Each card is a square
+ * image hovering over a white caption plate (Playfair teal title, gold
+ * on hover, italic taxonomy line). Hovering lifts the image with a
+ * deep shadow and zooms it while the plate dips. Filtering is
+ * client-side, driven by each item's tags.
+ */
+import SectionHeader from "./SectionHeader.astro";
+
+interface PortItem {
+	image?: string;
+	imageAlt?: string;
+	title?: string;
+	tags?: string[];
+	url?: string;
+}
+
+interface PortfolioNode {
+	title?: string;
+	description?: string;
+	columns?: number;
+	items?: PortItem[];
+	/** Optional trailing outline button ("All portfolios") */
+	more?: { label: string; url: string };
+}
+
+// astro-portabletext hands custom type components the block as `node`
+const { node } = Astro.props as { node: PortfolioNode };
+const { title, description, columns = 4, items = [], more } = node;
+const cols = Math.min(Math.max(columns, 2), 4);
+const filters = [...new Set(items.flatMap((i) => i.tags ?? []))];
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+---
+
+<section class="lp-portfolio full-bleed">
+	<SectionHeader title={title} description={description} />
+	<div class="lp-portfolio-inside" style={`--lp-port-cols: ${cols}`}>
+		{
+			filters.length > 0 && (
+				<div class="lp-port-filter">
+					<a href="#" class="active" data-filter="*">
+						All
+					</a>
+					{filters.map((f) => (
+						<a href="#" data-filter={slug(f)}>
+							{f}
+						</a>
+					))}
+				</div>
+			)
+		}
+		<div class="lp-port-grid">
+			{
+				items.map((item) => (
+					<div
+						class="lp-port"
+						data-types={(item.tags ?? []).map(slug).join(" ")}
+					>
+						<a href={item.url ?? "#"} aria-label={item.title}>
+							<div class="lp-port-image">
+								{item.image && (
+									<img
+										src={item.image}
+										alt={item.imageAlt ?? ""}
+										loading="lazy"
+									/>
+								)}
+							</div>
+							<div class="lp-port-content">
+								{item.tags && item.tags.length > 0 && (
+									<ul class="lp-port-tax">
+										{item.tags.map((t) => (
+											<li>{t}</li>
+										))}
+									</ul>
+								)}
+								{item.title && <h4 class="lp-port-title">{item.title}</h4>}
+							</div>
+						</a>
+					</div>
+				))
+			}
+		</div>
+		{
+			more?.url && (
+				<a class="lp-port-readmore" href={more.url}>
+					{more.label}
+				</a>
+			)
+		}
+	</div>
+</section>
+
+<script>
+	for (const bar of document.querySelectorAll<HTMLElement>(".lp-port-filter")) {
+		const grid = bar.parentElement?.querySelector(".lp-port-grid");
+		if (!grid) continue;
+		bar.addEventListener("click", (e) => {
+			const link = (e.target as HTMLElement).closest("a[data-filter]");
+			if (!link) return;
+			e.preventDefault();
+			const filter = link.getAttribute("data-filter") ?? "*";
+			bar.querySelectorAll("a").forEach((a) =>
+				a.classList.toggle("active", a === link)
+			);
+			grid.querySelectorAll<HTMLElement>(".lp-port").forEach((card) => {
+				const types = (card.dataset.types ?? "").split(" ");
+				card.style.display =
+					filter === "*" || types.includes(filter) ? "" : "none";
+			});
+		});
+	}
+</script>
+
+<style>
+	.lp-portfolio {
+		overflow: hidden;
+		background-color: var(--tint-warm);
+	}
+
+	.lp-portfolio-inside {
+		max-width: var(--wide-width);
+		margin: 0 auto;
+		padding: 3em 2.5em;
+	}
+
+	/* Filter bar: white plate with uppercase links */
+	.lp-port-filter {
+		display: table;
+		margin: 0 auto 2em;
+		padding: 0.8em 1.6em;
+		background: var(--color-surface);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+		text-align: center;
+	}
+
+	.lp-port-filter a {
+		margin: 0 0.9em;
+		font-size: 0.85em;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--color-heading);
+		transition: 0.2s ease-out color;
+	}
+
+	.lp-port-filter a.active,
+	.lp-port-filter a:hover {
+		color: var(--color-teal);
+	}
+
+	.lp-port-grid {
+		display: grid;
+		grid-template-columns: repeat(var(--lp-port-cols, 4), 1fr);
+	}
+
+	.lp-port {
+		position: relative;
+		z-index: 0;
+		padding: 0 10px 30px;
+	}
+
+	.lp-port:hover {
+		z-index: 99;
+	}
+
+	.lp-port > a {
+		display: block;
+		text-decoration: none;
+	}
+
+	.lp-port-image {
+		position: relative;
+		z-index: 1;
+		top: 20px;
+		overflow: hidden;
+		display: block;
+		margin: 0 auto;
+		transition: 0.3s ease all;
+	}
+
+	.lp-port-image img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		transform: scale(1);
+		transition: 0.3s ease all;
+	}
+
+	.lp-port:hover .lp-port-image {
+		top: -5px;
+		box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.2);
+	}
+
+	.lp-port:hover .lp-port-image img {
+		transform: scale(1.35);
+	}
+
+	.lp-port-content {
+		position: relative;
+		top: 0;
+		z-index: 2;
+		display: flex;
+		flex-flow: column;
+		padding: 2em 1em 1.5em;
+		text-align: center;
+		background: var(--color-surface);
+		box-shadow:
+			0 -10px 20px -5px rgba(0, 0, 0, 0.2),
+			0 10px 20px rgba(0, 0, 0, 0.05);
+		transition: 0.3s ease all;
+	}
+
+	.lp-port:hover .lp-port-content {
+		top: 10px;
+	}
+
+	.lp-port-title {
+		order: 10;
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 1.3em;
+		font-weight: 400;
+		line-height: 1.2;
+		color: var(--color-teal);
+		transition: 0.2s ease-out all;
+	}
+
+	.lp-port:hover .lp-port-title {
+		color: var(--color-gold);
+	}
+
+	.lp-port-tax {
+		order: 5;
+		display: inline-block;
+		margin: 0 0 0.4em;
+		padding: 0;
+		list-style: none;
+		font-size: 1em;
+		line-height: 1.1;
+	}
+
+	.lp-port-tax li {
+		display: inline;
+		font-style: italic;
+		opacity: 0.5;
+		color: var(--color-text);
+	}
+
+	.lp-port-tax li:not(:last-child)::after {
+		content: "·";
+		padding: 0 5px;
+		font-weight: 700;
+	}
+
+	/* "All portfolios" — teal double-outline button */
+	.lp-port-readmore {
+		position: relative;
+		display: table;
+		min-width: 150px;
+		margin: 2em auto 1em;
+		outline: 2px solid;
+		padding: 0.2em 3em;
+		font-size: 0.9em;
+		font-weight: 700;
+		text-align: center;
+		text-decoration: none;
+		line-height: 3;
+		color: var(--color-teal);
+		transition: all 0.35s ease-out;
+	}
+
+	.lp-port-readmore::after {
+		content: "";
+		position: absolute;
+		z-index: 3;
+		inset: 0;
+		outline: 2px solid;
+		opacity: 1;
+		transition: 0.3s ease-out all;
+	}
+
+	.lp-port-readmore:hover {
+		opacity: 0.8;
+	}
+
+	.lp-port-readmore:hover::after {
+		transform: scale(1.25, 1.4);
+		opacity: 0;
+	}
+
+	@media (max-width: 900px) {
+		.lp-port-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.lp-port-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.lp-port {
+			padding: 0 0 30px;
+		}
+	}
+</style>

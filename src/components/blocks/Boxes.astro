@@ -1,9 +1,17 @@
 ---
+import { tintStyle } from "../../utils/tint";
 /**
- * bravada.boxes — Bravada's landing-page featured boxes (.lp-boxes,
- * animated variant): a full-bleed grid of image tiles whose text sits
- * over a slow 2s image zoom under a teal overlay ramp — the same hover
- * language as the theme's post cards.
+ * bravada.boxes — Bravada's landing-page featured boxes (.lp-boxes),
+ * in the demo's three flavours:
+ *   "static":   white cards with a rotated gold tape strip on top,
+ *               image zoom + card lift on hover (lp-boxes-static)
+ *   "animated": text pinned over the image, teal overlay ramps up and
+ *               the image slow-zooms 2s while the excerpt unfolds
+ *               (lp-boxes-animated)
+ *   "overlay":  white overlay washes in and centered text drops in,
+ *               staggered (lp-boxes-animated2)
+ * All sit on a tinted full-bleed band with an accent backdrop strip
+ * (gold or teal, alternating in the demo) behind the grid.
  */
 import SectionHeader from "./SectionHeader.astro";
 
@@ -18,135 +26,400 @@ interface BoxItem {
 interface BoxesNode {
 	title?: string;
 	description?: string;
-	/** Grid columns on desktop (2–4). Default 3. */
+	variant?: "static" | "animated" | "overlay";
+	/** Grid columns on desktop (2–4). Default 4 (static) / 3 (animated). */
 	columns?: number;
+	/** Backdrop strip color behind the grid */
+	accent?: "gold" | "teal";
+	/** Band background tint */
+	tint?: string;
 	items?: BoxItem[];
 }
 
 // astro-portabletext hands custom type components the block as `node`
 const { node } = Astro.props as { node: BoxesNode };
-const { title, description, columns = 3, items = [] } = node;
-const cols = Math.min(Math.max(columns, 2), 4);
+const {
+	title,
+	description,
+	variant = "animated",
+	accent = variant === "animated" ? "teal" : "gold",
+	tint,
+	items = [],
+} = node;
+const cols = Math.min(Math.max(node.columns ?? (variant === "animated" ? 3 : 4), 2), 4);
+const readMore = (t?: string) => `Read More “${t ?? ""}”`;
 ---
 
-<section class="lp-boxes full-bleed">
-	<div class="lp-boxes-inside">
-		<SectionHeader title={title} description={description} />
-		<div class="lp-boxes-grid" style={`--lp-box-cols: ${cols}`}>
-			{
-				items.map((box) => {
-					const Tag = box.url ? "a" : "div";
-					return (
-						<Tag class="lp-box aos aos-fade" href={box.url}>
-							{box.image && <img class="lp-box-image" src={box.image} alt={box.imageAlt ?? ""} loading="lazy" />}
+<section
+	class:list={["lp-boxes", "full-bleed", `lp-boxes-${variant}`]}
+	style={tintStyle(tint)}
+>
+	<SectionHeader title={title} description={description} />
+	<div
+		class:list={["lp-boxes-inside", `accent-${accent}`]}
+		style={`--lp-box-cols: ${cols}`}
+	>
+		{
+			items.map((box) => (
+				<div class="lp-box aos aos-fade">
+					<div class="lp-box-inside">
+						<div class="lp-box-image">
+							{box.url && (
+								<a
+									class="lp-box-imagelink"
+									href={box.url}
+									aria-label={box.title}
+								/>
+							)}
+							{box.image && (
+								<img src={box.image} alt={box.imageAlt ?? ""} loading="lazy" />
+							)}
+							<span class="box-overlay" />
+						</div>
+						<div class="lp-box-content">
 							<div class="lp-box-text">
-								{box.title && <h3 class="lp-box-title">{box.title}</h3>}
-								{box.text && <p class="lp-box-desc">{box.text}</p>}
+								{box.title && (
+									<h4 class="lp-box-title">
+										{box.url ? (
+											<a href={box.url}>{box.title}</a>
+										) : (
+											box.title
+										)}
+									</h4>
+								)}
+								{box.text && (
+									<div class="lp-box-text-inside">
+										<span>{box.text}</span>
+									</div>
+								)}
+								{box.url && (
+									<a class="lp-box-readmore" href={box.url}>
+										<span>{readMore(box.title)}</span>
+									</a>
+								)}
 							</div>
-						</Tag>
-					);
-				})
-			}
-		</div>
+						</div>
+					</div>
+				</div>
+			))
+		}
 	</div>
 </section>
 
 <style>
 	.lp-boxes {
-		margin: var(--spacing-16) 0;
-		padding: var(--spacing-16) var(--spacing-6);
-		background: var(--color-bg-subtle);
+		overflow: hidden;
+		background-color: var(--tint-boxes);
 	}
 
+	/* Accent backdrop strip behind the grid */
 	.lp-boxes-inside {
-		max-width: var(--wide-width);
-		margin: 0 auto;
-	}
-
-	.lp-boxes-grid {
+		position: relative;
 		display: grid;
 		grid-template-columns: repeat(var(--lp-box-cols, 3), 1fr);
-		gap: var(--spacing-6);
+		gap: 2%;
+		max-width: var(--wide-width);
+		margin: 3em auto;
+		padding: 3em 2.5em;
+	}
+
+	.lp-boxes-inside::before {
+		content: "";
+		position: absolute;
+		left: 2.5em;
+		top: 0;
+		width: calc(100% - 5em);
+		height: 100%;
+		opacity: 0.5;
+	}
+
+	.lp-boxes-inside.accent-gold::before {
+		background-color: var(--color-gold);
+	}
+
+	.lp-boxes-inside.accent-teal::before {
+		background-color: var(--color-teal-solid);
 	}
 
 	.lp-box {
 		position: relative;
-		display: block;
-		aspect-ratio: 4 / 3;
-		overflow: hidden;
-		border-radius: var(--radius-lg);
-		background: linear-gradient(160deg, #123c3d, #0c7476);
-		text-decoration: none;
+		background-color: var(--color-surface);
+	}
+
+	.lp-box-inside {
+		position: relative;
+		top: 0;
+		transition: 0.25s ease-out all;
 	}
 
 	.lp-box-image {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: 2s ease-out transform;
+		position: relative;
+		overflow: hidden;
 	}
 
-	.lp-box::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(to top, rgb(10 25 24 / 0.85), rgb(10 25 24 / 0.1) 60%);
-		transition: 0.5s ease-out background-color;
-	}
-
-	.lp-box:hover .lp-box-image,
-	.lp-box:focus-visible .lp-box-image {
-		transform: scale(1.5);
-	}
-
-	.lp-box:hover::after,
-	.lp-box:focus-visible::after {
-		background-color: color-mix(in srgb, var(--color-brand) 45%, transparent);
-	}
-
-	.lp-box-text {
-		position: absolute;
-		inset-inline: 0;
-		bottom: 0;
+	.lp-box-image img {
+		position: relative;
 		z-index: 1;
-		padding: var(--spacing-5);
+		display: block;
+		width: 100%;
+		height: 250px;
+		object-fit: cover;
+	}
+
+	.lp-box-imagelink {
+		position: absolute;
+		z-index: 12;
+		inset: 0;
 	}
 
 	.lp-box-title {
 		margin: 0;
-		font-size: var(--font-size-xl);
+		font-family: var(--font-heading);
+		font-size: 1.3em;
+		line-height: 1.5;
+		font-weight: 400;
+		color: var(--color-heading);
+		transition: 0.2s ease-out all;
+	}
+
+	.lp-box-title a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.lp-box-title:hover {
+		color: var(--color-gold);
+	}
+
+	.lp-box-text-inside {
+		margin: 1em 0;
+		line-height: 1.7;
+	}
+
+	.lp-box-readmore {
+		position: relative;
+		display: block;
+		margin: 1.1em 0 0.55em;
+		font-weight: 700;
+		font-size: 0.9em;
+		text-decoration: none;
+		color: var(--color-gold);
+		transition: 0.2s ease-out all;
+	}
+
+	/* ---------- static (lp-boxes-static): tape strip + lift ---------- */
+	.lp-boxes-static .lp-box {
+		text-align: center;
+	}
+
+	.lp-boxes-static .lp-box:hover .lp-box-inside,
+	.lp-boxes-static .lp-box:focus-within .lp-box-inside {
+		top: -10px;
+	}
+
+	.lp-boxes-static .box-overlay {
+		position: absolute;
+		z-index: 21;
+		left: 0;
+		right: 0;
+		top: -7px;
+		width: 33%;
+		height: 14px;
+		margin: 0 auto;
+		background-color: var(--color-gold);
+		opacity: 0.6;
+		pointer-events: none;
+		transform: rotate(4deg);
+		transition: 0.5s all ease-out;
+	}
+
+	.lp-boxes-static .lp-box:nth-child(odd) .box-overlay {
+		transform: rotate(-3deg);
+	}
+
+	.lp-boxes-static .lp-box:hover .box-overlay {
+		opacity: 1;
+	}
+
+	.lp-boxes-static .lp-box-image img {
+		transform: scale(1);
+		transition: 0.25s all ease-out;
+	}
+
+	.lp-boxes-static .lp-box:hover .lp-box-image img {
+		transform: scale(1.1);
+	}
+
+	.lp-boxes-static .lp-box-text {
+		padding: 2em;
+	}
+
+	/* ------- animated (lp-boxes-animated): teal overlay + zoom ------- */
+	.lp-boxes-animated .lp-box,
+	.lp-boxes-overlay .lp-box {
+		overflow: hidden;
+	}
+
+	.lp-boxes-animated .lp-box-image img,
+	.lp-boxes-overlay .lp-box-image img {
+		height: 300px;
+		transition: 2s ease-out all;
+	}
+
+	.lp-boxes-animated .lp-box:hover .lp-box-image img,
+	.lp-boxes-animated .lp-box:focus-within .lp-box-image img,
+	.lp-boxes-overlay .lp-box:hover .lp-box-image img,
+	.lp-boxes-overlay .lp-box:focus-within .lp-box-image img {
+		transform: scale(1.5);
+	}
+
+	.lp-boxes-animated .box-overlay,
+	.lp-boxes-overlay .box-overlay {
+		position: absolute;
+		z-index: 10;
+		inset: 0;
+		opacity: 0.1;
+		transition: 0.5s ease-out all;
+		pointer-events: none;
+	}
+
+	.lp-boxes-animated .box-overlay {
+		background-color: var(--color-teal-solid);
+	}
+
+	.lp-boxes-animated .lp-box:hover .box-overlay,
+	.lp-boxes-animated .lp-box:focus-within .box-overlay,
+	.lp-boxes-overlay .lp-box:hover .box-overlay,
+	.lp-boxes-overlay .lp-box:focus-within .box-overlay {
+		opacity: 0.95;
+	}
+
+	.lp-boxes-animated .lp-box-content {
+		position: absolute;
+		z-index: 30;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+	}
+
+	.lp-boxes-animated .lp-box-text {
+		padding: 1em 2em;
 		color: #ffffff;
 	}
 
-	.lp-box-desc {
-		margin: var(--spacing-2) 0 0;
-		font-size: var(--font-size-sm);
-		color: rgb(255 255 255 / 0.85);
-		line-height: var(--leading-snug);
+	.lp-boxes-animated .lp-box-title {
+		display: inline;
+		font-weight: 700;
+		line-height: 1.1;
+		color: #ffffff;
+		background-image: linear-gradient(
+			to bottom,
+			var(--gold-strip) 0%,
+			var(--gold-strip) 100%
+		);
+		background-repeat: no-repeat;
+		background-size: 100% 0.5em;
+		background-position: 0 100%;
+	}
+
+	.lp-boxes-animated .lp-box-text-inside {
+		max-height: 0;
+		overflow: hidden;
+		transition: 2s ease-out all;
+	}
+
+	.lp-boxes-animated .lp-box:hover .lp-box-text-inside,
+	.lp-boxes-animated .lp-box:focus-within .lp-box-text-inside {
+		max-height: 400px;
+	}
+
+	.lp-boxes-animated .lp-box-readmore > span {
+		opacity: 0.7;
+	}
+
+	.lp-boxes-animated .lp-box-readmore:hover > span {
+		opacity: 1;
+	}
+
+	/* ------ overlay (lp-boxes-animated2): white wash, centered ------ */
+	.lp-boxes-overlay .box-overlay {
+		background-color: #ffffff;
+	}
+
+	.lp-boxes-overlay .lp-box-content {
+		position: absolute;
+		z-index: 30;
+		inset: 0;
+	}
+
+	.lp-boxes-overlay .lp-box-text {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		padding: 1em 2em;
+		text-align: center;
+		transform: translateY(-50%);
+	}
+
+	.lp-boxes-overlay .lp-box-title,
+	.lp-boxes-overlay .lp-box-text-inside > span,
+	.lp-boxes-overlay .lp-box-readmore {
+		opacity: 0;
+		transform: translateY(-40px);
+		transition: 0.3s all ease-out;
+	}
+
+	.lp-boxes-overlay .lp-box-title {
+		transition-delay: 0.05s;
+	}
+
+	.lp-boxes-overlay .lp-box-text-inside > span {
+		display: block;
+		transition-delay: 0.1s;
+	}
+
+	.lp-boxes-overlay .lp-box-readmore {
+		transition-delay: 0.15s;
+	}
+
+	.lp-boxes-overlay .lp-box:hover .lp-box-title,
+	.lp-boxes-overlay .lp-box:hover .lp-box-text-inside > span,
+	.lp-boxes-overlay .lp-box:hover .lp-box-readmore,
+	.lp-boxes-overlay .lp-box:focus-within .lp-box-title,
+	.lp-boxes-overlay .lp-box:focus-within .lp-box-text-inside > span,
+	.lp-boxes-overlay .lp-box:focus-within .lp-box-readmore {
+		opacity: 1;
+		transform: translateY(0);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.lp-box-image,
-		.lp-box::after {
-			transition: none;
+		.lp-box-image img,
+		.box-overlay,
+		.lp-box-inside,
+		.lp-box-text-inside {
+			transition: none !important;
 		}
 
-		.lp-box:hover .lp-box-image {
-			transform: none;
+		.lp-box:hover .lp-box-image img {
+			transform: none !important;
 		}
 	}
 
 	@media (max-width: 900px) {
-		.lp-boxes-grid {
+		.lp-boxes-inside {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 
 	@media (max-width: 600px) {
-		.lp-boxes-grid {
+		.lp-boxes-inside {
 			grid-template-columns: 1fr;
+			padding: 2em 1em;
+		}
+
+		.lp-boxes-inside::before {
+			left: 1em;
+			width: calc(100% - 2em);
 		}
 	}
 </style>

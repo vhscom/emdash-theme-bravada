@@ -1,0 +1,139 @@
+---
+/**
+ * bravada.testimonials — Bravada's landing-page testimonials (.lp-tt):
+ * gold speech cards with white justified copy, an 80px round portrait
+ * on a white ring pulled up over the card's bottom edge, and a teal
+ * Playfair caption. Cards lift with a soft shadow on hover.
+ */
+import SectionHeader from "./SectionHeader.astro";
+
+interface TtItem {
+	text?: string;
+	image?: string;
+	imageAlt?: string;
+	title?: string;
+}
+
+interface TtNode {
+	title?: string;
+	description?: string;
+	items?: TtItem[];
+}
+
+// astro-portabletext hands custom type components the block as `node`
+const { node } = Astro.props as { node: TtNode };
+const { title, description, items = [] } = node;
+---
+
+<section class="lp-testimonials full-bleed">
+	<SectionHeader title={title} description={description} />
+	<div class="lp-testimonials-inside">
+		{
+			items.map((item) => (
+				<div class="lp-tt aos aos-up">
+					<div class="lp-tt-content">
+						<div class="lp-tt-text">
+							<div class="lp-tt-text-inside">{item.text}</div>
+						</div>
+						<div class="lp-tt-meta">
+							{item.image && (
+								<div class="lp-tt-image">
+									<img
+										src={item.image}
+										alt={item.imageAlt ?? item.title ?? ""}
+										loading="lazy"
+									/>
+								</div>
+							)}
+							{item.title && <h3 class="lp-tt-title">{item.title}</h3>}
+						</div>
+					</div>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.lp-testimonials {
+		overflow: hidden;
+		background-color: var(--tint-warm);
+	}
+
+	.lp-testimonials-inside {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 4%;
+		max-width: var(--wide-width);
+		margin: 0 auto;
+		padding: 3em 2.5em;
+	}
+
+	.lp-tt-text-inside {
+		position: relative;
+		top: 0;
+		padding: 4em;
+		text-align: justify;
+		line-height: 1.6;
+		/* Demo: white on gold. In dark mode use Bravada's heading ink on
+		   the same gold card so the copy keeps AA contrast. */
+		color: light-dark(#ffffff, #162521);
+		background-color: var(--color-gold);
+		transition: 0.2s ease-out all;
+	}
+
+	.lp-tt:hover .lp-tt-text-inside {
+		top: -10px;
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	.lp-tt-meta {
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+		padding: 0 1em 1em;
+	}
+
+	.lp-tt-image {
+		position: relative;
+		top: 0;
+		margin: -45px auto 10px;
+		transition: 0.2s ease-out all;
+	}
+
+	.lp-tt:hover .lp-tt-image {
+		top: -5px;
+	}
+
+	.lp-tt-image img {
+		position: relative;
+		z-index: 3;
+		display: block;
+		width: 80px;
+		height: 80px;
+		object-fit: cover;
+		border-radius: 100px;
+		padding: 5px;
+		background-color: #ffffff;
+		transition: 0.2s ease-out all;
+	}
+
+	.lp-tt:hover .lp-tt-image img {
+		padding: 0;
+	}
+
+	.lp-tt-title {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 1.1em;
+		font-weight: 400;
+		color: var(--color-teal);
+	}
+
+	@media (max-width: 900px) {
+		.lp-testimonials-inside {
+			grid-template-columns: 1fr;
+			row-gap: 2em;
+		}
+	}
+</style>

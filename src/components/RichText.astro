@@ -3,7 +3,8 @@
  * PortableText with the theme's custom Bravada block types registered.
  * Use this instead of importing PortableText directly on any surface
  * that renders editor content, so sections carrying bravada.* blocks
- * (hero banners, icon blocks, boxes, text bands) render everywhere.
+ * (hero sliders, icon blocks, boxes, text bands, portfolio grids,
+ * testimonials) render everywhere.
  */
 import { PortableText } from "emdash/ui";
 import type { ComponentProps } from "astro/types";
@@ -11,6 +12,8 @@ import Hero from "./blocks/Hero.astro";
 import FeatureBlocks from "./blocks/FeatureBlocks.astro";
 import Boxes from "./blocks/Boxes.astro";
 import TextBand from "./blocks/TextBand.astro";
+import Portfolio from "./blocks/Portfolio.astro";
+import Testimonials from "./blocks/Testimonials.astro";
 
 type Props = ComponentProps<typeof PortableText>;
 
@@ -21,6 +24,8 @@ const bravadaTypes = {
 	"bravada.blocks": FeatureBlocks,
 	"bravada.boxes": Boxes,
 	"bravada.text": TextBand,
+	"bravada.portfolio": Portfolio,
+	"bravada.testimonials": Testimonials,
 };
 ---
 

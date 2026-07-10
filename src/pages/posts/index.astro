@@ -39,8 +39,7 @@ const formatDate = (date: Date) =>
 		<header class="page-header">
 			<h1 class="page-title">All Posts</h1>
 			<p class="page-description">
-				{posts.length}
-				{posts.length === 1 ? "article" : "articles"}
+				{`${posts.length} ${posts.length === 1 ? "article" : "articles"}`}
 			</p>
 		</header>
 
