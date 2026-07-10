@@ -176,6 +176,10 @@ body {
 .nav-links > .menu-item > a > span {
 	position: relative;
 	display: inline-block;
+	/* Demo: the label span has its own 2.5em line box, so the wash
+	   pill is a slim strip — not the full 75px header height */
+	line-height: 2.5em;
+	vertical-align: middle;
 }
 
 .nav-links > .menu-item > a > span::before {
