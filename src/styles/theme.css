@@ -135,7 +135,9 @@ body {
 	padding: 0 6px;
 	font-family: var(--font-heading);
 	font-weight: 700;
-	font-size: 1.3em;
+	/* Demo: 1.3em against the 16px root — rem so the nav's smaller
+	   inherited size doesn't shrink the wordmark */
+	font-size: 1.3rem;
 	line-height: 1.55;
 	letter-spacing: 0.05em;
 	color: var(--color-gold) !important;

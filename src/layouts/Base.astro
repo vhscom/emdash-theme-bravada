@@ -637,7 +637,8 @@ const isLoggedIn = !!Astro.locals.user;
 			}
 
 			.site-title {
-				font-size: var(--font-size-lg);
+				/* Demo #site-title: 1.3em of the 16px root */
+				font-size: 1.3rem;
 				font-weight: 600;
 				color: var(--color-text);
 				text-decoration: none;
@@ -1459,7 +1460,7 @@ const isLoggedIn = !!Astro.locals.user;
 
 			@media (max-width: 640px) {
 				.site-title {
-					font-size: var(--font-size-base);
+					font-size: 1.15rem;
 				}
 
 				:global(.site-search-input) {
