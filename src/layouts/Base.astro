@@ -1267,12 +1267,19 @@ const isLoggedIn = !!Astro.locals.user;
 			padding: var(--spacing-12) var(--spacing-8) var(--spacing-8);
 		}
 
-		/* Three widget columns (footer-three) */
+		/* Three widget columns (footer-three); stacked on small screens */
 		.footer-widgets-section :global(.widget-area) {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
 			gap: var(--spacing-12);
 			margin-bottom: var(--spacing-12);
+		}
+
+		@media (max-width: 800px) {
+			.footer-widgets-section :global(.widget-area) {
+				grid-template-columns: 1fr;
+				gap: var(--spacing-8);
+			}
 		}
 
 		.footer-widgets-section :global(.widget) {
