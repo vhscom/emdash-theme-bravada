@@ -342,7 +342,8 @@
 					"title": "Recent Posts",
 					"settings": {
 						"count": 4,
-						"showDate": false
+						"showDate": false,
+						"showThumbnails": true
 					}
 				},
 				{

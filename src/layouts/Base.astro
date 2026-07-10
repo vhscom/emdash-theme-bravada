@@ -1291,7 +1291,8 @@ const isLoggedIn = !!Astro.locals.user;
 			line-height: var(--leading-relaxed);
 		}
 
-		/* Widget titles: Playfair on the gold highlighter strip */
+		/* Widget titles: Playfair on the gold highlighter strip (demo:
+		   footer text gray, not pure white) */
 		.footer-widgets-section :global(.widget__title),
 		.footer-widgets-section :global(.widget-title) {
 			display: inline-block;
@@ -1300,7 +1301,7 @@ const isLoggedIn = !!Astro.locals.user;
 			font-size: 1.2em;
 			font-weight: 700;
 			line-height: 1.6;
-			color: #ffffff;
+			color: var(--color-footer-text);
 			background-image: linear-gradient(
 				to bottom,
 				var(--gold-strip) 0%,
@@ -1339,6 +1340,64 @@ const isLoggedIn = !!Astro.locals.user;
 		.footer-widgets-section :global(.widget li) {
 			padding: var(--spacing-1) 0;
 			border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+		}
+
+		/* Recent-posts thumbnails get a slimmer version of the frame */
+		.footer-widgets-section :global(.widget li img) {
+			border-width: 4px;
+		}
+
+		/* Contact Info (third column): the demo prefixes each line with a
+		   gold outline glyph and separates lines with faint rules. The
+		   icons map to the seeded line order: address, phone, mobile,
+		   e-mail, opening hours. */
+		.footer-widgets-section :global(.widget:nth-child(3) .widget__content p) {
+			position: relative;
+			margin: 0;
+			padding: 0.45em 0 0.45em 2em;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+		}
+
+		.footer-widgets-section
+			:global(.widget:nth-child(3) .widget__content p:last-child) {
+			border-bottom: none;
+		}
+
+		.footer-widgets-section
+			:global(.widget:nth-child(3) .widget__content p)::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0.75em;
+			width: 16px;
+			height: 16px;
+			background-repeat: no-repeat;
+			background-size: 16px 16px;
+		}
+
+		.footer-widgets-section
+			:global(.widget:nth-child(3) .widget__content p:nth-of-type(1))::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b44c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E");
+		}
+
+		.footer-widgets-section
+			:global(.widget:nth-child(3) .widget__content p:nth-of-type(2))::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b44c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E");
+		}
+
+		.footer-widgets-section
+			:global(.widget:nth-child(3) .widget__content p:nth-of-type(3))::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b44c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='2' width='14' height='20' rx='2' ry='2'/%3E%3Cline x1='12' y1='18' x2='12.01' y2='18'/%3E%3C/svg%3E");
+		}
+
+		.footer-widgets-section
+			:global(.widget:nth-child(3) .widget__content p:nth-of-type(4))::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b44c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='4' width='20' height='16' rx='2'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E");
+		}
+
+		.footer-widgets-section
+			:global(.widget:nth-child(3) .widget__content p:nth-of-type(5))::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b44c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
 		}
 
 		.footer-bottom {
