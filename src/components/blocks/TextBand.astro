@@ -1,0 +1,82 @@
+---
+/**
+ * bravada.text — Bravada's landing-page text areas (.lp-text): a ghost
+ * section header over centered copy, optionally on a full-bleed teal
+ * band ("band" style, Bravada's lp-text-background) with a gold CTA.
+ */
+import SectionHeader from "./SectionHeader.astro";
+
+interface TextNode {
+	title?: string;
+	description?: string;
+	text?: string;
+	button?: { label: string; url: string };
+	/** "plain" (default) or "band" — full-bleed teal background */
+	style?: "plain" | "band";
+}
+
+// astro-portabletext hands custom type components the block as `node`
+const { node } = Astro.props as { node: TextNode };
+const { title, description, text, button, style = "plain" } = node;
+---
+
+<section class:list={["lp-text", { "lp-text-band": style === "band", "full-bleed": style === "band" }]}>
+	<div class="lp-text-inside aos aos-up">
+		<SectionHeader title={title} description={description} />
+		{text && <p class="lp-text-content">{text}</p>}
+		{
+			button?.url && (
+				<p class="lp-text-cta">
+					<a class="btn-gold" href={button.url}>
+						{button.label}
+					</a>
+				</p>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.lp-text {
+		margin: var(--spacing-16) 0;
+	}
+
+	.lp-text-inside {
+		max-width: var(--content-width);
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.lp-text-content {
+		margin: 0;
+		font-size: var(--font-size-lg);
+		line-height: var(--leading-relaxed);
+		color: var(--color-text-secondary);
+	}
+
+	.lp-text-cta {
+		margin: var(--spacing-8) 0 0;
+	}
+
+	.lp-text-band {
+		padding: var(--spacing-16) var(--spacing-6);
+		background: linear-gradient(
+			160deg,
+			light-dark(#123c3d, #0b2323),
+			light-dark(#0c7476, #14494a)
+		);
+	}
+
+	.lp-text-band .lp-text-content {
+		color: rgb(255 255 255 / 0.88);
+	}
+
+	.lp-text-band :global(.ghost-title) {
+		color: #ffffff;
+		opacity: 0.14;
+	}
+
+	.lp-text-band :global(.ghost-sub) {
+		color: #ffffff;
+	}
+</style>

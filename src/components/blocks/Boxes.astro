@@ -1,0 +1,152 @@
+---
+/**
+ * bravada.boxes — Bravada's landing-page featured boxes (.lp-boxes,
+ * animated variant): a full-bleed grid of image tiles whose text sits
+ * over a slow 2s image zoom under a teal overlay ramp — the same hover
+ * language as the theme's post cards.
+ */
+import SectionHeader from "./SectionHeader.astro";
+
+interface BoxItem {
+	image?: string;
+	imageAlt?: string;
+	title?: string;
+	text?: string;
+	url?: string;
+}
+
+interface BoxesNode {
+	title?: string;
+	description?: string;
+	/** Grid columns on desktop (2–4). Default 3. */
+	columns?: number;
+	items?: BoxItem[];
+}
+
+// astro-portabletext hands custom type components the block as `node`
+const { node } = Astro.props as { node: BoxesNode };
+const { title, description, columns = 3, items = [] } = node;
+const cols = Math.min(Math.max(columns, 2), 4);
+---
+
+<section class="lp-boxes full-bleed">
+	<div class="lp-boxes-inside">
+		<SectionHeader title={title} description={description} />
+		<div class="lp-boxes-grid" style={`--lp-box-cols: ${cols}`}>
+			{
+				items.map((box) => {
+					const Tag = box.url ? "a" : "div";
+					return (
+						<Tag class="lp-box aos aos-fade" href={box.url}>
+							{box.image && <img class="lp-box-image" src={box.image} alt={box.imageAlt ?? ""} loading="lazy" />}
+							<div class="lp-box-text">
+								{box.title && <h3 class="lp-box-title">{box.title}</h3>}
+								{box.text && <p class="lp-box-desc">{box.text}</p>}
+							</div>
+						</Tag>
+					);
+				})
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.lp-boxes {
+		margin: var(--spacing-16) 0;
+		padding: var(--spacing-16) var(--spacing-6);
+		background: var(--color-bg-subtle);
+	}
+
+	.lp-boxes-inside {
+		max-width: var(--wide-width);
+		margin: 0 auto;
+	}
+
+	.lp-boxes-grid {
+		display: grid;
+		grid-template-columns: repeat(var(--lp-box-cols, 3), 1fr);
+		gap: var(--spacing-6);
+	}
+
+	.lp-box {
+		position: relative;
+		display: block;
+		aspect-ratio: 4 / 3;
+		overflow: hidden;
+		border-radius: var(--radius-lg);
+		background: linear-gradient(160deg, #123c3d, #0c7476);
+		text-decoration: none;
+	}
+
+	.lp-box-image {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: 2s ease-out transform;
+	}
+
+	.lp-box::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to top, rgb(10 25 24 / 0.85), rgb(10 25 24 / 0.1) 60%);
+		transition: 0.5s ease-out background-color;
+	}
+
+	.lp-box:hover .lp-box-image,
+	.lp-box:focus-visible .lp-box-image {
+		transform: scale(1.5);
+	}
+
+	.lp-box:hover::after,
+	.lp-box:focus-visible::after {
+		background-color: color-mix(in srgb, var(--color-brand) 45%, transparent);
+	}
+
+	.lp-box-text {
+		position: absolute;
+		inset-inline: 0;
+		bottom: 0;
+		z-index: 1;
+		padding: var(--spacing-5);
+	}
+
+	.lp-box-title {
+		margin: 0;
+		font-size: var(--font-size-xl);
+		color: #ffffff;
+	}
+
+	.lp-box-desc {
+		margin: var(--spacing-2) 0 0;
+		font-size: var(--font-size-sm);
+		color: rgb(255 255 255 / 0.85);
+		line-height: var(--leading-snug);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.lp-box-image,
+		.lp-box::after {
+			transition: none;
+		}
+
+		.lp-box:hover .lp-box-image {
+			transform: none;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.lp-boxes-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.lp-boxes-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

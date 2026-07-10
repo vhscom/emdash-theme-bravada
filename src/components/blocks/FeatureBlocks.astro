@@ -1,0 +1,97 @@
+---
+/**
+ * bravada.blocks — Bravada's landing-page icon blocks (.lp-blocks):
+ * a centered row of icon + title + text items, each optionally linked.
+ * Icons are plain text (an emoji or a character), keeping the block
+ * editable without an icon-font dependency.
+ */
+import SectionHeader from "./SectionHeader.astro";
+
+interface BlockItem {
+	icon?: string;
+	title?: string;
+	text?: string;
+	url?: string;
+}
+
+interface BlocksNode {
+	title?: string;
+	description?: string;
+	items?: BlockItem[];
+}
+
+// astro-portabletext hands custom type components the block as `node`
+const { node } = Astro.props as { node: BlocksNode };
+const { title, description, items = [] } = node;
+const dirs = ["aos-left", "aos-up", "aos-right", "aos-down"];
+---
+
+<section class="lp-blocks">
+	<SectionHeader title={title} description={description} />
+	<div class="lp-blocks-inside">
+		{
+			items.map((item, i) => (
+				<div class:list={["lp-block", "aos", dirs[i % dirs.length]]}>
+					{item.icon && <div class="lp-block-icon">{item.icon}</div>}
+					{item.title &&
+						(item.url ? (
+							<h3 class="lp-block-title">
+								<a href={item.url}>{item.title}</a>
+							</h3>
+						) : (
+							<h3 class="lp-block-title">{item.title}</h3>
+						))}
+					{item.text && <p class="lp-block-text">{item.text}</p>}
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.lp-blocks {
+		margin: var(--spacing-16) 0;
+	}
+
+	.lp-blocks-inside {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: var(--spacing-10) var(--spacing-8);
+		text-align: center;
+	}
+
+	.lp-block-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 72px;
+		height: 72px;
+		margin: 0 auto var(--spacing-4);
+		font-size: 2rem;
+		line-height: 1;
+		color: var(--color-on-brand);
+		background: var(--color-brand);
+		border-radius: 50%;
+	}
+
+	.lp-block-title {
+		margin: 0 0 var(--spacing-2);
+		font-size: var(--font-size-xl);
+	}
+
+	.lp-block-title a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.lp-block-title a:hover {
+		color: var(--color-brand);
+	}
+
+	.lp-block-text {
+		margin: 0;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		line-height: var(--leading-relaxed);
+	}
+</style>

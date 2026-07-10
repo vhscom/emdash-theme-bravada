@@ -1,0 +1,117 @@
+---
+/**
+ * bravada.hero — the Bravada landing-page slider (.lp-slider /
+ * .lp-staticslider) as a single full-bleed hero band: background image
+ * under a dark teal scrim, display-face title, tagline and gold CTA
+ * buttons. Inserted into any Portable Text field via the "Hero banner"
+ * section (/section in the editor).
+ */
+interface HeroButton {
+	label: string;
+	url: string;
+}
+
+interface HeroNode {
+	title?: string;
+	subtitle?: string;
+	/** Background image URL (media library file URL or external) */
+	image?: string;
+	imageAlt?: string;
+	buttons?: HeroButton[];
+	/** "tall" gives the full front-page treatment; default is a band */
+	size?: "band" | "tall";
+}
+
+// astro-portabletext hands custom type components the block as `node`
+const { node } = Astro.props as { node: HeroNode };
+const { title, subtitle, image, imageAlt = "", buttons = [], size = "band" } = node;
+---
+
+<section class:list={["lp-hero", "full-bleed", { "lp-hero-tall": size === "tall" }]}>
+	{image && <img class="lp-hero-bg" src={image} alt={imageAlt} />}
+	<div class="lp-hero-inner">
+		{title && <h1 class="lp-hero-title aos aos-up">{title}</h1>}
+		{subtitle && <p class="lp-hero-sub aos aos-up">{subtitle}</p>}
+		{
+			buttons.length > 0 && (
+				<div class="lp-hero-buttons aos aos-fade">
+					{buttons.map((b) => (
+						<a class="btn-gold" href={b.url}>
+							{b.label}
+						</a>
+					))}
+				</div>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.lp-hero {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 380px;
+		padding: var(--spacing-20) var(--spacing-6);
+		overflow: hidden;
+		/* teal scrim doubles as the no-image background */
+		background: linear-gradient(
+			160deg,
+			light-dark(#123c3d, #0b2323),
+			light-dark(#0c7476, #14494a)
+		);
+	}
+
+	.lp-hero-tall {
+		min-height: min(70vh, 640px);
+	}
+
+	.lp-hero-bg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* scrim over the image, matching Bravada's slider overlay; z-index
+	   lifts it above the .lp-hero-bg img that follows it in the DOM */
+	.lp-hero:has(.lp-hero-bg)::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background: color-mix(in srgb, #123c3d 55%, transparent);
+	}
+
+	.lp-hero-inner {
+		position: relative;
+		z-index: 2;
+		max-width: var(--content-width);
+		text-align: center;
+	}
+
+	.lp-hero-title {
+		margin: 0;
+		font-size: clamp(var(--font-size-3xl), 6vw, var(--font-size-5xl));
+		font-weight: var(--font-weight-display);
+		letter-spacing: var(--tracking-tight);
+		color: #ffffff;
+	}
+
+	.lp-hero-sub {
+		margin: var(--spacing-4) 0 0;
+		font-size: var(--font-size-lg);
+		line-height: var(--leading-relaxed);
+		color: rgb(255 255 255 / 0.85);
+	}
+
+	.lp-hero-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--spacing-4);
+		margin-top: var(--spacing-8);
+	}
+</style>

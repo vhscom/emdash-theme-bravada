@@ -1,0 +1,23 @@
+---
+/**
+ * Bravada .lp-section-header — the "ghost" section heading: a giant
+ * faded title with the description overlapping it from below.
+ * Styles live in theme.css (.ghost-header) so widgets and pages can
+ * reuse the treatment.
+ */
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+{
+	(title || description) && (
+		<header class="ghost-header">
+			{title && <h2 class="ghost-title">{title}</h2>}
+			{description && <p class="ghost-sub">{description}</p>}
+		</header>
+	)
+}
