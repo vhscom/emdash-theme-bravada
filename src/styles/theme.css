@@ -643,16 +643,28 @@ html.js .lp-text-content.aos {
 	transform: translateY(50px);
 }
 
-/* Icon blocks: columns arrive from alternating directions */
+/* Icon blocks: columns arrive from alternating directions. The card
+   itself only translates (demo keeps its white background opaque —
+   important on the dark blocks2 band); the icon/title/text inside
+   fade in separately. */
 .lp-blocks .lp-block {
-	transition:
-		0.4s ease transform,
-		0.4s ease opacity;
+	transition: 0.4s ease transform;
+}
+
+.lp-block .lp-block-icon,
+.lp-block .lp-block-title,
+.lp-block .lp-block-text {
+	transition: opacity 0.4s ease-out;
 }
 
 html.js .lp-blocks .lp-block.aos {
-	opacity: 0;
 	transform: translateX(-50px);
+}
+
+html.js .lp-block.aos .lp-block-icon,
+html.js .lp-block.aos .lp-block-title,
+html.js .lp-block.aos .lp-block-text {
+	opacity: 0;
 }
 
 html.js .lp-rows-3 .lp-block.aos:nth-child(3n + 2),
@@ -770,7 +782,10 @@ html.js .lp-tt.aos .lp-tt-text {
 
 	html.js .aos,
 	html.js .aos.lp-port > a,
-	html.js .aos.lp-tt .lp-tt-text {
+	html.js .aos.lp-tt .lp-tt-text,
+	html.js .aos.lp-block .lp-block-icon,
+	html.js .aos.lp-block .lp-block-title,
+	html.js .aos.lp-block .lp-block-text {
 		transform: none !important;
 		opacity: 1 !important;
 	}

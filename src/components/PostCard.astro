@@ -44,22 +44,22 @@ const author = bylines?.[0]?.byline.displayName;
 
 <article class="post-card">
 	{
-		categories && categories.length > 0 && (
-			<div class="card-categories">
-				{categories.map((cat, i) => (
-					<>
-						{i > 0 && <span class="sep">, </span>}
-						<a href={`/category/${cat.slug}`}>{cat.label}</a>
-					</>
-				))}
-			</div>
-		)
-	}
-	{
 		featuredImage && (
-			<a href={href} class="card-image" tabindex="-1" aria-hidden="true">
-				<Image image={featuredImage} />
-			</a>
+			<div class="card-image-container">
+				<a href={href} class="card-image" tabindex="-1" aria-hidden="true">
+					<Image image={featuredImage} />
+				</a>
+				{categories && categories.length > 0 && (
+					<span class="bl-categ">
+						{categories.map((cat, i) => (
+							<>
+								{i > 0 && <span class="sep"> </span>}
+								<a href={`/category/${cat.slug}`}>{cat.label}</a>
+							</>
+						))}
+					</span>
+				)}
+			</div>
 		)
 	}
 	<div class="card-body">
@@ -89,7 +89,7 @@ const author = bylines?.[0]?.byline.displayName;
 		}
 		<footer class="card-continue">
 			<a href={href} class="continue-reading-link">
-				Read more<span class="continue-arrow">→</span>
+				<span>Read more</span><span class="continue-arrow" aria-hidden="true">→</span>
 				<span class="sr-only">“{title}”</span>
 			</a>
 		</footer>
@@ -103,20 +103,44 @@ const author = bylines?.[0]?.byline.displayName;
 		background: var(--color-surface);
 	}
 
-	.card-categories {
-		padding: var(--spacing-3) var(--spacing-5);
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
+	/* Categories tab overlapping the image bottom-left (demo .bl_categ) */
+	.card-image-container {
+		position: relative;
+		overflow: hidden;
+		line-height: 0;
 	}
 
-	.card-categories a {
+	.bl-categ {
+		position: absolute;
+		z-index: 2;
+		bottom: 0;
+		left: 2em;
+		margin-right: 2em;
+		padding: 4px 1rem;
+		font-size: 0.9em;
+		line-height: 1.5;
+		background: var(--color-surface);
 		color: var(--color-muted);
+		transition: 0.2s ease-out all;
+	}
+
+	.card-image-container:hover .bl-categ {
+		padding-bottom: 0;
+	}
+
+	.bl-categ a {
+		color: var(--color-text-secondary);
 		text-decoration: none;
 		transition: color 0.2s ease-out;
 	}
 
-	.card-categories a:hover {
+	.bl-categ a:hover {
 		color: var(--color-brand-hover);
+	}
+
+	.bl-categ .sep::after {
+		content: " ";
+		padding: 0 0.2em;
 	}
 
 	.card-image {
@@ -161,8 +185,8 @@ const author = bylines?.[0]?.byline.displayName;
 		transition: color 0.25s ease-out;
 	}
 
-	.post-card:hover .card-title,
-	.card-title-link:hover .card-title {
+	.card-title-link:hover .card-title,
+	.card-title-link:focus-visible .card-title {
 		color: var(--color-gold);
 	}
 
@@ -211,12 +235,27 @@ const author = bylines?.[0]?.byline.displayName;
 		padding-top: var(--spacing-4);
 	}
 
+	/* Demo a.continue-reading-link: 2px-bordered button, arrow slides
+	   in as the paddings shift */
 	.continue-reading-link {
+		position: relative;
+		display: inline-block;
+		overflow: hidden;
+		padding: 3px 16px 3px 25px;
+		border: 2px solid;
 		font-weight: 700;
 		font-size: 0.9em;
+		line-height: 2;
 		text-decoration: none;
 		color: var(--color-gold);
-		transition: 0.2s ease-out all;
+		transition: all 0.2s ease-out;
+	}
+
+	.continue-reading-link:hover,
+	.continue-reading-link:focus-visible {
+		padding-right: 14px;
+		padding-left: 17px;
+		color: var(--color-brand-hover);
 	}
 
 	.continue-arrow {
