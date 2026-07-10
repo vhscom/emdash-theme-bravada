@@ -145,32 +145,6 @@ const isLoggedIn = !!Astro.locals.user;
 								</li>
 							))
 						}
-						<li class="menu-item menu-main-search">
-							<button
-								type="button"
-								class="search-toggle"
-								aria-label="Search"
-								aria-expanded="false"
-								aria-controls="menu-search-overlay"
-							>
-								<svg
-									width="17"
-									height="17"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2.5"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									aria-hidden="true"
-									><circle cx="11" cy="11" r="8"></circle><line
-										x1="21"
-										y1="21"
-										x2="16.65"
-										y2="16.65"></line></svg
-								>
-							</button>
-						</li>
 					</ul>
 				</div>
 				{
@@ -217,6 +191,24 @@ const isLoggedIn = !!Astro.locals.user;
 			<ul id="mobile-nav">
 				<li class="mobile-search">
 					<form role="search" method="get" action="/search">
+						<button type="submit" class="mobile-searchsubmit" aria-label="Search">
+							<svg
+								width="26"
+								height="26"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+								><circle cx="11" cy="11" r="8"></circle><line
+									x1="21"
+									y1="21"
+									x2="16.65"
+									y2="16.65"></line></svg
+							>
+						</button>
 						<label>
 							<span class="sr-only">Search for:</span>
 							<input
@@ -771,37 +763,9 @@ const isLoggedIn = !!Astro.locals.user;
 				background: rgba(255, 255, 255, 0.1);
 			}
 
-			/* Search icon in the menu (Bravada menu-main-search) */
-			.menu-main-search .search-toggle {
-				display: flex;
-				align-items: center;
-				height: var(--nav-height);
-				padding: 0 0.2em;
-				border: none;
-				background: none;
-				color: var(--color-menu-link);
-				cursor: pointer;
-				transition: color 0.2s ease-out;
-			}
-
-			.menu-main-search .search-toggle:hover {
-				color: var(--color-brand);
-			}
-
-			.menu-main-search .search-toggle:focus-visible,
 			.search-cancel:focus-visible {
 				outline: 2px solid var(--color-teal);
 				outline-offset: 2px;
-			}
-
-			.menu-main-search .search-toggle:focus:not(:focus-visible) {
-				outline: none;
-			}
-
-			.site-header.over-hero:not(.header-fixed)
-				.menu-main-search
-				.search-toggle {
-				color: #ffffff;
 			}
 
 			.nav-admin {
@@ -996,8 +960,9 @@ const isLoggedIn = !!Astro.locals.user;
 			.hamburger {
 				display: inline-block;
 				position: relative;
+				align-self: center;
 				width: 36px;
-				height: 20px;
+				height: 18px;
 				margin-left: 1em;
 				border: 0;
 				padding: 0;
@@ -1027,13 +992,13 @@ const isLoggedIn = !!Astro.locals.user;
 			}
 
 			.hamburger span:nth-child(2) {
-				top: 9px;
+				top: 8px;
 				width: 75%;
 				transform-origin: left center;
 			}
 
 			.hamburger span:nth-child(3) {
-				top: 18px;
+				top: 16px;
 				width: 45%;
 				transform-origin: left bottom;
 			}
@@ -1059,7 +1024,7 @@ const isLoggedIn = !!Astro.locals.user;
 			}
 
 			:global(body.burgermenu-active) .hamburger span:nth-child(3) {
-				top: 22px;
+				top: 20px;
 				transform: rotate(-45deg);
 			}
 
@@ -1190,24 +1155,58 @@ const isLoggedIn = !!Astro.locals.user;
 				font-size: clamp(1.1rem, 4vw, 2em);
 			}
 
+			/* Burger-menu search (demo #mobile-nav .searchform): a giant
+			   Playfair input with only a 2px underline, transparent
+			   background, and the search glyph sitting at the left */
 			.mobile-search {
 				width: 100%;
 			}
 
+			.mobile-search form {
+				position: relative;
+				display: inline-block;
+				width: min(11em, 84vw);
+			}
+
+			.mobile-search .mobile-searchsubmit {
+				position: absolute;
+				left: 0;
+				bottom: 0.55em;
+				z-index: 9;
+				border: 0;
+				padding: 0;
+				background: transparent;
+				color: inherit;
+				cursor: pointer;
+			}
+
 			.mobile-search input[type="search"] {
-				width: min(20em, 80vw);
-				padding: 0.4em 1.2em;
-				border: 2px solid #ffffff;
-				border-radius: 100px;
+				display: block;
+				width: 100%;
+				border: 0;
+				border-bottom: 2px solid;
+				border-radius: 0;
+				padding: 0 0 0.2em 1.2em;
 				background: transparent;
 				font-family: var(--font-heading);
-				font-size: 1.1em;
-				text-align: center;
-				color: #ffffff;
+				font-size: 2.5em;
+				font-size: clamp(1.3rem, 5vw, 2.5em);
+				line-height: 1.2;
+				color: inherit;
+			}
+
+			.mobile-search input[type="search"]:focus {
+				outline: none;
 			}
 
 			.mobile-search input[type="search"]::placeholder {
-				color: rgba(255, 255, 255, 0.7);
+				color: inherit;
+				opacity: 1;
+			}
+
+			.mobile-search input[type="search"]::-webkit-search-cancel-button {
+				-webkit-appearance: none;
+				appearance: none;
 			}
 
 			:global(body.noscroll) {
