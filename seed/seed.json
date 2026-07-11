@@ -318,12 +318,12 @@
       "items": [
         {
           "label": "Portfolio",
-          "url": "/pages/portfolio",
+          "url": "/portfolio",
           "type": "custom"
         },
         {
           "label": "Shop",
-          "url": "/pages/shop",
+          "url": "/shop",
           "type": "custom"
         },
         {
@@ -333,12 +333,12 @@
         },
         {
           "label": "About Us",
-          "url": "/pages/about-us",
+          "url": "/about-us",
           "type": "custom"
         },
         {
           "label": "Contact",
-          "url": "/pages/contact",
+          "url": "/contact",
           "type": "custom"
         }
       ]
@@ -387,17 +387,17 @@
           "children": [
             {
               "label": "About Us",
-              "url": "/pages/about-us",
+              "url": "/about-us",
               "type": "custom"
             },
             {
               "label": "Contact",
-              "url": "/pages/contact",
+              "url": "/contact",
               "type": "custom"
             },
             {
               "label": "Portfolio",
-              "url": "/pages/portfolio",
+              "url": "/portfolio",
               "type": "custom"
             }
           ],
@@ -413,32 +413,32 @@
               "children": [
                 {
                   "label": "No sidebars",
-                  "url": "/pages/no-sidebars",
+                  "url": "/no-sidebars",
                   "type": "custom"
                 },
                 {
                   "label": "Left Sidebar",
-                  "url": "/pages/left-sidebar",
+                  "url": "/left-sidebar",
                   "type": "custom"
                 },
                 {
                   "label": "Right Sidebar",
-                  "url": "/pages/right-sidebar",
+                  "url": "/right-sidebar",
                   "type": "custom"
                 },
                 {
                   "label": "Two sidebars left",
-                  "url": "/pages/two-sidebars-left",
+                  "url": "/two-sidebars-left",
                   "type": "custom"
                 },
                 {
                   "label": "Two sidebars right",
-                  "url": "/pages/two-sidebars-right",
+                  "url": "/two-sidebars-right",
                   "type": "custom"
                 },
                 {
                   "label": "Two sidebars sided",
-                  "url": "/pages/two-sidebars-sided",
+                  "url": "/two-sidebars-sided",
                   "type": "custom"
                 }
               ],
@@ -453,7 +453,7 @@
           "children": [
             {
               "label": "Typography",
-              "url": "/pages/typography",
+              "url": "/typography",
               "type": "custom"
             },
             {
@@ -761,7 +761,7 @@
                 {
                   "_type": "link",
                   "_key": "psl-aboutm",
-                  "href": "/pages/about-us"
+                  "href": "/about-us"
                 }
               ]
             },
@@ -785,7 +785,7 @@
                 {
                   "_type": "link",
                   "_key": "psl-contactm",
-                  "href": "/pages/contact"
+                  "href": "/contact"
                 }
               ]
             }
@@ -909,7 +909,7 @@
             },
             {
               "label": "See now",
-              "url": "/pages/about-us"
+              "url": "/about-us"
             }
           ],
           "effect": "bravada"
@@ -1387,7 +1387,7 @@
                 },
                 {
                   "label": "See now",
-                  "url": "/pages/about-us"
+                  "url": "/about-us"
                 }
               ],
               "effect": "bravada"
@@ -1644,7 +1644,7 @@
               "description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
               "more": {
                 "label": "All portfolios",
-                "url": "/pages/portfolio"
+                "url": "/portfolio"
               },
               "items": [
                 {
@@ -1813,12 +1813,12 @@
               "buttons": [
                 {
                   "label": "Work with us",
-                  "url": "/pages/contact",
+                  "url": "/contact",
                   "style": "primary"
                 },
                 {
                   "label": "Ride with us",
-                  "url": "/pages/contact",
+                  "url": "/contact",
                   "style": "secondary"
                 }
               ]

@@ -462,7 +462,7 @@ const isLoggedIn = !!Astro.locals.user;
 								.slice(0, 2)
 								.map((page) => (
 									<>
-										<a href={`/pages/${page.data.slug || page.id}`}>
+										<a href={`/${page.data.slug || page.id}`}>
 											{page.data.title}
 										</a>
 										<span class="sep">/</span>
