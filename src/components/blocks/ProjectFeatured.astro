@@ -6,17 +6,21 @@
  * Project Types and Tags in white with gold links. Types/tags link to
  * the portfolio grid where the matching filter lives.
  */
+interface Term {
+	label: string;
+	slug: string;
+}
+
 interface ProjectFeaturedNode {
 	image?: string;
 	alt?: string;
 	date?: string;
-	types?: string[];
-	tags?: string[];
+	types?: Term[];
+	tags?: Term[];
 }
 
 const { node } = Astro.props as { node: ProjectFeaturedNode };
 const { image, alt = "", date, types = [], tags = [] } = node;
-const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 
 <figure class="project-featured">
@@ -31,7 +35,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 						{types.map((t, i) => (
 							<>
 								{i > 0 && ", "}
-								<a href={`/pages/project-type-${slug(t)}`}>{t}</a>
+								<a href={`/project-type/${t.slug}`}>{t.label}</a>
 							</>
 						))}
 					</span>
@@ -44,7 +48,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 						{tags.map((t, i) => (
 							<>
 								{i > 0 && ", "}
-								<a href={`/pages/project-tag-${slug(t)}`}>{t}</a>
+								<a href={`/project-tag/${t.slug}`}>{t.label}</a>
 							</>
 						))}
 					</span>

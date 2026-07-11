@@ -1,0 +1,48 @@
+---
+/**
+ * The portfolio single/archive shell: demo two-columns-right box model
+ * (white main, transparent 320px sidebar with the 2.2em inner gutter,
+ * zero gap) with the search + recent-posts sidebar area.
+ */
+import SidebarWidgets from "./SidebarWidgets.astro";
+---
+
+<div class="page-shell layout-right">
+	<article class="page-article">
+		<div class="page-content">
+			<slot />
+		</div>
+	</article>
+	<SidebarWidgets name="sidebar-b" />
+</div>
+
+<style>
+	.page-shell {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 320px;
+		gap: 0;
+		max-width: calc(var(--wide-width) - 4em);
+		margin: 0 auto;
+	}
+
+	.page-article {
+		min-width: 0;
+		background: var(--color-surface);
+		padding: 4em clamp(1.5em, 4.4vw, 4em);
+	}
+
+	.page-shell :global(.bravada-sidebar) {
+		padding: 4em 0 6em 2.2em;
+	}
+
+	.page-content :global(p) {
+		margin-bottom: 1.5em;
+	}
+
+	@media (max-width: 1100px) {
+		.page-shell {
+			grid-template-columns: 1fr;
+			margin: 2em auto;
+		}
+	}
+</style>

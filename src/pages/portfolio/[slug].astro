@@ -1,0 +1,55 @@
+---
+import { getEmDashEntry, getEntryTerms, decodeSlug } from "emdash";
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ProjectShell from "../../components/ProjectShell.astro";
+import ProjectFeatured from "../../components/blocks/ProjectFeatured.astro";
+import RichText from "../../components/RichText.astro";
+import { getMediaUrl } from "../../utils/media-url";
+
+const slug = decodeSlug(Astro.params.slug);
+
+if (!slug) {
+	return Astro.redirect("/404");
+}
+
+const { entry: project, cacheHint } = await getEmDashEntry("portfolio", slug);
+
+if (!project) {
+	return Astro.redirect("/404");
+}
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const [types, tags] = await Promise.all([
+	getEntryTerms("portfolio", project.data.id, "project-type"),
+	getEntryTerms("portfolio", project.data.id, "project-tag"),
+]);
+---
+
+<Base
+	title={project.data.title}
+	content={{ collection: "portfolio", id: project.data.id, slug }}
+	overHero
+>
+	<PageHeader
+		title={project.data.title}
+		crumbs={[
+			{ label: "Project", href: "/pages/portfolio" },
+			{ label: project.data.title },
+		]}
+		titleAttrs={project.edit.title}
+	/>
+	<ProjectShell>
+		<ProjectFeatured
+			node={{
+				image: getMediaUrl(project.data.featured_image),
+				alt: project.data.title,
+				date: project.data.date,
+				types: types.map((t) => ({ label: t.label, slug: t.slug })),
+				tags: tags.map((t) => ({ label: t.label, slug: t.slug })),
+			}}
+		/>
+		<RichText value={project.data.content} />
+	</ProjectShell>
+</Base>

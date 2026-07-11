@@ -1,0 +1,33 @@
+---
+import { getTerm, getEntriesByTerm, decodeSlug } from "emdash";
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ProjectShell from "../../components/ProjectShell.astro";
+import ProjectGrid from "../../components/blocks/ProjectGrid.astro";
+import { getMediaUrl } from "../../utils/media-url";
+
+const slug = decodeSlug(Astro.params.slug);
+const term = slug ? await getTerm("project-tag", slug) : null;
+
+if (!term) {
+	return Astro.redirect("/404");
+}
+
+const projects = await getEntriesByTerm("portfolio", "project-tag", term.slug);
+
+const items = projects.map((p) => ({
+	image: getMediaUrl(p.data.featured_image),
+	title: p.data.title,
+	url: `/portfolio/${p.id}`,
+}));
+---
+
+<Base title={`${term.label} projects`} overHero>
+	<PageHeader
+		title={term.label}
+		crumbs={[{ label: "Projects", href: "/pages/portfolio" }, { label: term.label }]}
+	/>
+	<ProjectShell>
+		<ProjectGrid node={{ items }} />
+	</ProjectShell>
+</Base>
