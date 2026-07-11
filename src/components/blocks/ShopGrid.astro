@@ -1,0 +1,239 @@
+---
+/**
+ * bravada.shopgrid — the demo's WooCommerce shop listing: a results
+ * count + sorting row over a three-column centered product grid
+ * (image, teal Muli title, teal stars, teal price, gold button).
+ * Sorting is real: the select reorders the grid client-side.
+ */
+interface ShopItem {
+	title: string;
+	image?: string;
+	url?: string;
+	/** e.g. "£35.00" */
+	price?: string;
+	/** 0–5 stars */
+	rating?: number;
+	/** Button label; demo uses "Add to basket" / "Select options" */
+	button?: string;
+	sale?: boolean;
+}
+
+interface ShopGridNode {
+	items?: ShopItem[];
+}
+
+const { node } = Astro.props as { node: ShopGridNode };
+const { items = [] } = node;
+const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
+---
+
+<div class="bravada-shop">
+	<div class="shop-toolbar">
+		<p class="shop-count">Showing all {items.length} results</p>
+		<label class="shop-sort">
+			<span class="sr-only">Sort products</span>
+			<select>
+				<option value="default">Default sorting</option>
+				<option value="rating">Sort by average rating</option>
+				<option value="price-asc">Sort by price: low to high</option>
+				<option value="price-desc">Sort by price: high to low</option>
+			</select>
+		</label>
+	</div>
+	<ul class="shop-grid">
+		{
+			items.map((item, i) => (
+				<li
+					class="shop-product"
+					data-index={i}
+					data-price={priceNum(item.price)}
+					data-rating={item.rating ?? 0}
+				>
+					<a href={item.url ?? "#"} class="shop-thumb" tabindex="-1">
+						{item.sale && <span class="shop-sale">Sale!</span>}
+						{item.image && <img src={item.image} alt="" loading="lazy" />}
+					</a>
+					<a href={item.url ?? "#"} class="shop-title">
+						{item.title}
+					</a>
+					{typeof item.rating === "number" && (
+						<span
+							class="shop-stars"
+							role="img"
+							aria-label={`Rated ${item.rating} out of 5`}
+						>
+							<span class="shop-stars-fill" style={`width: ${(item.rating / 5) * 100}%`}>
+								★★★★★
+							</span>
+							<span class="shop-stars-track" aria-hidden="true">
+								★★★★★
+							</span>
+						</span>
+					)}
+					{item.price && <span class="shop-price">{item.price}</span>}
+					<a href={item.url ?? "#"} class="shop-button">
+						{item.button ?? "Add to basket"}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</div>
+
+<script>
+	for (const shop of document.querySelectorAll<HTMLElement>(".bravada-shop")) {
+		const select = shop.querySelector("select");
+		const grid = shop.querySelector<HTMLElement>(".shop-grid");
+		if (!select || !grid) continue;
+		select.addEventListener("change", () => {
+			const items = [...grid.querySelectorAll<HTMLElement>(".shop-product")];
+			const key = select.value;
+			items.sort((a, b) => {
+				if (key === "price-asc") return +a.dataset.price! - +b.dataset.price!;
+				if (key === "price-desc") return +b.dataset.price! - +a.dataset.price!;
+				if (key === "rating") return +b.dataset.rating! - +a.dataset.rating!;
+				return +a.dataset.index! - +b.dataset.index!;
+			});
+			items.forEach((el) => grid.appendChild(el));
+		});
+	}
+</script>
+
+<style>
+	/* Toolbar: results count left, sorting select right (demo
+	   .woocommerce-result-count / .woocommerce-ordering) */
+	.shop-toolbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		margin-bottom: 2em;
+	}
+
+	.shop-count {
+		margin: 0;
+		color: var(--color-text);
+	}
+
+	.shop-sort select {
+		padding: 0.9em 1em;
+		border: 1px solid var(--color-border);
+		border-radius: 0;
+		background: var(--color-surface);
+		font-family: var(--font-body);
+		font-size: 1rem;
+		color: var(--color-text);
+	}
+
+	.shop-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 3em 1.75em;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.shop-product {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.shop-thumb {
+		position: relative;
+		display: block;
+		width: 100%;
+		line-height: 0;
+	}
+
+	.shop-thumb img {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+	}
+
+	/* Demo .onsale: translucent white badge, gold text */
+	.shop-sale {
+		position: absolute;
+		top: 0.75em;
+		left: 0.75em;
+		z-index: 2;
+		padding: 0.3em 0.8em;
+		background: rgba(255, 255, 255, 0.75);
+		color: var(--color-gold);
+		font-weight: 700;
+		font-size: 0.85rem;
+		line-height: 1.6;
+	}
+
+	/* Demo: teal Muli title/stars/price, all centered */
+	.shop-title {
+		margin-top: 1em;
+		font-size: 1rem;
+		color: var(--color-teal);
+		text-decoration: none;
+		transition: 0.2s ease-out color;
+	}
+
+	.shop-title:hover {
+		color: var(--color-gold);
+	}
+
+	.shop-stars {
+		position: relative;
+		display: inline-block;
+		margin-top: 0.4em;
+		font-size: 0.85em;
+		letter-spacing: 2px;
+		line-height: 1;
+		color: var(--color-teal);
+	}
+
+	.shop-stars-track {
+		color: var(--color-border);
+	}
+
+	.shop-stars-fill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		color: var(--color-teal);
+	}
+
+	.shop-price {
+		margin-top: 0.5em;
+		color: var(--color-teal);
+	}
+
+	/* Demo gold button, teal on hover */
+	.shop-button {
+		margin-top: 0.9em;
+		padding: 0.5em 1.2em;
+		background: var(--color-gold);
+		color: #ffffff;
+		font-size: 0.8rem;
+		font-weight: 700;
+		text-decoration: none;
+		transition: background 0.3s ease-out;
+	}
+
+	.shop-button:hover,
+	.shop-button:focus-visible {
+		background: var(--color-teal-solid);
+	}
+
+	@media (max-width: 900px) {
+		.shop-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.shop-toolbar {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>

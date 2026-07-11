@@ -2928,97 +2928,96 @@
         "status": "published",
         "data": {
           "title": "Shop",
-          "layout": "right",
+          "layout": "left",
           "content": [
             {
-              "_type": "block",
-              "_key": "shop-intro",
-              "style": "normal",
-              "markDefs": [],
-              "children": [
-                {
-                  "_type": "span",
-                  "_key": "shop-intro-s",
-                  "text": "A demo storefront, ported from the original theme's WooCommerce shop. Every product below is editable from the admin.",
-                  "marks": []
-                }
-              ]
-            },
-            {
-              "_type": "bravada.products",
-              "_key": "shop-products",
+              "_type": "bravada.shopgrid",
+              "_key": "shop-grid",
               "items": [
                 {
                   "title": "Flying Ninja",
                   "price": "£13.00",
                   "rating": 4.0,
-                  "image": "/images/demo/poster_2_up-300x300.jpg"
+                  "image": "/images/demo/poster_2_up-300x300.jpg",
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Happy Ninja",
                   "price": "£18.00",
                   "rating": 5.0,
-                  "image": "/images/demo/T_7_front-300x300.jpg"
+                  "image": "/images/demo/T_7_front-300x300.jpg",
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Happy Ninja",
                   "price": "£35.00",
                   "rating": 3.0,
-                  "image": "/images/demo/hoodie_4_front-300x300.jpg"
+                  "image": "/images/demo/hoodie_4_front-300x300.jpg",
+                  "button": "Select options"
                 },
                 {
                   "title": "Ninja Silhouette",
                   "price": "£20.00",
                   "rating": 5.0,
-                  "image": "/images/demo/T_5_front-300x300.jpg"
+                  "image": "/images/demo/T_5_front-300x300.jpg",
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Ninja Silhouette",
                   "price": "£35.00",
                   "rating": 4.75,
-                  "image": "/images/demo/hoodie_7_front-300x300.jpg"
+                  "image": "/images/demo/hoodie_7_front-300x300.jpg",
+                  "button": "Select options"
                 },
                 {
                   "title": "Patient Ninja",
                   "price": "£35.00",
                   "rating": 4.67,
-                  "image": "/images/demo/hoodie_3_front-300x300.jpg"
+                  "image": "/images/demo/hoodie_3_front-300x300.jpg",
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Premium Quality",
                   "price": "£20.00",
                   "rating": 4.5,
-                  "image": "/images/demo/T_2_front-300x300.jpg"
+                  "image": "/images/demo/T_2_front-300x300.jpg",
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Premium Quality",
                   "price": "£15.00",
                   "rating": 3.0,
-                  "image": "/images/demo/poster_3_up-300x300.jpg"
+                  "image": "/images/demo/poster_3_up-300x300.jpg",
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Ship Your Idea",
                   "rating": 4.5,
-                  "image": "/images/demo/hoodie_5_front-300x300.jpg"
+                  "image": "/images/demo/hoodie_5_front-300x300.jpg",
+                  "button": "Select options"
                 },
                 {
                   "title": "Ship Your Idea",
                   "price": "£15.00",
-                  "image": "/images/demo/poster_1_up-300x300.jpg"
+                  "image": "/images/demo/poster_1_up-300x300.jpg",
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Ship Your Idea",
                   "rating": 4.33,
-                  "image": "/images/demo/T_4_front-300x300.jpg"
+                  "image": "/images/demo/T_4_front-300x300.jpg",
+                  "button": "Select options"
                 },
                 {
                   "title": "Woo Album #1",
                   "price": "£9.00",
-                  "image": "/images/demo/cd_6_angle-300x300.jpg"
+                  "image": "/images/demo/cd_6_angle-300x300.jpg",
+                  "button": "Add to basket"
                 }
               ]
             }
-          ]
+          ],
+          "sidebar": "page-sidebar"
         }
       },
       {
