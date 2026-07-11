@@ -3,6 +3,7 @@ import { getEmDashEntry, decodeSlug } from "emdash";
 import RichText from "../../components/RichText.astro";
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
+import SidebarWidgets from "../../components/SidebarWidgets.astro";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -21,6 +22,14 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 // Pages that open with their own Bravada slider (e.g. a landing page)
 // skip the standard fullscreen page header.
 const hasOwnHero = page.data.content?.[0]?._type === "bravada.hero";
+
+// Bravada per-page layout (the demo's Layouts pages): a select field
+// on the pages collection — none | left | right | two-left |
+// two-right | sided. Sidebars are the admin-editable "sidebar" and
+// "sidebar-b" widget areas.
+const layout = (page.data.layout as string) || "none";
+const hasPrimary = layout !== "none";
+const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 ---
 
 <Base
@@ -37,24 +46,82 @@ const hasOwnHero = page.data.content?.[0]?._type === "bravada.hero";
 			/>
 		)
 	}
-	<article class="page-article">
-		<div class="page-content">
-			<RichText value={page.data.content} />
-		</div>
-	</article>
+	<div class:list={["page-shell", `layout-${layout}`]}>
+		{hasPrimary && <SidebarWidgets name="sidebar" />}
+		<article class="page-article">
+			<div class="page-content">
+				<RichText value={page.data.content} />
+			</div>
+		</article>
+		{hasSecondary && <SidebarWidgets name="sidebar-b" />}
+	</div>
 </Base>
 
 <style>
-	/* Demo static page: content on a white card inside the shell */
-	.page-article {
+	/* Demo static page: content on a white card inside the shell.
+	   The shell arranges the card and up to two 320px sidebars per the
+	   page's Layout field (demo one/two/three-column options). */
+	.page-shell {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2.5em;
 		max-width: calc(var(--wide-width) - 4em);
 		margin: 4em auto;
+		padding: 0 var(--spacing-4);
+	}
+
+	.page-shell.layout-left {
+		grid-template-columns: 320px minmax(0, 1fr);
+	}
+
+	.page-shell.layout-right {
+		grid-template-columns: minmax(0, 1fr) 320px;
+	}
+
+	.page-shell.layout-right > .page-article {
+		order: -1;
+	}
+
+	.page-shell.layout-two-left {
+		grid-template-columns: 320px 320px minmax(0, 1fr);
+	}
+
+	.page-shell.layout-two-left > .page-article {
+		order: 2;
+	}
+
+	.page-shell.layout-two-right {
+		grid-template-columns: minmax(0, 1fr) 320px 320px;
+	}
+
+	.page-shell.layout-two-right > .page-article {
+		order: -1;
+	}
+
+	.page-shell.layout-sided {
+		grid-template-columns: 320px minmax(0, 1fr) 320px;
+	}
+
+	.page-article {
 		padding: 3.5em clamp(1.5em, 5vw, 4em);
 		background: var(--color-surface);
 	}
 
-	@media (max-width: 800px) {
-		.page-article {
+	@media (max-width: 1100px) {
+		.page-shell,
+		.page-shell.layout-left,
+		.page-shell.layout-right,
+		.page-shell.layout-two-left,
+		.page-shell.layout-two-right,
+		.page-shell.layout-sided {
+			grid-template-columns: 1fr;
+		}
+
+		.page-shell > .page-article {
+			order: -1;
+		}
+
+		.page-shell {
 			margin: 2em auto;
 		}
 	}

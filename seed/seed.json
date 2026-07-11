@@ -70,6 +70,40 @@
 					"label": "Content",
 					"type": "portableText",
 					"searchable": true
+				},
+				{
+					"slug": "layout",
+					"label": "Layout",
+					"type": "select",
+					"options": {
+						"choices": [
+							{
+								"value": "none",
+								"label": "No sidebars"
+							},
+							{
+								"value": "left",
+								"label": "Left Sidebar"
+							},
+							{
+								"value": "right",
+								"label": "Right Sidebar"
+							},
+							{
+								"value": "two-left",
+								"label": "Two sidebars left"
+							},
+							{
+								"value": "two-right",
+								"label": "Two sidebars right"
+							},
+							{
+								"value": "sided",
+								"label": "Two sidebars sided"
+							}
+						]
+					},
+					"default": "none"
 				}
 			]
 		}
@@ -177,6 +211,43 @@
 				},
 				{
 					"type": "custom",
+					"label": "Layouts",
+					"url": "#",
+					"children": [
+						{
+							"type": "custom",
+							"label": "No sidebars",
+							"url": "/pages/no-sidebars"
+						},
+						{
+							"type": "custom",
+							"label": "Left Sidebar",
+							"url": "/pages/left-sidebar"
+						},
+						{
+							"type": "custom",
+							"label": "Right Sidebar",
+							"url": "/pages/right-sidebar"
+						},
+						{
+							"type": "custom",
+							"label": "Two sidebars left",
+							"url": "/pages/two-sidebars-left"
+						},
+						{
+							"type": "custom",
+							"label": "Two sidebars right",
+							"url": "/pages/two-sidebars-right"
+						},
+						{
+							"type": "custom",
+							"label": "Two sidebars sided",
+							"url": "/pages/two-sidebars-sided"
+						}
+					]
+				},
+				{
+					"type": "custom",
 					"label": "About Us",
 					"url": "/pages/about-us"
 				},
@@ -254,6 +325,43 @@
 							"type": "custom",
 							"label": "Views",
 							"url": "/category/views"
+						}
+					]
+				},
+				{
+					"type": "custom",
+					"label": "Layouts",
+					"url": "#",
+					"children": [
+						{
+							"type": "custom",
+							"label": "No sidebars",
+							"url": "/pages/no-sidebars"
+						},
+						{
+							"type": "custom",
+							"label": "Left Sidebar",
+							"url": "/pages/left-sidebar"
+						},
+						{
+							"type": "custom",
+							"label": "Right Sidebar",
+							"url": "/pages/right-sidebar"
+						},
+						{
+							"type": "custom",
+							"label": "Two sidebars left",
+							"url": "/pages/two-sidebars-left"
+						},
+						{
+							"type": "custom",
+							"label": "Two sidebars right",
+							"url": "/pages/two-sidebars-right"
+						},
+						{
+							"type": "custom",
+							"label": "Two sidebars sided",
+							"url": "/pages/two-sidebars-sided"
 						}
 					]
 				},
@@ -456,6 +564,27 @@
 							]
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "sidebar-b",
+			"label": "Secondary Sidebar",
+			"description": "Second sidebar for two-sidebar page layouts",
+			"widgets": [
+				{
+					"type": "component",
+					"componentId": "core:recent-posts",
+					"title": "Recent Posts",
+					"settings": {
+						"count": 4,
+						"showDate": false
+					}
+				},
+				{
+					"type": "component",
+					"componentId": "core:tags",
+					"title": "Tags"
 				}
 			]
 		}
@@ -1479,6 +1608,288 @@
 									"_type": "span",
 									"text": "E-mail: william@spooky.fox · Opening Hours: 07:00 – 21:30",
 									"_key": "c4s"
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "no-sidebars",
+				"slug": "no-sidebars",
+				"status": "published",
+				"data": {
+					"title": "No sidebars",
+					"layout": "none",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"_key": "no-sidebars-h",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-hs",
+									"text": "A glorious layout"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "no-sidebars-p1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-p1s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "no-sidebars-p2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-p2s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "left-sidebar",
+				"slug": "left-sidebar",
+				"status": "published",
+				"data": {
+					"title": "Left Sidebar",
+					"layout": "left",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"_key": "left-sidebar-h",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-hs",
+									"text": "A glorious layout"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "left-sidebar-p1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-p1s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "left-sidebar-p2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-p2s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "right-sidebar",
+				"slug": "right-sidebar",
+				"status": "published",
+				"data": {
+					"title": "Right Sidebar",
+					"layout": "right",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"_key": "right-sidebar-h",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-hs",
+									"text": "A glorious layout"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "right-sidebar-p1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-p1s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "right-sidebar-p2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-p2s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "two-sidebars-left",
+				"slug": "two-sidebars-left",
+				"status": "published",
+				"data": {
+					"title": "Two sidebars left",
+					"layout": "two-left",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"_key": "two-sidebars-left-h",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-hs",
+									"text": "A glorious layout"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-left-p1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-p1s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-left-p2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-p2s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "two-sidebars-right",
+				"slug": "two-sidebars-right",
+				"status": "published",
+				"data": {
+					"title": "Two sidebars right",
+					"layout": "two-right",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"_key": "two-sidebars-right-h",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-hs",
+									"text": "A glorious layout"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-right-p1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-p1s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-right-p2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-p2s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "two-sidebars-sided",
+				"slug": "two-sidebars-sided",
+				"status": "published",
+				"data": {
+					"title": "Two sidebars sided",
+					"layout": "sided",
+					"content": [
+						{
+							"_type": "block",
+							"style": "h2",
+							"_key": "two-sidebars-sided-h",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-hs",
+									"text": "A glorious layout"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-sided-p1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-p1s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-sided-p2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-p2s",
+									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
 								}
 							]
 						}
