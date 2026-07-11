@@ -102,6 +102,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 	for (const bar of document.querySelectorAll<HTMLElement>(".lp-port-filter")) {
 		const grid = bar.parentElement?.querySelector<HTMLElement>(".lp-port-grid");
 		if (!grid) continue;
+		let settleTimer: ReturnType<typeof setTimeout> | undefined;
 		bar.addEventListener("click", (e) => {
 			const link = (e.target as HTMLElement).closest("a[data-filter]");
 			if (!link) return;
@@ -110,6 +111,20 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 			bar.querySelectorAll("a").forEach((a) =>
 				a.classList.toggle("active", a === link)
 			);
+			// Settle any animation still in flight from a previous click so
+			// its pending timeout can't hide a card the new filter shows.
+			clearTimeout(settleTimer);
+			for (const c of grid.querySelectorAll<HTMLElement>(".lp-port")) {
+				if (c.classList.contains("is-exiting")) {
+					c.classList.remove("is-exiting");
+					c.style.cssText = "display: none";
+				} else if (c.classList.contains("is-entering")) {
+					c.classList.remove("is-entering");
+					c.style.transition = "";
+					c.style.transform = "";
+					c.style.opacity = "";
+				}
+			}
 			const cards = [...grid.querySelectorAll<HTMLElement>(".lp-port")];
 			const first = new Map(cards.map((c) => [c, c.getBoundingClientRect()]));
 			const gridRect = grid.getBoundingClientRect();
@@ -162,7 +177,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 				})
 			);
 
-			setTimeout(() => {
+			settleTimer = setTimeout(() => {
 				for (const c of cards) {
 					if (c.classList.contains("is-exiting")) {
 						c.classList.remove("is-exiting");
