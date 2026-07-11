@@ -1,0 +1,324 @@
+---
+/**
+ * bravada.tabswidget — the demo's Cryout Tabs widget: a solid gold
+ * toolbar of icon tabs (Recent / Popular / Comments / Tags) over a
+ * swappable panel. Post panels query live EmDash content server-side;
+ * the Tags panel is a gold tag cloud. Client script swaps panels.
+ */
+import { getEmDashCollection, getTaxonomyTerms, getTermsForEntries } from "emdash";
+import { getMediaUrl } from "../../utils/media-url";
+
+interface TabsNode {
+	limit?: number;
+}
+
+const { node } = Astro.props as { node: TabsNode };
+const limit = node.limit ?? 4;
+
+const [{ entries: recent }, tags] = await Promise.all([
+	getEmDashCollection("posts", {
+		orderBy: { published_at: "desc" },
+		limit: limit * 2,
+	}),
+	getTaxonomyTerms("tag"),
+]);
+
+const catsByEntry = await getTermsForEntries(
+	"posts",
+	recent.map((p) => p.data.id),
+	"category",
+);
+
+const toItem = (post: (typeof recent)[number]) => ({
+	title: post.data.title,
+	href: `/posts/${post.id}`,
+	image: getMediaUrl(post.data.featured_image),
+	categories: catsByEntry.get(post.data.id) ?? [],
+	date: post.data.publishedAt?.toLocaleDateString("en-GB", {
+		day: "numeric",
+		month: "long",
+	}),
+});
+
+const recentItems = recent.slice(0, limit).map(toItem);
+// Demo shows distinct lists per tab; without hit/comment counters we
+// approximate: "popular" = alphabetical, "comments" = oldest first.
+const popularItems = [...recent]
+	.sort((a, b) => String(a.data.title).localeCompare(String(b.data.title)))
+	.slice(0, limit)
+	.map(toItem);
+const commentedItems = [...recent].reverse().slice(0, limit).map(toItem);
+
+const uid = `wtabs-${Math.random().toString(36).slice(2, 8)}`;
+const panels = [
+	{ id: "recent", label: "Recent Posts", items: recentItems },
+	{ id: "popular", label: "Popular Posts", items: popularItems },
+	{ id: "comments", label: "Recent Comments", items: commentedItems },
+];
+---
+
+<div class="bravada-wtabs" id={uid}>
+	<ul class="wtabs-nav" role="tablist">
+		<li>
+			<button
+				type="button"
+				class="active"
+				data-tab="recent"
+				role="tab"
+				aria-selected="true"
+				title="Recent Posts"
+			>
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+				<span class="sr-only">Recent Posts</span>
+			</button>
+		</li>
+		<li>
+			<button type="button" data-tab="popular" role="tab" aria-selected="false" title="Popular Posts">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+				<span class="sr-only">Popular Posts</span>
+			</button>
+		</li>
+		<li>
+			<button type="button" data-tab="comments" role="tab" aria-selected="false" title="Recent Comments">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+				<span class="sr-only">Recent Comments</span>
+			</button>
+		</li>
+		<li>
+			<button type="button" data-tab="tags" role="tab" aria-selected="false" title="Tags">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+				<span class="sr-only">Tags</span>
+			</button>
+		</li>
+	</ul>
+	<div class="wtabs-panels">
+		{
+			panels.map((panel, pi) => (
+				<ul
+					class:list={["wtab-panel", { active: pi === 0 }]}
+					data-panel={panel.id}
+					role="tabpanel"
+				>
+					{panel.items.map((item) => (
+						<li>
+							{item.image && (
+								<a href={item.href} class="wtab-thumb" tabindex="-1">
+									<img src={item.image} alt={item.title} loading="lazy" />
+								</a>
+							)}
+							<div class="wtab-info">
+								{item.categories.length > 0 && (
+									<p class="wtab-cats">
+										{item.categories.map((c, i) => (
+											<>
+												{i > 0 && " / "}
+												<a href={`/category/${c.slug}`}>{c.label}</a>
+											</>
+										))}
+									</p>
+								)}
+								<p class="wtab-title">
+									<a href={item.href}>{item.title}</a>
+								</p>
+								{item.date && <p class="wtab-date">{item.date}</p>}
+							</div>
+						</li>
+					))}
+				</ul>
+			))
+		}
+		<div class="wtab-panel wtab-tags" data-panel="tags" role="tabpanel">
+			{
+				tags.map((t) => (
+					<a href={`/tag/${t.slug}`} class="wtab-tag">
+						{t.label}
+					</a>
+				))
+			}
+		</div>
+	</div>
+</div>
+
+<script>
+	for (const root of document.querySelectorAll<HTMLElement>(".bravada-wtabs")) {
+		if (root.dataset.init) continue;
+		root.dataset.init = "1";
+		const buttons = root.querySelectorAll<HTMLButtonElement>("[data-tab]");
+		const panels = root.querySelectorAll<HTMLElement>("[data-panel]");
+		buttons.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				buttons.forEach((b) => {
+					b.classList.toggle("active", b === btn);
+					b.setAttribute("aria-selected", b === btn ? "true" : "false");
+				});
+				panels.forEach((p) => {
+					p.classList.toggle("active", p.dataset.panel === btn.dataset.tab);
+				});
+			});
+		});
+	}
+</script>
+
+<style>
+	/* Gold toolbar (demo .cryout-wtabs-nav: solid #E9B44C) */
+	.wtabs-nav {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		background: var(--color-gold);
+		border: 1px solid var(--color-gold);
+	}
+
+	.wtabs-nav li {
+		flex: 1;
+		margin: 0 !important;
+		padding: 0 !important;
+		border: none !important;
+	}
+
+	.wtabs-nav button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		padding: 0.8em 0;
+		border: 0;
+		background: transparent;
+		color: #ffffff;
+		cursor: pointer;
+		transition: 0.2s ease-out background;
+	}
+
+	.wtabs-nav button:hover {
+		background: rgba(255, 255, 255, 0.15);
+	}
+
+	.wtabs-nav button.active {
+		background: var(--color-surface);
+		color: var(--color-gold);
+	}
+
+	.wtabs-panels {
+		padding-top: 1.2em;
+	}
+
+	.wtab-panel {
+		display: none;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.wtab-panel.active {
+		display: block;
+	}
+
+	.wtab-panel li {
+		display: flex;
+		gap: 0.9em;
+		align-items: flex-start;
+		margin: 0 0 1.1em;
+		padding: 0 !important;
+		border: none !important;
+	}
+
+	.wtab-thumb {
+		flex-shrink: 0;
+		position: relative;
+		line-height: 0;
+		border: 1px solid var(--color-border);
+		padding: 3px;
+		background: var(--color-surface);
+	}
+
+	.wtab-thumb::after {
+		content: "";
+		position: absolute;
+		inset: 3px;
+		background: linear-gradient(to bottom, transparent 40%, var(--color-gold));
+		opacity: 0.35;
+		transition: 0.3s ease-out opacity;
+	}
+
+	.wtab-thumb:hover::after {
+		opacity: 0.6;
+	}
+
+	.wtab-thumb img {
+		width: 64px;
+		height: 64px;
+		object-fit: cover;
+	}
+
+	.wtab-info {
+		min-width: 0;
+	}
+
+	.wtab-cats {
+		margin: 0;
+		font-size: 0.78em;
+		color: var(--color-muted);
+	}
+
+	.wtab-cats a {
+		color: var(--color-muted);
+		text-decoration: none;
+	}
+
+	.wtab-title {
+		margin: 0.1em 0 0;
+		font-size: 0.95em;
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	.wtab-title a {
+		color: var(--color-teal);
+		text-decoration: none;
+		transition: color 0.2s ease-out;
+	}
+
+	.wtab-title a:hover {
+		color: var(--color-gold);
+	}
+
+	.wtab-date {
+		margin: 0.1em 0 0;
+		font-size: 0.78em;
+		color: var(--color-muted);
+	}
+
+	/* Gold tag cloud (demo .tagcloud a treatment) */
+	.wtab-tags.active {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+	}
+
+	.wtab-tag {
+		display: inline-block;
+		padding: 0.25em 0.9em;
+		background: var(--color-gold);
+		color: #ffffff;
+		font-size: 0.85em;
+		text-decoration: none;
+		transition: 0.2s ease-out background;
+	}
+
+	.wtab-tag:hover {
+		background: var(--color-teal-solid);
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+</style>

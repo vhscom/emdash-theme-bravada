@@ -47,7 +47,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 		)
 	}
 	<div class:list={["page-shell", `layout-${layout}`]}>
-		{hasPrimary && <SidebarWidgets name="sidebar" />}
+		{hasPrimary && <SidebarWidgets name="page-sidebar" />}
 		<article class="page-article">
 			<div class="page-content">
 				<RichText value={page.data.content} />
@@ -61,13 +61,15 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	/* Demo static page: content on a white card inside the shell.
 	   The shell arranges the card and up to two 320px sidebars per the
 	   page's Layout field (demo one/two/three-column options). */
+	/* Demo #container: one white sheet holding content + sidebars */
 	.page-shell {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		gap: 2.5em;
+		gap: 3em;
 		max-width: calc(var(--wide-width) - 4em);
 		margin: 4em auto;
-		padding: 0 var(--spacing-4);
+		padding: 3.5em clamp(1.5em, 4vw, 3.5em);
+		background: var(--color-surface);
 	}
 
 	.page-shell.layout-left {
@@ -103,8 +105,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	}
 
 	.page-article {
-		padding: 3.5em clamp(1.5em, 5vw, 4em);
-		background: var(--color-surface);
+		min-width: 0;
 	}
 
 	@media (max-width: 1100px) {

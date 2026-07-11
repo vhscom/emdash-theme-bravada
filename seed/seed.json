@@ -573,18 +573,206 @@
 			"description": "Second sidebar for two-sidebar page layouts",
 			"widgets": [
 				{
-					"type": "component",
-					"componentId": "core:recent-posts",
-					"title": "Recent Posts",
-					"settings": {
-						"count": 4,
-						"showDate": false
-					}
+					"type": "content",
+					"content": [
+						{
+							"_type": "bravada.search",
+							"_key": "sb-search",
+							"placeholder": "Search"
+						}
+					]
 				},
 				{
-					"type": "component",
-					"componentId": "core:tags",
-					"title": "Tags"
+					"type": "content",
+					"content": [
+						{
+							"_type": "bravada.postswidget",
+							"_key": "sb-posts",
+							"limit": 5
+						}
+					]
+				},
+				{
+					"type": "content",
+					"content": [
+						{
+							"_type": "bravada.tabswidget",
+							"_key": "sb-tabs",
+							"limit": 4
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "page-sidebar",
+			"label": "Page Sidebar",
+			"description": "Primary sidebar for page layouts",
+			"widgets": [
+				{
+					"type": "content",
+					"title": "Pages",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "psl-blog",
+							"listItem": "bullet",
+							"level": 1,
+							"children": [
+								{
+									"_type": "span",
+									"_key": "psl-blogs",
+									"text": "Blog",
+									"marks": [
+										"psl-blogm"
+									]
+								}
+							],
+							"markDefs": [
+								{
+									"_type": "link",
+									"_key": "psl-blogm",
+									"href": "/posts"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "psl-about",
+							"listItem": "bullet",
+							"level": 1,
+							"children": [
+								{
+									"_type": "span",
+									"_key": "psl-abouts",
+									"text": "About Us",
+									"marks": [
+										"psl-aboutm"
+									]
+								}
+							],
+							"markDefs": [
+								{
+									"_type": "link",
+									"_key": "psl-aboutm",
+									"href": "/pages/about-us"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "psl-contact",
+							"listItem": "bullet",
+							"level": 1,
+							"children": [
+								{
+									"_type": "span",
+									"_key": "psl-contacts",
+									"text": "Contact",
+									"marks": [
+										"psl-contactm"
+									]
+								}
+							],
+							"markDefs": [
+								{
+									"_type": "link",
+									"_key": "psl-contactm",
+									"href": "/pages/contact"
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "content",
+					"title": "Top rated products",
+					"content": [
+						{
+							"_type": "bravada.products",
+							"_key": "w-price",
+							"items": [
+								{
+									"title": "Ninja Silhouette",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_5_front-300x300.jpg",
+									"url": "/posts",
+									"rating": 5,
+									"price": "£20.00"
+								},
+								{
+									"title": "Happy Ninja",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_7_front-300x300.jpg",
+									"url": "/posts",
+									"rating": 5,
+									"price": "£18.00"
+								},
+								{
+									"title": "Woo Ninja",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_2_front-300x300.jpg",
+									"url": "/posts",
+									"rating": 5,
+									"price": "£35.00"
+								},
+								{
+									"title": "Woo Album #4",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_2_angle-300x300.jpg",
+									"url": "/posts",
+									"rating": 5,
+									"price": "£9.00"
+								},
+								{
+									"title": "Ninja Silhouette",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_7_front-300x300.jpg",
+									"url": "/posts",
+									"rating": 4.75,
+									"price": "£35.00"
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "content",
+					"title": "Recent reviews",
+					"content": [
+						{
+							"_type": "bravada.products",
+							"_key": "w-by",
+							"items": [
+								{
+									"title": "Happy Ninja",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_4_front-300x300.jpg",
+									"url": "/posts",
+									"rating": 5,
+									"by": "by Maria"
+								},
+								{
+									"title": "Happy Ninja",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_7_front-300x300.jpg",
+									"url": "/posts",
+									"rating": 5,
+									"by": "by Maria"
+								},
+								{
+									"title": "Ninja Silhouette",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_7_front-300x300.jpg",
+									"url": "/posts",
+									"rating": 5,
+									"by": "by Ryan"
+								},
+								{
+									"title": "Ship Your Idea",
+									"image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_5_front-300x300.jpg",
+									"url": "/posts",
+									"rating": 5,
+									"by": "by Ryan"
+								}
+							]
+						}
+					]
 				}
 			]
 		}
@@ -1623,16 +1811,13 @@
 					"layout": "none",
 					"content": [
 						{
-							"_type": "block",
-							"style": "h2",
-							"_key": "no-sidebars-h",
-							"children": [
-								{
-									"_type": "span",
-									"_key": "no-sidebars-hs",
-									"text": "A glorious layout"
-								}
-							]
+							"_type": "image",
+							"_key": "no-sidebars-img1",
+							"asset": {
+								"_ref": "no-sidebars-img1",
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1642,9 +1827,18 @@
 								{
 									"_type": "span",
 									"_key": "no-sidebars-p1s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "In suscipit accumsan dui, ut consequat neque commodo vitae. Nunc molestie id massa ut dictum. Sed non sagittis mauris. Curabitur nisi sapien, lobortis egestas faucibus nec, dignissim nec arcu. Vestibulum odio lacus, tempor tincidunt erat ut, interdum iaculis nisi. Donec condimentum convallis ante. Nullam vitae neque ut augue posuere pharetra. Suspendisse fringilla eleifend tortor at fringilla. Nullam elementum ipsum eu lectus gravida, vitae faucibus ex commodo. Aenean eget libero nisl."
 								}
 							]
+						},
+						{
+							"_type": "image",
+							"_key": "no-sidebars-img2",
+							"asset": {
+								"_ref": "no-sidebars-img2",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes08-1024x682.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1654,7 +1848,88 @@
 								{
 									"_type": "span",
 									"_key": "no-sidebars-p2s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "Nullam id ipsum mauris. Donec finibus fermentum interdum. Aenean ultrices erat sit amet posuere pretium. Fusce tortor elit, finibus et malesuada quis, venenatis sed massa. Ut non eleifend purus. Donec dictum ultrices bibendum. In vitae odio laoreet, gravida neque in, congue nibh. Nam lobortis tortor ut purus commodo, vitae malesuada sapien accumsan. Phasellus id eros ac velit gravida feugiat non a ligula. Sed id iaculis urna. Nunc eu mauris erat. Duis gravida ipsum pellentesque diam lacinia tincidunt. Curabitur nibh ex, iaculis ut purus vitae, lacinia iaculis lectus. Nullam ullamcorper purus ut faucibus varius. Quisque faucibus justo ipsum, id tempor diam ultrices vitae."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "no-sidebars-h1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-h1s",
+									"text": "No sidebars at all"
+								}
+							]
+						},
+						{
+							"_type": "image",
+							"_key": "no-sidebars-img3",
+							"asset": {
+								"_ref": "no-sidebars-img3",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes01-1024x682.jpg"
+							},
+							"alt": ""
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "no-sidebars-p3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-p3s",
+									"text": "Nunc id efficitur ex. Praesent vestibulum laoreet commodo. Nulla nec porttitor lectus, vel euismod odio. In velit nibh, finibus at blandit nec, rhoncus vel enim. Donec accumsan vel libero in ultricies. Quisque id metus dictum, vulputate est id, eleifend libero. Vestibulum et tempor est, nec tincidunt ipsum. Vestibulum vestibulum, est non varius molestie, ante erat convallis nisl, sed facilisis orci orci vitae dolor. Donec tempus mi nec consequat varius. Nam mollis dui et ante vulputate mollis. Sed arcu purus, posuere in semper non, interdum eget tortor. Curabitur feugiat quam at ex euismod, ac tempus mi rutrum. Fusce consequat ex at ante ultricies, at convallis dui faucibus. Aenean suscipit lacus gravida, congue sapien vitae, luctus odio. Nam varius hendrerit ante in vehicula. Quisque nec est ac massa finibus euismod ut vel massa."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "no-sidebars-h2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-h2s",
+									"text": "Office laptop"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "no-sidebars-p4",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-p4s",
+									"text": "Suspendisse erat risus, tempor nec consectetur et, pellentesque et arcu. Suspendisse vel leo consectetur, convallis dui vitae, hendrerit lectus. Sed eget diam pharetra, tincidunt purus vitae, tincidunt mi. Pellentesque odio justo, faucibus a rhoncus ac, congue in mi. Aenean vitae justo non neque pulvinar ullamcorper pharetra vel metus. Mauris posuere porta justo, ut efficitur risus fringilla rhoncus. Vivamus augue lectus, semper rhoncus nisl nec, tempus ultricies arcu."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "no-sidebars-p5",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-p5s",
+									"text": "Donec bibendum tempus efficitur. Fusce molestie suscipit elementum. Cras gravida diam quam, sit amet tincidunt nibh tincidunt nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "no-sidebars-p6",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "no-sidebars-p6s",
+									"text": "Duis ornare, lorem vitae laoreet semper, enim lacus interdum justo, id commodo sapien erat non nibh. Fusce quis faucibus lectus, vel imperdiet elit. In at cursus augue. Praesent erat mauris, facilisis vel tortor id, posuere bibendum nibh. Proin tincidunt pretium nulla."
 								}
 							]
 						}
@@ -1670,16 +1945,13 @@
 					"layout": "left",
 					"content": [
 						{
-							"_type": "block",
-							"style": "h2",
-							"_key": "left-sidebar-h",
-							"children": [
-								{
-									"_type": "span",
-									"_key": "left-sidebar-hs",
-									"text": "A glorious layout"
-								}
-							]
+							"_type": "image",
+							"_key": "left-sidebar-img1",
+							"asset": {
+								"_ref": "left-sidebar-img1",
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1689,9 +1961,18 @@
 								{
 									"_type": "span",
 									"_key": "left-sidebar-p1s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "In suscipit accumsan dui, ut consequat neque commodo vitae. Nunc molestie id massa ut dictum. Sed non sagittis mauris. Curabitur nisi sapien, lobortis egestas faucibus nec, dignissim nec arcu. Vestibulum odio lacus, tempor tincidunt erat ut, interdum iaculis nisi. Donec condimentum convallis ante. Nullam vitae neque ut augue posuere pharetra. Suspendisse fringilla eleifend tortor at fringilla. Nullam elementum ipsum eu lectus gravida, vitae faucibus ex commodo. Aenean eget libero nisl."
 								}
 							]
+						},
+						{
+							"_type": "image",
+							"_key": "left-sidebar-img2",
+							"asset": {
+								"_ref": "left-sidebar-img2",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/06/demo-image-09-1024x635.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1701,7 +1982,88 @@
 								{
 									"_type": "span",
 									"_key": "left-sidebar-p2s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "Nullam id ipsum mauris. Donec finibus fermentum interdum. Aenean ultrices erat sit amet posuere pretium. Fusce tortor elit, finibus et malesuada quis, venenatis sed massa. Ut non eleifend purus. Donec dictum ultrices bibendum. In vitae odio laoreet, gravida neque in, congue nibh. Nam lobortis tortor ut purus commodo, vitae malesuada sapien accumsan. Phasellus id eros ac velit gravida feugiat non a ligula. Sed id iaculis urna. Nunc eu mauris erat. Duis gravida ipsum pellentesque diam lacinia tincidunt. Curabitur nibh ex, iaculis ut purus vitae, lacinia iaculis lectus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "left-sidebar-h1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-h1s",
+									"text": "Left sidebar"
+								}
+							]
+						},
+						{
+							"_type": "image",
+							"_key": "left-sidebar-img3",
+							"asset": {
+								"_ref": "left-sidebar-img3",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes09-300x200.jpg"
+							},
+							"alt": ""
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "left-sidebar-p3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-p3s",
+									"text": "Nunc id efficitur ex. Praesent vestibulum laoreet commodo. Nulla nec porttitor lectus, vel euismod odio. In velit nibh, finibus at blandit nec, rhoncus vel enim. Donec accumsan vel libero in ultricies. Quisque id metus dictum, vulputate est id, eleifend libero. Vestibulum et tempor est, nec tincidunt ipsum. Vestibulum vestibulum, est non varius molestie, ante erat convallis nisl, sed facilisis orci orci vitae dolor. Donec tempus mi nec consequat varius. Nam mollis dui et ante vulputate mollis. Sed arcu purus, posuere in semper non, interdum eget tortor. Curabitur feugiat quam at ex euismod, ac tempus mi rutrum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "left-sidebar-h2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-h2s",
+									"text": "Something else"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "left-sidebar-p4",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-p4s",
+									"text": "Suspendisse erat risus, tempor nec consectetur et, pellentesque et arcu. Suspendisse vel leo consectetur, convallis dui vitae, hendrerit lectus. Sed eget diam pharetra, tincidunt purus vitae, tincidunt mi. Pellentesque odio justo, faucibus a rhoncus ac, congue in mi. Aenean vitae justo non neque pulvinar ullamcorper pharetra vel metus. Mauris posuere porta justo, ut efficitur risus fringilla rhoncus. Vivamus augue lectus, semper rhoncus nisl nec, tempus ultricies arcu."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "left-sidebar-p5",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-p5s",
+									"text": "Donec bibendum tempus efficitur. Fusce molestie suscipit elementum. Cras gravida diam quam, sit amet tincidunt nibh tincidunt nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "left-sidebar-p6",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "left-sidebar-p6s",
+									"text": "Duis ornare, lorem vitae laoreet semper, enim lacus interdum justo, id commodo sapien erat non nibh. Fusce quis faucibus lectus, vel imperdiet elit. In at cursus augue. Praesent erat mauris, facilisis vel tortor id, posuere bibendum nibh. Proin tincidunt pretium nulla."
 								}
 							]
 						}
@@ -1717,16 +2079,13 @@
 					"layout": "right",
 					"content": [
 						{
-							"_type": "block",
-							"style": "h2",
-							"_key": "right-sidebar-h",
-							"children": [
-								{
-									"_type": "span",
-									"_key": "right-sidebar-hs",
-									"text": "A glorious layout"
-								}
-							]
+							"_type": "image",
+							"_key": "right-sidebar-img1",
+							"asset": {
+								"_ref": "right-sidebar-img1",
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1736,9 +2095,18 @@
 								{
 									"_type": "span",
 									"_key": "right-sidebar-p1s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "In suscipit accumsan dui, ut consequat neque commodo vitae. Nunc molestie id massa ut dictum. Sed non sagittis mauris. Curabitur nisi sapien, lobortis egestas faucibus nec, dignissim nec arcu. Vestibulum odio lacus, tempor tincidunt erat ut, interdum iaculis nisi. Donec condimentum convallis ante. Nullam vitae neque ut augue posuere pharetra. Suspendisse fringilla eleifend tortor at fringilla. Nullam elementum ipsum eu lectus gravida, vitae faucibus ex commodo. Aenean eget libero nisl."
 								}
 							]
+						},
+						{
+							"_type": "image",
+							"_key": "right-sidebar-img2",
+							"asset": {
+								"_ref": "right-sidebar-img2",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/06/demo-image-09-1024x635.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1748,7 +2116,88 @@
 								{
 									"_type": "span",
 									"_key": "right-sidebar-p2s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "Nullam id ipsum mauris. Donec finibus fermentum interdum. Aenean ultrices erat sit amet posuere pretium. Fusce tortor elit, finibus et malesuada quis, venenatis sed massa. Ut non eleifend purus. Donec dictum ultrices bibendum. In vitae odio laoreet, gravida neque in, congue nibh. Nam lobortis tortor ut purus commodo, vitae malesuada sapien accumsan. Phasellus id eros ac velit gravida feugiat non a ligula. Sed id iaculis urna. Nunc eu mauris erat. Duis gravida ipsum pellentesque diam lacinia tincidunt. Curabitur nibh ex, iaculis ut purus vitae, lacinia iaculis lectus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "right-sidebar-h1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-h1s",
+									"text": "Sidebar right"
+								}
+							]
+						},
+						{
+							"_type": "image",
+							"_key": "right-sidebar-img3",
+							"asset": {
+								"_ref": "right-sidebar-img3",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes07-1024x682.jpg"
+							},
+							"alt": ""
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "right-sidebar-p3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-p3s",
+									"text": "Nunc id efficitur ex. Praesent vestibulum laoreet commodo. Nulla nec porttitor lectus, vel euismod odio. In velit nibh, finibus at blandit nec, rhoncus vel enim. Donec accumsan vel libero in ultricies. Quisque id metus dictum, vulputate est id, eleifend libero. Vestibulum et tempor est, nec tincidunt ipsum. Vestibulum vestibulum, est non varius molestie, ante erat convallis nisl, sed facilisis orci orci vitae dolor. Donec tempus mi nec consequat varius. Nam mollis dui et ante vulputate mollis. Sed arcu purus, posuere in semper non, interdum eget tortor. Curabitur feugiat quam at ex euismod, ac tempus mi rutrum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "right-sidebar-h2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-h2s",
+									"text": "Office laptop"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "right-sidebar-p4",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-p4s",
+									"text": "Suspendisse erat risus, tempor nec consectetur et, pellentesque et arcu. Suspendisse vel leo consectetur, convallis dui vitae, hendrerit lectus. Sed eget diam pharetra, tincidunt purus vitae, tincidunt mi. Pellentesque odio justo, faucibus a rhoncus ac, congue in mi. Aenean vitae justo non neque pulvinar ullamcorper pharetra vel metus. Mauris posuere porta justo, ut efficitur risus fringilla rhoncus. Vivamus augue lectus, semper rhoncus nisl nec, tempus ultricies arcu."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "right-sidebar-p5",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-p5s",
+									"text": "Donec bibendum tempus efficitur. Fusce molestie suscipit elementum. Cras gravida diam quam, sit amet tincidunt nibh tincidunt nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "right-sidebar-p6",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "right-sidebar-p6s",
+									"text": "Duis ornare, lorem vitae laoreet semper, enim lacus interdum justo, id commodo sapien erat non nibh. Fusce quis faucibus lectus, vel imperdiet elit. In at cursus augue. Praesent erat mauris, facilisis vel tortor id, posuere bibendum nibh. Proin tincidunt pretium nulla."
 								}
 							]
 						}
@@ -1764,16 +2213,13 @@
 					"layout": "two-left",
 					"content": [
 						{
-							"_type": "block",
-							"style": "h2",
-							"_key": "two-sidebars-left-h",
-							"children": [
-								{
-									"_type": "span",
-									"_key": "two-sidebars-left-hs",
-									"text": "A glorious layout"
-								}
-							]
+							"_type": "image",
+							"_key": "two-sidebars-left-img1",
+							"asset": {
+								"_ref": "two-sidebars-left-img1",
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1783,9 +2229,18 @@
 								{
 									"_type": "span",
 									"_key": "two-sidebars-left-p1s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "In suscipit accumsan dui, ut consequat neque commodo vitae. Nunc molestie id massa ut dictum. Sed non sagittis mauris. Curabitur nisi sapien, lobortis egestas faucibus nec, dignissim nec arcu. Vestibulum odio lacus, tempor tincidunt erat ut, interdum iaculis nisi. Donec condimentum convallis ante. Nullam vitae neque ut augue posuere pharetra. Suspendisse fringilla eleifend tortor at fringilla."
 								}
 							]
+						},
+						{
+							"_type": "image",
+							"_key": "two-sidebars-left-img2",
+							"asset": {
+								"_ref": "two-sidebars-left-img2",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes03-1024x682.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1795,7 +2250,88 @@
 								{
 									"_type": "span",
 									"_key": "two-sidebars-left-p2s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "Nullam id ipsum mauris. Donec finibus fermentum interdum. Aenean ultrices erat sit amet posuere pretium. Fusce tortor elit, finibus et malesuada quis, venenatis sed massa. Ut non eleifend purus. Donec dictum ultrices bibendum. In vitae odio laoreet, gravida neque in, congue nibh. Nam lobortis tortor ut purus commodo, vitae malesuada sapien accumsan. Phasellus id eros ac velit gravida feugiat non a ligula. Sed id iaculis urna. Nunc eu mauris erat. Duis gravida ipsum pellentesque diam lacinia tincidunt. Curabitur nibh ex, iaculis ut purus vitae, lacinia iaculis lectus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "two-sidebars-left-h1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-h1s",
+									"text": "Two sidebars on the left side"
+								}
+							]
+						},
+						{
+							"_type": "image",
+							"_key": "two-sidebars-left-img3",
+							"asset": {
+								"_ref": "two-sidebars-left-img3",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes08-1024x682.jpg"
+							},
+							"alt": ""
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-left-p3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-p3s",
+									"text": "Nunc id efficitur ex. Praesent vestibulum laoreet commodo. Nulla nec porttitor lectus, vel euismod odio. In velit nibh, finibus at blandit nec, rhoncus vel enim. Donec accumsan vel libero in ultricies. Quisque id metus dictum, vulputate est id, eleifend libero. Vestibulum et tempor est, nec tincidunt ipsum. Vestibulum vestibulum, est non varius molestie, ante erat convallis nisl, sed facilisis orci orci vitae dolor. Donec tempus mi nec consequat varius. Nam mollis dui et ante vulputate mollis. Sed arcu purus, posuere in semper non, interdum eget tortor. Curabitur feugiat quam at ex euismod, ac tempus mi rutrum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "two-sidebars-left-h2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-h2s",
+									"text": "Office laptop"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-left-p4",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-p4s",
+									"text": "Suspendisse erat risus, tempor nec consectetur et, pellentesque et arcu. Suspendisse vel leo consectetur, convallis dui vitae, hendrerit lectus. Sed eget diam pharetra, tincidunt purus vitae, tincidunt mi. Pellentesque odio justo, faucibus a rhoncus ac, congue in mi. Aenean vitae justo non neque pulvinar ullamcorper pharetra vel metus. Mauris posuere porta justo, ut efficitur risus fringilla rhoncus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-left-p5",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-p5s",
+									"text": "Donec bibendum tempus efficitur. Fusce molestie suscipit elementum. Cras gravida diam quam, sit amet tincidunt nibh tincidunt nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-left-p6",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-left-p6s",
+									"text": "Duis ornare, lorem vitae laoreet semper, enim lacus interdum justo, id commodo sapien erat non nibh. Fusce quis faucibus lectus, vel imperdiet elit. In at cursus augue. Praesent erat mauris, facilisis vel tortor id, posuere bibendum nibh. Proin tincidunt pretium nulla."
 								}
 							]
 						}
@@ -1811,16 +2347,13 @@
 					"layout": "two-right",
 					"content": [
 						{
-							"_type": "block",
-							"style": "h2",
-							"_key": "two-sidebars-right-h",
-							"children": [
-								{
-									"_type": "span",
-									"_key": "two-sidebars-right-hs",
-									"text": "A glorious layout"
-								}
-							]
+							"_type": "image",
+							"_key": "two-sidebars-right-img1",
+							"asset": {
+								"_ref": "two-sidebars-right-img1",
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1830,9 +2363,18 @@
 								{
 									"_type": "span",
 									"_key": "two-sidebars-right-p1s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "In suscipit accumsan dui, ut consequat neque commodo vitae. Nunc molestie id massa ut dictum. Sed non sagittis mauris. Curabitur nisi sapien, lobortis egestas faucibus nec, dignissim nec arcu. Vestibulum odio lacus, tempor tincidunt erat ut, interdum iaculis nisi. Donec condimentum convallis ante. Nullam vitae neque ut augue posuere pharetra. Suspendisse fringilla eleifend tortor at fringilla."
 								}
 							]
+						},
+						{
+							"_type": "image",
+							"_key": "two-sidebars-right-img2",
+							"asset": {
+								"_ref": "two-sidebars-right-img2",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes03-1024x682.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1842,7 +2384,88 @@
 								{
 									"_type": "span",
 									"_key": "two-sidebars-right-p2s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "Nullam id ipsum mauris. Donec finibus fermentum interdum. Aenean ultrices erat sit amet posuere pretium. Fusce tortor elit, finibus et malesuada quis, venenatis sed massa. Ut non eleifend purus. Donec dictum ultrices bibendum. In vitae odio laoreet, gravida neque in, congue nibh. Nam lobortis tortor ut purus commodo, vitae malesuada sapien accumsan. Phasellus id eros ac velit gravida feugiat non a ligula. Sed id iaculis urna. Nunc eu mauris erat. Duis gravida ipsum pellentesque diam lacinia tincidunt. Curabitur nibh ex, iaculis ut purus vitae, lacinia iaculis lectus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "two-sidebars-right-h1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-h1s",
+									"text": "Two sidebars on the right side"
+								}
+							]
+						},
+						{
+							"_type": "image",
+							"_key": "two-sidebars-right-img3",
+							"asset": {
+								"_ref": "two-sidebars-right-img3",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes08-1024x682.jpg"
+							},
+							"alt": ""
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-right-p3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-p3s",
+									"text": "Nunc id efficitur ex. Praesent vestibulum laoreet commodo. Nulla nec porttitor lectus, vel euismod odio. In velit nibh, finibus at blandit nec, rhoncus vel enim. Donec accumsan vel libero in ultricies. Quisque id metus dictum, vulputate est id, eleifend libero. Vestibulum et tempor est, nec tincidunt ipsum. Vestibulum vestibulum, est non varius molestie, ante erat convallis nisl, sed facilisis orci orci vitae dolor. Donec tempus mi nec consequat varius. Nam mollis dui et ante vulputate mollis. Sed arcu purus, posuere in semper non, interdum eget tortor. Curabitur feugiat quam at ex euismod, ac tempus mi rutrum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "two-sidebars-right-h2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-h2s",
+									"text": "Office laptop"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-right-p4",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-p4s",
+									"text": "Suspendisse erat risus, tempor nec consectetur et, pellentesque et arcu. Suspendisse vel leo consectetur, convallis dui vitae, hendrerit lectus. Sed eget diam pharetra, tincidunt purus vitae, tincidunt mi. Pellentesque odio justo, faucibus a rhoncus ac, congue in mi. Aenean vitae justo non neque pulvinar ullamcorper pharetra vel metus. Mauris posuere porta justo, ut efficitur risus fringilla rhoncus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-right-p5",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-p5s",
+									"text": "Donec bibendum tempus efficitur. Fusce molestie suscipit elementum. Cras gravida diam quam, sit amet tincidunt nibh tincidunt nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-right-p6",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-right-p6s",
+									"text": "Duis ornare, lorem vitae laoreet semper, enim lacus interdum justo, id commodo sapien erat non nibh. Fusce quis faucibus lectus, vel imperdiet elit. In at cursus augue. Praesent erat mauris, facilisis vel tortor id, posuere bibendum nibh. Proin tincidunt pretium nulla."
 								}
 							]
 						}
@@ -1858,16 +2481,13 @@
 					"layout": "sided",
 					"content": [
 						{
-							"_type": "block",
-							"style": "h2",
-							"_key": "two-sidebars-sided-h",
-							"children": [
-								{
-									"_type": "span",
-									"_key": "two-sidebars-sided-hs",
-									"text": "A glorious layout"
-								}
-							]
+							"_type": "image",
+							"_key": "two-sidebars-sided-img1",
+							"asset": {
+								"_ref": "two-sidebars-sided-img1",
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1877,9 +2497,18 @@
 								{
 									"_type": "span",
 									"_key": "two-sidebars-sided-p1s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "In suscipit accumsan dui, ut consequat neque commodo vitae. Nunc molestie id massa ut dictum. Sed non sagittis mauris. Curabitur nisi sapien, lobortis egestas faucibus nec, dignissim nec arcu. Vestibulum odio lacus, tempor tincidunt erat ut, interdum iaculis nisi. Donec condimentum convallis ante. Nullam vitae neque ut augue posuere pharetra. Suspendisse fringilla eleifend tortor at fringilla."
 								}
 							]
+						},
+						{
+							"_type": "image",
+							"_key": "two-sidebars-sided-img2",
+							"asset": {
+								"_ref": "two-sidebars-sided-img2",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes03-1024x682.jpg"
+							},
+							"alt": ""
 						},
 						{
 							"_type": "block",
@@ -1889,7 +2518,88 @@
 								{
 									"_type": "span",
 									"_key": "two-sidebars-sided-p2s",
-									"text": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
+									"text": "Nullam id ipsum mauris. Donec finibus fermentum interdum. Aenean ultrices erat sit amet posuere pretium. Fusce tortor elit, finibus et malesuada quis, venenatis sed massa. Ut non eleifend purus. Donec dictum ultrices bibendum. In vitae odio laoreet, gravida neque in, congue nibh. Nam lobortis tortor ut purus commodo, vitae malesuada sapien accumsan. Phasellus id eros ac velit gravida feugiat non a ligula. Sed id iaculis urna. Nunc eu mauris erat. Duis gravida ipsum pellentesque diam lacinia tincidunt. Curabitur nibh ex, iaculis ut purus vitae, lacinia iaculis lectus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "two-sidebars-sided-h1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-h1s",
+									"text": "Two sidebars on both sides"
+								}
+							]
+						},
+						{
+							"_type": "image",
+							"_key": "two-sidebars-sided-img3",
+							"asset": {
+								"_ref": "two-sidebars-sided-img3",
+								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes08-1024x682.jpg"
+							},
+							"alt": ""
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-sided-p3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-p3s",
+									"text": "Nunc id efficitur ex. Praesent vestibulum laoreet commodo. Nulla nec porttitor lectus, vel euismod odio. In velit nibh, finibus at blandit nec, rhoncus vel enim. Donec accumsan vel libero in ultricies. Quisque id metus dictum, vulputate est id, eleifend libero. Vestibulum et tempor est, nec tincidunt ipsum. Vestibulum vestibulum, est non varius molestie, ante erat convallis nisl, sed facilisis orci orci vitae dolor. Donec tempus mi nec consequat varius. Nam mollis dui et ante vulputate mollis. Sed arcu purus, posuere in semper non, interdum eget tortor. Curabitur feugiat quam at ex euismod, ac tempus mi rutrum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h3",
+							"_key": "two-sidebars-sided-h2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-h2s",
+									"text": "Office laptop"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-sided-p4",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-p4s",
+									"text": "Suspendisse erat risus, tempor nec consectetur et, pellentesque et arcu. Suspendisse vel leo consectetur, convallis dui vitae, hendrerit lectus. Sed eget diam pharetra, tincidunt purus vitae, tincidunt mi. Pellentesque odio justo, faucibus a rhoncus ac, congue in mi. Aenean vitae justo non neque pulvinar ullamcorper pharetra vel metus. Mauris posuere porta justo, ut efficitur risus fringilla rhoncus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-sided-p5",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-p5s",
+									"text": "Donec bibendum tempus efficitur. Fusce molestie suscipit elementum. Cras gravida diam quam, sit amet tincidunt nibh tincidunt nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"_key": "two-sidebars-sided-p6",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "two-sidebars-sided-p6s",
+									"text": "Duis ornare, lorem vitae laoreet semper, enim lacus interdum justo, id commodo sapien erat non nibh. Fusce quis faucibus lectus, vel imperdiet elit. In at cursus augue. Praesent erat mauris, facilisis vel tortor id, posuere bibendum nibh. Proin tincidunt pretium nulla."
 								}
 							]
 						}

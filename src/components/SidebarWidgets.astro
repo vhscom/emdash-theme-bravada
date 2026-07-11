@@ -1,41 +1,49 @@
 ---
 /**
- * A Bravada sidebar column: the named widget area rendered as white
- * widget cards (Playfair gold-strip titles, gold search block, list
- * rules) — the demo's #primary/#secondary treatment. Both sidebars
- * are admin-editable widget areas (Appearance → Widgets).
+ * A Bravada page sidebar (#primary/#secondary): widgets from the
+ * named area rendered flat on the page sheet — Playfair gold-strip
+ * titles, hairline list rules — exactly like the demo's layout pages.
+ * Content widgets render through the theme's RichText so they can
+ * carry custom blocks (products, posts widget, tabs, search…). All
+ * of it is admin-editable under widget areas.
  */
-import { WidgetArea } from "emdash/ui";
+import { getWidgetArea } from "emdash";
+import RichText from "./RichText.astro";
 
 interface Props {
 	name: string;
 }
 
 const { name } = Astro.props;
+const area = await getWidgetArea(name);
 ---
 
 <aside class="bravada-sidebar">
-	<WidgetArea name={name} />
+	{
+		area?.widgets.map((widget) => (
+			<section class="widget">
+				{widget.title && <h2 class="widget__title">{widget.title}</h2>}
+				{widget.type === "content" && widget.content && (
+					<div class="widget__content">
+						<RichText value={widget.content} />
+					</div>
+				)}
+			</section>
+		))
+	}
 </aside>
 
 <style>
-	.bravada-sidebar :global(.widget-area) {
+	.bravada-sidebar {
 		display: flex;
 		flex-direction: column;
-		gap: 2em;
-	}
-
-	.bravada-sidebar :global(.widget) {
-		background: var(--color-surface);
-		padding: 1.75em;
+		gap: 2.5em;
 		font-size: var(--font-size-sm);
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 	}
 
-	.bravada-sidebar :global(.widget__title),
-	.bravada-sidebar :global(.widget-title) {
+	.widget__title {
 		display: inline-block;
-		margin-bottom: 1em;
+		margin: 0 0 1em;
 		font-family: var(--font-heading);
 		font-size: 1.2em;
 		font-weight: 700;
@@ -51,88 +59,28 @@ const { name } = Astro.props;
 		background-position: 0 85%;
 	}
 
-	.bravada-sidebar :global(.widget ul) {
+	.widget :global(ul:not([class])) {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
 
-	.bravada-sidebar :global(.widget li) {
+	.widget :global(ul:not([class]) li) {
 		padding: 0.5em 0;
 		border-bottom: 1px solid var(--color-border-subtle);
 	}
 
-	.bravada-sidebar :global(.widget li:last-child) {
+	.widget :global(ul:not([class]) li:last-child) {
 		border-bottom: none;
 	}
 
-	.bravada-sidebar :global(.widget a) {
-		color: var(--color-text-secondary);
+	.widget :global(ul:not([class]) a) {
+		color: var(--color-teal);
 		text-decoration: none;
 		transition: color 0.2s ease-out;
 	}
 
-	.bravada-sidebar :global(.widget a:hover) {
-		color: var(--color-brand-hover);
-	}
-
-	.bravada-sidebar :global(.widget-search),
-	.bravada-sidebar :global(form[role="search"]) {
-		display: flex;
-		gap: 0;
-	}
-
-	.bravada-sidebar :global(.widget-search__input),
-	.bravada-sidebar :global(input[type="search"]) {
-		flex: 1;
-		min-width: 0;
-		padding: 0.7em 1em;
-		border: 1px solid var(--color-border);
-		border-radius: 0;
-		background: var(--color-bg);
-		font-family: var(--font-body);
-		font-size: var(--font-size-sm);
-		color: var(--color-text);
-	}
-
-	.bravada-sidebar :global(.widget-search__input:focus),
-	.bravada-sidebar :global(input[type="search"]:focus) {
-		outline: none;
-		border-color: var(--color-gold);
-	}
-
-	.bravada-sidebar :global(.widget-search__button),
-	.bravada-sidebar :global(button[type="submit"]) {
-		padding: 0 1em;
-		border: none;
-		background: var(--color-gold);
-		color: #ffffff;
-		font-weight: 700;
-		font-size: var(--font-size-sm);
-		cursor: pointer;
-		transition: background 0.2s ease-out;
-	}
-
-	.bravada-sidebar :global(.widget-search__button:hover),
-	.bravada-sidebar :global(button[type="submit"]:hover) {
-		background: var(--color-teal-solid);
-	}
-
-	.bravada-sidebar :global(.widget-tags__cloud) {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5em;
-	}
-
-	.bravada-sidebar :global(.widget-tags__cloud li) {
-		padding: 0;
-		border: none;
-	}
-
-	.bravada-sidebar :global(.widget-tags__link) {
-		display: inline-block;
-		padding: 0.15em 0.7em;
-		border: 1px solid var(--color-border);
-		font-size: var(--font-size-xs);
+	.widget :global(ul:not([class]) a:hover) {
+		color: var(--color-gold);
 	}
 </style>

@@ -1,0 +1,146 @@
+---
+/**
+ * bravada.products — the demo sidebar's WooCommerce-style product
+ * list ("Top rated products" / "Recent reviews"): teal title link,
+ * five-star teal rating, price or reviewer line, small framed thumb
+ * on the right. Items are plain block data, editable in the admin.
+ */
+interface ProductItem {
+	title: string;
+	image?: string;
+	url?: string;
+	/** e.g. "£35.00" */
+	price?: string;
+	/** e.g. "by Ryan" */
+	by?: string;
+	/** 0–5 stars */
+	rating?: number;
+}
+
+interface ProductsNode {
+	items?: ProductItem[];
+}
+
+const { node } = Astro.props as { node: ProductsNode };
+const { items = [] } = node;
+---
+
+<ul class="bravada-products">
+	{
+		items.map((item) => (
+			<li>
+				<div class="product-info">
+					<a href={item.url ?? "#"} class="product-title">
+						{item.title}
+					</a>
+					{typeof item.rating === "number" && (
+						<span
+							class="product-stars"
+							role="img"
+							aria-label={`Rated ${item.rating} out of 5`}
+						>
+							<span
+								class="product-stars-fill"
+								style={`width: ${(item.rating / 5) * 100}%`}
+							>
+								★★★★★
+							</span>
+							<span class="product-stars-track" aria-hidden="true">
+								★★★★★
+							</span>
+						</span>
+					)}
+					{item.price && <span class="product-price">{item.price}</span>}
+					{item.by && <span class="product-by">{item.by}</span>}
+				</div>
+				{item.image && (
+					<a href={item.url ?? "#"} class="product-thumb" tabindex="-1">
+						<img src={item.image} alt={item.title} loading="lazy" />
+					</a>
+				)}
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.bravada-products {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.bravada-products li {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 1em;
+		padding: 0.9em 0;
+		border-bottom: 1px solid var(--color-border-subtle);
+	}
+
+	.bravada-products li:last-child {
+		border-bottom: none;
+	}
+
+	.product-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25em;
+		min-width: 0;
+	}
+
+	.product-title {
+		color: var(--color-teal);
+		text-decoration: none;
+		font-size: 1.05em;
+		transition: color 0.2s ease-out;
+	}
+
+	.product-title:hover {
+		color: var(--color-gold);
+	}
+
+	/* Star rating: teal fill over a faint track */
+	.product-stars {
+		position: relative;
+		display: inline-block;
+		font-size: 0.8em;
+		letter-spacing: 2px;
+		line-height: 1;
+		color: var(--color-teal);
+	}
+
+	.product-stars-track {
+		color: var(--color-border);
+	}
+
+	.product-stars-fill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		color: var(--color-teal);
+	}
+
+	.product-price,
+	.product-by {
+		font-size: 0.95em;
+		color: var(--color-text);
+	}
+
+	.product-thumb {
+		flex-shrink: 0;
+		line-height: 0;
+		border: 1px solid var(--color-border);
+		padding: 3px;
+		background: var(--color-surface);
+	}
+
+	.product-thumb img {
+		width: 58px;
+		height: 58px;
+		object-fit: cover;
+	}
+</style>

@@ -1,0 +1,152 @@
+---
+/**
+ * bravada.postswidget — the demo's Cryout posts widget: recent posts
+ * with a large framed thumbnail (gold gradient wash rising from the
+ * bottom), a category breadcrumb line, teal Playfair-adjacent title
+ * and date. Queries live EmDash content server-side, so it always
+ * reflects current posts; drop it into any widget or content area.
+ */
+import { getEmDashCollection, getTermsForEntries } from "emdash";
+import { getMediaUrl } from "../../utils/media-url";
+
+interface PostsWidgetNode {
+	limit?: number;
+}
+
+const { node } = Astro.props as { node: PostsWidgetNode };
+const limit = node.limit ?? 5;
+
+const { entries: posts } = await getEmDashCollection("posts", {
+	orderBy: { published_at: "desc" },
+	limit,
+});
+
+const catsByEntry = await getTermsForEntries(
+	"posts",
+	posts.map((p) => p.data.id),
+	"category",
+);
+
+const items = posts.map((post) => ({
+	title: post.data.title,
+	href: `/posts/${post.id}`,
+	image: getMediaUrl(post.data.featured_image),
+	categories: catsByEntry.get(post.data.id) ?? [],
+	date: post.data.publishedAt?.toLocaleDateString("en-GB", {
+		day: "numeric",
+		month: "long",
+	}),
+}));
+---
+
+<ul class="bravada-wposts">
+	{
+		items.map((item) => (
+			<li>
+				{item.image && (
+					<a href={item.href} class="wpost-thumb" tabindex="-1">
+						<img src={item.image} alt={item.title} loading="lazy" />
+					</a>
+				)}
+				{item.categories.length > 0 && (
+					<p class="wpost-cats">
+						{item.categories.map((c, i) => (
+							<>
+								{i > 0 && ", "}
+								<a href={`/category/${c.slug}`}>{c.label}</a>
+							</>
+						))}
+					</p>
+				)}
+				<p class="wpost-title">
+					<a href={item.href}>{item.title}</a>
+				</p>
+				{item.date && <p class="wpost-date">{item.date}</p>}
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.bravada-wposts {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.bravada-wposts li {
+		margin-bottom: 1.6em;
+	}
+
+	.bravada-wposts li:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Framed thumbnail with the demo's gold wash from the bottom */
+	.wpost-thumb {
+		position: relative;
+		display: block;
+		line-height: 0;
+		margin-bottom: 0.6em;
+		border: 1px solid var(--color-border);
+		padding: 4px;
+		background: var(--color-surface);
+	}
+
+	.wpost-thumb::after {
+		content: "";
+		position: absolute;
+		inset: 4px;
+		background: linear-gradient(to bottom, transparent 40%, var(--color-gold));
+		opacity: 0;
+		transition: 0.3s ease-out opacity;
+	}
+
+	.wpost-thumb:hover::after {
+		opacity: 0.55;
+	}
+
+	.wpost-thumb img {
+		width: 100%;
+		aspect-ratio: 3 / 2;
+		object-fit: cover;
+	}
+
+	.wpost-cats {
+		margin: 0 0 0.15em;
+		font-size: 0.85em;
+		color: var(--color-muted);
+	}
+
+	.wpost-cats a {
+		color: var(--color-muted);
+		text-decoration: none;
+	}
+
+	.wpost-cats a:hover {
+		color: var(--color-brand-hover);
+	}
+
+	.wpost-title {
+		margin: 0;
+		font-size: 1.15em;
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	.wpost-title a {
+		color: var(--color-teal);
+		text-decoration: none;
+		transition: color 0.2s ease-out;
+	}
+
+	.wpost-title a:hover {
+		color: var(--color-gold);
+	}
+
+	.wpost-date {
+		margin: 0.15em 0 0;
+		font-size: 0.85em;
+		color: var(--color-muted);
+	}
+</style>
