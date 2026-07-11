@@ -190,10 +190,31 @@ const isLoggedIn = !!Astro.locals.user;
 									{item.children.length > 0 && (
 										<ul class="sub-menu">
 											{item.children.map((child) => (
-												<li>
+												<li
+													class:list={[
+														{
+															"has-children":
+																(child.children?.length ?? 0) > 0,
+														},
+													]}
+												>
 													<a href={child.url} target={child.target}>
 														<span>{child.label}</span>
 													</a>
+													{(child.children?.length ?? 0) > 0 && (
+														<ul class="sub-menu">
+															{child.children.map((grand) => (
+																<li>
+																	<a
+																		href={grand.url}
+																		target={grand.target}
+																	>
+																		<span>{grand.label}</span>
+																	</a>
+																</li>
+															))}
+														</ul>
+													)}
 												</li>
 											))}
 										</ul>
@@ -871,14 +892,76 @@ const isLoggedIn = !!Astro.locals.user;
 			}
 
 			/* Caret pointing up at the parent item (demo
-			   #access > div > ul > li > ul::before, border-bottom teal) */
-			.nav-links .sub-menu::before {
+			   #access > div > ul > li > ul::before, border-bottom teal) —
+			   first level only; flyouts have no caret */
+			.nav-links > .menu-item > .sub-menu::before {
 				content: "";
 				position: absolute;
 				bottom: 100%;
 				left: 2em;
 				border: 6px solid transparent;
 				border-bottom-color: var(--color-submenu-bg);
+			}
+
+			/* Third level flyout (demo #access ul ul ul): opens beside its
+			   parent row, 10px out, no vertical slide */
+			.nav-links .sub-menu .sub-menu {
+				top: 0;
+				left: calc(100% + 10px);
+				transform: none;
+			}
+
+			.nav-links .sub-menu li {
+				position: relative;
+			}
+
+			.nav-links .sub-menu li.has-children:hover > .sub-menu,
+			.nav-links .sub-menu li.has-children:focus-within > .sub-menu {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			/* Flyout-parent arrow (demo: a 6px teal triangle at the row's
+			   right edge that nudges outward on hover) */
+			.nav-links .sub-menu li.has-children > a::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: calc(100% - 6px);
+				width: 6px;
+				height: 6px;
+				margin: auto;
+				border: 6px solid transparent;
+				border-left-color: var(--color-submenu-bg);
+				transition: all 0.3s ease-out;
+			}
+
+			.nav-links .sub-menu li.has-children:hover > a::after {
+				left: 100%;
+			}
+
+			.nav-links .sub-menu li.has-children > a {
+				position: relative;
+			}
+
+			/* Right-pointing chevron on flyout parents (demo span::after
+			   rotated 270deg), fading out as the arrow nudges on hover */
+			.nav-links .sub-menu li.has-children > a > span::after {
+				content: "";
+				display: inline-block;
+				width: 0.45em;
+				height: 0.45em;
+				margin-left: 0.5em;
+				border-right: 1.5px solid currentColor;
+				border-bottom: 1.5px solid currentColor;
+				transform: rotate(-45deg);
+				opacity: 0.5;
+				transition: 0.3s ease-out all;
+			}
+
+			.nav-links .sub-menu li.has-children:hover > a > span::after {
+				opacity: 0;
 			}
 
 			.nav-links .menu-item:hover > .sub-menu,
