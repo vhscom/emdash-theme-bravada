@@ -38,7 +38,7 @@ const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
 
 <section class="lp-slider full-bleed" data-effect={effect}>
 	<div class="lp-staticslider">
-		{image && <img class="lp-staticslider-image" src={image} alt={imageAlt} />}
+		{image && <img class="lp-staticslider-image" src={image} alt={imageAlt} loading="eager" fetchpriority="high" />}
 		<div class="staticslider-caption">
 			<div class="staticslider-caption-inside">
 				{title && <h2 class="staticslider-caption-title breakup-title">{title}</h2>}

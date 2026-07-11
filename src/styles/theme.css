@@ -875,6 +875,21 @@ html.js .lp-tt.aos .lp-tt-text {
 	color: color-mix(in srgb, var(--color-text) 20%, transparent);
 }
 
+/* Demo lazy-image fade (cryoutAnimateLazyImages): content/sidebar lazy
+   images start transparent and fade in on load. JS-gated so no-JS
+   visitors always see images; landing-page blocks keep their own
+   reveal animations instead. */
+html.js .page-content img[loading="lazy"]:not(.lp-portfolio img),
+html.js .bravada-sidebar img[loading="lazy"] {
+	opacity: 0;
+	transition: 0.2s ease-out opacity;
+}
+
+html.js .page-content img[loading="lazy"].animate-lazy,
+html.js .bravada-sidebar img[loading="lazy"].animate-lazy {
+	opacity: 1;
+}
+
 /* Demo layout pages set body copy justified */
 .page-content p {
 	text-align: justify;

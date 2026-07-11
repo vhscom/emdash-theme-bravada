@@ -45,7 +45,7 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 ---
 
 <section class="page-hero full-bleed">
-	<img class="page-hero-image" src={headerImage} alt={imageAlt} />
+	<img class="page-hero-image" src={headerImage} alt={imageAlt} loading="eager" fetchpriority="high" />
 	<div class="page-hero-caption">
 		<div class="page-hero-caption-inside">
 			<h1 class="page-hero-title breakup-title" {...titleAttrs}>{title}</h1>

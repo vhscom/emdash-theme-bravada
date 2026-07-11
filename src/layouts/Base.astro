@@ -161,6 +161,14 @@ const isLoggedIn = !!Astro.locals.user;
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />
+		<!-- Bravada preloader: two pulsing dots (gold + teal) on a solid
+		     sheet; fades out on window load, CSS animation as a fallback -->
+		<div class="cryout-preloader" aria-hidden="true">
+			<div class="cryout-preloader-inside">
+				<div class="bounce1"></div>
+				<div class="bounce2"></div>
+			</div>
+		</div>
 		<header class:list={["site-header", { "over-hero": overHero }]}>
 			<nav class="nav">
 				<a href="/" class="site-title">
@@ -1016,6 +1024,73 @@ const isLoggedIn = !!Astro.locals.user;
 			.nav-links .sub-menu a:hover span,
 			.nav-links .sub-menu a:focus-visible span {
 				background: rgba(255, 255, 255, 0.1);
+			}
+
+			/* Bravada preloader (demo .cryout-preloader): fixed sheet with
+			   two dots pulsing via preloader-spin 1.4s (second dot offset
+			   -.7s); the 6s CSS animation hides it even if JS never runs */
+			.cryout-preloader {
+				position: fixed;
+				inset: 0;
+				z-index: 99999;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: var(--color-bg);
+				animation: preloader-hide 6s 1s ease-out forwards;
+				transition: opacity 0.7s ease-out;
+			}
+
+			.cryout-preloader.is-done {
+				opacity: 0;
+				visibility: hidden;
+			}
+
+			.cryout-preloader-inside {
+				position: relative;
+				width: 50px;
+				height: 50px;
+			}
+
+			.cryout-preloader-inside .bounce1,
+			.cryout-preloader-inside .bounce2 {
+				position: absolute;
+				inset: 0;
+				border-radius: 50%;
+				animation: preloader-spin 1.4s ease-in-out infinite;
+			}
+
+			.cryout-preloader-inside .bounce1 {
+				background: var(--color-gold);
+			}
+
+			.cryout-preloader-inside .bounce2 {
+				background: var(--color-teal-solid);
+				animation-delay: -0.7s;
+			}
+
+			@keyframes preloader-spin {
+				0% {
+					transform: scale(0);
+				}
+				100% {
+					transform: scale(1);
+					opacity: 0;
+				}
+			}
+
+			@keyframes preloader-hide {
+				100% {
+					visibility: hidden;
+					opacity: 0;
+					z-index: -1;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.cryout-preloader {
+					display: none;
+				}
 			}
 
 			.search-cancel:focus-visible {
@@ -1915,6 +1990,35 @@ const isLoggedIn = !!Astro.locals.user;
 			toTop?.addEventListener("click", () => {
 				window.scrollTo({ top: 0, behavior: "smooth" });
 			});
+		</script>
+
+		<script>
+			// Preloader dismissal (demo cryoutPreloader): fade on window
+			// load, then remove; the CSS animation is the no-JS fallback.
+			const pre = document.querySelector<HTMLElement>(".cryout-preloader");
+			if (pre) {
+				const done = () => {
+					pre.style.animation = "none";
+					pre.classList.add("is-done");
+					setTimeout(() => pre.remove(), 750);
+				};
+				if (document.readyState === "complete") done();
+				else window.addEventListener("load", done, { once: true });
+			}
+
+			// Lazy-image fade-in (demo cryoutAnimateLazyImages): content
+			// images marked lazy get .animate-lazy once loaded.
+			for (const img of document.querySelectorAll<HTMLImageElement>(
+				'img[loading="lazy"]'
+			)) {
+				if (img.complete) img.classList.add("animate-lazy");
+				else
+					img.addEventListener(
+						"load",
+						() => img.classList.add("animate-lazy"),
+						{ once: true }
+					);
+			}
 		</script>
 
 		<script>

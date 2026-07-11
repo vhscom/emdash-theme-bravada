@@ -1,5 +1,5 @@
 ---
-import { getTerm, getEntriesByTerm, decodeSlug } from "emdash";
+import { getTerm, getEmDashCollection, decodeSlug } from "emdash";
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ProjectShell from "../../components/ProjectShell.astro";
@@ -13,7 +13,11 @@ if (!term) {
 	return Astro.redirect("/404");
 }
 
-const projects = await getEntriesByTerm("portfolio", "project-tag", term.slug);
+const { entries: projects, cacheHint } = await getEmDashCollection("portfolio", {
+	where: { "project-tag": term.slug },
+});
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 const items = projects.map((p) => ({
 	image: getMediaUrl(p.data.featured_image),
