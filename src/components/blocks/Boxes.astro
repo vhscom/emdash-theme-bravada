@@ -138,12 +138,18 @@ const readMore = (t?: string) => `Read More “${t ?? ""}”`;
 		opacity: 0.5;
 	}
 
+	/* Accent backdrop strip: full accent in light like the demo; in dark
+	   a translucent wash, so the strip recedes and the (full-gold) tape
+	   pieces stay readable where they cross it */
 	.lp-boxes-inside.accent-gold::before {
-		background-color: var(--color-gold);
+		background-color: light-dark(var(--color-gold), rgba(233, 180, 76, 0.22));
 	}
 
 	.lp-boxes-inside.accent-teal::before {
-		background-color: var(--color-teal-solid);
+		background-color: light-dark(
+			var(--color-teal-solid),
+			rgba(15, 139, 141, 0.28)
+		);
 	}
 
 	.lp-box {
