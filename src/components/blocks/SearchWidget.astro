@@ -25,38 +25,48 @@ const placeholder = node.placeholder ?? "Search";
 </form>
 
 <style>
+	/* Demo .searchform: borderless white input, 4em tall, with a 2.6em
+	   gold submit square floated inside, inset .7em from the right and
+	   vertically centred */
 	.bravada-search {
-		display: flex;
-		gap: 0;
+		position: relative;
 		background: var(--color-surface);
 		/* Demo .searchform shadow */
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 	}
 
 	.bravada-search label {
-		flex: 1;
-		min-width: 0;
+		display: block;
 	}
 
 	.bravada-search input[type="search"] {
 		width: 100%;
-		padding: 0.85em 1em;
-		border: 1px solid var(--color-border);
-		border-right: 0;
+		height: 4em;
+		padding: 0 3.5em 0 1.5em;
+		border: 0;
 		border-radius: 0;
 		background: var(--color-surface);
 		font-family: var(--font-body);
-		font-size: var(--font-size-sm);
+		font-size: 1rem;
 		color: var(--color-text);
 	}
 
 	.bravada-search input[type="search"]:focus {
 		outline: none;
-		border-color: var(--color-gold);
 	}
 
 	.bravada-search button {
-		padding: 0 1.1em;
+		position: absolute;
+		right: 0.7rem;
+		bottom: 0.7rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* rem: the demo square is 2.6em of the 16px root, and the sidebar
+		   inherits a smaller font */
+		width: 2.6rem;
+		height: 2.6rem;
+		padding: 0;
 		border: none;
 		background: var(--color-gold);
 		color: #ffffff;
@@ -64,7 +74,9 @@ const placeholder = node.placeholder ?? "Search";
 		transition: background 0.2s ease-out;
 	}
 
-	.bravada-search button:hover {
+	.bravada-search button:hover,
+	.bravada-search button:focus-visible,
+	.bravada-search:focus-within button {
 		background: var(--color-teal-solid);
 	}
 
