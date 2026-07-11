@@ -104,6 +104,28 @@
             ]
           },
           "default": "none"
+        },
+        {
+          "slug": "sidebar",
+          "label": "Sidebar widgets",
+          "type": "select",
+          "options": {
+            "choices": [
+              {
+                "value": "page-sidebar",
+                "label": "Pages & products (default)"
+              },
+              {
+                "value": "sidebar-b",
+                "label": "Search & posts"
+              },
+              {
+                "value": "sidebar",
+                "label": "Blog sidebar"
+              }
+            ]
+          },
+          "default": "page-sidebar"
         }
       ]
     }
@@ -4374,13 +4396,22 @@
         "status": "published",
         "data": {
           "title": "Card-in-a-box",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "card-in-a-box-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-12.jpg",
-              "alt": "Card-in-a-box"
+              "_type": "bravada.projectfeatured",
+              "_key": "card-in-a-box-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-12.jpg",
+              "alt": "Card-in-a-box",
+              "date": "November 2017",
+              "types": [
+                "Business Cards"
+              ],
+              "tags": [
+                "business",
+                "card"
+              ]
             },
             {
               "_type": "block",
@@ -4447,13 +4478,22 @@
         "status": "published",
         "data": {
           "title": "B-Sides",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "b-sides-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-11.jpg",
-              "alt": "B-Sides"
+              "_type": "bravada.projectfeatured",
+              "_key": "b-sides-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-11.jpg",
+              "alt": "B-Sides",
+              "date": "December 2017",
+              "types": [
+                "Discs"
+              ],
+              "tags": [
+                "disc",
+                "music"
+              ]
             },
             {
               "_type": "block",
@@ -4520,13 +4560,24 @@
         "status": "published",
         "data": {
           "title": "Yellow Frame",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "yellow-frame-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10.jpg",
-              "alt": "Yellow Frame"
+              "_type": "bravada.projectfeatured",
+              "_key": "yellow-frame-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10.jpg",
+              "alt": "Yellow Frame",
+              "date": "December 2017",
+              "types": [
+                "Brands",
+                "Sketch"
+              ],
+              "tags": [
+                "frame",
+                "painting",
+                "sketch"
+              ]
             },
             {
               "_type": "block",
@@ -4579,13 +4630,23 @@
         "status": "published",
         "data": {
           "title": "Business cards",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "business-cards-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09.jpg",
-              "alt": "Business cards"
+              "_type": "bravada.projectfeatured",
+              "_key": "business-cards-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09.jpg",
+              "alt": "Business cards",
+              "date": "January 2018",
+              "types": [
+                "Business Cards"
+              ],
+              "tags": [
+                "brand",
+                "business",
+                "card"
+              ]
             },
             {
               "_type": "block",
@@ -4638,13 +4699,23 @@
         "status": "published",
         "data": {
           "title": "Brand Sketch",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "brand-sketch-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08.jpg",
-              "alt": "Brand Sketch"
+              "_type": "bravada.projectfeatured",
+              "_key": "brand-sketch-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08.jpg",
+              "alt": "Brand Sketch",
+              "date": "January 2018",
+              "types": [
+                "Brands",
+                "Sketch"
+              ],
+              "tags": [
+                "brand",
+                "sketch"
+              ]
             },
             {
               "_type": "block",
@@ -4697,13 +4768,24 @@
         "status": "published",
         "data": {
           "title": "Flyer Presentation",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "flyer-presentation-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07.jpg",
-              "alt": "Flyer Presentation"
+              "_type": "bravada.projectfeatured",
+              "_key": "flyer-presentation-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07.jpg",
+              "alt": "Flyer Presentation",
+              "date": "January 2018",
+              "types": [
+                "Brands",
+                "Sketch"
+              ],
+              "tags": [
+                "flyer",
+                "presentation",
+                "sketch"
+              ]
             },
             {
               "_type": "block",
@@ -4770,13 +4852,24 @@
         "status": "published",
         "data": {
           "title": "Pen & Paper",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "pen-paper-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06.jpg",
-              "alt": "Pen & Paper"
+              "_type": "bravada.projectfeatured",
+              "_key": "pen-paper-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06.jpg",
+              "alt": "Pen & Paper",
+              "date": "February 2018",
+              "types": [
+                "Brands",
+                "Sketch"
+              ],
+              "tags": [
+                "brand",
+                "flyer",
+                "sketch"
+              ]
             },
             {
               "_type": "block",
@@ -4843,13 +4936,23 @@
         "status": "published",
         "data": {
           "title": "Disk cover",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "disk-cover-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05.jpg",
-              "alt": "Disk cover"
+              "_type": "bravada.projectfeatured",
+              "_key": "disk-cover-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05.jpg",
+              "alt": "Disk cover",
+              "date": "February 2018",
+              "types": [
+                "Discs"
+              ],
+              "tags": [
+                "cd",
+                "disc",
+                "music"
+              ]
             },
             {
               "_type": "block",
@@ -4916,13 +5019,23 @@
         "status": "published",
         "data": {
           "title": "Notebook",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "notebook-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04.jpg",
-              "alt": "Notebook"
+              "_type": "bravada.projectfeatured",
+              "_key": "notebook-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04.jpg",
+              "alt": "Notebook",
+              "date": "March 2018",
+              "types": [
+                "Brands"
+              ],
+              "tags": [
+                "brand",
+                "notebook",
+                "sketch"
+              ]
             },
             {
               "_type": "block",
@@ -4989,13 +5102,23 @@
         "status": "published",
         "data": {
           "title": "Empty Cards",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "black-white-business-cards-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03.jpg",
-              "alt": "Empty Cards"
+              "_type": "bravada.projectfeatured",
+              "_key": "black-white-business-cards-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03.jpg",
+              "alt": "Empty Cards",
+              "date": "March 2018",
+              "types": [
+                "Business Cards"
+              ],
+              "tags": [
+                "business",
+                "card",
+                "sketch"
+              ]
             },
             {
               "_type": "block",
@@ -5034,13 +5157,24 @@
         "status": "published",
         "data": {
           "title": "Presentation Paper",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "presentation-paper-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02.jpg",
-              "alt": "Presentation Paper"
+              "_type": "bravada.projectfeatured",
+              "_key": "presentation-paper-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02.jpg",
+              "alt": "Presentation Paper",
+              "date": "April 2018",
+              "types": [
+                "Brands",
+                "Sketch"
+              ],
+              "tags": [
+                "brand",
+                "flyer",
+                "sketch"
+              ]
             },
             {
               "_type": "block",
@@ -5079,13 +5213,24 @@
         "status": "published",
         "data": {
           "title": "New York vol. 27",
-          "layout": "none",
+          "layout": "right",
+          "sidebar": "sidebar-b",
           "content": [
             {
-              "_type": "image",
-              "_key": "new-york-vol-27-img",
-              "src": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01.jpg",
-              "alt": "New York vol. 27"
+              "_type": "bravada.projectfeatured",
+              "_key": "new-york-vol-27-feat",
+              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01.jpg",
+              "alt": "New York vol. 27",
+              "date": "April 2018",
+              "types": [
+                "Brands",
+                "Business Cards"
+              ],
+              "tags": [
+                "brand",
+                "business",
+                "card"
+              ]
             },
             {
               "_type": "block",

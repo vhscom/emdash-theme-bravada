@@ -47,7 +47,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 		)
 	}
 	<div class:list={["page-shell", `layout-${layout}`]}>
-		{hasPrimary && <SidebarWidgets name="page-sidebar" />}
+		{hasPrimary && <SidebarWidgets name={page.data.sidebar || "page-sidebar"} />}
 		<article class="page-article">
 			<div class="page-content">
 				<RichText value={page.data.content} />

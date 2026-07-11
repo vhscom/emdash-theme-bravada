@@ -1,0 +1,99 @@
+---
+/**
+ * bravada.projectfeatured — the demo's portfolio project header
+ * (.portfolio-featured-single): the full-width featured image with a
+ * translucent black meta bar anchored near the bottom listing Date,
+ * Project Types and Tags in white with gold links. Types/tags link to
+ * the portfolio grid where the matching filter lives.
+ */
+interface ProjectFeaturedNode {
+	image?: string;
+	alt?: string;
+	date?: string;
+	types?: string[];
+	tags?: string[];
+}
+
+const { node } = Astro.props as { node: ProjectFeaturedNode };
+const { image, alt = "", date, types = [], tags = [] } = node;
+---
+
+<figure class="project-featured">
+	{image && <img src={image} alt={alt} />}
+	<div class="entry-meta-container">
+		<div class="entry-meta">
+			{date && <span class="entry-date">Date: {date}</span>}
+			{
+				types.length > 0 && (
+					<span class="portfolio-projects">
+						Project Types:{" "}
+						{types.map((t, i) => (
+							<>
+								{i > 0 && ", "}
+								<a href="/pages/portfolio">{t}</a>
+							</>
+						))}
+					</span>
+				)
+			}
+			{
+				tags.length > 0 && (
+					<span class="portfolio-tags">
+						Tags:{" "}
+						{tags.map((t, i) => (
+							<>
+								{i > 0 && ", "}
+								<a href="/pages/portfolio">{t}</a>
+							</>
+						))}
+					</span>
+				)
+			}
+		</div>
+	</div>
+</figure>
+
+<style>
+	.project-featured {
+		position: relative;
+		margin: 0 0 2em;
+		line-height: 0;
+	}
+
+	.project-featured img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	/* Demo .entry-meta-container: translucent black bar 32px above the
+	   image bottom, white 16px text, gold links */
+	.entry-meta-container {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 32px;
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	.entry-meta {
+		padding: 0.8em 3em;
+		font-size: 1rem;
+		line-height: 1.8;
+		color: #ffffff;
+	}
+
+	.entry-meta span {
+		display: block;
+	}
+
+	.entry-meta a {
+		color: var(--color-gold);
+		text-decoration: none;
+		transition: 0.2s ease-out color;
+	}
+
+	.entry-meta a:hover {
+		color: var(--color-teal-hover, #0f8b8d);
+	}
+</style>
