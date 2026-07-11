@@ -892,7 +892,9 @@ html.js .lp-tt.aos .lp-tt-text {
    images start transparent and fade in on load. JS-gated so no-JS
    visitors always see images; landing-page blocks keep their own
    reveal animations instead. */
-html.js .page-content img[loading="lazy"]:not(.lp-portfolio img),
+/* :where() keeps the :not() exclusion at zero specificity, so the
+   .animate-lazy reveal below can win */
+html.js .page-content img[loading="lazy"]:where(:not(.lp-portfolio img)),
 html.js .bravada-sidebar img[loading="lazy"] {
 	opacity: 0;
 	transition: 0.2s ease-out opacity;
