@@ -83,8 +83,19 @@ const pageCtx = createPublicPageContext({
 	siteName: siteTitle,
 });
 
-// Highlight the current page in the burger menu (demo gold current item)
+// Highlight the current page in the burger menu. Like the demo, a
+// parent whose child matches the page (current-menu-ancestor) goes
+// gold and its submenu renders pre-expanded; the child itself is not
+// highlighted (matching the original's behavior).
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const normUrl = (u?: string) => (u ?? "").replace(/\/$/, "") || "/";
+const mobileItems = (mobileMenu?.items ?? []).map((item) => ({
+	...item,
+	isCurrent: normUrl(item.url) === currentPath && item.url !== "#",
+	isAncestor: item.children.some(
+		(c) => normUrl(c.url) === currentPath && c.url !== "#",
+	),
+}));
 
 // Check if user is logged in (for showing admin link)
 const isLoggedIn = !!Astro.locals.user;
@@ -208,26 +219,32 @@ const isLoggedIn = !!Astro.locals.user;
 					</div>
 				</li>
 				{
-					mobileMenu?.items.map((item) => (
+					mobileItems.map((item) => (
 						<li
 							class:list={[
 								"mobile-item",
 								{
 									"has-children": item.children.length > 0,
-									current:
-										(item.url?.replace(/\/$/, "") || "/") === currentPath,
+									current: item.isCurrent || item.isAncestor,
 								},
 							]}
 						>
-							<a href={item.url} target={item.target}>
+							<a
+								href={item.url}
+								target={item.target}
+								class:list={[{ "toggled-on": item.isAncestor }]}
+							>
 								<span>{item.label}</span>
 							</a>
 							{item.children.length > 0 && (
 								<>
 									<button
 										type="button"
-										class="dropdown-toggle"
-										aria-expanded="false"
+										class:list={[
+											"dropdown-toggle",
+											{ "toggle-on": item.isAncestor },
+										]}
+										aria-expanded={item.isAncestor ? "true" : "false"}
 										aria-label={`Expand ${item.label}`}
 									>
 										<svg
@@ -243,7 +260,12 @@ const isLoggedIn = !!Astro.locals.user;
 											><polyline points="6 9 12 15 18 9" /></svg
 										>
 									</button>
-									<ul class="mobile-sub-menu">
+									<ul
+										class:list={[
+											"mobile-sub-menu",
+											{ "toggled-on": item.isAncestor },
+										]}
+									>
 										{item.children.map((child) => (
 											<li>
 												<a href={child.url} target={child.target}>

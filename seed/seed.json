@@ -151,7 +151,7 @@
 				{
 					"type": "custom",
 					"label": "Categories",
-					"url": "/posts",
+					"url": "#",
 					"children": [
 						{
 							"type": "custom",
@@ -233,7 +233,7 @@
 				{
 					"type": "custom",
 					"label": "Categories",
-					"url": "/posts",
+					"url": "#",
 					"children": [
 						{
 							"type": "custom",
