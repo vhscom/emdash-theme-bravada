@@ -47,7 +47,6 @@ const {
 	items = [],
 } = node;
 const cols = Math.min(Math.max(node.columns ?? (variant === "animated" ? 3 : 4), 2), 4);
-const readMore = (t?: string) => `Read More “${t ?? ""}”`;
 ---
 
 <section
@@ -97,7 +96,8 @@ const readMore = (t?: string) => `Read More “${t ?? ""}”`;
 								)}
 								{box.url && (
 									<a class="lp-box-readmore" href={box.url}>
-										<span>{readMore(box.title)}</span>
+										<span>Read More</span>
+										<em class="sr-only">{`“${box.title ?? ""}”`}</em>
 									</a>
 								)}
 							</div>
@@ -209,6 +209,7 @@ const readMore = (t?: string) => `Read More “${t ?? ""}”`;
 		margin: 1em 0;
 		line-height: 1.7;
 	}
+
 
 	.lp-box-readmore {
 		position: relative;

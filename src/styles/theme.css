@@ -875,6 +875,19 @@ html.js .lp-tt.aos .lp-tt-text {
 	color: color-mix(in srgb, var(--color-text) 20%, transparent);
 }
 
+/* Visually-hidden utility (screen readers only) */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
 /* Demo lazy-image fade (cryoutAnimateLazyImages): content/sidebar lazy
    images start transparent and fade in on load. JS-gated so no-JS
    visitors always see images; landing-page blocks keep their own
