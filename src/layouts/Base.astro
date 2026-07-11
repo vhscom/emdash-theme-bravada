@@ -89,13 +89,23 @@ const pageCtx = createPublicPageContext({
 // highlighted (matching the original's behavior).
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const normUrl = (u?: string) => (u ?? "").replace(/\/$/, "") || "/";
-const mobileItems = (mobileMenu?.items ?? []).map((item) => ({
-	...item,
-	isCurrent: normUrl(item.url) === currentPath && item.url !== "#",
-	isAncestor: item.children.some(
-		(c) => normUrl(c.url) === currentPath && c.url !== "#",
-	),
-}));
+type AnnotatedItem = {
+	isCurrent: boolean;
+	isAncestor: boolean;
+	children: AnnotatedItem[];
+} & Record<string, unknown> & { url?: string; label?: string; target?: string };
+
+const annotate = (items: NonNullable<typeof mobileMenu>["items"]): AnnotatedItem[] =>
+	(items ?? []).map((item) => {
+		const children = annotate(item.children ?? []);
+		return {
+			...item,
+			children,
+			isCurrent: normUrl(item.url) === currentPath && item.url !== "#",
+			isAncestor: children.some((c) => c.isCurrent || c.isAncestor),
+		};
+	});
+const mobileItems = annotate(mobileMenu?.items ?? []);
 
 // Check if user is logged in (for showing admin link)
 const isLoggedIn = !!Astro.locals.user;
@@ -267,10 +277,61 @@ const isLoggedIn = !!Astro.locals.user;
 										]}
 									>
 										{item.children.map((child) => (
-											<li>
-												<a href={child.url} target={child.target}>
+											<li
+												class:list={[
+													{ "has-children": child.children.length > 0 },
+												]}
+											>
+												<a
+													href={child.url}
+													target={child.target}
+													class:list={[{ "toggled-on": child.isAncestor }]}
+												>
 													<span>{child.label}</span>
 												</a>
+												{child.children.length > 0 && (
+													<>
+														<button
+															type="button"
+															class:list={[
+																"dropdown-toggle",
+																{ "toggle-on": child.isAncestor },
+															]}
+															aria-expanded={
+																child.isAncestor ? "true" : "false"
+															}
+															aria-label={`Expand ${child.label}`}
+														>
+															<svg
+																width="16"
+																height="16"
+																viewBox="0 0 24 24"
+																fill="none"
+																stroke="currentColor"
+																stroke-width="2"
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																aria-hidden="true"
+															>
+																<polyline points="6 9 12 15 18 9" />
+															</svg>
+														</button>
+														<ul
+															class:list={[
+																"mobile-sub-menu",
+																{ "toggled-on": child.isAncestor },
+															]}
+														>
+															{child.children.map((grand) => (
+																<li>
+																	<a href={grand.url} target={grand.target}>
+																		<span>{grand.label}</span>
+																	</a>
+																</li>
+															))}
+														</ul>
+													</>
+												)}
 											</li>
 										))}
 									</ul>
@@ -1164,6 +1225,11 @@ const isLoggedIn = !!Astro.locals.user;
 				color: var(--color-gold);
 			}
 
+			/* Nested chevrons anchor to their own row */
+			#mobile-nav .mobile-sub-menu li.has-children {
+				position: relative;
+			}
+
 			#mobile-nav .dropdown-toggle {
 				position: absolute;
 				top: 0.45em;
@@ -1793,7 +1859,7 @@ const isLoggedIn = !!Astro.locals.user;
 				.forEach((btn) => {
 					btn.addEventListener("click", () => {
 						const li = btn.closest("li");
-						const sub = li?.querySelector(".mobile-sub-menu");
+						const sub = li?.querySelector(":scope > .mobile-sub-menu");
 						const link = li?.querySelector(":scope > a");
 						const open = btn.classList.toggle("toggle-on");
 						sub?.classList.toggle("toggled-on", open);
