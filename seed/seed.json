@@ -164,6 +164,69 @@
           "searchable": true
         }
       ]
+    },
+    {
+      "slug": "products",
+      "label": "Products",
+      "labelSingular": "Product",
+      "supports": [
+        "drafts",
+        "revisions",
+        "search",
+        "seo"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "featured_image",
+          "label": "Product Image",
+          "type": "image"
+        },
+        {
+          "slug": "price",
+          "label": "Price",
+          "type": "string"
+        },
+        {
+          "slug": "price_old",
+          "label": "Previous price (sale strikethrough)",
+          "type": "string"
+        },
+        {
+          "slug": "rating",
+          "label": "Rating (0-5)",
+          "type": "number"
+        },
+        {
+          "slug": "button",
+          "label": "Button label",
+          "type": "string",
+          "default": "Add to basket"
+        },
+        {
+          "slug": "stock",
+          "label": "Stock note",
+          "type": "string"
+        },
+        {
+          "slug": "excerpt",
+          "label": "Short description",
+          "type": "text",
+          "searchable": true
+        },
+        {
+          "slug": "content",
+          "label": "Description",
+          "type": "portableText",
+          "searchable": true
+        }
+      ]
     }
   ],
   "taxonomies": [
@@ -372,6 +435,45 @@
         {
           "slug": "sketch",
           "label": "sketch"
+        }
+      ]
+    },
+    {
+      "name": "product-category",
+      "label": "Product Categories",
+      "labelSingular": "Product Category",
+      "hierarchical": false,
+      "collections": [
+        "products"
+      ],
+      "terms": [
+        {
+          "slug": "albums",
+          "label": "Albums"
+        },
+        {
+          "slug": "clothing",
+          "label": "Clothing"
+        },
+        {
+          "slug": "hoodies",
+          "label": "Hoodies"
+        },
+        {
+          "slug": "music",
+          "label": "Music"
+        },
+        {
+          "slug": "posters",
+          "label": "Posters"
+        },
+        {
+          "slug": "singles",
+          "label": "Singles"
+        },
+        {
+          "slug": "t-shirts",
+          "label": "T-shirts"
         }
       ]
     }
@@ -874,35 +976,35 @@
                 {
                   "title": "Ninja Silhouette",
                   "image": "/images/demo/T_5_front-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/ninja-silhouette",
                   "rating": 5,
                   "price": "£20.00"
                 },
                 {
                   "title": "Happy Ninja",
                   "image": "/images/demo/T_7_front-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/happy-ninja",
                   "rating": 5,
                   "price": "£18.00"
                 },
                 {
                   "title": "Woo Ninja",
                   "image": "/images/demo/hoodie_2_front-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/woo-ninja-2",
                   "rating": 5,
                   "price": "£35.00"
                 },
                 {
                   "title": "Woo Album #4",
                   "image": "/images/demo/cd_2_angle-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/woo-album-4",
                   "rating": 5,
                   "price": "£9.00"
                 },
                 {
                   "title": "Ninja Silhouette",
                   "image": "/images/demo/hoodie_7_front-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/ninja-silhouette-2",
                   "rating": 4.75,
                   "price": "£35.00"
                 }
@@ -921,28 +1023,28 @@
                 {
                   "title": "Happy Ninja",
                   "image": "/images/demo/hoodie_4_front-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/happy-ninja-2",
                   "rating": 5,
                   "by": "by Maria"
                 },
                 {
                   "title": "Happy Ninja",
                   "image": "/images/demo/T_7_front-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/happy-ninja",
                   "rating": 5,
                   "by": "by Maria"
                 },
                 {
                   "title": "Ninja Silhouette",
                   "image": "/images/demo/hoodie_7_front-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/ninja-silhouette-2",
                   "rating": 5,
                   "by": "by Ryan"
                 },
                 {
                   "title": "Ship Your Idea",
                   "image": "/images/demo/hoodie_5_front-300x300.jpg",
-                  "url": "/posts",
+                  "url": "/product/ship-your-idea-2",
                   "rating": 5,
                   "by": "by Ryan"
                 }
@@ -2936,157 +3038,183 @@
               "items": [
                 {
                   "title": "Flying Ninja",
+                  "image": "/images/demo/poster_2_up-300x300.jpg",
+                  "url": "/product/flying-ninja",
                   "price": "£13.00",
                   "rating": 4.0,
-                  "image": "/images/demo/poster_2_up-300x300.jpg",
                   "button": "Select options"
                 },
                 {
                   "title": "Happy Ninja",
+                  "image": "/images/demo/T_7_front-300x300.jpg",
+                  "url": "/product/happy-ninja",
                   "price": "£18.00",
                   "rating": 5.0,
-                  "image": "/images/demo/T_7_front-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Happy Ninja",
+                  "image": "/images/demo/hoodie_4_front-300x300.jpg",
+                  "url": "/product/happy-ninja-2",
                   "price": "£35.00",
                   "rating": 3.0,
-                  "image": "/images/demo/hoodie_4_front-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Ninja Silhouette",
+                  "image": "/images/demo/T_5_front-300x300.jpg",
+                  "url": "/product/ninja-silhouette",
                   "price": "£20.00",
                   "rating": 5.0,
-                  "image": "/images/demo/T_5_front-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Ninja Silhouette",
+                  "image": "/images/demo/hoodie_7_front-300x300.jpg",
+                  "url": "/product/ninja-silhouette-2",
                   "price": "£35.00",
                   "rating": 4.75,
-                  "image": "/images/demo/hoodie_7_front-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Patient Ninja",
+                  "image": "/images/demo/hoodie_3_front-300x300.jpg",
+                  "url": "/product/patient-ninja",
                   "price": "£35.00",
                   "rating": 4.67,
-                  "image": "/images/demo/hoodie_3_front-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Premium Quality",
+                  "image": "/images/demo/T_2_front-300x300.jpg",
+                  "url": "/product/premium-quality",
                   "price": "£20.00",
                   "rating": 4.5,
-                  "image": "/images/demo/T_2_front-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Premium Quality",
-                  "price": "£15.00",
-                  "rating": 3.0,
                   "image": "/images/demo/poster_3_up-300x300.jpg",
+                  "url": "/product/premium-quality-2",
+                  "price": "£12.00",
+                  "priceOld": "£15.00",
+                  "rating": 3.0,
                   "button": "Add to basket",
                   "sale": true
                 },
                 {
                   "title": "Ship Your Idea",
-                  "rating": 4.5,
                   "image": "/images/demo/hoodie_5_front-300x300.jpg",
+                  "url": "/product/ship-your-idea-2",
+                  "rating": 4.5,
                   "button": "Select options"
                 },
                 {
                   "title": "Ship Your Idea",
-                  "price": "£15.00",
                   "image": "/images/demo/poster_1_up-300x300.jpg",
+                  "url": "/product/ship-your-idea-3",
+                  "price": "£15.00",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Ship Your Idea",
-                  "rating": 4.33,
                   "image": "/images/demo/T_4_front-300x300.jpg",
+                  "url": "/product/ship-your-idea",
+                  "rating": 4.33,
                   "button": "Select options"
                 },
                 {
                   "title": "Woo Album #1",
-                  "price": "£9.00",
                   "image": "/images/demo/cd_6_angle-300x300.jpg",
+                  "url": "/product/woo-album-1",
+                  "price": "£9.00",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Woo Album #2",
+                  "image": "/images/demo/cd_5_angle-300x300.jpg",
+                  "url": "/product/woo-album-2",
                   "price": "£9.00",
                   "rating": 4.0,
-                  "image": "/images/demo/cd_5_angle-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Woo Album #3",
+                  "image": "/images/demo/cd_4_angle-300x300.jpg",
+                  "url": "/product/woo-album-3",
                   "price": "£9.00",
                   "rating": 3.0,
-                  "image": "/images/demo/cd_4_angle-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Woo Album #4",
+                  "image": "/images/demo/cd_2_angle-300x300.jpg",
+                  "url": "/product/woo-album-4",
                   "price": "£9.00",
                   "rating": 5.0,
-                  "image": "/images/demo/cd_2_angle-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Woo Logo",
-                  "price": "£20.00",
-                  "rating": 4.0,
                   "image": "/images/demo/T_1_front-300x300.jpg",
+                  "url": "/product/woo-logo",
+                  "price": "£18.00",
+                  "priceOld": "£20.00",
+                  "rating": 4.0,
                   "button": "Add to basket",
                   "sale": true
                 },
                 {
                   "title": "Woo Logo",
+                  "image": "/images/demo/hoodie_6_front-300x300.jpg",
+                  "url": "/product/woo-logo-2",
                   "price": "£35.00",
                   "rating": 3.0,
-                  "image": "/images/demo/hoodie_6_front-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Woo Logo",
-                  "price": "£15.00",
                   "image": "/images/demo/poster_5_up-300x300.jpg",
-                  "button": "Add to basket"
-                },
-                {
-                  "title": "Woo Ninja",
-                  "price": "£20.00",
-                  "image": "/images/demo/T_6_front-300x300.jpg",
-                  "button": "Add to basket"
-                },
-                {
-                  "title": "Woo Ninja",
+                  "url": "/product/woo-logo-3",
                   "price": "£15.00",
-                  "image": "/images/demo/poster_4_up-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Woo Ninja",
+                  "image": "/images/demo/T_6_front-300x300.jpg",
+                  "url": "/product/woo-ninja",
+                  "price": "£20.00",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Ninja",
+                  "image": "/images/demo/poster_4_up-300x300.jpg",
+                  "url": "/product/woo-ninja-3",
+                  "price": "£15.00",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Ninja",
+                  "image": "/images/demo/hoodie_2_front-300x300.jpg",
+                  "url": "/product/woo-ninja-2",
                   "price": "£35.00",
                   "rating": 5.0,
-                  "image": "/images/demo/hoodie_2_front-300x300.jpg",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Woo Single #1",
-                  "price": "£3.00",
                   "image": "/images/demo/cd_3_angle-300x300.jpg",
+                  "url": "/product/woo-single-1",
+                  "price": "£3.00",
                   "button": "Add to basket"
                 },
                 {
                   "title": "Woo Single #2",
-                  "price": "£3.00",
-                  "rating": 4.0,
                   "image": "/images/demo/cd_1_angle-300x300.jpg",
+                  "url": "/product/woo-single-2",
+                  "price": "£2.00",
+                  "priceOld": "£3.00",
+                  "rating": 4.0,
                   "button": "Add to basket",
                   "sale": true
                 }
@@ -7218,6 +7346,943 @@
             "brand",
             "business",
             "card"
+          ]
+        }
+      }
+    ],
+    "products": [
+      {
+        "id": "prod-flying-ninja",
+        "slug": "flying-ninja",
+        "status": "published",
+        "data": {
+          "title": "Flying Ninja",
+          "price": "£13.00",
+          "rating": 4.0,
+          "button": "Select options",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_2_up-600x600.jpg",
+              "alt": "Flying Ninja",
+              "filename": "poster_2_up-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "flying-ninja-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "flying-ninja-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "posters"
+          ]
+        }
+      },
+      {
+        "id": "prod-happy-ninja",
+        "slug": "happy-ninja",
+        "status": "published",
+        "data": {
+          "title": "Happy Ninja",
+          "price": "£18.00",
+          "rating": 5.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_7_front-600x600.jpg",
+              "alt": "Happy Ninja",
+              "filename": "T_7_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "happy-ninja-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "happy-ninja-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "t-shirts"
+          ]
+        }
+      },
+      {
+        "id": "prod-happy-ninja-2",
+        "slug": "happy-ninja-2",
+        "status": "published",
+        "data": {
+          "title": "Happy Ninja",
+          "price": "£35.00",
+          "rating": 3.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_4_front-600x600.jpg",
+              "alt": "Happy Ninja",
+              "filename": "hoodie_4_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "happy-ninja-2-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "happy-ninja-2-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "hoodies"
+          ]
+        }
+      },
+      {
+        "id": "prod-ninja-silhouette",
+        "slug": "ninja-silhouette",
+        "status": "published",
+        "data": {
+          "title": "Ninja Silhouette",
+          "price": "£20.00",
+          "rating": 5.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_5_front-600x600.jpg",
+              "alt": "Ninja Silhouette",
+              "filename": "T_5_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "ninja-silhouette-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "ninja-silhouette-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "t-shirts"
+          ]
+        }
+      },
+      {
+        "id": "prod-ninja-silhouette-2",
+        "slug": "ninja-silhouette-2",
+        "status": "published",
+        "data": {
+          "title": "Ninja Silhouette",
+          "price": "£35.00",
+          "rating": 4.75,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_7_front-600x600.jpg",
+              "alt": "Ninja Silhouette",
+              "filename": "hoodie_7_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "ninja-silhouette-2-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "ninja-silhouette-2-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "hoodies"
+          ]
+        }
+      },
+      {
+        "id": "prod-patient-ninja",
+        "slug": "patient-ninja",
+        "status": "published",
+        "data": {
+          "title": "Patient Ninja",
+          "price": "£35.00",
+          "rating": 4.67,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_3_front-600x600.jpg",
+              "alt": "Patient Ninja",
+              "filename": "hoodie_3_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "patient-ninja-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "patient-ninja-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "hoodies"
+          ]
+        }
+      },
+      {
+        "id": "prod-premium-quality",
+        "slug": "premium-quality",
+        "status": "published",
+        "data": {
+          "title": "Premium Quality",
+          "price": "£20.00",
+          "rating": 4.5,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_2_front-600x600.jpg",
+              "alt": "Premium Quality",
+              "filename": "T_2_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "premium-quality-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "premium-quality-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "t-shirts"
+          ]
+        }
+      },
+      {
+        "id": "prod-premium-quality-2",
+        "slug": "premium-quality-2",
+        "status": "published",
+        "data": {
+          "title": "Premium Quality",
+          "price": "£12.00",
+          "price_old": "£15.00",
+          "rating": 3.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_3_up-600x600.jpg",
+              "alt": "Premium Quality",
+              "filename": "poster_3_up-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "premium-quality-2-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "premium-quality-2-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "posters"
+          ]
+        }
+      },
+      {
+        "id": "prod-ship-your-idea-2",
+        "slug": "ship-your-idea-2",
+        "status": "published",
+        "data": {
+          "title": "Ship Your Idea",
+          "rating": 4.5,
+          "button": "Select options",
+          "stock": "This product is currently out of stock and unavailable.",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_5_front-600x600.jpg",
+              "alt": "Ship Your Idea",
+              "filename": "hoodie_5_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "ship-your-idea-2-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "ship-your-idea-2-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "hoodies"
+          ]
+        }
+      },
+      {
+        "id": "prod-ship-your-idea-3",
+        "slug": "ship-your-idea-3",
+        "status": "published",
+        "data": {
+          "title": "Ship Your Idea",
+          "price": "£15.00",
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_1_up-600x600.jpg",
+              "alt": "Ship Your Idea",
+              "filename": "poster_1_up-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "ship-your-idea-3-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "ship-your-idea-3-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "posters"
+          ]
+        }
+      },
+      {
+        "id": "prod-ship-your-idea",
+        "slug": "ship-your-idea",
+        "status": "published",
+        "data": {
+          "title": "Ship Your Idea",
+          "rating": 4.33,
+          "button": "Select options",
+          "stock": "This product is currently out of stock and unavailable.",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_4_front-600x600.jpg",
+              "alt": "Ship Your Idea",
+              "filename": "T_4_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "ship-your-idea-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "ship-your-idea-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "t-shirts"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-album-1",
+        "slug": "woo-album-1",
+        "status": "published",
+        "data": {
+          "title": "Woo Album #1",
+          "price": "£9.00",
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_6_angle-600x600.jpg",
+              "alt": "Woo Album #1",
+              "filename": "cd_6_angle-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-album-1-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-album-1-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "albums",
+            "music"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-album-2",
+        "slug": "woo-album-2",
+        "status": "published",
+        "data": {
+          "title": "Woo Album #2",
+          "price": "£9.00",
+          "rating": 4.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_5_angle-600x600.jpg",
+              "alt": "Woo Album #2",
+              "filename": "cd_5_angle-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-album-2-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-album-2-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "albums",
+            "music"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-album-3",
+        "slug": "woo-album-3",
+        "status": "published",
+        "data": {
+          "title": "Woo Album #3",
+          "price": "£9.00",
+          "rating": 3.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_4_angle-600x600.jpg",
+              "alt": "Woo Album #3",
+              "filename": "cd_4_angle-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-album-3-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-album-3-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "albums",
+            "music"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-album-4",
+        "slug": "woo-album-4",
+        "status": "published",
+        "data": {
+          "title": "Woo Album #4",
+          "price": "£9.00",
+          "rating": 5.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_2_angle-600x600.jpg",
+              "alt": "Woo Album #4",
+              "filename": "cd_2_angle-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-album-4-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-album-4-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "albums",
+            "music"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-logo",
+        "slug": "woo-logo",
+        "status": "published",
+        "data": {
+          "title": "Woo Logo",
+          "price": "£18.00",
+          "price_old": "£20.00",
+          "rating": 4.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_1_front-600x600.jpg",
+              "alt": "Woo Logo",
+              "filename": "T_1_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-logo-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-logo-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "t-shirts"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-logo-2",
+        "slug": "woo-logo-2",
+        "status": "published",
+        "data": {
+          "title": "Woo Logo",
+          "price": "£35.00",
+          "rating": 3.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_6_front-600x600.jpg",
+              "alt": "Woo Logo",
+              "filename": "hoodie_6_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-logo-2-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-logo-2-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "hoodies"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-logo-3",
+        "slug": "woo-logo-3",
+        "status": "published",
+        "data": {
+          "title": "Woo Logo",
+          "price": "£15.00",
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_5_up-600x600.jpg",
+              "alt": "Woo Logo",
+              "filename": "poster_5_up-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-logo-3-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-logo-3-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "posters"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-ninja",
+        "slug": "woo-ninja",
+        "status": "published",
+        "data": {
+          "title": "Woo Ninja",
+          "price": "£20.00",
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_6_front-600x600.jpg",
+              "alt": "Woo Ninja",
+              "filename": "T_6_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-ninja-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-ninja-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "t-shirts"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-ninja-3",
+        "slug": "woo-ninja-3",
+        "status": "published",
+        "data": {
+          "title": "Woo Ninja",
+          "price": "£15.00",
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_4_up-600x600.jpg",
+              "alt": "Woo Ninja",
+              "filename": "poster_4_up-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-ninja-3-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-ninja-3-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "posters"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-ninja-2",
+        "slug": "woo-ninja-2",
+        "status": "published",
+        "data": {
+          "title": "Woo Ninja",
+          "price": "£35.00",
+          "rating": 5.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_2_front-600x600.jpg",
+              "alt": "Woo Ninja",
+              "filename": "hoodie_2_front-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-ninja-2-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-ninja-2-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "clothing",
+            "hoodies"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-single-1",
+        "slug": "woo-single-1",
+        "status": "published",
+        "data": {
+          "title": "Woo Single #1",
+          "price": "£3.00",
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_3_angle-600x600.jpg",
+              "alt": "Woo Single #1",
+              "filename": "cd_3_angle-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-single-1-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-single-1-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "music",
+            "singles"
+          ]
+        }
+      },
+      {
+        "id": "prod-woo-single-2",
+        "slug": "woo-single-2",
+        "status": "published",
+        "data": {
+          "title": "Woo Single #2",
+          "price": "£2.00",
+          "price_old": "£3.00",
+          "rating": 4.0,
+          "button": "Add to basket",
+          "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+          "featured_image": {
+            "$media": {
+              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_1_angle-600x600.jpg",
+              "alt": "Woo Single #2",
+              "filename": "cd_1_angle-600x600.jpg"
+            }
+          },
+          "content": [
+            {
+              "_type": "block",
+              "_key": "woo-single-2-d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "woo-single-2-ds0",
+                  "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "product-category": [
+            "music",
+            "singles"
           ]
         }
       }

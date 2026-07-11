@@ -1,0 +1,311 @@
+---
+import { getEmDashEntry, getEntryTerms, getEntriesByTerm, decodeSlug } from "emdash";
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import RichText from "../../components/RichText.astro";
+import { getMediaUrl } from "../../utils/media-url";
+
+const slug = decodeSlug(Astro.params.slug);
+
+if (!slug) {
+	return Astro.redirect("/404");
+}
+
+const { entry: product, cacheHint } = await getEmDashEntry("products", slug);
+
+if (!product) {
+	return Astro.redirect("/404");
+}
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const cats = await getEntryTerms("products", product.data.id, "product-category");
+
+// Related products: same first category, demo-style row of four
+const related = cats.length
+	? (await getEntriesByTerm("products", "product-category", cats[0].slug))
+			.filter((p) => p.id !== product.id)
+			.slice(0, 4)
+	: [];
+
+const d = product.data;
+---
+
+<Base
+	title={d.title}
+	content={{ collection: "products", id: d.id, slug }}
+	overHero
+>
+	<PageHeader
+		title={d.title}
+		crumbs={[{ label: "Shop", href: "/shop" }, { label: d.title }]}
+		titleAttrs={product.edit.title}
+	/>
+	<div class="product-shell">
+		<article class="product-single">
+			<div class="product-top">
+				<div class="product-gallery">
+					<img src={getMediaUrl(d.featured_image)} alt={d.title} />
+					{d.price_old && <span class="shop-sale">Sale!</span>}
+				</div>
+				<div class="product-summary">
+					<h2 class="product-name">{d.title}</h2>
+					{
+						typeof d.rating === "number" && (
+							<span
+								class="product-rating"
+								role="img"
+								aria-label={`Rated ${d.rating} out of 5`}
+							>
+								<span class="rating-fill" style={`width: ${(d.rating / 5) * 100}%`}>
+									★★★★★
+								</span>
+								<span class="rating-track" aria-hidden="true">
+									★★★★★
+								</span>
+							</span>
+						)
+					}
+					<p class="product-price">
+						{d.price_old && <del>{d.price_old}</del>}
+						{d.price && <ins>{d.price}</ins>}
+						{!d.price && d.stock && <span class="product-stock">{d.stock}</span>}
+					</p>
+					{d.excerpt && <p class="product-short">{d.excerpt}</p>}
+					<a href="/shop" class="product-buy">{d.button ?? "Add to basket"}</a>
+					{
+						cats.length > 0 && (
+							<p class="product-cats">
+								Categories:{" "}
+								{cats.map((c, i) => (
+									<>
+										{i > 0 && ", "}
+										<a href={`/shop`}>{c.label}</a>
+									</>
+								))}
+							</p>
+						)
+					}
+				</div>
+			</div>
+			{
+				d.content?.length > 0 && (
+					<section class="product-description">
+						<h3>Description</h3>
+						<RichText value={d.content} />
+					</section>
+				)
+			}
+			{
+				related.length > 0 && (
+					<section class="product-related">
+						<h3>Related products</h3>
+						<ul class="related-grid">
+							{related.map((p) => (
+								<li>
+									<a href={`/product/${p.id}`} class="related-thumb" tabindex="-1">
+										<img src={getMediaUrl(p.data.featured_image)} alt="" loading="lazy" />
+									</a>
+									<a href={`/product/${p.id}`} class="related-title">
+										{p.data.title}
+									</a>
+									{p.data.price && <span class="related-price">{p.data.price}</span>}
+								</li>
+							))}
+						</ul>
+					</section>
+				)
+			}
+		</article>
+	</div>
+</Base>
+
+<style>
+	/* Demo product single: one-column white main */
+	.product-shell {
+		max-width: calc(var(--wide-width) - 4em);
+		margin: 0 auto;
+	}
+
+	.product-single {
+		background: var(--color-surface);
+		padding: 4em clamp(1.5em, 4.4vw, 4em);
+	}
+
+	.product-top {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 3em;
+		margin-bottom: 3em;
+	}
+
+	.product-gallery {
+		position: relative;
+		line-height: 0;
+	}
+
+	.product-gallery img {
+		width: 100%;
+		height: auto;
+	}
+
+	.shop-sale {
+		position: absolute;
+		top: 0.75em;
+		left: 0.75em;
+		padding: 0.3em 0.8em;
+		background: rgba(255, 255, 255, 0.75);
+		color: var(--color-gold);
+		font-weight: 700;
+		line-height: 1.6;
+	}
+
+	.product-name {
+		margin: 0 0 0.3em;
+	}
+
+	.product-rating {
+		position: relative;
+		display: inline-block;
+		font-size: 0.9em;
+		letter-spacing: 2px;
+		line-height: 1;
+		color: var(--color-teal);
+	}
+
+	.rating-track {
+		color: var(--color-border);
+	}
+
+	.rating-fill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		color: var(--color-teal);
+	}
+
+	.product-price {
+		margin: 0.8em 0;
+		font-size: 1.5em;
+		color: var(--color-teal);
+	}
+
+	.product-price del {
+		margin-right: 0.5em;
+		color: var(--color-muted);
+	}
+
+	.product-price ins {
+		text-decoration: none;
+	}
+
+	.product-stock {
+		font-size: 0.75em;
+		color: var(--color-muted);
+	}
+
+	.product-short {
+		margin: 0 0 1.5em;
+		line-height: 1.8;
+	}
+
+	/* Demo gold button, teal hover */
+	.product-buy {
+		display: inline-block;
+		padding: 1em 2em;
+		background: var(--color-gold);
+		color: #ffffff;
+		font-weight: 700;
+		text-decoration: none;
+		transition: background 0.3s ease-out;
+	}
+
+	.product-buy:hover,
+	.product-buy:focus-visible {
+		background: var(--color-teal-solid);
+	}
+
+	.product-cats {
+		margin-top: 1.5em;
+		font-size: 0.9em;
+		color: var(--color-muted);
+	}
+
+	.product-cats a {
+		color: var(--color-teal);
+		text-decoration: none;
+	}
+
+	.product-cats a:hover {
+		color: var(--color-gold);
+	}
+
+	.product-description {
+		margin-bottom: 3em;
+	}
+
+	.related-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.75em;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.related-grid li {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.related-thumb {
+		display: block;
+		width: 100%;
+		overflow: hidden;
+		line-height: 0;
+	}
+
+	.related-thumb img {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		transition:
+			transform 0.3s ease-out,
+			opacity 0.3s ease-out;
+	}
+
+	.related-grid li:hover .related-thumb img {
+		transform: scale(1.1);
+		opacity: 0.8;
+	}
+
+	.related-title {
+		margin-top: 0.8em;
+		color: var(--color-teal);
+		text-decoration: none;
+		transition: 0.2s ease-out color;
+	}
+
+	.related-title:hover {
+		color: var(--color-gold);
+	}
+
+	.related-price {
+		margin-top: 0.3em;
+		color: var(--color-teal);
+	}
+
+	@media (max-width: 900px) {
+		.product-top {
+			grid-template-columns: 1fr;
+		}
+
+		.related-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

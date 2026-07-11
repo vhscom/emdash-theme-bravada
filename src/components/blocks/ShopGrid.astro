@@ -11,6 +11,8 @@ interface ShopItem {
 	url?: string;
 	/** e.g. "£35.00" */
 	price?: string;
+	/** Pre-sale price rendered struck through, e.g. "£15.00" */
+	priceOld?: string;
 	/** 0–5 stars */
 	rating?: number;
 	/** Button label; demo uses "Add to basket" / "Select options" */
@@ -77,7 +79,12 @@ const countText = (page: number) =>
 							</span>
 						</span>
 					)}
-					{item.price && <span class="shop-price">{item.price}</span>}
+					{(item.price || item.priceOld) && (
+						<span class="shop-price">
+							{item.priceOld && <del>{item.priceOld}</del>}
+							{item.price && <ins>{item.price}</ins>}
+						</span>
+					)}
 				</li>
 			))
 		}
@@ -185,8 +192,12 @@ const countText = (page: number) =>
 		margin-bottom: 2em;
 	}
 
-	.shop-count {
+	/* Extra specificity: the page-content p rules (justify + bottom
+	   margin) would otherwise knock the count off the select's
+	   centreline */
+	.bravada-shop .shop-toolbar .shop-count {
 		margin: 0;
+		text-align: left;
 		color: var(--color-text);
 	}
 
@@ -340,6 +351,16 @@ const countText = (page: number) =>
 		color: var(--color-teal);
 	}
 
+	/* Sale pricing: struck-through old price in muted grey */
+	.shop-price del {
+		margin-right: 0.5em;
+		color: var(--color-muted);
+	}
+
+	.shop-price ins {
+		text-decoration: none;
+	}
+
 	/* Demo woocommerce-pagination: bordered squares with 1em gaps,
 	   current teal, gold with white text on hover */
 	.shop-pagination {
@@ -357,7 +378,7 @@ const countText = (page: number) =>
 
 	.page-number {
 		padding: 0.8em 1.1em;
-		border: 1px solid rgba(0, 0, 0, 0.1);
+		border: 1px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2));
 		border-radius: 0;
 		background: transparent;
 		font-family: var(--font-body);
