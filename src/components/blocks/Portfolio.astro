@@ -94,8 +94,13 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 </section>
 
 <script>
+	// Masonry-like filtering, like the demo's #portfolio-masonry: exiting
+	// cards leave the flow as absolutely positioned ghosts and fade out,
+	// surviving cards FLIP-slide to their new grid slots, entering cards
+	// fade in.
+	const DURATION = 450;
 	for (const bar of document.querySelectorAll<HTMLElement>(".lp-port-filter")) {
-		const grid = bar.parentElement?.querySelector(".lp-port-grid");
+		const grid = bar.parentElement?.querySelector<HTMLElement>(".lp-port-grid");
 		if (!grid) continue;
 		bar.addEventListener("click", (e) => {
 			const link = (e.target as HTMLElement).closest("a[data-filter]");
@@ -105,11 +110,71 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 			bar.querySelectorAll("a").forEach((a) =>
 				a.classList.toggle("active", a === link)
 			);
-			grid.querySelectorAll<HTMLElement>(".lp-port").forEach((card) => {
-				const types = (card.dataset.types ?? "").split(" ");
-				card.style.display =
-					filter === "*" || types.includes(filter) ? "" : "none";
-			});
+			const cards = [...grid.querySelectorAll<HTMLElement>(".lp-port")];
+			const first = new Map(cards.map((c) => [c, c.getBoundingClientRect()]));
+			const gridRect = grid.getBoundingClientRect();
+			const matches = (c: HTMLElement) =>
+				filter === "*" || (c.dataset.types ?? "").split(" ").includes(filter);
+
+			for (const c of cards) {
+				const wasHidden = c.style.display === "none";
+				if (!matches(c) && !wasHidden) {
+					const r = first.get(c)!;
+					c.classList.add("is-exiting");
+					c.style.position = "absolute";
+					c.style.left = `${r.left - gridRect.left}px`;
+					c.style.top = `${r.top - gridRect.top}px`;
+					c.style.width = `${r.width}px`;
+				} else if (matches(c) && wasHidden) {
+					c.style.display = "";
+					c.classList.add("is-entering");
+				}
+			}
+
+			// Invert: surviving cards start translated back at their old spot
+			for (const c of cards) {
+				if (c.classList.contains("is-exiting") || c.classList.contains("is-entering")) continue;
+				if (c.style.display === "none") continue;
+				const f = first.get(c)!;
+				const l = c.getBoundingClientRect();
+				const dx = f.left - l.left;
+				const dy = f.top - l.top;
+				if (dx || dy) {
+					c.style.transition = "none";
+					c.style.transform = `translate(${dx}px, ${dy}px)`;
+				}
+			}
+
+			// Play
+			requestAnimationFrame(() =>
+				requestAnimationFrame(() => {
+					for (const c of cards) {
+						if (c.classList.contains("is-exiting")) {
+							c.style.opacity = "0";
+							c.style.transform = "scale(0.9)";
+							continue;
+						}
+						if (c.style.display === "none") continue;
+						c.style.transition = `transform ${DURATION}ms ease, opacity ${DURATION}ms ease`;
+						c.style.transform = "";
+						if (c.classList.contains("is-entering")) c.style.opacity = "1";
+					}
+				})
+			);
+
+			setTimeout(() => {
+				for (const c of cards) {
+					if (c.classList.contains("is-exiting")) {
+						c.classList.remove("is-exiting");
+						c.style.cssText = "display: none";
+					} else if (c.style.display !== "none") {
+						c.classList.remove("is-entering");
+						c.style.transition = "";
+						c.style.transform = "";
+						c.style.opacity = "";
+					}
+				}
+			}, DURATION + 40);
 		});
 	}
 </script>
@@ -153,8 +218,35 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 	}
 
 	.lp-port-grid {
+		position: relative;
 		display: grid;
 		grid-template-columns: repeat(var(--lp-port-cols, 4), 1fr);
+	}
+
+	/* Filter animation states */
+	.lp-port.is-exiting {
+		z-index: 0;
+		pointer-events: none;
+		transition:
+			opacity 0.45s ease,
+			transform 0.45s ease;
+	}
+
+	.lp-port.is-entering {
+		opacity: 0;
+	}
+
+	/* Inside a page sheet (demo jetpack-portfolio page) the section sits
+	   flush on the white main: no bleed, no tinted band, no extra pad */
+	:global(.page-article) .lp-portfolio {
+		width: auto;
+		margin-inline: 0;
+		background: transparent;
+	}
+
+	:global(.page-article) .lp-portfolio-inside {
+		max-width: none;
+		padding: 0;
 	}
 
 	.lp-port {

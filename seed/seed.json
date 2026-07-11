@@ -2581,71 +2581,52 @@
           "layout": "none",
           "content": [
             {
+              "_type": "block",
+              "_key": "pf-intro",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "pf-intro-s",
+                  "text": "Etiam ac viverra quam. Sed efficitur erat nisi, ac cursus nisl tempor quis. Mauris scelerisque rutrum molestie. Donec varius ante eleifend rutrum feugiat. Vivamus quis sapien at neque tincidunt mollis eget eu erat.",
+                  "marks": []
+                }
+              ]
+            },
+            {
               "_type": "bravada.portfolio",
               "_key": "page-portfolio",
               "columns": 4,
-              "title": "Portfolio",
-              "description": "A selection of our latest work.",
               "items": [
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
-                  "title": "New York vol. 27",
-                  "tags": [
-                    "Brands",
-                    "Business Cards"
-                  ],
-                  "url": "/posts/some-coffee-art"
-                },
-                {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
-                  "title": "Presentation Paper",
-                  "tags": [
-                    "Brands",
-                    "Sketch"
-                  ],
-                  "url": "/posts/throught-the-lens"
-                },
-                {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
-                  "title": "Empty Cards",
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-12-512x512.jpg",
+                  "title": "Card-in-a-box",
                   "tags": [
                     "Business Cards"
-                  ],
-                  "url": "/posts/everything-is-small"
+                  ]
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
-                  "title": "Notebook",
-                  "tags": [
-                    "Brands"
-                  ],
-                  "url": "/posts/a-birds-eye-view"
-                },
-                {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
-                  "title": "Disk cover",
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-11-512x512.jpg",
+                  "title": "B-Sides",
                   "tags": [
                     "Discs"
-                  ],
-                  "url": "/posts/a-morning-with-technology"
+                  ]
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
-                  "title": "Pen & Paper",
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10-512x512.jpg",
+                  "title": "Yellow Frame",
                   "tags": [
                     "Brands",
                     "Sketch"
-                  ],
-                  "url": "/posts/running-from-the-afternoon"
+                  ]
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
-                  "title": "Flyer Presentation",
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09-512x512.jpg",
+                  "title": "Business cards",
                   "tags": [
-                    "Brands",
-                    "Sketch"
-                  ],
-                  "url": "/posts/coffee-at-the-office"
+                    "Business Cards"
+                  ]
                 },
                 {
                   "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
@@ -2653,8 +2634,60 @@
                   "tags": [
                     "Brands",
                     "Sketch"
-                  ],
-                  "url": "/posts/some-coffee-art"
+                  ]
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+                  "title": "Flyer Presentation",
+                  "tags": [
+                    "Brands",
+                    "Sketch"
+                  ]
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "title": "Pen & Paper",
+                  "tags": [
+                    "Brands",
+                    "Sketch"
+                  ]
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+                  "title": "Disk cover",
+                  "tags": [
+                    "Discs"
+                  ]
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+                  "title": "Notebook",
+                  "tags": [
+                    "Brands"
+                  ]
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+                  "title": "Empty Cards",
+                  "tags": [
+                    "Business Cards"
+                  ]
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "title": "Presentation Paper",
+                  "tags": [
+                    "Brands",
+                    "Sketch"
+                  ]
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "title": "New York vol. 27",
+                  "tags": [
+                    "Brands",
+                    "Business Cards"
+                  ]
                 }
               ]
             }
