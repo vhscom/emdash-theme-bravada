@@ -5276,6 +5276,549 @@
             }
           ]
         }
+      },
+      {
+        "id": "project-tag-brand",
+        "slug": "project-tag-brand",
+        "status": "published",
+        "data": {
+          "title": "brand",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-brand-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09-512x512.jpg",
+                  "title": "Business cards",
+                  "url": "/pages/business-cards"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+                  "title": "Brand Sketch",
+                  "url": "/pages/brand-sketch"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "title": "Pen & Paper",
+                  "url": "/pages/pen-paper"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+                  "title": "Notebook",
+                  "url": "/pages/notebook"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "title": "Presentation Paper",
+                  "url": "/pages/presentation-paper"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "title": "New York vol. 27",
+                  "url": "/pages/new-york-vol-27"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-business",
+        "slug": "project-tag-business",
+        "status": "published",
+        "data": {
+          "title": "business",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-business-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-12-512x512.jpg",
+                  "title": "Card-in-a-box",
+                  "url": "/pages/card-in-a-box"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09-512x512.jpg",
+                  "title": "Business cards",
+                  "url": "/pages/business-cards"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+                  "title": "Empty Cards",
+                  "url": "/pages/black-white-business-cards"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "title": "New York vol. 27",
+                  "url": "/pages/new-york-vol-27"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-card",
+        "slug": "project-tag-card",
+        "status": "published",
+        "data": {
+          "title": "card",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-card-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-12-512x512.jpg",
+                  "title": "Card-in-a-box",
+                  "url": "/pages/card-in-a-box"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09-512x512.jpg",
+                  "title": "Business cards",
+                  "url": "/pages/business-cards"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+                  "title": "Empty Cards",
+                  "url": "/pages/black-white-business-cards"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "title": "New York vol. 27",
+                  "url": "/pages/new-york-vol-27"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-cd",
+        "slug": "project-tag-cd",
+        "status": "published",
+        "data": {
+          "title": "cd",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-cd-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+                  "title": "Disk cover",
+                  "url": "/pages/disk-cover"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-disc",
+        "slug": "project-tag-disc",
+        "status": "published",
+        "data": {
+          "title": "disc",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-disc-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-11-512x512.jpg",
+                  "title": "B-Sides",
+                  "url": "/pages/b-sides"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+                  "title": "Disk cover",
+                  "url": "/pages/disk-cover"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-flyer",
+        "slug": "project-tag-flyer",
+        "status": "published",
+        "data": {
+          "title": "flyer",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-flyer-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+                  "title": "Flyer Presentation",
+                  "url": "/pages/flyer-presentation"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "title": "Pen & Paper",
+                  "url": "/pages/pen-paper"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "title": "Presentation Paper",
+                  "url": "/pages/presentation-paper"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-frame",
+        "slug": "project-tag-frame",
+        "status": "published",
+        "data": {
+          "title": "frame",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-frame-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10-512x512.jpg",
+                  "title": "Yellow Frame",
+                  "url": "/pages/yellow-frame"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-music",
+        "slug": "project-tag-music",
+        "status": "published",
+        "data": {
+          "title": "music",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-music-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-11-512x512.jpg",
+                  "title": "B-Sides",
+                  "url": "/pages/b-sides"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+                  "title": "Disk cover",
+                  "url": "/pages/disk-cover"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-notebook",
+        "slug": "project-tag-notebook",
+        "status": "published",
+        "data": {
+          "title": "notebook",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-notebook-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+                  "title": "Notebook",
+                  "url": "/pages/notebook"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-painting",
+        "slug": "project-tag-painting",
+        "status": "published",
+        "data": {
+          "title": "painting",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-painting-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10-512x512.jpg",
+                  "title": "Yellow Frame",
+                  "url": "/pages/yellow-frame"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-presentation",
+        "slug": "project-tag-presentation",
+        "status": "published",
+        "data": {
+          "title": "presentation",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-presentation-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+                  "title": "Flyer Presentation",
+                  "url": "/pages/flyer-presentation"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-tag-sketch",
+        "slug": "project-tag-sketch",
+        "status": "published",
+        "data": {
+          "title": "sketch",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-tag-sketch-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10-512x512.jpg",
+                  "title": "Yellow Frame",
+                  "url": "/pages/yellow-frame"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+                  "title": "Brand Sketch",
+                  "url": "/pages/brand-sketch"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+                  "title": "Flyer Presentation",
+                  "url": "/pages/flyer-presentation"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "title": "Pen & Paper",
+                  "url": "/pages/pen-paper"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+                  "title": "Notebook",
+                  "url": "/pages/notebook"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+                  "title": "Empty Cards",
+                  "url": "/pages/black-white-business-cards"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "title": "Presentation Paper",
+                  "url": "/pages/presentation-paper"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-type-brands",
+        "slug": "project-type-brands",
+        "status": "published",
+        "data": {
+          "title": "Brands",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-type-brands-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10-512x512.jpg",
+                  "title": "Yellow Frame",
+                  "url": "/pages/yellow-frame"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+                  "title": "Brand Sketch",
+                  "url": "/pages/brand-sketch"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+                  "title": "Flyer Presentation",
+                  "url": "/pages/flyer-presentation"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "title": "Pen & Paper",
+                  "url": "/pages/pen-paper"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+                  "title": "Notebook",
+                  "url": "/pages/notebook"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "title": "Presentation Paper",
+                  "url": "/pages/presentation-paper"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "title": "New York vol. 27",
+                  "url": "/pages/new-york-vol-27"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-type-business-cards",
+        "slug": "project-type-business-cards",
+        "status": "published",
+        "data": {
+          "title": "Business Cards",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-type-business-cards-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-12-512x512.jpg",
+                  "title": "Card-in-a-box",
+                  "url": "/pages/card-in-a-box"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09-512x512.jpg",
+                  "title": "Business cards",
+                  "url": "/pages/business-cards"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+                  "title": "Empty Cards",
+                  "url": "/pages/black-white-business-cards"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "title": "New York vol. 27",
+                  "url": "/pages/new-york-vol-27"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-type-discs",
+        "slug": "project-type-discs",
+        "status": "published",
+        "data": {
+          "title": "Discs",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-type-discs-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-11-512x512.jpg",
+                  "title": "B-Sides",
+                  "url": "/pages/b-sides"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+                  "title": "Disk cover",
+                  "url": "/pages/disk-cover"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "project-type-sketch",
+        "slug": "project-type-sketch",
+        "status": "published",
+        "data": {
+          "title": "Sketch",
+          "layout": "right",
+          "sidebar": "sidebar-b",
+          "content": [
+            {
+              "_type": "bravada.projectgrid",
+              "_key": "project-type-sketch-grid",
+              "items": [
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10-512x512.jpg",
+                  "title": "Yellow Frame",
+                  "url": "/pages/yellow-frame"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+                  "title": "Brand Sketch",
+                  "url": "/pages/brand-sketch"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+                  "title": "Flyer Presentation",
+                  "url": "/pages/flyer-presentation"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "title": "Pen & Paper",
+                  "url": "/pages/pen-paper"
+                },
+                {
+                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "title": "Presentation Paper",
+                  "url": "/pages/presentation-paper"
+                }
+              ]
+            }
+          ]
+        }
       }
     ],
     "posts": [

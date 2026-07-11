@@ -102,19 +102,6 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 	for (const bar of document.querySelectorAll<HTMLElement>(".lp-port-filter")) {
 		const grid = bar.parentElement?.querySelector<HTMLElement>(".lp-port-grid");
 		if (!grid) continue;
-		// Deep-linked filter (?filter=business-cards): apply instantly,
-		// no animation — the page is arriving in this state.
-		const wanted = new URLSearchParams(location.search).get("filter");
-		const preset = wanted && bar.querySelector(`a[data-filter="${CSS.escape(wanted)}"]`);
-		if (preset) {
-			bar.querySelectorAll("a").forEach((a) =>
-				a.classList.toggle("active", a === preset)
-			);
-			grid.querySelectorAll<HTMLElement>(".lp-port").forEach((card) => {
-				const types = (card.dataset.types ?? "").split(" ");
-				card.style.display = types.includes(wanted) ? "" : "none";
-			});
-		}
 		bar.addEventListener("click", (e) => {
 			const link = (e.target as HTMLElement).closest("a[data-filter]");
 			if (!link) return;

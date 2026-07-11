@@ -1,0 +1,75 @@
+---
+/**
+ * bravada.projectgrid — the demo's project-type / project-tag archive
+ * listing: a plain three-column grid of project thumbnails with
+ * uppercase teal underlined titles (gold on hover). Used on the
+ * project archive pages; items are editable block data.
+ */
+interface GridItem {
+	image?: string;
+	title?: string;
+	url?: string;
+}
+
+interface ProjectGridNode {
+	items?: GridItem[];
+}
+
+const { node } = Astro.props as { node: ProjectGridNode };
+const { items = [] } = node;
+---
+
+<div class="project-grid">
+	{
+		items.map((item) => (
+			<a href={item.url ?? "#"} class="project-grid-item">
+				{item.image && <img src={item.image} alt="" loading="lazy" />}
+				<span class="project-grid-title">{item.title}</span>
+			</a>
+		))
+	}
+</div>
+
+<style>
+	.project-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2em 2.5em;
+		margin: 1em 0;
+	}
+
+	.project-grid-item {
+		display: block;
+		text-decoration: none;
+	}
+
+	.project-grid-item img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 3 / 2;
+		object-fit: cover;
+		margin-bottom: 1em;
+	}
+
+	.project-grid-title {
+		font-family: var(--font-heading);
+		font-size: 1.1em;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		text-decoration: underline;
+		text-underline-offset: 4px;
+		color: var(--color-teal);
+		transition: 0.2s ease-out color;
+	}
+
+	.project-grid-item:hover .project-grid-title {
+		color: var(--color-gold);
+	}
+
+	@media (max-width: 700px) {
+		.project-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>
