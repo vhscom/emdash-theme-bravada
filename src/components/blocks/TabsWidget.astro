@@ -227,15 +227,14 @@ const panels = [
 		flex-shrink: 0;
 		position: relative;
 		line-height: 0;
-		border: 1px solid var(--color-border);
-		padding: 3px;
-		background: var(--color-surface);
+		border: 5px solid var(--color-surface);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 	}
 
 	.wtab-thumb::after {
 		content: "";
 		position: absolute;
-		inset: 3px;
+		inset: 0;
 		background: linear-gradient(to bottom, transparent 40%, var(--color-gold));
 		opacity: 0.35;
 		transition: 0.3s ease-out opacity;

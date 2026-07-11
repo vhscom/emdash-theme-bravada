@@ -83,20 +83,20 @@ const items = posts.map((post) => ({
 	}
 
 	/* Framed thumbnail with the demo's gold wash from the bottom */
+	/* Demo .post-item-thumbnail: 5px white frame + soft drop shadow */
 	.wpost-thumb {
 		position: relative;
 		display: block;
 		line-height: 0;
-		margin-bottom: 0.6em;
-		border: 1px solid var(--color-border);
-		padding: 4px;
-		background: var(--color-surface);
+		margin-bottom: 0.8em;
+		border: 5px solid var(--color-surface);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 	}
 
 	.wpost-thumb::after {
 		content: "";
 		position: absolute;
-		inset: 4px;
+		inset: 0;
 		background: linear-gradient(to bottom, transparent 40%, var(--color-gold));
 		opacity: 0;
 		transition: 0.3s ease-out opacity;

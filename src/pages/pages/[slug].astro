@@ -61,15 +61,16 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	/* Demo static page: content on a white card inside the shell.
 	   The shell arranges the card and up to two 320px sidebars per the
 	   page's Layout field (demo one/two/three-column options). */
-	/* Demo #container: one white sheet holding content + sidebars */
+	/* Demo #container: transparent shell — only .main is white; the
+	   sidebars sit directly on the page background. Sidebars are 320px
+	   including their 2.2em inner gutter, no grid gap (demo box model:
+	   main = 100% − 640px). */
 	.page-shell {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		gap: 3em;
+		gap: 0;
 		max-width: calc(var(--wide-width) - 4em);
-		margin: 4em auto;
-		padding: 3.5em clamp(1.5em, 4vw, 3.5em);
-		background: var(--color-surface);
+		margin: 0 auto;
 	}
 
 	.page-shell.layout-left {
@@ -106,6 +107,19 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 
 	.page-article {
 		min-width: 0;
+		background: var(--color-surface);
+		padding: 4em clamp(1.5em, 4.4vw, 4em);
+	}
+
+	.page-shell :global(.bravada-sidebar) {
+		padding: 4em 0 6em 2.2em;
+	}
+
+	/* left-hand sidebars gutter on the right instead */
+	.page-shell.layout-left :global(.bravada-sidebar),
+	.page-shell.layout-two-left :global(.bravada-sidebar),
+	.page-shell.layout-sided :global(.bravada-sidebar:first-of-type) {
+		padding: 4em 2.2em 6em 0;
 	}
 
 	@media (max-width: 1100px) {
