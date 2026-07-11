@@ -52,6 +52,7 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 					<a href={item.url ?? "#"} class="shop-thumb" tabindex="-1">
 						{item.sale && <span class="shop-sale">Sale!</span>}
 						{item.image && <img src={item.image} alt="" loading="lazy" />}
+						<span class="shop-button">{item.button ?? "Add to basket"}</span>
 					</a>
 					<a href={item.url ?? "#"} class="shop-title">
 						{item.title}
@@ -71,9 +72,6 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 						</span>
 					)}
 					{item.price && <span class="shop-price">{item.price}</span>}
-					<a href={item.url ?? "#"} class="shop-button">
-						{item.button ?? "Add to basket"}
-					</a>
 				</li>
 			))
 		}
@@ -115,14 +113,21 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 		color: var(--color-text);
 	}
 
+	/* Custom chevron so it gets breathing room from the edge */
 	.shop-sort select {
-		padding: 0.9em 1em;
+		padding: 0.9em 2.8em 0.9em 1em;
 		border: 1px solid var(--color-border);
 		border-radius: 0;
-		background: var(--color-surface);
+		background-color: var(--color-surface);
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 1em center;
 		font-family: var(--font-body);
 		font-size: 1rem;
 		color: var(--color-text);
+		appearance: none;
+		-webkit-appearance: none;
+		cursor: pointer;
 	}
 
 	.shop-grid {
@@ -146,12 +151,48 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 		display: block;
 		width: 100%;
 		line-height: 0;
+		overflow: hidden;
 	}
 
+	/* Demo hover: image zooms 1.1 and dims to .8 while the gold button
+	   bar fades in and slides down over it (.3s ease-out) */
 	.shop-thumb img {
 		width: 100%;
 		aspect-ratio: 1;
 		object-fit: cover;
+		transform: scale(1);
+		opacity: 1;
+		transition: 0.3s ease-out;
+	}
+
+	.shop-product:hover .shop-thumb img,
+	.shop-product:focus-within .shop-thumb img {
+		transform: scale(1.1);
+		opacity: 0.8;
+	}
+
+	.shop-button {
+		position: absolute;
+		z-index: 2;
+		left: 1em;
+		right: 1em;
+		top: 38%;
+		padding: 0.6em 1em;
+		background: var(--color-gold);
+		color: #ffffff;
+		font-size: 0.85rem;
+		font-weight: 700;
+		line-height: 1.4;
+		text-align: center;
+		opacity: 0;
+		transform: translateY(-10px);
+		transition: 0.3s ease-out;
+	}
+
+	.shop-product:hover .shop-button,
+	.shop-product:focus-within .shop-button {
+		opacity: 1;
+		transform: translateY(0);
 	}
 
 	/* Demo .onsale: translucent white badge, gold text */
@@ -207,23 +248,6 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 	.shop-price {
 		margin-top: 0.5em;
 		color: var(--color-teal);
-	}
-
-	/* Demo gold button, teal on hover */
-	.shop-button {
-		margin-top: 0.9em;
-		padding: 0.5em 1.2em;
-		background: var(--color-gold);
-		color: #ffffff;
-		font-size: 0.8rem;
-		font-weight: 700;
-		text-decoration: none;
-		transition: background 0.3s ease-out;
-	}
-
-	.shop-button:hover,
-	.shop-button:focus-visible {
-		background: var(--color-teal-solid);
 	}
 
 	@media (max-width: 900px) {
