@@ -209,8 +209,10 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 		}
 	}
 
-	/* Breadcrumbs pinned bottom-center: translucent white chips
-	   (demo #breadcrumbs a: rgba(255,255,255,.2), 5px 10px, 1px apart) */
+	/* Breadcrumbs pinned bottom-center: muted translucent chips
+	   (demo: rgba(255,255,255,.2) plates at 50% element opacity, 6px
+	   apart). We sit slightly above the demo's opacity for legibility
+	   and restore full strength on hover/keyboard focus. */
 	.page-hero-crumbs {
 		position: absolute;
 		z-index: 4;
@@ -220,7 +222,7 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 		display: flex;
 		align-items: stretch;
 		justify-content: center;
-		gap: 1px;
+		gap: 6px;
 		font-size: 0.81em;
 		color: #ffffff;
 	}
@@ -233,12 +235,19 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 		color: #ffffff;
 		text-decoration: none;
 		line-height: 1.4;
-		transition: 0.2s ease-out background;
+		opacity: 0.6;
+		transition: 0.2s ease-out opacity;
 	}
 
-	a.crumb-chip:hover {
-		background: rgba(255, 255, 255, 0.35);
+	a.crumb-chip:hover,
+	a.crumb-chip:focus-visible {
+		opacity: 1;
 		color: #ffffff;
+	}
+
+	a.crumb-chip:focus-visible {
+		outline: 2px solid rgba(255, 255, 255, 0.8);
+		outline-offset: 1px;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
