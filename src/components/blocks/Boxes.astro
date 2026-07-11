@@ -384,12 +384,27 @@ const cols = Math.min(Math.max(node.columns ?? (variant === "animated" ? 3 : 4),
 		transition: 0.3s all ease-out;
 	}
 
+	/* Demo overlay text sits on the WHITE wash in both color schemes:
+	   ink title with the gold highlighter strip, grey body — pinned
+	   colors, not theme tokens, or dark mode puts light text on white */
 	.lp-boxes-overlay .lp-box-title {
+		display: inline;
+		font-weight: 700;
+		color: #162521;
+		background-image: linear-gradient(
+			to bottom,
+			var(--gold-strip) 0%,
+			var(--gold-strip) 100%
+		);
+		background-repeat: no-repeat;
+		background-size: 100% 0.5em;
+		background-position: 0 100%;
 		transition-delay: 0.05s;
 	}
 
 	.lp-boxes-overlay .lp-box-text-inside > span {
 		display: block;
+		color: #707070;
 		transition-delay: 0.1s;
 	}
 
