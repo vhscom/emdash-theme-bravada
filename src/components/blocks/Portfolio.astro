@@ -226,12 +226,13 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 		font-size: 1.3em;
 		font-weight: 400;
 		line-height: 1.2;
-		color: var(--color-teal);
+		/* Demo: gold titles that go teal on hover */
+		color: var(--color-gold);
 		transition: 0.2s ease-out all;
 	}
 
 	.lp-port:hover .lp-port-title {
-		color: var(--color-gold);
+		color: var(--color-teal);
 	}
 
 	.lp-port-tax {
@@ -247,8 +248,8 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 	.lp-port-tax li {
 		display: inline;
 		font-style: italic;
-		opacity: 0.5;
-		color: var(--color-text);
+		/* Demo: gold tag line, no dimming */
+		color: var(--color-gold);
 	}
 
 	.lp-port-tax li:not(:last-child)::after {

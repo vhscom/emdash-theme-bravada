@@ -113,6 +113,11 @@ const readMore = (t?: string) => `Read More “${t ?? ""}”`;
 	}
 
 	/* Accent backdrop strip behind the grid */
+	/* Demo overlay boxes sit flush edge-to-edge */
+	.lp-boxes-overlay .lp-boxes-inside {
+		gap: 0;
+	}
+
 	.lp-boxes-inside {
 		position: relative;
 		display: grid;
