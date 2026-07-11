@@ -1037,13 +1037,19 @@ const isLoggedIn = !!Astro.locals.user;
 				align-items: center;
 				justify-content: center;
 				background: var(--color-bg);
-				animation: preloader-hide 6s 1s ease-out forwards;
+				/* Invisible for the first 150ms so fast loads never flash
+				   it; only slow loads ever see the sheet appear */
+				opacity: 0;
+				animation:
+					preloader-appear 0s linear 0.15s forwards,
+					preloader-hide 6s 1s ease-out forwards;
 				transition: opacity 0.7s ease-out;
 			}
 
-			.cryout-preloader.is-done {
-				opacity: 0;
-				visibility: hidden;
+			@keyframes preloader-appear {
+				to {
+					opacity: 1;
+				}
 			}
 
 			.cryout-preloader-inside {
@@ -1998,12 +2004,24 @@ const isLoggedIn = !!Astro.locals.user;
 			const pre = document.querySelector<HTMLElement>(".cryout-preloader");
 			if (pre) {
 				const done = () => {
+					// Pin the animation-driven opacity before removing the
+					// animation so the .7s fade-out starts from it (fast
+					// loads are still at 0 and never appear at all)
+					pre.style.opacity = getComputedStyle(pre).opacity;
 					pre.style.animation = "none";
-					pre.classList.add("is-done");
+					void pre.offsetWidth;
+					pre.style.opacity = "0";
+					pre.style.pointerEvents = "none";
 					setTimeout(() => pre.remove(), 750);
 				};
-				if (document.readyState === "complete") done();
-				else window.addEventListener("load", done, { once: true });
+				// Dismiss once the SSR document is parsed — waiting for
+				// window load would hold the sheet for every hotlinked
+				// image while the content already sits painted beneath it
+				if (document.readyState !== "loading") done();
+				else
+					document.addEventListener("DOMContentLoaded", done, {
+						once: true,
+					});
 			}
 
 			// Lazy-image fade-in (demo cryoutAnimateLazyImages): content
