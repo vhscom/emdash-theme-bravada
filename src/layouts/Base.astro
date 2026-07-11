@@ -945,14 +945,23 @@ const isLoggedIn = !!Astro.locals.user;
 				position: relative;
 			}
 
-			/* Right-pointing chevron on flyout parents (demo span::after
-			   rotated 270deg), fading out as the arrow nudges on hover */
+			/* Right-pointing chevron on flyout parents, anchored to the
+			   row's right edge like the demo (span::after, absolute,
+			   right .25em); fades out as the arrow nudges on hover. The
+			   label reserves room for it. */
+			.nav-links .sub-menu li.has-children > a > span {
+				padding-right: 2em;
+			}
+
 			.nav-links .sub-menu li.has-children > a > span::after {
 				content: "";
-				display: inline-block;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0.9em;
 				width: 0.45em;
 				height: 0.45em;
-				margin-left: 0.5em;
+				margin: auto;
 				border-right: 1.5px solid currentColor;
 				border-bottom: 1.5px solid currentColor;
 				transform: rotate(-45deg);
@@ -969,6 +978,12 @@ const isLoggedIn = !!Astro.locals.user;
 				opacity: 1;
 				visibility: visible;
 				transform: translateY(0);
+			}
+
+			/* Demo #access ul li: items never wrap — panels grow instead */
+			.nav-links .menu-item,
+			.nav-links .sub-menu li {
+				white-space: nowrap;
 			}
 
 			.nav-links .sub-menu li {
