@@ -25,11 +25,17 @@ interface ShopGridNode {
 const { node } = Astro.props as { node: ShopGridNode };
 const { items = [] } = node;
 const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
+const PER_PAGE = 12;
+const pages = Math.ceil(items.length / PER_PAGE);
+const countText = (page: number) =>
+	items.length <= PER_PAGE
+		? `Showing all ${items.length} results`
+		: `Showing ${(page - 1) * PER_PAGE + 1}–${Math.min(page * PER_PAGE, items.length)} of ${items.length} results`;
 ---
 
-<div class="bravada-shop">
+<div class="bravada-shop" data-per-page={PER_PAGE} data-total={items.length}>
 	<div class="shop-toolbar">
-		<p class="shop-count">Showing all {items.length} results</p>
+		<p class="shop-count">{countText(1)}</p>
 		<label class="shop-sort">
 			<span class="sr-only">Sort products</span>
 			<select>
@@ -76,6 +82,31 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 			))
 		}
 	</ul>
+	{
+		pages > 1 && (
+			<nav class="shop-pagination" aria-label="Products pagination">
+				<ul class="page-numbers">
+					{Array.from({ length: pages }, (_, i) => (
+						<li>
+							<button
+								type="button"
+								class:list={["page-number", { current: i === 0 }]}
+								data-page={i + 1}
+								aria-current={i === 0 ? "page" : undefined}
+							>
+								{i + 1}
+							</button>
+						</li>
+					))}
+					<li>
+						<button type="button" class="page-number page-next" aria-label="Next page">
+							→
+						</button>
+					</li>
+				</ul>
+			</nav>
+		)
+	}
 </div>
 
 <script>
@@ -83,6 +114,33 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 		const select = shop.querySelector("select");
 		const grid = shop.querySelector<HTMLElement>(".shop-grid");
 		if (!select || !grid) continue;
+		const perPage = +(shop.dataset.perPage ?? 12);
+		const total = +(shop.dataset.total ?? 0);
+		const count = shop.querySelector<HTMLElement>(".shop-count");
+		const pageButtons = [...shop.querySelectorAll<HTMLButtonElement>(".page-number:not(.page-next)")];
+		const next = shop.querySelector<HTMLButtonElement>(".page-next");
+		let page = 1;
+
+		const render = () => {
+			const items = [...grid.querySelectorAll<HTMLElement>(".shop-product")];
+			items.forEach((el, i) => {
+				el.style.display =
+					i >= (page - 1) * perPage && i < page * perPage ? "" : "none";
+			});
+			if (count && total > perPage) {
+				const from = (page - 1) * perPage + 1;
+				const to = Math.min(page * perPage, total);
+				count.textContent = `Showing ${from}–${to} of ${total} results`;
+			}
+			pageButtons.forEach((b) => {
+				const isCurrent = +b.dataset.page! === page;
+				b.classList.toggle("current", isCurrent);
+				if (isCurrent) b.setAttribute("aria-current", "page");
+				else b.removeAttribute("aria-current");
+			});
+			if (next) next.disabled = page >= pageButtons.length;
+		};
+
 		select.addEventListener("change", () => {
 			const items = [...grid.querySelectorAll<HTMLElement>(".shop-product")];
 			const key = select.value;
@@ -93,7 +151,26 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 				return +a.dataset.index! - +b.dataset.index!;
 			});
 			items.forEach((el) => grid.appendChild(el));
+			page = 1;
+			render();
 		});
+
+		pageButtons.forEach((b) =>
+			b.addEventListener("click", () => {
+				page = +b.dataset.page!;
+				render();
+				grid.scrollIntoView({ behavior: "smooth", block: "start" });
+			})
+		);
+		next?.addEventListener("click", () => {
+			if (page < pageButtons.length) {
+				page += 1;
+				render();
+				grid.scrollIntoView({ behavior: "smooth", block: "start" });
+			}
+		});
+
+		render();
 	}
 </script>
 
@@ -154,15 +231,17 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 		overflow: hidden;
 	}
 
-	/* Demo hover: image zooms 1.1 and dims to .8 while the gold button
-	   bar fades in and slides down over it (.3s ease-out) */
+	/* Demo hover: image zooms to 1.1 and dims to .8 while the gold
+	   button bar fades in and slides down over it (all .3s ease-out) */
 	.shop-thumb img {
 		width: 100%;
 		aspect-ratio: 1;
 		object-fit: cover;
 		transform: scale(1);
 		opacity: 1;
-		transition: 0.3s ease-out;
+		transition:
+			transform 0.3s ease-out,
+			opacity 0.3s ease-out;
 	}
 
 	.shop-product:hover .shop-thumb img,
@@ -171,12 +250,14 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 		opacity: 0.8;
 	}
 
+	/* Vertically centred on the image; slides down the last 10px as it
+	   fades in; teal on its own hover/focus */
 	.shop-button {
 		position: absolute;
 		z-index: 2;
 		left: 1em;
 		right: 1em;
-		top: 38%;
+		top: 50%;
 		padding: 0.6em 1em;
 		background: var(--color-gold);
 		color: #ffffff;
@@ -185,14 +266,23 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 		line-height: 1.4;
 		text-align: center;
 		opacity: 0;
-		transform: translateY(-10px);
-		transition: 0.3s ease-out;
+		transform: translateY(calc(-50% - 10px));
+		transition:
+			opacity 0.3s ease-out,
+			transform 0.3s ease-out,
+			background 0.3s ease-out;
 	}
 
 	.shop-product:hover .shop-button,
 	.shop-product:focus-within .shop-button {
 		opacity: 1;
-		transform: translateY(0);
+		transform: translateY(-50%);
+	}
+
+	.shop-thumb:hover .shop-button:hover,
+	.shop-button:hover,
+	.shop-thumb:focus-visible .shop-button {
+		background: var(--color-teal-solid);
 	}
 
 	/* Demo .onsale: translucent white badge, gold text */
@@ -248,6 +338,48 @@ const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
 	.shop-price {
 		margin-top: 0.5em;
 		color: var(--color-teal);
+	}
+
+	/* Demo woocommerce-pagination: bordered squares with 1em gaps,
+	   current teal, gold with white text on hover */
+	.shop-pagination {
+		margin-top: 3em;
+	}
+
+	.page-numbers {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.page-number {
+		padding: 0.8em 1.1em;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		border-radius: 0;
+		background: transparent;
+		font-family: var(--font-body);
+		font-size: 1rem;
+		color: var(--color-text);
+		cursor: pointer;
+		transition: 0.2s ease-out all;
+	}
+
+	.page-number.current {
+		color: var(--color-teal);
+	}
+
+	.page-number:hover:not(:disabled),
+	.page-number:focus-visible:not(:disabled) {
+		background: var(--color-gold);
+		color: #ffffff;
+	}
+
+	.page-number:disabled {
+		opacity: 0.4;
+		cursor: default;
 	}
 
 	@media (max-width: 900px) {

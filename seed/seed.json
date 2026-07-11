@@ -2939,7 +2939,7 @@
                   "price": "£13.00",
                   "rating": 4.0,
                   "image": "/images/demo/poster_2_up-300x300.jpg",
-                  "button": "Add to basket"
+                  "button": "Select options"
                 },
                 {
                   "title": "Happy Ninja",
@@ -2953,7 +2953,7 @@
                   "price": "£35.00",
                   "rating": 3.0,
                   "image": "/images/demo/hoodie_4_front-300x300.jpg",
-                  "button": "Select options"
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Ninja Silhouette",
@@ -2967,7 +2967,7 @@
                   "price": "£35.00",
                   "rating": 4.75,
                   "image": "/images/demo/hoodie_7_front-300x300.jpg",
-                  "button": "Select options"
+                  "button": "Add to basket"
                 },
                 {
                   "title": "Patient Ninja",
@@ -2988,7 +2988,8 @@
                   "price": "£15.00",
                   "rating": 3.0,
                   "image": "/images/demo/poster_3_up-300x300.jpg",
-                  "button": "Add to basket"
+                  "button": "Add to basket",
+                  "sale": true
                 },
                 {
                   "title": "Ship Your Idea",
@@ -3013,6 +3014,81 @@
                   "price": "£9.00",
                   "image": "/images/demo/cd_6_angle-300x300.jpg",
                   "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Album #2",
+                  "price": "£9.00",
+                  "rating": 4.0,
+                  "image": "/images/demo/cd_5_angle-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Album #3",
+                  "price": "£9.00",
+                  "rating": 3.0,
+                  "image": "/images/demo/cd_4_angle-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Album #4",
+                  "price": "£9.00",
+                  "rating": 5.0,
+                  "image": "/images/demo/cd_2_angle-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Logo",
+                  "price": "£20.00",
+                  "rating": 4.0,
+                  "image": "/images/demo/T_1_front-300x300.jpg",
+                  "button": "Add to basket",
+                  "sale": true
+                },
+                {
+                  "title": "Woo Logo",
+                  "price": "£35.00",
+                  "rating": 3.0,
+                  "image": "/images/demo/hoodie_6_front-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Logo",
+                  "price": "£15.00",
+                  "image": "/images/demo/poster_5_up-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Ninja",
+                  "price": "£20.00",
+                  "image": "/images/demo/T_6_front-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Ninja",
+                  "price": "£15.00",
+                  "image": "/images/demo/poster_4_up-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Ninja",
+                  "price": "£35.00",
+                  "rating": 5.0,
+                  "image": "/images/demo/hoodie_2_front-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Single #1",
+                  "price": "£3.00",
+                  "image": "/images/demo/cd_3_angle-300x300.jpg",
+                  "button": "Add to basket"
+                },
+                {
+                  "title": "Woo Single #2",
+                  "price": "£3.00",
+                  "rating": 4.0,
+                  "image": "/images/demo/cd_1_angle-300x300.jpg",
+                  "button": "Add to basket",
+                  "sale": true
                 }
               ]
             }
