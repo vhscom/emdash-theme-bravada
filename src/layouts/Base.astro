@@ -2014,14 +2014,30 @@ const isLoggedIn = !!Astro.locals.user;
 					pre.style.pointerEvents = "none";
 					setTimeout(() => pre.remove(), 750);
 				};
-				// Dismiss once the SSR document is parsed — waiting for
-				// window load would hold the sheet for every hotlinked
-				// image while the content already sits painted beneath it
-				if (document.readyState !== "loading") done();
-				else
-					document.addEventListener("DOMContentLoaded", done, {
-						once: true,
+				// Dismiss at max(document parsed, hero image decoded),
+				// capped at 2.5s — the hero is the one above-the-fold
+				// visual worth holding for; waiting for window load would
+				// hold the sheet for every hotlinked image while content
+				// sits painted beneath it. Cache-hit loads clear both
+				// gates inside the 150ms invisibility window.
+				const heroReady = () =>
+					new Promise<void>((resolve) => {
+						const hero = document.querySelector<HTMLImageElement>(
+							".lp-staticslider-image, .page-hero-image"
+						);
+						if (!hero || hero.complete) return resolve();
+						hero.addEventListener("load", () => resolve(), { once: true });
+						hero.addEventListener("error", () => resolve(), { once: true });
 					});
+				const domReady = () =>
+					new Promise<void>((resolve) => {
+						if (document.readyState !== "loading") return resolve();
+						document.addEventListener("DOMContentLoaded", () => resolve(), {
+							once: true,
+						});
+					});
+				const cap = new Promise<void>((resolve) => setTimeout(resolve, 2500));
+				Promise.race([Promise.all([domReady(), heroReady()]), cap]).then(done);
 			}
 
 			// Lazy-image fade-in (demo cryoutAnimateLazyImages): content
