@@ -1185,33 +1185,40 @@ const isLoggedIn = !!Astro.locals.user;
 				border-bottom: 3px solid;
 			}
 
+			/* Demo submenu reveal: max-height 0.5s ease-in-out + opacity to
+			   0.9 over 0.3s. Keep it display:block always — toggling display
+			   would kill the transition — and gate focus with visibility. */
 			.mobile-sub-menu {
-				display: none;
 				max-height: 0;
 				margin: 1em 0 0.5em;
-				padding: 0 0 0 1em;
+				padding: 0;
 				list-style: none;
+				overflow: hidden;
 				opacity: 0;
+				visibility: hidden;
 				transition:
 					0.5s max-height ease-in-out,
-					0.3s opacity ease-in-out;
+					0.3s opacity ease-in-out,
+					0.3s visibility ease-in-out;
 			}
 
 			.mobile-sub-menu.toggled-on {
-				display: block;
 				max-height: 1500px;
 				opacity: 0.9;
+				visibility: visible;
 				transition:
-					1s max-height ease-in-out,
-					0.3s 0.3s opacity ease-in-out;
+					0.5s max-height ease-in-out,
+					0.3s 0.2s opacity ease-in-out;
 			}
 
+			/* Demo nested items: 32px vs the 40px top level, same 28px
+			   spacing, no indent */
 			.mobile-sub-menu li {
-				margin-bottom: 0.75em;
+				margin-bottom: min(4vw, 1.75rem);
 			}
 
-			.mobile-sub-menu a {
-				font-size: clamp(1.1rem, 4vw, 2em);
+			#mobile-nav .mobile-item .mobile-sub-menu a {
+				font-size: clamp(1.15rem, 4vw, 2rem);
 			}
 
 			/* Burger-menu search (demo #mobile-nav .searchform): a giant
