@@ -191,28 +191,32 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 		padding: 3em 2.5em;
 	}
 
-	/* Filter bar: white plate with uppercase links */
+	/* Filter bar (demo #portfolio-filter): transparent with a 2px grey
+	   outline, bold uppercase links, gold active item */
 	.lp-port-filter {
 		display: table;
-		margin: 0 auto 2em;
-		padding: 0.8em 1.6em;
-		background: var(--color-surface);
-		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+		margin: 2em auto;
+		padding: 0.5em 0.6em;
+		border: 2px solid light-dark(#707070, #5f6f6d);
+		background: transparent;
 		text-align: center;
 	}
 
 	.lp-port-filter a {
-		margin: 0 0.9em;
-		font-size: 0.85em;
-		font-weight: 600;
-		letter-spacing: 0.08em;
+		margin: 0 0.3em;
+		padding: 0.3em 0.75em;
+		font-size: 0.9em;
+		font-weight: 700;
 		text-transform: uppercase;
 		text-decoration: none;
-		color: var(--color-heading);
+		color: light-dark(#3d3d3d, #cfd8d7);
 		transition: 0.2s ease-out color;
 	}
 
-	.lp-port-filter a.active,
+	.lp-port-filter a.active {
+		color: var(--color-gold);
+	}
+
 	.lp-port-filter a:hover {
 		color: var(--color-teal);
 	}
