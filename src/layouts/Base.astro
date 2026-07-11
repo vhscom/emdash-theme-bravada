@@ -89,6 +89,26 @@ const pageCtx = createPublicPageContext({
 // highlighted (matching the original's behavior).
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const normUrl = (u?: string) => (u ?? "").replace(/\/$/, "") || "/";
+
+// Section-aware highlighting: a nav item is current anywhere inside
+// the section its URL owns (/portfolio stays lit on /portfolio/x).
+// Taxonomy archives roll up to the section that owns them.
+const sectionAlias: Record<string, string> = {
+	"/category": "/posts",
+	"/tag": "/posts",
+	"/project-type": "/portfolio",
+	"/project-tag": "/portfolio",
+};
+const aliasRoot = Object.keys(sectionAlias).find(
+	(k) => currentPath === k || currentPath.startsWith(k + "/"),
+);
+const sectionPath = aliasRoot ? sectionAlias[aliasRoot] : currentPath;
+const inSection = (u?: string) => {
+	const n = normUrl(u);
+	if (n === "#") return false;
+	if (n === "/") return sectionPath === "/";
+	return sectionPath === n || sectionPath.startsWith(n + "/");
+};
 type AnnotatedItem = {
 	isCurrent: boolean;
 	isAncestor: boolean;
@@ -101,7 +121,7 @@ const annotate = (items: NonNullable<typeof mobileMenu>["items"]): AnnotatedItem
 		return {
 			...item,
 			children,
-			isCurrent: normUrl(item.url) === currentPath && item.url !== "#",
+			isCurrent: inSection(item.url),
 			isAncestor: children.some((c) => c.isCurrent || c.isAncestor),
 		};
 	});
@@ -153,7 +173,17 @@ const isLoggedIn = !!Astro.locals.user;
 					<ul class="nav-links">
 						{
 							menu?.items.map((item) => (
-								<li class:list={["menu-item", { "has-children": item.children.length > 0 }]}>
+								<li
+									class:list={[
+										"menu-item",
+										{
+											"has-children": item.children.length > 0,
+											current:
+												inSection(item.url) ||
+												item.children.some((c) => inSection(c.url)),
+										},
+									]}
+								>
 									<a href={item.url} target={item.target}>
 										<span>{item.label}</span>
 									</a>
@@ -801,6 +831,11 @@ const isLoggedIn = !!Astro.locals.user;
 
 			.nav-links a:hover {
 				color: var(--color-brand);
+			}
+
+			/* Current section: gold like the demo's current-menu-item */
+			.nav-links .menu-item.current > a {
+				color: var(--color-gold);
 			}
 
 			.nav-links .menu-item > a {
