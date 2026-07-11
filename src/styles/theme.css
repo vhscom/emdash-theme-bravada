@@ -873,6 +873,11 @@ html.js .lp-tt.aos .lp-tt-text {
 	color: color-mix(in srgb, var(--color-text) 20%, transparent);
 }
 
+/* Demo layout pages set body copy justified */
+.page-content p {
+	text-align: justify;
+}
+
 /* Demo page-content headings carry a teal highlighter strip */
 .page-content h2,
 .page-content h3 {

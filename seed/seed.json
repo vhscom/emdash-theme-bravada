@@ -1836,9 +1836,11 @@
 							"_key": "no-sidebars-img2",
 							"asset": {
 								"_ref": "no-sidebars-img2",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes08-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"alignment": "left",
+							"displayWidth": 600
 						},
 						{
 							"_type": "block",
@@ -1869,9 +1871,11 @@
 							"_key": "no-sidebars-img3",
 							"asset": {
 								"_ref": "no-sidebars-img3",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes01-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-01.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"alignment": "right",
+							"displayWidth": 600
 						},
 						{
 							"_type": "block",
@@ -1970,9 +1974,11 @@
 							"_key": "left-sidebar-img2",
 							"asset": {
 								"_ref": "left-sidebar-img2",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/06/demo-image-09-1024x635.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-09.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"alignment": "left",
+							"displayWidth": 600
 						},
 						{
 							"_type": "block",
@@ -2003,9 +2009,10 @@
 							"_key": "left-sidebar-img3",
 							"asset": {
 								"_ref": "left-sidebar-img3",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes09-300x200.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-06.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"displayWidth": 300
 						},
 						{
 							"_type": "block",
@@ -2104,7 +2111,7 @@
 							"_key": "right-sidebar-img2",
 							"asset": {
 								"_ref": "right-sidebar-img2",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/06/demo-image-09-1024x635.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-09.jpg"
 							},
 							"alt": ""
 						},
@@ -2137,9 +2144,11 @@
 							"_key": "right-sidebar-img3",
 							"asset": {
 								"_ref": "right-sidebar-img3",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes07-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-07.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"alignment": "left",
+							"displayWidth": 400
 						},
 						{
 							"_type": "block",
@@ -2238,9 +2247,10 @@
 							"_key": "two-sidebars-left-img2",
 							"asset": {
 								"_ref": "two-sidebars-left-img2",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes03-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"displayWidth": 400
 						},
 						{
 							"_type": "block",
@@ -2271,9 +2281,10 @@
 							"_key": "two-sidebars-left-img3",
 							"asset": {
 								"_ref": "two-sidebars-left-img3",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes08-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"displayWidth": 400
 						},
 						{
 							"_type": "block",
@@ -2372,9 +2383,10 @@
 							"_key": "two-sidebars-right-img2",
 							"asset": {
 								"_ref": "two-sidebars-right-img2",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes03-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"displayWidth": 400
 						},
 						{
 							"_type": "block",
@@ -2405,9 +2417,10 @@
 							"_key": "two-sidebars-right-img3",
 							"asset": {
 								"_ref": "two-sidebars-right-img3",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes08-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"displayWidth": 400
 						},
 						{
 							"_type": "block",
@@ -2506,9 +2519,10 @@
 							"_key": "two-sidebars-sided-img2",
 							"asset": {
 								"_ref": "two-sidebars-sided-img2",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes03-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"displayWidth": 400
 						},
 						{
 							"_type": "block",
@@ -2539,9 +2553,10 @@
 							"_key": "two-sidebars-sided-img3",
 							"asset": {
 								"_ref": "two-sidebars-sided-img3",
-								"url": "https://demos.cryoutcreations.eu/wp/septera/wp-content/uploads/sites/8/2018/05/featured-boxes08-1024x682.jpg"
+								"url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08.jpg"
 							},
-							"alt": ""
+							"alt": "",
+							"displayWidth": 400
 						},
 						{
 							"_type": "block",
