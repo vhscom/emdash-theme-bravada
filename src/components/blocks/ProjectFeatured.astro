@@ -16,6 +16,7 @@ interface ProjectFeaturedNode {
 
 const { node } = Astro.props as { node: ProjectFeaturedNode };
 const { image, alt = "", date, types = [], tags = [] } = node;
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 
 <figure class="project-featured">
@@ -30,7 +31,7 @@ const { image, alt = "", date, types = [], tags = [] } = node;
 						{types.map((t, i) => (
 							<>
 								{i > 0 && ", "}
-								<a href="/pages/portfolio">{t}</a>
+								<a href={`/pages/portfolio?filter=${slug(t)}`}>{t}</a>
 							</>
 						))}
 					</span>
@@ -43,7 +44,7 @@ const { image, alt = "", date, types = [], tags = [] } = node;
 						{tags.map((t, i) => (
 							<>
 								{i > 0 && ", "}
-								<a href="/pages/portfolio">{t}</a>
+								<a href={`/search?q=${encodeURIComponent(t)}`}>{t}</a>
 							</>
 						))}
 					</span>
