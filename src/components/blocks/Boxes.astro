@@ -74,8 +74,11 @@ const readMore = (t?: string) => `Read More “${t ?? ""}”`;
 							{box.image && (
 								<img src={box.image} alt={box.imageAlt ?? ""} loading="lazy" />
 							)}
-							<span class="box-overlay" />
 						</div>
+						{/* Sibling of the image (demo markup): the image box is
+						    overflow:hidden, so the tape must live outside it to
+						    extend past the card top */}
+						<span class="box-overlay" />
 						<div class="lp-box-content">
 							<div class="lp-box-text">
 								{box.title && (

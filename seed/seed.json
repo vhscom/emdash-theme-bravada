@@ -600,7 +600,7 @@
               "_key": "fw-about-img",
               "asset": {
                 "_ref": "footer-about-image",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/square_presentation-300x300.jpg"
+                "url": "/images/demo/square_presentation-300x300.jpg"
               },
               "alt": "Our team at work",
               "width": 300,
@@ -630,32 +630,32 @@
               "columns": 3,
               "items": [
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "image": "/images/demo/portfolio-01-512x512.jpg",
                   "title": "New York vol. 27",
                   "url": "/portfolio/new-york-vol-27"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "image": "/images/demo/portfolio-02-512x512.jpg",
                   "title": "Presentation Paper",
                   "url": "/portfolio/presentation-paper"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+                  "image": "/images/demo/portfolio-03-512x512.jpg",
                   "title": "Empty Cards",
                   "url": "/portfolio/black-white-business-cards"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+                  "image": "/images/demo/portfolio-04-512x512.jpg",
                   "title": "Notebook",
                   "url": "/portfolio/notebook"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+                  "image": "/images/demo/portfolio-05-512x512.jpg",
                   "title": "Disk cover",
                   "url": "/portfolio/disk-cover"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "image": "/images/demo/portfolio-06-512x512.jpg",
                   "title": "Pen & Paper",
                   "url": "/portfolio/pen-paper"
                 }
@@ -873,35 +873,35 @@
               "items": [
                 {
                   "title": "Ninja Silhouette",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_5_front-300x300.jpg",
+                  "image": "/images/demo/T_5_front-300x300.jpg",
                   "url": "/posts",
                   "rating": 5,
                   "price": "£20.00"
                 },
                 {
                   "title": "Happy Ninja",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_7_front-300x300.jpg",
+                  "image": "/images/demo/T_7_front-300x300.jpg",
                   "url": "/posts",
                   "rating": 5,
                   "price": "£18.00"
                 },
                 {
                   "title": "Woo Ninja",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_2_front-300x300.jpg",
+                  "image": "/images/demo/hoodie_2_front-300x300.jpg",
                   "url": "/posts",
                   "rating": 5,
                   "price": "£35.00"
                 },
                 {
                   "title": "Woo Album #4",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_2_angle-300x300.jpg",
+                  "image": "/images/demo/cd_2_angle-300x300.jpg",
                   "url": "/posts",
                   "rating": 5,
                   "price": "£9.00"
                 },
                 {
                   "title": "Ninja Silhouette",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_7_front-300x300.jpg",
+                  "image": "/images/demo/hoodie_7_front-300x300.jpg",
                   "url": "/posts",
                   "rating": 4.75,
                   "price": "£35.00"
@@ -920,28 +920,28 @@
               "items": [
                 {
                   "title": "Happy Ninja",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_4_front-300x300.jpg",
+                  "image": "/images/demo/hoodie_4_front-300x300.jpg",
                   "url": "/posts",
                   "rating": 5,
                   "by": "by Maria"
                 },
                 {
                   "title": "Happy Ninja",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_7_front-300x300.jpg",
+                  "image": "/images/demo/T_7_front-300x300.jpg",
                   "url": "/posts",
                   "rating": 5,
                   "by": "by Maria"
                 },
                 {
                   "title": "Ninja Silhouette",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_7_front-300x300.jpg",
+                  "image": "/images/demo/hoodie_7_front-300x300.jpg",
                   "url": "/posts",
                   "rating": 5,
                   "by": "by Ryan"
                 },
                 {
                   "title": "Ship Your Idea",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_5_front-300x300.jpg",
+                  "image": "/images/demo/hoodie_5_front-300x300.jpg",
                   "url": "/posts",
                   "rating": 5,
                   "by": "by Ryan"
@@ -972,7 +972,7 @@
           "_key": "lp-slider",
           "title": "Have enough courage to start and enough heart to finish.",
           "subtitle": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum.",
-          "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/slider/static.jpg",
+          "image": "/images/demo/static.jpg",
           "imageAlt": "Have enough courage to start and enough heart to finish.",
           "buttons": [
             {
@@ -1116,7 +1116,7 @@
           "_type": "bravada.text",
           "_key": "lp-text-one",
           "title": "Keep your options open",
-          "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/05/wheel_phone.jpg",
+          "image": "/images/demo/wheel_phone.jpg",
           "imageAlt": "Photographing a ferris wheel with a phone",
           "imageSide": "left",
           "tint": "#F9F7F5",
@@ -1163,25 +1163,25 @@
           "description": "And a less glorious and more mundane description to go underneath",
           "items": [
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03-413x300.jpg",
+              "image": "/images/demo/featured-boxes-03-413x300.jpg",
               "title": "Bedside table",
               "text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
               "url": "/posts/everything-is-small"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-07-413x300.jpg",
+              "image": "/images/demo/featured-boxes-07-413x300.jpg",
               "title": "Orange feelings",
               "text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
               "url": "/posts/some-coffee-art"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-06-413x300.jpg",
+              "image": "/images/demo/featured-boxes-06-413x300.jpg",
               "title": "Straw vase",
               "text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
               "url": "/posts/a-birds-eye-view"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-02-413x300.jpg",
+              "image": "/images/demo/featured-boxes-02-413x300.jpg",
               "title": "Bagged emotions",
               "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
               "url": "/posts/throught-the-lens"
@@ -1214,37 +1214,37 @@
           "description": "I should've used a lorem ipsum generator for this",
           "items": [
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-01-413x300.jpg",
+              "image": "/images/demo/demo-image-01-413x300.jpg",
               "title": "Some coffee art",
               "text": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
               "url": "/posts/some-coffee-art"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-02-413x300.jpg",
+              "image": "/images/demo/demo-image-02-413x300.jpg",
               "title": "Throught the lens",
               "text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
               "url": "/posts/throught-the-lens"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-03-413x300.jpg",
+              "image": "/images/demo/demo-image-03-413x300.jpg",
               "title": "Everything is small",
               "text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
               "url": "/posts/everything-is-small"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-04-413x300.jpg",
+              "image": "/images/demo/demo-image-04-413x300.jpg",
               "title": "A bird's eye view",
               "text": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc.",
               "url": "/posts/a-birds-eye-view"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-05-413x300.jpg",
+              "image": "/images/demo/demo-image-05-413x300.jpg",
               "title": "A morning with technology",
               "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis.",
               "url": "/posts/a-morning-with-technology"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-15-413x300.jpg",
+              "image": "/images/demo/demo-image-15-413x300.jpg",
               "title": "Running from the afternoon",
               "text": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna.",
               "url": "/posts/running-from-the-afternoon"
@@ -1277,7 +1277,7 @@
           },
           "items": [
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+              "image": "/images/demo/portfolio-01-512x512.jpg",
               "title": "New York vol. 27",
               "tags": [
                 "Brands",
@@ -1286,7 +1286,7 @@
               "url": "/posts/some-coffee-art"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+              "image": "/images/demo/portfolio-02-512x512.jpg",
               "title": "Presentation Paper",
               "tags": [
                 "Brands",
@@ -1295,7 +1295,7 @@
               "url": "/posts/throught-the-lens"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+              "image": "/images/demo/portfolio-03-512x512.jpg",
               "title": "Empty Cards",
               "tags": [
                 "Business Cards"
@@ -1303,7 +1303,7 @@
               "url": "/posts/everything-is-small"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+              "image": "/images/demo/portfolio-04-512x512.jpg",
               "title": "Notebook",
               "tags": [
                 "Brands"
@@ -1311,7 +1311,7 @@
               "url": "/posts/a-birds-eye-view"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+              "image": "/images/demo/portfolio-05-512x512.jpg",
               "title": "Disk cover",
               "tags": [
                 "Discs"
@@ -1319,7 +1319,7 @@
               "url": "/posts/a-morning-with-technology"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+              "image": "/images/demo/portfolio-06-512x512.jpg",
               "title": "Pen & Paper",
               "tags": [
                 "Brands",
@@ -1328,7 +1328,7 @@
               "url": "/posts/running-from-the-afternoon"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+              "image": "/images/demo/portfolio-07-512x512.jpg",
               "title": "Flyer Presentation",
               "tags": [
                 "Brands",
@@ -1337,7 +1337,7 @@
               "url": "/posts/coffee-at-the-office"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+              "image": "/images/demo/portfolio-08-512x512.jpg",
               "title": "Brand Sketch",
               "tags": [
                 "Brands",
@@ -1367,17 +1367,17 @@
           "description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
           "items": [
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member03.jpeg",
+              "image": "/images/demo/team-member03.jpeg",
               "title": "Constantly Great!",
               "text": "Duis finibus imperdiet diam. Aliquam elementum non massa non gravida. Maecenas vel tortor non ipsum pellentesque auctor. Integer turpis odio, pharetra ut ante non, iaculis egestas enim. Sed consequat ipsum non diam gravida viverra. Vivamus dolor eros, convallis ut sagittis a, dignissim et purus."
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member04.jpeg",
+              "image": "/images/demo/team-member04.jpeg",
               "title": "Best theme",
               "text": "Voluptatem ut repellat sit optio sunt vitae fuga. Velit rerum aliquid temporibus. Ab quaerat et ducimus ut cum dolorem totam omnis. Nesciunt et non qui maiores quisquam et tenetur. Consequatur quo praesentium quia. Excepturi sequi minima eius ea explicabo explicabo non suscipit."
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member02.jpeg",
+              "image": "/images/demo/team-member02.jpeg",
               "title": "Amazing feedback",
               "text": "Iste laboriosam fugit quisquam sequi. Facilis consequuntur saepe quod dolor voluptate architecto modi aut. Modi fuga aliquid ut qui. Quia dolore non sed aut laborum. Aspernatur enim ut labore. Voluptatem dolorum laboriosam ea amet in."
             }
@@ -1402,32 +1402,32 @@
           "columns": 3,
           "items": [
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+              "image": "/images/demo/portfolio-01-512x512.jpg",
               "title": "New York vol. 27",
               "url": "/#lp-portfolio"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+              "image": "/images/demo/portfolio-02-512x512.jpg",
               "title": "Presentation Paper",
               "url": "/#lp-portfolio"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+              "image": "/images/demo/portfolio-03-512x512.jpg",
               "title": "Empty Cards",
               "url": "/#lp-portfolio"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+              "image": "/images/demo/portfolio-04-512x512.jpg",
               "title": "Notebook",
               "url": "/#lp-portfolio"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+              "image": "/images/demo/portfolio-05-512x512.jpg",
               "title": "Disk cover",
               "url": "/#lp-portfolio"
             },
             {
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+              "image": "/images/demo/portfolio-06-512x512.jpg",
               "title": "Pen & Paper",
               "url": "/#lp-portfolio"
             }
@@ -1450,7 +1450,7 @@
               "_key": "lp-slider",
               "title": "Have enough courage to start and enough heart to finish.",
               "subtitle": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum.",
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/slider/static.jpg",
+              "image": "/images/demo/static.jpg",
               "imageAlt": "Have enough courage to start and enough heart to finish.",
               "buttons": [
                 {
@@ -1512,7 +1512,7 @@
               "_type": "bravada.text",
               "_key": "lp-text-one",
               "title": "Keep your options open",
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/05/wheel_phone.jpg",
+              "image": "/images/demo/wheel_phone.jpg",
               "imageAlt": "Photographing a ferris wheel with a phone",
               "imageSide": "left",
               "tint": "#F9F7F5",
@@ -1544,25 +1544,25 @@
               "description": "And a less glorious and more mundane description to go underneath",
               "items": [
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-03-413x300.jpg",
                   "title": "Bedside table",
                   "text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
                   "url": "/posts/keeping-your-desk-clean"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-07-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-07-413x300.jpg",
                   "title": "Orange feelings",
                   "text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
                   "url": "/posts/indoor-tree-of-life"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-06-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-06-413x300.jpg",
                   "title": "Straw vase",
                   "text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
                   "url": "/posts/green-herbs-and-health"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-02-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-02-413x300.jpg",
                   "title": "Bagged emotions",
                   "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
                   "url": "/posts/throught-the-lens"
@@ -1573,7 +1573,7 @@
               "_type": "bravada.text",
               "_key": "lp-text-four",
               "title": "Checking it out",
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/square_forest.jpg",
+              "image": "/images/demo/square_forest.jpg",
               "imageAlt": "Aerial view of an autumn forest",
               "imageSide": "right",
               "tint": "#EEEBE9",
@@ -1592,37 +1592,37 @@
               "description": "I should've used a lorem ipsum generator for this",
               "items": [
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-01-413x300.jpg",
+                  "image": "/images/demo/demo-image-01-413x300.jpg",
                   "title": "Some coffee art",
                   "text": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
                   "url": "/posts/dinner-and-a-view"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-02-413x300.jpg",
+                  "image": "/images/demo/demo-image-02-413x300.jpg",
                   "title": "Throught the lens",
                   "text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
                   "url": "/posts/throught-the-lens"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-03-413x300.jpg",
+                  "image": "/images/demo/demo-image-03-413x300.jpg",
                   "title": "Everything is small",
                   "text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
                   "url": "/posts/keeping-your-desk-clean"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-04-413x300.jpg",
+                  "image": "/images/demo/demo-image-04-413x300.jpg",
                   "title": "A bird's eye view",
                   "text": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc.",
                   "url": "/posts/light-bulbs-at-dawn"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-05-413x300.jpg",
+                  "image": "/images/demo/demo-image-05-413x300.jpg",
                   "title": "A morning with technology",
                   "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis.",
                   "url": "/posts/morning-typing"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-15-413x300.jpg",
+                  "image": "/images/demo/demo-image-15-413x300.jpg",
                   "title": "Running from the afternoon",
                   "text": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna.",
                   "url": "/posts/laptop-keyboards"
@@ -1659,49 +1659,49 @@
               "tint": "#F6F3F6",
               "items": [
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-03-413x300.jpg",
                   "title": "Bedside table",
                   "text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
                   "url": "/posts/keeping-your-desk-clean"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-07-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-07-413x300.jpg",
                   "title": "Orange feelings",
                   "text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
                   "url": "/posts/indoor-tree-of-life"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-06-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-06-413x300.jpg",
                   "title": "Straw vase",
                   "text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
                   "url": "/posts/green-herbs-and-health"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-02-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-02-413x300.jpg",
                   "title": "Bagged emotions",
                   "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
                   "url": "/posts/throught-the-lens"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-08-413x300.jpg",
                   "title": "Miniature tree of life",
                   "text": "Suspendisse congue eros neque, id condimentum quam porta id. Vivamus purus justo.",
                   "url": "/posts/without-looking-both-ways"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-05-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-05-413x300.jpg",
                   "title": "Sweetest morning",
                   "text": "Fusce id interdum lectus. Ut eu nisi mi. Nullam rhoncus mollis leo mollis feugiat.",
                   "url": "/posts/coffee-at-the-office"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-01-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-01-413x300.jpg",
                   "title": "Feeling lazy",
                   "text": "Sed porttitor malesuada malesuada. Nullam vehicula sapien non dolor consequat.",
                   "url": "/posts/morning-typing"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-04-413x300.jpg",
+                  "image": "/images/demo/featured-boxes-04-413x300.jpg",
                   "title": "The living room",
                   "text": "Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
                   "url": "/posts/coffee-at-the-office"
@@ -1720,7 +1720,7 @@
               },
               "items": [
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "image": "/images/demo/portfolio-01-512x512.jpg",
                   "title": "New York vol. 27",
                   "tags": [
                     "Brands",
@@ -1729,7 +1729,7 @@
                   "url": "/portfolio/new-york-vol-27"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "image": "/images/demo/portfolio-02-512x512.jpg",
                   "title": "Presentation Paper",
                   "tags": [
                     "Brands",
@@ -1738,7 +1738,7 @@
                   "url": "/portfolio/presentation-paper"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+                  "image": "/images/demo/portfolio-03-512x512.jpg",
                   "title": "Empty Cards",
                   "tags": [
                     "Business Cards"
@@ -1746,7 +1746,7 @@
                   "url": "/portfolio/black-white-business-cards"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+                  "image": "/images/demo/portfolio-04-512x512.jpg",
                   "title": "Notebook",
                   "tags": [
                     "Brands"
@@ -1754,7 +1754,7 @@
                   "url": "/portfolio/notebook"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+                  "image": "/images/demo/portfolio-05-512x512.jpg",
                   "title": "Disk cover",
                   "tags": [
                     "Discs"
@@ -1762,7 +1762,7 @@
                   "url": "/portfolio/disk-cover"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "image": "/images/demo/portfolio-06-512x512.jpg",
                   "title": "Pen & Paper",
                   "tags": [
                     "Brands",
@@ -1771,7 +1771,7 @@
                   "url": "/portfolio/pen-paper"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+                  "image": "/images/demo/portfolio-07-512x512.jpg",
                   "title": "Flyer Presentation",
                   "tags": [
                     "Brands",
@@ -1780,7 +1780,7 @@
                   "url": "/portfolio/flyer-presentation"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+                  "image": "/images/demo/portfolio-08-512x512.jpg",
                   "title": "Brand Sketch",
                   "tags": [
                     "Brands",
@@ -1794,7 +1794,7 @@
               "_type": "bravada.text",
               "_key": "lp-text-three",
               "title": "Never put it down",
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/square_presentation.jpg",
+              "image": "/images/demo/square_presentation.jpg",
               "imageAlt": "Team working around a screen",
               "imageSide": "left",
               "tint": "#EEEBE9",
@@ -1816,17 +1816,17 @@
               "description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
               "items": [
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member03.jpeg",
+                  "image": "/images/demo/team-member03.jpeg",
                   "title": "Constantly Great!",
                   "text": "Duis finibus imperdiet diam. Aliquam elementum non massa non gravida. Maecenas vel tortor non ipsum pellentesque auctor. Integer turpis odio, pharetra ut ante non, iaculis egestas enim. Sed consequat ipsum non diam gravida viverra. Vivamus dolor eros, convallis ut sagittis a, dignissim et purus."
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member04.jpeg",
+                  "image": "/images/demo/team-member04.jpeg",
                   "title": "Best theme",
                   "text": "Voluptatem ut repellat sit optio sunt vitae fuga. Velit rerum aliquid temporibus. Ab quaerat et ducimus ut cum dolorem totam omnis. Nesciunt et non qui maiores quisquam et tenetur. Consequatur quo praesentium quia. Excepturi sequi minima eius ea explicabo explicabo non suscipit."
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/team-member02.jpeg",
+                  "image": "/images/demo/team-member02.jpeg",
                   "title": "Amazing feedback",
                   "text": "Iste laboriosam fugit quisquam sequi. Facilis consequuntur saepe quod dolor voluptate architecto modi aut. Modi fuga aliquid ut qui. Quia dolore non sed aut laborum. Aspernatur enim ut labore. Voluptatem dolorum laboriosam ea amet in."
                 }
@@ -1875,7 +1875,7 @@
               "_type": "bravada.text",
               "_key": "lp-text-five",
               "title": "A day in the life",
-              "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2017/12/square_house.jpg",
+              "image": "/images/demo/square_house.jpg",
               "imageAlt": "A house at dusk",
               "imageSide": "right",
               "tint": "#EEEEEE",
@@ -1991,7 +1991,7 @@
               "_key": "no-sidebars-img2",
               "asset": {
                 "_ref": "no-sidebars-img2",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08.jpg"
+                "url": "/images/demo/featured-boxes-08.jpg"
               },
               "alt": "",
               "alignment": "left",
@@ -2038,7 +2038,7 @@
               "_key": "no-sidebars-img3",
               "asset": {
                 "_ref": "no-sidebars-img3",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-01.jpg"
+                "url": "/images/demo/featured-boxes-01.jpg"
               },
               "alt": "",
               "alignment": "right",
@@ -2118,11 +2118,11 @@
             {
               "_type": "image",
               "_key": "left-sidebar-img1",
+              "alt": "",
               "asset": {
                 "_ref": "left-sidebar-img1",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
-              },
-              "alt": ""
+                "url": "/images/demo/mirrorlake.jpg"
+              }
             },
             {
               "_type": "block",
@@ -2141,7 +2141,7 @@
               "_key": "left-sidebar-img2",
               "asset": {
                 "_ref": "left-sidebar-img2",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-09.jpg"
+                "url": "/images/demo/demo-image-09.jpg"
               },
               "alt": "",
               "alignment": "left",
@@ -2176,7 +2176,7 @@
               "_key": "left-sidebar-img3",
               "asset": {
                 "_ref": "left-sidebar-img3",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-06.jpg"
+                "url": "/images/demo/featured-boxes-06.jpg"
               },
               "alt": "",
               "displayWidth": 300
@@ -2257,7 +2257,7 @@
               "_key": "right-sidebar-img1",
               "asset": {
                 "_ref": "right-sidebar-img1",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+                "url": "/images/demo/mirrorlake.jpg"
               },
               "alt": ""
             },
@@ -2278,7 +2278,7 @@
               "_key": "right-sidebar-img2",
               "asset": {
                 "_ref": "right-sidebar-img2",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-09.jpg"
+                "url": "/images/demo/demo-image-09.jpg"
               },
               "alt": ""
             },
@@ -2311,7 +2311,7 @@
               "_key": "right-sidebar-img3",
               "asset": {
                 "_ref": "right-sidebar-img3",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-07.jpg"
+                "url": "/images/demo/featured-boxes-07.jpg"
               },
               "alt": "",
               "alignment": "left",
@@ -2393,7 +2393,7 @@
               "_key": "two-sidebars-left-img1",
               "asset": {
                 "_ref": "two-sidebars-left-img1",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+                "url": "/images/demo/mirrorlake.jpg"
               },
               "alt": ""
             },
@@ -2414,7 +2414,7 @@
               "_key": "two-sidebars-left-img2",
               "asset": {
                 "_ref": "two-sidebars-left-img2",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03.jpg"
+                "url": "/images/demo/featured-boxes-03.jpg"
               },
               "alt": "",
               "displayWidth": 400
@@ -2448,7 +2448,7 @@
               "_key": "two-sidebars-left-img3",
               "asset": {
                 "_ref": "two-sidebars-left-img3",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08.jpg"
+                "url": "/images/demo/featured-boxes-08.jpg"
               },
               "alt": "",
               "displayWidth": 400
@@ -2529,7 +2529,7 @@
               "_key": "two-sidebars-right-img1",
               "asset": {
                 "_ref": "two-sidebars-right-img1",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+                "url": "/images/demo/mirrorlake.jpg"
               },
               "alt": ""
             },
@@ -2550,7 +2550,7 @@
               "_key": "two-sidebars-right-img2",
               "asset": {
                 "_ref": "two-sidebars-right-img2",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03.jpg"
+                "url": "/images/demo/featured-boxes-03.jpg"
               },
               "alt": "",
               "displayWidth": 400
@@ -2584,7 +2584,7 @@
               "_key": "two-sidebars-right-img3",
               "asset": {
                 "_ref": "two-sidebars-right-img3",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08.jpg"
+                "url": "/images/demo/featured-boxes-08.jpg"
               },
               "alt": "",
               "displayWidth": 400
@@ -2665,7 +2665,7 @@
               "_key": "two-sidebars-sided-img1",
               "asset": {
                 "_ref": "two-sidebars-sided-img1",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/themes/bravada-plus/resources/images/headers/mirrorlake.jpg"
+                "url": "/images/demo/mirrorlake.jpg"
               },
               "alt": ""
             },
@@ -2686,7 +2686,7 @@
               "_key": "two-sidebars-sided-img2",
               "asset": {
                 "_ref": "two-sidebars-sided-img2",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-03.jpg"
+                "url": "/images/demo/featured-boxes-03.jpg"
               },
               "alt": "",
               "displayWidth": 400
@@ -2720,7 +2720,7 @@
               "_key": "two-sidebars-sided-img3",
               "asset": {
                 "_ref": "two-sidebars-sided-img3",
-                "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/featured-boxes-08.jpg"
+                "url": "/images/demo/featured-boxes-08.jpg"
               },
               "alt": "",
               "displayWidth": 400
@@ -2816,7 +2816,7 @@
               "columns": 4,
               "items": [
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-12-512x512.jpg",
+                  "image": "/images/demo/portfolio-12-512x512.jpg",
                   "title": "Card-in-a-box",
                   "tags": [
                     "Business Cards"
@@ -2824,7 +2824,7 @@
                   "url": "/portfolio/card-in-a-box"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-11-512x512.jpg",
+                  "image": "/images/demo/portfolio-11-512x512.jpg",
                   "title": "B-Sides",
                   "tags": [
                     "Discs"
@@ -2832,7 +2832,7 @@
                   "url": "/portfolio/b-sides"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10-512x512.jpg",
+                  "image": "/images/demo/portfolio-10-512x512.jpg",
                   "title": "Yellow Frame",
                   "tags": [
                     "Brands",
@@ -2841,7 +2841,7 @@
                   "url": "/portfolio/yellow-frame"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09-512x512.jpg",
+                  "image": "/images/demo/portfolio-09-512x512.jpg",
                   "title": "Business cards",
                   "tags": [
                     "Business Cards"
@@ -2849,7 +2849,7 @@
                   "url": "/portfolio/business-cards"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08-512x512.jpg",
+                  "image": "/images/demo/portfolio-08-512x512.jpg",
                   "title": "Brand Sketch",
                   "tags": [
                     "Brands",
@@ -2858,7 +2858,7 @@
                   "url": "/portfolio/brand-sketch"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07-512x512.jpg",
+                  "image": "/images/demo/portfolio-07-512x512.jpg",
                   "title": "Flyer Presentation",
                   "tags": [
                     "Brands",
@@ -2867,7 +2867,7 @@
                   "url": "/portfolio/flyer-presentation"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06-512x512.jpg",
+                  "image": "/images/demo/portfolio-06-512x512.jpg",
                   "title": "Pen & Paper",
                   "tags": [
                     "Brands",
@@ -2876,7 +2876,7 @@
                   "url": "/portfolio/pen-paper"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05-512x512.jpg",
+                  "image": "/images/demo/portfolio-05-512x512.jpg",
                   "title": "Disk cover",
                   "tags": [
                     "Discs"
@@ -2884,7 +2884,7 @@
                   "url": "/portfolio/disk-cover"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04-512x512.jpg",
+                  "image": "/images/demo/portfolio-04-512x512.jpg",
                   "title": "Notebook",
                   "tags": [
                     "Brands"
@@ -2892,7 +2892,7 @@
                   "url": "/portfolio/notebook"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03-512x512.jpg",
+                  "image": "/images/demo/portfolio-03-512x512.jpg",
                   "title": "Empty Cards",
                   "tags": [
                     "Business Cards"
@@ -2900,7 +2900,7 @@
                   "url": "/portfolio/black-white-business-cards"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02-512x512.jpg",
+                  "image": "/images/demo/portfolio-02-512x512.jpg",
                   "title": "Presentation Paper",
                   "tags": [
                     "Brands",
@@ -2909,7 +2909,7 @@
                   "url": "/portfolio/presentation-paper"
                 },
                 {
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01-512x512.jpg",
+                  "image": "/images/demo/portfolio-01-512x512.jpg",
                   "title": "New York vol. 27",
                   "tags": [
                     "Brands",
@@ -2952,69 +2952,69 @@
                   "title": "Flying Ninja",
                   "price": "£13.00",
                   "rating": 4.0,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_2_up-300x300.jpg"
+                  "image": "/images/demo/poster_2_up-300x300.jpg"
                 },
                 {
                   "title": "Happy Ninja",
                   "price": "£18.00",
                   "rating": 5.0,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_7_front-300x300.jpg"
+                  "image": "/images/demo/T_7_front-300x300.jpg"
                 },
                 {
                   "title": "Happy Ninja",
                   "price": "£35.00",
                   "rating": 3.0,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_4_front-300x300.jpg"
+                  "image": "/images/demo/hoodie_4_front-300x300.jpg"
                 },
                 {
                   "title": "Ninja Silhouette",
                   "price": "£20.00",
                   "rating": 5.0,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_5_front-300x300.jpg"
+                  "image": "/images/demo/T_5_front-300x300.jpg"
                 },
                 {
                   "title": "Ninja Silhouette",
                   "price": "£35.00",
                   "rating": 4.75,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_7_front-300x300.jpg"
+                  "image": "/images/demo/hoodie_7_front-300x300.jpg"
                 },
                 {
                   "title": "Patient Ninja",
                   "price": "£35.00",
                   "rating": 4.67,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_3_front-300x300.jpg"
+                  "image": "/images/demo/hoodie_3_front-300x300.jpg"
                 },
                 {
                   "title": "Premium Quality",
                   "price": "£20.00",
                   "rating": 4.5,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_2_front-300x300.jpg"
+                  "image": "/images/demo/T_2_front-300x300.jpg"
                 },
                 {
                   "title": "Premium Quality",
                   "price": "£15.00",
                   "rating": 3.0,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_3_up-300x300.jpg"
+                  "image": "/images/demo/poster_3_up-300x300.jpg"
                 },
                 {
                   "title": "Ship Your Idea",
                   "rating": 4.5,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_5_front-300x300.jpg"
+                  "image": "/images/demo/hoodie_5_front-300x300.jpg"
                 },
                 {
                   "title": "Ship Your Idea",
                   "price": "£15.00",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_1_up-300x300.jpg"
+                  "image": "/images/demo/poster_1_up-300x300.jpg"
                 },
                 {
                   "title": "Ship Your Idea",
                   "rating": 4.33,
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_4_front-300x300.jpg"
+                  "image": "/images/demo/T_4_front-300x300.jpg"
                 },
                 {
                   "title": "Woo Album #1",
                   "price": "£9.00",
-                  "image": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_6_angle-300x300.jpg"
+                  "image": "/images/demo/cd_6_angle-300x300.jpg"
                 }
               ]
             }
@@ -5263,13 +5263,13 @@
           "content": [
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p0",
+              "_key": "keeping-your-desk-clean-b1",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s0",
+                  "_key": "keeping-your-desk-clean-b2",
                   "text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac. Sed molestie efficitur porttitor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
                   "marks": []
                 }
@@ -5277,13 +5277,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p1",
+              "_key": "keeping-your-desk-clean-b3",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s1",
+                  "_key": "keeping-your-desk-clean-b4",
                   "text": "Fusce vel ullamcorper ante. Proin ac ornare lorem. Fusce eget efficitur felis. Donec vitae arcu et leo ultrices lacinia. Praesent lobortis finibus nisi ac fringilla. Duis nec elit rhoncus, convallis ex vel, egestas odio. Maecenas tempor ullamcorper ultrices. Quisque sagittis mauris nulla, sagittis fringilla erat tincidunt aliquam.",
                   "marks": []
                 }
@@ -5291,13 +5291,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p2",
+              "_key": "keeping-your-desk-clean-b5",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s2",
+                  "_key": "keeping-your-desk-clean-b6",
                   "text": "Hasellus hendrerit nisl non accumsan volutpat. document.getElementById('button'); Vestibulum vitae quam purus. Vivamus sed orci velit. Donec pretium, nisl vel aliquet fringilla, nisi mauris tincidunt eros, non fringilla sapien tortor vitae ligula. Donec eget placerat metus, quis lacinia sapien. Vestibulum dapibus magna quis est fermentum, a semper eros maximus.",
                   "marks": []
                 }
@@ -5305,13 +5305,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p3",
+              "_key": "keeping-your-desk-clean-b7",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s3",
+                  "_key": "keeping-your-desk-clean-b8",
                   "text": "Cras at tincidunt nisl, in scelerisque justo. Donec molestie fringilla neque non consectetur. Integer congue malesuada leo, rhoncus lacinia nisl pellentesque eu.",
                   "marks": []
                 }
@@ -5319,13 +5319,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p4",
+              "_key": "keeping-your-desk-clean-b9",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s4",
+                  "_key": "keeping-your-desk-clean-b10",
                   "text": "Sed consectetur laoreet odio, quis malesuada lectus efficitur in. Aliquam a libero in neque sodales sagittis in quis mauris. Nunc quis risus vitae mi ullamcorper finibus ut id eros. In sollicitudin, purus vel viverra pharetra, quam ligula accumsan enim, eu commodo justo dolor ut neque. Mauris luctus enim dui, id auctor diam sollicitudin vitae. Aenean sollicitudin mauris mi, nec vestibulum sem finibus et. Cras cursus at nibh et vulputate. Nullam in augue quis leo scelerisque blandit sit amet porta nisl. Nunc a elementum sem, vel fermentum ante. Etiam at aliquam enim. Aenean suscipit eu erat interdum faucibus. Aenean feugiat faucibus nunc, ut consectetur ipsum egestas ut.",
                   "marks": []
                 }
@@ -5333,13 +5333,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p5",
+              "_key": "keeping-your-desk-clean-b11",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s5",
+                  "_key": "keeping-your-desk-clean-b12",
                   "text": "Nunc tristique ante quis orci aliquam, id dictum justo finibus. Integer eget nisl sed nunc condimentum facilisis id eu metus. Nullam fermentum maximus velit et maximus. Praesent ut libero eros. Nulla egestas sem ut nibh ultrices, at tempus elit consequat. Fusce est erat, porttitor sit amet libero eleifend, rhoncus porta velit. Fusce vestibulum libero ligula, id tincidunt nunc volutpat nec.",
                   "marks": []
                 }
@@ -5347,13 +5347,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p6",
+              "_key": "keeping-your-desk-clean-b13",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s6",
+                  "_key": "keeping-your-desk-clean-b14",
                   "text": "Curabitur vestibulum sodales ligula, ac volutpat risus finibus vitae. Cras quis porta eros. Ut porttitor justo urna, quis venenatis sapien mattis quis. Mauris pretium sed magna eget elementum. Nam at arcu nec quam lobortis vestibulum. Nam vulputate tempor orci tempus molestie. Donec hendrerit aliquam urna, in convallis orci luctus eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean dignissim sollicitudin tellus quis imperdiet.",
                   "marks": []
                 }
@@ -5361,13 +5361,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p7",
+              "_key": "keeping-your-desk-clean-b15",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s7",
+                  "_key": "keeping-your-desk-clean-b16",
                   "text": "Donec at nisl augue. Aenean elit diam, sollicitudin a efficitur ac, luctus ornare turpis. Pellentesque tincidunt sit amet massa eu pharetra. Aliquam maximus luctus tristique. Quisque placerat lacinia diam. Donec porttitor arcu non ex fermentum porttitor. Maecenas aliquet vulputate dui, et mattis metus volutpat at. Phasellus tristique ac quam et rhoncus. Pellentesque ligula nunc, sagittis ac dignissim at, efficitur vel libero. Suspendisse quis mauris metus. Curabitur vel tellus ullamcorper diam venenatis ornare. Donec tortor eros, vehicula ut mattis ut, rhoncus vitae tortor.",
                   "marks": []
                 }
@@ -5375,13 +5375,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p8",
+              "_key": "keeping-your-desk-clean-b17",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s8",
+                  "_key": "keeping-your-desk-clean-b18",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec a diam tellus. Sed nec congue lectus. Cras rutrum imperdiet semper. Curabitur ultricies fringilla metus vitae vulputate. Praesent aliquet at libero non eleifend. Maecenas egestas molestie porttitor. Duis lacinia odio sit amet finibus scelerisque. Etiam iaculis urna vitae orci cursus efficitur. Sed in sem elit. Quisque non aliquet est. Vivamus interdum tellus a aliquet tempus. Duis massa sapien, rutrum vitae ipsum at, convallis efficitur sem.",
                   "marks": []
                 }
@@ -5389,13 +5389,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p9",
+              "_key": "keeping-your-desk-clean-b19",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s9",
+                  "_key": "keeping-your-desk-clean-b20",
                   "text": "Proin id auctor sem. Vivamus velit ante, congue cursus varius et, tincidunt dictum quam. Pellentesque sagittis viverra est, sit amet gravida libero laoreet non. Pellentesque aliquet quam velit, id luctus dui molestie et. Donec vitae facilisis felis. Duis facilisis semper quam, ut tempus augue pharetra quis. Morbi a mollis augue, in eleifend libero. Aliquam condimentum aliquam tempus. Suspendisse finibus enim leo, ac semper erat ornare sed. Ut sagittis, libero tristique vehicula scelerisque, enim quam ultrices diam, ac molestie nisi nisl sed nisi.",
                   "marks": []
                 }
@@ -5403,13 +5403,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p10",
+              "_key": "keeping-your-desk-clean-b21",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s10",
+                  "_key": "keeping-your-desk-clean-b22",
                   "text": "Morbi imperdiet dictum libero, posuere venenatis erat maximus vitae. Vivamus massa massa, tempor et mattis pellentesque, ultrices nec libero. Donec venenatis ultrices feugiat. Maecenas mollis nulla enim, a dapibus elit ullamcorper vitae. Mauris ac mauris id ipsum feugiat rhoncus. Curabitur consequat nisi congue tincidunt pretium.",
                   "marks": []
                 }
@@ -5417,13 +5417,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p11",
+              "_key": "keeping-your-desk-clean-b23",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s11",
+                  "_key": "keeping-your-desk-clean-b24",
                   "text": "Praesent turpis turpis, consectetur eu consectetur lobortis, varius ut eros. In finibus eros eget quam semper malesuada. Aliquam elit est, volutpat id ex et, cursus tincidunt sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;",
                   "marks": []
                 }
@@ -5431,13 +5431,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p12",
+              "_key": "keeping-your-desk-clean-b25",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s12",
+                  "_key": "keeping-your-desk-clean-b26",
                   "text": "Duis quis hendrerit diam, a tincidunt ligula. Duis ultrices eu tortor vitae commodo. Nunc tempus nunc ut leo scelerisque, vel rhoncus tellus accumsan. Maecenas imperdiet finibus condimentum. Pellentesque dignissim ullamcorper diam id vulputate. Praesent facilisis pharetra ipsum volutpat dapibus.",
                   "marks": []
                 }
@@ -5445,13 +5445,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p13",
+              "_key": "keeping-your-desk-clean-b27",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s13",
+                  "_key": "keeping-your-desk-clean-b28",
                   "text": "Proin: Lac ornare lorem. Fusce eget efficitur felis.",
                   "marks": []
                 }
@@ -5459,13 +5459,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p14",
+              "_key": "keeping-your-desk-clean-b29",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s14",
+                  "_key": "keeping-your-desk-clean-b30",
                   "text": "Donec: Vitae arcu et leo ultrices lacinia.",
                   "marks": []
                 }
@@ -5473,13 +5473,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p15",
+              "_key": "keeping-your-desk-clean-b31",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s15",
+                  "_key": "keeping-your-desk-clean-b32",
                   "text": "Praesent: Lobortis finibus nisi ac fringilla.",
                   "marks": []
                 }
@@ -5487,13 +5487,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p16",
+              "_key": "keeping-your-desk-clean-b33",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s16",
+                  "_key": "keeping-your-desk-clean-b34",
                   "text": "Maecenas: Tempor ullamcorper ultrices.",
                   "marks": []
                 }
@@ -5501,13 +5501,13 @@
             },
             {
               "_type": "block",
-              "_key": "keeping-your-desk-clean-p17",
+              "_key": "keeping-your-desk-clean-b35",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "keeping-your-desk-clean-s17",
+                  "_key": "keeping-your-desk-clean-b36",
                   "text": "Donec: Molestie fringilla neque non consectetur.",
                   "marks": []
                 }
@@ -5548,13 +5548,13 @@
           "content": [
             {
               "_type": "block",
-              "_key": "indoor-tree-of-life-p0",
+              "_key": "indoor-tree-of-life-b1",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "indoor-tree-of-life-s0",
+                  "_key": "indoor-tree-of-life-b2",
                   "text": "Sed finibus posuere mi, at cursus mauris eleifend non. Nam mollis vitae dolor ut efficitur. Nunc eget orci lectus. Fusce accumsan eros et massa consequat convallis. Vivamus aliquet nibh in molestie vulputate. Praesent imperdiet enim est, et faucibus ante molestie id. Suspendisse porta, justo efficitur condimentum eleifend, urna lectus hendrerit lorem, a tempor mauris felis id justo. Integer sed rutrum nisi, ut dictum nibh.",
                   "marks": []
                 }
@@ -5562,13 +5562,13 @@
             },
             {
               "_type": "block",
-              "_key": "indoor-tree-of-life-p1",
+              "_key": "indoor-tree-of-life-b3",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "indoor-tree-of-life-s1",
+                  "_key": "indoor-tree-of-life-b4",
                   "text": "Mauris sit amet blandit est. Sed imperdiet turpis sed rutrum posuere. Nullam ante orci, sodales in tellus et, mollis dictum elit. Maecenas mauris dui, elementum et scelerisque id, tincidunt eu justo. Sed at sodales lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut at elit ipsum. Proin vulputate enim at pellentesque ultricies. Morbi orci orci, venenatis eu nulla vitae, tempor ullamcorper augue. Suspendisse fermentum eget ipsum ac pretium.",
                   "marks": []
                 }
@@ -5576,13 +5576,13 @@
             },
             {
               "_type": "block",
-              "_key": "indoor-tree-of-life-p2",
+              "_key": "indoor-tree-of-life-b5",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "indoor-tree-of-life-s2",
+                  "_key": "indoor-tree-of-life-b6",
                   "text": "Mauris auctor nec sapien a luctus. In neque velit, volutpat at quam nec, dapibus lobortis sapien. Integer diam tortor, vehicula eget ex non, pulvinar viverra nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas lacinia urna in turpis dictum, et ultricies lectus lacinia. Proin nec feugiat elit, eget consequat est. Quisque aliquet pulvinar consectetur. Ut pretium dui nec libero ullamcorper dignissim.",
                   "marks": []
                 }
@@ -5623,13 +5623,13 @@
           "content": [
             {
               "_type": "block",
-              "_key": "green-herbs-and-health-p0",
+              "_key": "green-herbs-and-health-b1",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "green-herbs-and-health-s0",
+                  "_key": "green-herbs-and-health-b2",
                   "text": "Nullam ac molestie nibh. Donec quis enim a ex sodales interdum. Praesent ac nulla elit. Aliquam volutpat leo id pulvinar porta. Duis a eros nec ipsum laoreet pulvinar in sit amet nunc. Nulla tincidunt hendrerit dignissim. Phasellus et eros eu elit congue convallis ut at ante. Nam eget magna in nisi pretium dapibus. Nunc scelerisque, libero sagittis sollicitudin ultricies, nulla lectus consectetur nulla, quis congue urna ex ut dui.",
                   "marks": []
                 }
@@ -5637,13 +5637,13 @@
             },
             {
               "_type": "block",
-              "_key": "green-herbs-and-health-p1",
+              "_key": "green-herbs-and-health-b3",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "green-herbs-and-health-s1",
+                  "_key": "green-herbs-and-health-b4",
                   "text": "Donec gravida nulla non sollicitudin imperdiet. Nulla imperdiet turpis eget gravida sodales. Phasellus elementum pellentesque augue vitae fermentum. Integer non quam quis sapien cursus ultricies. Nulla est dolor, convallis eget semper eu, varius vel metus. Maecenas placerat mattis leo eu laoreet. Sed sit amet dui maximus, cursus augue id, varius ex. Proin purus augue, convallis ac turpis non, dapibus posuere dolor. In hac habitasse platea dictumst. Cras tincidunt dui erat, id vulputate tortor gravida a. Nullam gravida augue vitae placerat varius. Vivamus vehicula massa eget libero suscipit mattis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam mollis, nisl a rhoncus porttitor, nisi risus mollis nulla, ut consequat purus sem a neque.",
                   "marks": []
                 }
@@ -5651,13 +5651,13 @@
             },
             {
               "_type": "block",
-              "_key": "green-herbs-and-health-p2",
+              "_key": "green-herbs-and-health-b5",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "green-herbs-and-health-s2",
+                  "_key": "green-herbs-and-health-b6",
                   "text": "Sed et erat sed lacus imperdiet finibus et et tellus. Praesent luctus nisi eu tortor ornare fringilla. Fusce lectus ipsum, porta non quam et, euismod scelerisque ante. Vestibulum cursus purus a mauris bibendum, sit amet cursus libero pharetra. Nam hendrerit lacus sed vehicula egestas. Nulla efficitur accumsan faucibus. In congue justo ut commodo finibus. Nulla rutrum quam nunc, in dictum lorem imperdiet at. Mauris vel nibh ultricies, semper felis a, mollis orci. Nam hendrerit condimentum neque, a feugiat orci cursus eu. Praesent nunc odio, cursus sed velit vel, auctor vehicula nisl. Vestibulum eget nunc laoreet, ornare orci sit amet, aliquet ligula. Donec sem velit, suscipit ac eleifend eget, porta ac est. Proin at felis suscipit, vestibulum sapien sed, gravida neque. Etiam id congue odio, volutpat pulvinar elit.",
                   "marks": []
                 }
@@ -5700,13 +5700,13 @@
           "content": [
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p0",
+              "_key": "dinner-and-a-view-b1",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s0",
+                  "_key": "dinner-and-a-view-b2",
                   "text": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec iaculis ultricies, dignissim eu enim.",
                   "marks": []
                 }
@@ -5714,13 +5714,13 @@
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p1",
+              "_key": "dinner-and-a-view-b3",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s1",
+                  "_key": "dinner-and-a-view-b4",
                   "text": "Pellentesque dignissim nisi sed pellentesque lobortis. Etiam aliquam magna vitae ex eleifend, sed ultrices lorem tincidunt. Sed at purus elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris posuere mattis mattis. Fusce tempus metus eget quam luctus rutrum. Etiam pulvinar rhoncus sapien.",
                   "marks": []
                 }
@@ -5728,13 +5728,13 @@
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p2",
+              "_key": "dinner-and-a-view-b5",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s2",
+                  "_key": "dinner-and-a-view-b6",
                   "text": "Maecenas dignissim, enim sed bibendum dictum, justo est gravida tellus, ac molestie purus arcu at nibh. Etiam ac magna nec augue imperdiet viverra et ac mauris. Maecenas fringilla placerat est. Donec et iaculis mauris, ac mollis ante. Integer feugiat libero sit amet porttitor vehicula. Proin sed lacus egestas, rutrum sem eu, imperdiet erat.",
                   "marks": []
                 }
@@ -5742,13 +5742,13 @@
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p3",
-              "style": "normal",
+              "_key": "dinner-and-a-view-b7",
+              "style": "blockquote",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s3",
+                  "_key": "dinner-and-a-view-b8",
                   "text": "The best preparation for tomorrow is doing your best today",
                   "marks": []
                 }
@@ -5756,27 +5756,29 @@
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p4",
-              "style": "normal",
+              "_key": "dinner-and-a-view-b9",
+              "style": "blockquote",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s4",
+                  "_key": "dinner-and-a-view-b10",
                   "text": "H. Jackson Brown, Jr.",
-                  "marks": []
+                  "marks": [
+                    "em"
+                  ]
                 }
               ]
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p5",
+              "_key": "dinner-and-a-view-b11",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s5",
+                  "_key": "dinner-and-a-view-b12",
                   "text": "Integer lacinia sit amet felis sit amet laoreet. Sed quis scelerisque turpis, eget vulputate enim. Integer bibendum quam arcu, ut mollis ante eleifend sit amet. Aliquam efficitur, ligula at cursus molestie, mi sem accumsan eros, id hendrerit lacus odio nec dolor. Curabitur vulputate, dolor sit amet fringilla fringilla, nunc ligula elementum tortor, a ullamcorper nisi elit semper arcu. Sed et finibus sapien, eget laoreet ex. Aliquam consectetur risus eget lobortis blandit. Sed mattis eu massa iaculis tristique. Cras suscipit ac elit sed consequat. Aliquam dictum malesuada feugiat. Donec non maximus nunc. In lobortis egestas nisl, aliquam commodo leo pretium in. Nunc et finibus metus, volutpat mattis neque. Aenean eget auctor arcu. Ut dignissim dignissim dolor eget elementum. In interdum laoreet leo eu lacinia.",
                   "marks": []
                 }
@@ -5784,13 +5786,13 @@
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p6",
+              "_key": "dinner-and-a-view-b13",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s6",
+                  "_key": "dinner-and-a-view-b14",
                   "text": "In eu nibh vel mauris fermentum dignissim imperdiet eu dolor. Integer dolor ex, imperdiet et porttitor vel, sollicitudin ac risus. Cras condimentum arcu in leo lobortis, at sagittis sem tristique. Vestibulum elementum vestibulum quam, in porttitor orci consectetur ut. Pellentesque in interdum dui. Nulla felis eros, maximus a leo et, aliquam convallis libero. Donec iaculis nisl eros, vel vehicula risus pulvinar ac. Morbi pulvinar lacinia neque, nec luctus velit sagittis nec.",
                   "marks": []
                 }
@@ -5798,13 +5800,13 @@
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p7",
+              "_key": "dinner-and-a-view-b15",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s7",
+                  "_key": "dinner-and-a-view-b16",
                   "text": "Ut posuere vestibulum velit, sed ornare massa euismod vitae. Ut eleifend nulla in blandit porttitor. Nam suscipit dictum leo, sodales rhoncus turpis tempus et. Vestibulum vitae ipsum finibus, mattis quam non, rhoncus orci. Aliquam rutrum risus eget metus aliquet luctus. Sed vulputate tincidunt lobortis.",
                   "marks": []
                 }
@@ -5812,13 +5814,13 @@
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p8",
+              "_key": "dinner-and-a-view-b17",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s8",
+                  "_key": "dinner-and-a-view-b18",
                   "text": "Phasellus orci odio, pretium id maximus elementum, dapibus ut tortor. Integer ex justo, lobortis id diam ac, porta tempor metus. Morbi lacinia placerat felis, sit amet molestie purus gravida malesuada. Cras tempor lacus nec dolor tristique consectetur. Sed nulla tellus, mollis vitae tincidunt in, aliquet ac metus. Ut at mollis sem, et convallis diam. Nam id ultricies dui.",
                   "marks": []
                 }
@@ -5826,13 +5828,13 @@
             },
             {
               "_type": "block",
-              "_key": "dinner-and-a-view-p9",
+              "_key": "dinner-and-a-view-b19",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "dinner-and-a-view-s9",
+                  "_key": "dinner-and-a-view-b20",
                   "text": "Donec ac dui faucibus, venenatis dui non, ornare diam. Quisque sollicitudin, augue a vestibulum hendrerit, tortor mauris imperdiet enim, eget congue metus tortor non enim. Phasellus orci odio, pretium id maximus elementum, dapibus ut tortor. Integer ex justo, lobortis id diam ac, porta tempor metus. Morbi lacinia placerat felis, sit amet molestie purus gravida malesuada. Cras tempor lacus nec dolor tristique consectetur. Sed nulla tellus, mollis vitae tincidunt in, aliquet ac metus. Ut at mollis sem, et convallis diam. Nam id ultricies dui.",
                   "marks": []
                 }
@@ -5875,13 +5877,13 @@
           "content": [
             {
               "_type": "block",
-              "_key": "light-bulbs-at-dawn-p0",
+              "_key": "light-bulbs-at-dawn-b1",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "light-bulbs-at-dawn-s0",
+                  "_key": "light-bulbs-at-dawn-b2",
                   "text": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque et maximus sapien. Ut et odio at odio hendrerit suscipit in at magna.",
                   "marks": []
                 }
@@ -5889,13 +5891,13 @@
             },
             {
               "_type": "block",
-              "_key": "light-bulbs-at-dawn-p1",
+              "_key": "light-bulbs-at-dawn-b3",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "light-bulbs-at-dawn-s1",
+                  "_key": "light-bulbs-at-dawn-b4",
                   "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultrices, arcu malesuada pellentesque accumsan, mauris lacus maximus risus, eget auctor purus magna ac augue. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed placerat fringilla purus blandit tincidunt.",
                   "marks": []
                 }
@@ -5903,13 +5905,13 @@
             },
             {
               "_type": "block",
-              "_key": "light-bulbs-at-dawn-p2",
+              "_key": "light-bulbs-at-dawn-b5",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "light-bulbs-at-dawn-s2",
+                  "_key": "light-bulbs-at-dawn-b6",
                   "text": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent dignissim euismod mi, et consectetur lorem commodo gravida.",
                   "marks": []
                 }
@@ -5917,13 +5919,13 @@
             },
             {
               "_type": "block",
-              "_key": "light-bulbs-at-dawn-p3",
+              "_key": "light-bulbs-at-dawn-b7",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "light-bulbs-at-dawn-s3",
+                  "_key": "light-bulbs-at-dawn-b8",
                   "text": "Phasellus ut turpis eleifend turpis pellentesque viverra. Vivamus condimentum vulputate nibh, placerat porttitor lorem congue rutrum. Fusce nunc enim, mattis eget dui quis, luctus fermentum turpis. Sed vel augue non augue eleifend pretium.",
                   "marks": []
                 }
@@ -5931,13 +5933,13 @@
             },
             {
               "_type": "block",
-              "_key": "light-bulbs-at-dawn-p4",
+              "_key": "light-bulbs-at-dawn-b9",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "light-bulbs-at-dawn-s4",
+                  "_key": "light-bulbs-at-dawn-b10",
                   "text": "Morbi vel imperdiet est. Curabitur et metus tincidunt, faucibus metus sit amet, fringilla sapien. Fusce non lacus at sem volutpat consequat. Sed luctus nec arcu sit amet lobortis. Vestibulum in risus sollicitudin, vulputate nisi vitae, iaculis lorem. Nam ac libero a tortor pulvinar luctus quis vel neque.",
                   "marks": []
                 }
@@ -5945,13 +5947,13 @@
             },
             {
               "_type": "block",
-              "_key": "light-bulbs-at-dawn-p5",
+              "_key": "light-bulbs-at-dawn-b11",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "light-bulbs-at-dawn-s5",
+                  "_key": "light-bulbs-at-dawn-b12",
                   "text": "Fusce a eros at lacus eleifend porta vitae quis metus. Quisque id tempus ligula, ut euismod ex. Etiam mattis vel odio quis interdum. Suspendisse id nisi ligula. Proin viverra diam sit amet ligula pharetra rhoncus. Donec at leo odio.",
                   "marks": []
                 }
@@ -5959,13 +5961,13 @@
             },
             {
               "_type": "block",
-              "_key": "light-bulbs-at-dawn-p6",
+              "_key": "light-bulbs-at-dawn-b13",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "light-bulbs-at-dawn-s6",
+                  "_key": "light-bulbs-at-dawn-b14",
                   "text": "In eu nibh vel mauris fermentum dignissim imperdiet eu dolor. Integer dolor ex, imperdiet et porttitor vel, sollicitudin ac risus. Cras condimentum arcu in leo lobortis, at sagittis sem tristique. Vestibulum elementum vestibulum quam, in porttitor orci consectetur ut. Pellentesque in interdum dui. Nulla felis eros, maximus a leo et, aliquam convallis libero. Donec iaculis nisl eros, vel vehicula risus pulvinar ac. Morbi pulvinar lacinia neque, nec luctus velit sagittis nec.",
                   "marks": []
                 }
@@ -6007,13 +6009,13 @@
           "content": [
             {
               "_type": "block",
-              "_key": "morning-typing-p0",
+              "_key": "morning-typing-b1",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "morning-typing-s0",
+                  "_key": "morning-typing-b2",
                   "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas rutrum nulla at mauris dapibus, non luctus enim facilisis. Mauris gravida suscipit ante vitae varius. Morbi lobortis, velit in dignissim vehicula, leo diam vulputate neque, ut blandit nisi neque sit amet lectus. Vivamus vitae malesuada quam. Nam lacinia facilisis metus quis semper. Curabitur sollicitudin fringilla efficitur. Etiam ornare sapien eget mollis ornare.",
                   "marks": []
                 }
@@ -6021,13 +6023,13 @@
             },
             {
               "_type": "block",
-              "_key": "morning-typing-p1",
+              "_key": "morning-typing-b3",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "morning-typing-s1",
+                  "_key": "morning-typing-b4",
                   "text": "Morbi elementum nisi enim, ut porttitor elit tristique eget. Morbi egestas, nulla at finibus hendrerit, mi lorem gravida libero, sit amet rhoncus lectus purus ac justo. Suspendisse id sollicitudin nibh, eget pulvinar ante. Morbi aliquam mi facilisis dignissim laoreet. Donec molestie leo et rhoncus eleifend. Sed pretium malesuada elementum. Vestibulum sagittis, dolor ut aliquam tincidunt, eros erat eleifend tortor, nec fringilla ligula lacus eget justo. Sed vel imperdiet enim, sed consectetur leo.",
                   "marks": []
                 }
@@ -6035,13 +6037,13 @@
             },
             {
               "_type": "block",
-              "_key": "morning-typing-p2",
+              "_key": "morning-typing-b5",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "morning-typing-s2",
+                  "_key": "morning-typing-b6",
                   "text": "Donec quam erat, luctus sit amet fermentum non, viverra tempus diam. Nunc mauris tortor, tristique a pellentesque ac, posuere nec ligula. Ut vitae fringilla orci, quis euismod purus. Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec iaculis ultricies, dignissim eu enim.",
                   "marks": []
                 }
@@ -6082,13 +6084,13 @@
           "content": [
             {
               "_type": "block",
-              "_key": "laptop-keyboards-p0",
+              "_key": "laptop-keyboards-b1",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "laptop-keyboards-s0",
+                  "_key": "laptop-keyboards-b2",
                   "text": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna. Ut efficitur venenatis porta. Mauris in dictum elit, porttitor egestas erat. Proin id eros a nulla consectetur consequat. In ullamcorper, velit nec egestas iaculis, mi justo tincidunt diam, id tempus nisl est non lorem.",
                   "marks": []
                 }
@@ -6096,13 +6098,13 @@
             },
             {
               "_type": "block",
-              "_key": "laptop-keyboards-p1",
+              "_key": "laptop-keyboards-b3",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "laptop-keyboards-s1",
+                  "_key": "laptop-keyboards-b4",
                   "text": "Sed magna ante, euismod sed sodales non, consequat sit amet magna. Phasellus quis rutrum lectus, id interdum purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque ex elit, dictum eu est sit amet, congue accumsan augue. In sed tempus odio. Nulla nec lectus quam. Mauris interdum erat et est hendrerit, sit amet semper nisi commodo.",
                   "marks": []
                 }
@@ -6110,13 +6112,13 @@
             },
             {
               "_type": "block",
-              "_key": "laptop-keyboards-p2",
+              "_key": "laptop-keyboards-b5",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "laptop-keyboards-s2",
+                  "_key": "laptop-keyboards-b6",
                   "text": "Morbi vel magna dignissim, porta neque ut, vulputate erat. Maecenas nec cursus sapien. Proin ultricies felis sit amet magna condimentum, vel fermentum nunc pulvinar.",
                   "marks": []
                 }
@@ -6124,13 +6126,13 @@
             },
             {
               "_type": "block",
-              "_key": "laptop-keyboards-p3",
+              "_key": "laptop-keyboards-b7",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "laptop-keyboards-s3",
+                  "_key": "laptop-keyboards-b8",
                   "text": "Phasellus lacinia velit ut auctor vulputate. Vestibulum finibus suscipit lectus, eu aliquet eros porttitor eget. Aliquam aliquam semper elit, vitae luctus augue blandit vel. Duis iaculis quis nibh eget maximus.",
                   "marks": []
                 }
@@ -6138,13 +6140,13 @@
             },
             {
               "_type": "block",
-              "_key": "laptop-keyboards-p4",
+              "_key": "laptop-keyboards-b9",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "laptop-keyboards-s4",
+                  "_key": "laptop-keyboards-b10",
                   "text": "Proin non pellentesque leo, id tempor quam. Suspendisse euismod mollis metus, et dapibus risus condimentum eget. Fusce lobortis sed nisl sed finibus. Aenean justo augue, aliquam hendrerit ornare at, pulvinar eu arcu. Nam at mi id felis egestas ornare. Integer eget sodales ligula. Nunc nibh urna, hendrerit in mi quis, viverra elementum turpis. Curabitur molestie augue vel nibh condimentum placerat.",
                   "marks": []
                 }
@@ -6186,13 +6188,13 @@
           "content": [
             {
               "_type": "block",
-              "_key": "without-looking-both-ways-p0",
+              "_key": "without-looking-both-ways-b1",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "without-looking-both-ways-s0",
+                  "_key": "without-looking-both-ways-b2",
                   "text": "Quisque quis purus pellentesque, fringilla metus vitae, ultrices ipsum. Donec congue felis congue ipsum interdum malesuada. Aenean mauris lacus, malesuada ut urna id, lobortis feugiat turpis. Mauris vehicula consequat tellus, in molestie velit accumsan eu. Nullam lobortis enim quis eros lacinia, non volutpat lorem fermentum. Proin orci nibh, suscipit sed pellentesque dictum, pharetra eu metus. Sed congue massa sed dui rutrum blandit.",
                   "marks": []
                 }
@@ -6200,13 +6202,13 @@
             },
             {
               "_type": "block",
-              "_key": "without-looking-both-ways-p1",
+              "_key": "without-looking-both-ways-b3",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "without-looking-both-ways-s1",
+                  "_key": "without-looking-both-ways-b4",
                   "text": "Sed eleifend dolor non porttitor scelerisque. Mauris sollicitudin aliquet risus, at efficitur nisl feugiat ultrices. Nunc iaculis, metus in ultrices tempor, libero orci blandit augue, ut vulputate leo ante sed felis. Nulla facilisi. Praesent rutrum magna in dui interdum maximus. Etiam laoreet convallis mi a maximus. Mauris ut placerat leo. Nulla justo nunc, blandit non arcu non, maximus pellentesque dolor. Aenean risus diam, tempor sit amet enim et, egestas elementum mi. Maecenas vitae fermentum quam. Integer vehicula vitae nunc pellentesque rutrum. Aliquam fringilla nec neque et ullamcorper. Maecenas mauris ante, varius nec diam vel, vehicula luctus odio.",
                   "marks": []
                 }
@@ -6214,13 +6216,13 @@
             },
             {
               "_type": "block",
-              "_key": "without-looking-both-ways-p2",
+              "_key": "without-looking-both-ways-b5",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "without-looking-both-ways-s2",
+                  "_key": "without-looking-both-ways-b6",
                   "text": "Duis vestibulum in lacus a posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi blandit at nulla ac maximus. Donec ut enim nunc. Proin eget eleifend leo. Nullam lacinia mattis lectus, sed mollis eros bibendum dictum. Aliquam pharetra nisl mauris, in luctus orci luctus hendrerit. Aenean porta sapien dolor, vestibulum facilisis nulla egestas et. Donec velit nibh, mollis eget justo quis, malesuada tincidunt nunc. Aliquam erat volutpat. Sed vel iaculis urna. Ut lacus ipsum, pulvinar a auctor id, ullamcorper eu mauris. Fusce eget augue egestas, rhoncus sem non, gravida diam. In non ex posuere, porttitor ante sed, sodales velit.",
                   "marks": []
                 }
@@ -6228,13 +6230,13 @@
             },
             {
               "_type": "block",
-              "_key": "without-looking-both-ways-p3",
+              "_key": "without-looking-both-ways-b7",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "without-looking-both-ways-s3",
+                  "_key": "without-looking-both-ways-b8",
                   "text": "Mauris arcu dui, lobortis in euismod ut, tincidunt sed neque. Nulla mattis imperdiet ullamcorper. Proin feugiat, tellus eu bibendum tempor, ante leo posuere massa, vel posuere mi neque nec odio. In luctus sollicitudin lectus, a tempus lacus mattis vitae. Vestibulum aliquet malesuada lobortis. Mauris tempus, ipsum et posuere elementum, magna orci faucibus lectus, a consectetur libero nisl quis sapien. Aenean nec pellentesque nisi. Suspendisse tincidunt quam lectus, eget semper mi vulputate id. Quisque egestas mauris eu metus posuere bibendum.",
                   "marks": []
                 }
