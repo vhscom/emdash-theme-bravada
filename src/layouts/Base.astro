@@ -1711,6 +1711,16 @@ const isLoggedIn = !!Astro.locals.user;
 		</script>
 
 		<script>
+			// Inert "#" dropdown parents in the top menu (demo behavior:
+			// they don't navigate; the dropdown opens on hover/focus)
+			document
+				.querySelectorAll<HTMLAnchorElement>('.nav-links a[href="#"]')
+				.forEach((a) => {
+					a.addEventListener("click", (e) => e.preventDefault());
+				});
+		</script>
+
+		<script>
 			// Bravada fullscreen burger menu (cryoutMobileMenuInit): fade the
 			// teal layer in, drop items in with staggered delays, morph the
 			// hamburger into an X, collapse submenus behind dropdown toggles.
@@ -1754,9 +1764,20 @@ const isLoggedIn = !!Astro.locals.user;
 					burger?.focus();
 				}
 			});
-			// Close when a link is followed (anchors on the same page)
+			// Close when a real link is followed. Placeholder "#" parents
+			// (the demo's inert dropdown parents) don't navigate or close —
+			// clicking the label toggles its submenu like the chevron does.
 			mobileMenu?.querySelectorAll("a").forEach((a) => {
-				a.addEventListener("click", () => setBurger(false));
+				a.addEventListener("click", (e) => {
+					if (a.getAttribute("href") === "#") {
+						e.preventDefault();
+						a.closest("li")
+							?.querySelector<HTMLButtonElement>(".dropdown-toggle")
+							?.click();
+						return;
+					}
+					setBurger(false);
+				});
 			});
 
 			// Submenu accordions
