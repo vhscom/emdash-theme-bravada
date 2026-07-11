@@ -74,9 +74,11 @@ const placeholder = node.placeholder ?? "Search";
 		transition: background 0.2s ease-out;
 	}
 
-	.bravada-search button:hover,
-	.bravada-search button:focus-visible,
-	.bravada-search:focus-within button {
+	/* Demo: the gold square goes teal as soon as the CONTROL is hovered
+	   (not just the button) and stays teal while anything has focus */
+	.bravada-search:hover button,
+	.bravada-search:focus-within button,
+	.bravada-search button:focus-visible {
 		background: var(--color-teal-solid);
 	}
 
