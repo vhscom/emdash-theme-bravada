@@ -252,7 +252,9 @@ body {
 	color: #ffffff;
 }
 
-.site-header.over-hero:not(.header-fixed) .nav-links > .menu-item > a:hover {
+/* Hover keeps the label color (demo: wash pill only); the current
+   section stays gold in both header states */
+.site-header.over-hero:not(.header-fixed) .nav-links > .menu-item.current > a {
 	color: var(--color-gold);
 }
 

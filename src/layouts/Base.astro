@@ -823,14 +823,11 @@ const isLoggedIn = !!Astro.locals.user;
 				position: relative;
 			}
 
+			/* Demo top-level hover is the wash pill only — no color change */
 			.nav-links a {
 				text-decoration: none;
 				color: var(--color-text);
 				transition: color var(--transition-fast);
-			}
-
-			.nav-links a:hover {
-				color: var(--color-brand);
 			}
 
 			/* Current section: gold like the demo's current-menu-item */
