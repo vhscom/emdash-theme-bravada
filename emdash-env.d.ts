@@ -12,6 +12,22 @@ export interface Page {
   title: string;
   content?: PortableTextBlock[];
   layout?: string;
+  sidebar?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Portfolio {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
+  date?: string;
+  content?: PortableTextBlock[];
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -37,6 +53,7 @@ export interface Post {
 declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
+    portfolio: Portfolio;
     posts: Post;
   }
 }

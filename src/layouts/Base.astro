@@ -851,21 +851,34 @@ const isLoggedIn = !!Astro.locals.user;
 			   into place from -25px (demo: #access ul ul) with a soft
 			   drop shadow; item labels get a translucent white wash on
 			   hover (.sub-menu li a:hover span). */
+			/* Demo #access ul ul: transparent panel aligned to the item's
+			   left edge, min-width 125%, sliding down from -25px over
+			   .2s ease-in. Each LINK carries the dark teal background. */
 			.nav-links .sub-menu {
 				position: absolute;
 				top: 100%;
-				left: -1em;
-				z-index: 200;
-				min-width: 200px;
+				left: 0;
+				z-index: 1000;
+				min-width: 125%;
 				margin: 0;
-				padding: 0.4em 0;
+				padding: 0;
 				list-style: none;
-				background: var(--color-submenu-bg);
 				box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05);
 				opacity: 0;
 				visibility: hidden;
 				transform: translateY(-25px);
 				transition: 0.2s all ease-in;
+			}
+
+			/* Caret pointing up at the parent item (demo
+			   #access > div > ul > li > ul::before, border-bottom teal) */
+			.nav-links .sub-menu::before {
+				content: "";
+				position: absolute;
+				bottom: 100%;
+				left: 2em;
+				border: 6px solid transparent;
+				border-bottom-color: var(--color-submenu-bg);
 			}
 
 			.nav-links .menu-item:hover > .sub-menu,
@@ -875,16 +888,30 @@ const isLoggedIn = !!Astro.locals.user;
 				transform: translateY(0);
 			}
 
+			.nav-links .sub-menu li {
+				min-width: 150px;
+			}
+
+			/* Demo: #access ul li a { font-size: 1em } with line-height 3;
+			   white on #066664, gold on hover */
 			.nav-links .sub-menu a {
 				display: block;
 				padding: 0;
+				font-size: 1em;
+				line-height: 3;
+				background: var(--color-submenu-bg);
 				color: #ffffff !important;
-				font-size: var(--font-size-sm);
+				transition: 0.3s color ease-out;
+			}
+
+			.nav-links .sub-menu a:hover,
+			.nav-links .sub-menu a:focus-visible {
+				color: var(--color-gold) !important;
 			}
 
 			.nav-links .sub-menu a span {
-				display: block;
-				padding: 0.35em 1.5em;
+				display: inline-block;
+				padding: 0.3em 1.5em;
 				transition: 0.2s ease-out all;
 			}
 
