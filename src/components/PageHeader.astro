@@ -56,10 +56,10 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 	{
 		crumbs.length > 0 && (
 			<nav class="page-hero-crumbs" aria-label="Breadcrumb">
-				<a href="/" class="crumb-home" aria-label="Home">
+				<a href="/" class="crumb-chip" aria-label="Home">
 					<svg
-						width="14"
-						height="14"
+						width="13"
+						height="13"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
@@ -70,18 +70,15 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 						><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
 					>
 				</a>
-				{crumbs.map((crumb) => (
-					<>
-						<span class="crumb-sep" aria-hidden="true">
-							/
-						</span>
-						{crumb.href ? (
-							<a href={crumb.href}>{crumb.label}</a>
-						) : (
-							<span class="crumb-current">{crumb.label}</span>
-						)}
-					</>
-				))}
+				{crumbs.map((crumb) =>
+					crumb.href ? (
+						<a href={crumb.href} class="crumb-chip">
+							{crumb.label}
+						</a>
+					) : (
+						<span class="crumb-chip crumb-current">{crumb.label}</span>
+					),
+				)}
 			</nav>
 		)
 	}
@@ -91,6 +88,41 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 	import { initTitleBreakup } from "../utils/breakup-client";
 
 	initTitleBreakup(".page-hero-title");
+
+	// cryoutHeaderParallax: as the page scrolls, the scrim deepens
+	// toward black, the caption fades away, and the image crop drifts
+	const hero = document.querySelector<HTMLElement>(".page-hero");
+	const heroImg = hero?.querySelector<HTMLElement>(".page-hero-image");
+	const heroCap = hero?.querySelector<HTMLElement>(".page-hero-caption");
+	const heroCrumbs = hero?.querySelector<HTMLElement>(".page-hero-crumbs");
+	if (hero && heroImg) {
+		const baseOp = 0.6;
+		let ticking = false;
+		const update = () => {
+			ticking = false;
+			const h = heroImg.getBoundingClientRect().height || 1;
+			const ratio = Math.max(0, Math.min(100, (window.scrollY / h) * 100));
+			hero.style.setProperty(
+				"--scrim-op",
+				String(Math.min(1, baseOp + 1.5 * ((ratio * (1 - baseOp)) / 100))),
+			);
+			const fade = String(Math.max(0, 1 - ratio / 100));
+			if (heroCap) heroCap.style.opacity = fade;
+			if (heroCrumbs) heroCrumbs.style.opacity = fade;
+			heroImg.style.objectPosition = `center ${50 + ratio / 2}%`;
+		};
+		window.addEventListener(
+			"scroll",
+			() => {
+				if (!ticking) {
+					ticking = true;
+					requestAnimationFrame(update);
+				}
+			},
+			{ passive: true },
+		);
+		update();
+	}
 </script>
 
 <style>
@@ -110,14 +142,15 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 		object-fit: cover;
 	}
 
-	/* The demo's blue→umber scrim at 0.6 */
+	/* The demo's blue→umber scrim at 0.6; deepens toward 1 as the
+	   page scrolls (cryoutHeaderParallax) via --scrim-op */
 	.page-hero::after {
 		content: "";
 		position: absolute;
 		z-index: 2;
 		inset: 0;
 		background: linear-gradient(180deg, #08415c 0%, #1c110a 100%);
-		opacity: 0.6;
+		opacity: var(--scrim-op, 0.6);
 		pointer-events: none;
 	}
 
@@ -176,7 +209,8 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 		}
 	}
 
-	/* Breadcrumbs pinned bottom-center (demo #breadcrumbs-container) */
+	/* Breadcrumbs pinned bottom-center: translucent white chips
+	   (demo #breadcrumbs a: rgba(255,255,255,.2), 5px 10px, 1px apart) */
 	.page-hero-crumbs {
 		position: absolute;
 		z-index: 4;
@@ -184,33 +218,27 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 		right: 0;
 		bottom: 1.2em;
 		display: flex;
-		align-items: center;
+		align-items: stretch;
 		justify-content: center;
-		gap: 0.75em;
-		font-size: 0.85em;
+		gap: 1px;
+		font-size: 0.81em;
 		color: #ffffff;
 	}
 
-	.page-hero-crumbs a {
+	.crumb-chip {
 		display: inline-flex;
 		align-items: center;
+		padding: 5px 10px;
+		background: rgba(255, 255, 255, 0.2);
 		color: #ffffff;
 		text-decoration: none;
-		opacity: 0.85;
-		transition: 0.2s ease-out all;
+		line-height: 1.4;
+		transition: 0.2s ease-out background;
 	}
 
-	.page-hero-crumbs a:hover {
-		color: var(--color-gold);
-		opacity: 1;
-	}
-
-	.crumb-sep {
-		opacity: 0.5;
-	}
-
-	.crumb-current {
-		opacity: 0.85;
+	a.crumb-chip:hover {
+		background: rgba(255, 255, 255, 0.35);
+		color: #ffffff;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
