@@ -413,7 +413,14 @@ const isLoggedIn = !!Astro.locals.user;
 											: undefined
 									}
 								>
-									<SocialIcon label={item.label} size={20} />
+									<span class="social-swap">
+										<span class="icon-a">
+											<SocialIcon label={item.label} size={20} />
+										</span>
+										<span class="icon-b" aria-hidden="true">
+											<SocialIcon label={item.label} size={20} />
+										</span>
+									</span>
 									<span class="sr-only">{item.label}</span>
 								</a>
 							))}
@@ -500,7 +507,14 @@ const isLoggedIn = !!Astro.locals.user;
 											: undefined
 									}
 								>
-									<SocialIcon label={item.label} />
+									<span class="social-swap">
+										<span class="icon-a">
+											<SocialIcon label={item.label} />
+										</span>
+										<span class="icon-b" aria-hidden="true">
+											<SocialIcon label={item.label} />
+										</span>
+									</span>
 									<span class="sr-only">{item.label}</span>
 								</a>
 							))
@@ -1811,16 +1825,46 @@ const isLoggedIn = !!Astro.locals.user;
 			gap: var(--spacing-5);
 		}
 
-		/* Demo footer socials: gold glyphs, teal on hover */
+		/* Demo .socials a: the gold glyph flies down and a teal duplicate
+		   drops in from above (::before/::after swap, .3s ease-out) */
 		.footer-socials a {
 			display: inline-flex;
 			color: var(--color-gold);
 			text-decoration: none;
-			transition: color 0.2s;
 		}
 
-		.footer-socials a:hover {
+		.social-swap {
+			position: relative;
+			display: inline-flex;
+		}
+
+		.social-swap .icon-a,
+		.social-swap .icon-b {
+			display: inline-flex;
+			transition: all 0.3s ease-out;
+		}
+
+		.social-swap .icon-b {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			transform: translateY(-20px) scale(0.5);
 			color: var(--color-teal);
+		}
+
+		a:hover > .social-swap .icon-a,
+		a:focus-visible > .social-swap .icon-a {
+			opacity: 0;
+			transform: translateY(20px) scale(0.5);
+		}
+
+		a:hover > .social-swap .icon-b,
+		a:focus-visible > .social-swap .icon-b {
+			opacity: 1;
+			transform: translateY(0) scale(1);
 		}
 
 		.footer-copyright {

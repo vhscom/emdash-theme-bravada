@@ -17,22 +17,10 @@ const placeholder = node.placeholder ?? "Search";
 		<input type="search" name="q" placeholder={placeholder} autocomplete="off" />
 	</label>
 	<button type="submit" aria-label="Search">
-		<svg
-			width="16"
-			height="16"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2.5"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			aria-hidden="true"
-			><circle cx="11" cy="11" r="8"></circle><line
-				x1="21"
-				y1="21"
-				x2="16.65"
-				y2="16.65"></line></svg
-		>
+		<span class="submit-swap">
+			<i class="glyph-a" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></i>
+			<i class="glyph-b" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></i>
+		</span>
 	</button>
 </form>
 
@@ -78,6 +66,41 @@ const placeholder = node.placeholder ?? "Search";
 
 	.bravada-search button:hover {
 		background: var(--color-teal-solid);
+	}
+
+	/* Demo .searchform .searchsubmit i + i: on form hover the magnifier
+	   flies down and a duplicate drops in from above (.4s ease-out) */
+	.submit-swap {
+		position: relative;
+		display: inline-flex;
+	}
+
+	.submit-swap i {
+		display: inline-flex;
+		font-style: normal;
+		transition: 0.4s all ease-out;
+	}
+
+	.submit-swap .glyph-b {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transform: translateY(-20px) scale(0.25);
+	}
+
+	.bravada-search:hover .glyph-a,
+	.bravada-search:focus-within .glyph-a {
+		opacity: 0;
+		transform: translateY(20px) scale(0.25);
+	}
+
+	.bravada-search:hover .glyph-b,
+	.bravada-search:focus-within .glyph-b {
+		opacity: 1;
+		transform: translateY(0) scale(1);
 	}
 
 </style>
