@@ -1,0 +1,178 @@
+---
+/**
+ * The Bravada static-page shell: a white content card flanked by up to
+ * two 320px widget sidebars, arranged by the page's Layout field (the
+ * demo's one/two/three-column options). This is the field-driven
+ * counterpart to the demo's several "Layouts" — one shell that branches
+ * on `layout` rather than a separate template per arrangement.
+ *
+ * Renders inside Base's slot. Pass the rendered page content (e.g. a
+ * <RichText/>) as the default slot; it lands inside `.page-content` so
+ * the prose typography below applies.
+ */
+import SidebarWidgets from "./SidebarWidgets.astro";
+
+interface Props {
+	/** none | left | right | two-left | two-right | sided */
+	layout?: string;
+	/** Widget area feeding the primary sidebar (defaults to page-sidebar) */
+	sidebar?: string | null;
+}
+
+const { layout = "none", sidebar } = Astro.props;
+const hasPrimary = layout !== "none";
+const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
+---
+
+<div class:list={["page-shell", `layout-${layout}`]}>
+	{hasPrimary && <SidebarWidgets name={sidebar || "page-sidebar"} />}
+	<article class="page-article">
+		<div class="page-content">
+			<slot />
+		</div>
+	</article>
+	{hasSecondary && <SidebarWidgets name="sidebar-b" />}
+</div>
+
+<style>
+	/* Demo static page: content on a white card inside the shell.
+	   The shell arranges the card and up to two 320px sidebars per the
+	   page's Layout field (demo one/two/three-column options). */
+	/* Demo #container: transparent shell — only .main is white; the
+	   sidebars sit directly on the page background. Sidebars are 320px
+	   including their 2.2em inner gutter, no grid gap (demo box model:
+	   main = 100% − 640px). */
+	.page-shell {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 0;
+		max-width: calc(var(--wide-width) - 4em);
+		margin: 0 auto;
+	}
+
+	.page-shell.layout-left {
+		grid-template-columns: 320px minmax(0, 1fr);
+	}
+
+	.page-shell.layout-right {
+		grid-template-columns: minmax(0, 1fr) 320px;
+	}
+
+	.page-shell.layout-right > .page-article {
+		order: -1;
+	}
+
+	.page-shell.layout-two-left {
+		grid-template-columns: 320px 320px minmax(0, 1fr);
+	}
+
+	.page-shell.layout-two-left > .page-article {
+		order: 2;
+	}
+
+	.page-shell.layout-two-right {
+		grid-template-columns: minmax(0, 1fr) 320px 320px;
+	}
+
+	.page-shell.layout-two-right > .page-article {
+		order: -1;
+	}
+
+	.page-shell.layout-sided {
+		grid-template-columns: 320px minmax(0, 1fr) 320px;
+	}
+
+	.page-article {
+		min-width: 0;
+		background: var(--color-surface);
+		padding: 4em clamp(1.5em, 4.4vw, 4em);
+	}
+
+	.page-shell :global(.bravada-sidebar) {
+		padding: 4em 0 6em 2.2em;
+	}
+
+	/* left-hand sidebars gutter on the right instead */
+	.page-shell.layout-left :global(.bravada-sidebar),
+	.page-shell.layout-two-left :global(.bravada-sidebar),
+	.page-shell.layout-sided :global(.bravada-sidebar:first-of-type) {
+		padding: 4em 2.2em 6em 0;
+	}
+
+	@media (max-width: 1100px) {
+		.page-shell,
+		.page-shell.layout-left,
+		.page-shell.layout-right,
+		.page-shell.layout-two-left,
+		.page-shell.layout-two-right,
+		.page-shell.layout-sided {
+			grid-template-columns: 1fr;
+		}
+
+		.page-shell > .page-article {
+			order: -1;
+		}
+
+		.page-shell {
+			margin: 2em auto;
+		}
+	}
+
+	.page-content :global(p) {
+		margin-bottom: 1.5em;
+	}
+
+	/* Demo layout-page headings: h3 28.64px/700, 42.96px top margin
+	   (the section spacing), 14.32px bottom */
+	.page-content :global(h2) {
+		font-size: 2rem;
+		margin-top: 1.5em;
+		margin-bottom: 0.5em;
+	}
+
+	.page-content :global(h3) {
+		font-size: 1.79rem;
+		margin-top: 1.5em;
+		margin-bottom: 0.5em;
+	}
+
+	.page-content :global(blockquote) {
+		margin: 1.5em 0;
+		padding-left: var(--spacing-6);
+		border-left: 3px solid var(--color-border);
+		color: var(--color-muted);
+	}
+
+	.page-content :global(pre) {
+		margin: 1.5em 0;
+		padding: var(--spacing-4);
+		background: var(--color-surface);
+		border-radius: var(--radius);
+		overflow-x: auto;
+		font-family: var(--font-mono);
+		font-size: var(--font-size-sm);
+	}
+
+	.page-content :global(code) {
+		font-family: var(--font-mono);
+		font-size: 0.9em;
+		background: var(--color-surface);
+		padding: 0.15em 0.3em;
+		border-radius: var(--radius);
+	}
+
+	.page-content :global(pre code) {
+		background: none;
+		padding: 0;
+	}
+
+	.page-content :global(ul),
+	.page-content :global(ol) {
+		margin-bottom: 1.5em;
+		padding-left: var(--spacing-5);
+	}
+
+	.page-content :global(li) {
+		margin-bottom: 0.5em;
+	}
+</style>
