@@ -33,7 +33,7 @@ const {
 	description,
 	image,
 	canonical,
-	robots,
+	robots = "index, follow, max-image-preview:large",
 	type = "website",
 	publishedTime,
 	modifiedTime,
@@ -42,6 +42,10 @@ const {
 	overHero = false,
 } = Astro.props;
 const { siteTitle, siteTagline, siteLogo } = resolveBlogSiteIdentity(await getSiteSettings());
+// Default canonical to the clean current URL (origin + path, no query).
+// SSR (output: "server") means Astro.url carries the real request host
+// in production, so this resolves correctly once deployed.
+const canonicalUrl = canonical ?? `${Astro.url.origin}${Astro.url.pathname}`;
 // If title already includes site title (from getSeoMeta), use as-is
 const fullTitle = title.includes(siteTitle) ? title : `${title} — ${siteTitle}`;
 
@@ -75,7 +79,7 @@ const pageCtx = createPublicPageContext({
 	title: fullTitle,
 	pageTitle: pageTitle ?? title,
 	description,
-	canonical,
+	canonical: canonicalUrl,
 	image,
 	content,
 	seo: { ogImage: image, robots },
@@ -140,6 +144,12 @@ const isLoggedIn = !!Astro.locals.user;
 		<Font cssVariable="--font-display" preload />
 		<Font cssVariable="--font-mono" />
 		<title>{fullTitle}</title>
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			title={`${siteTitle} » Feed`}
+			href="/rss.xml"
+		/>
 		<EmDashHead page={pageCtx} />
 		<script is:inline>
 			// Gate the .aos reveal-hiding on JS actually running, so no-JS
