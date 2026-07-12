@@ -13,7 +13,7 @@ import { tintStyle } from "../../utils/tint";
  * All sit on a tinted full-bleed band with an accent backdrop strip
  * (gold or teal, alternating in the demo) behind the grid.
  */
-import SectionHeader from "./SectionHeader.astro";
+import SectionHeader from "../SectionHeader.astro";
 
 interface BoxItem {
 	image?: string;
@@ -327,11 +327,7 @@ const cols = Math.min(Math.max(node.columns ?? (variant === "animated" ? 3 : 4),
 		font-weight: 700;
 		line-height: 1.1;
 		color: #ffffff;
-		background-image: linear-gradient(
-			to bottom,
-			var(--gold-strip) 0%,
-			var(--gold-strip) 100%
-		);
+		background-image: var(--gold-scrim);
 		background-repeat: no-repeat;
 		background-size: 100% 0.5em;
 		background-position: 0 100%;
@@ -391,11 +387,7 @@ const cols = Math.min(Math.max(node.columns ?? (variant === "animated" ? 3 : 4),
 		display: inline;
 		font-weight: 700;
 		color: #162521;
-		background-image: linear-gradient(
-			to bottom,
-			var(--gold-strip) 0%,
-			var(--gold-strip) 100%
-		);
+		background-image: var(--gold-scrim);
 		background-repeat: no-repeat;
 		background-size: 100% 0.5em;
 		background-position: 0 100%;

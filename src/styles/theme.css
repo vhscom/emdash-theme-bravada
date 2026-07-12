@@ -46,6 +46,10 @@
 	--color-footer-text: #dbdbdb;
 	--color-footer-muted: #96a19e;
 	--gold-strip: rgba(233, 180, 76, 0.4); /* highlight strips */
+	/* The signature gold highlighter gradient. Reference this for the
+	   background-image; each site keeps its own background-size (strip
+	   thickness) and background-position. */
+	--gold-scrim: linear-gradient(to bottom, var(--gold-strip) 0%, var(--gold-strip) 100%);
 
 	/* Landing band tints (Plus customizer values), with matched dark
 	   twins so the bands follow the color scheme */
@@ -445,11 +449,7 @@ body {
 
 .hl-gold {
 	display: inline;
-	background-image: linear-gradient(
-		to bottom,
-		var(--gold-strip) 0%,
-		var(--gold-strip) 100%
-	);
+	background-image: var(--gold-scrim);
 	background-repeat: no-repeat;
 	background-size: 100% 0.4em;
 	background-position: 0 100%;
