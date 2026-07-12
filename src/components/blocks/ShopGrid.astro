@@ -218,13 +218,20 @@ const countText = (page: number) =>
 		cursor: pointer;
 	}
 
-	.shop-grid {
+	/* .bravada-shop prefix beats the page template's generic
+	   .page-content ul/li rules (20px indent, list margins) */
+	.bravada-shop .shop-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 3em 1.75em;
 		margin: 0;
 		padding: 0;
 		list-style: none;
+	}
+
+	.bravada-shop .shop-grid > li,
+	.bravada-shop .page-numbers > li {
+		margin: 0;
 	}
 
 	.shop-product {
@@ -367,7 +374,7 @@ const countText = (page: number) =>
 		margin-top: 3em;
 	}
 
-	.page-numbers {
+	.bravada-shop .page-numbers {
 		display: flex;
 		justify-content: center;
 		gap: 1em;
