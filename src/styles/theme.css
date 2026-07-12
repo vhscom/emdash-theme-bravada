@@ -888,6 +888,43 @@ html.js .lp-tt.aos .lp-tt-text {
 	border: 0;
 }
 
+/* Social icon-swap (demo .socials a): the gold glyph flies down and a
+   teal duplicate drops in from above on hover (.3s ease-out). Shared by
+   the footer social row and the mobile menu's socials. */
+.social-swap {
+	position: relative;
+	display: inline-flex;
+}
+
+.social-swap .icon-a,
+.social-swap .icon-b {
+	display: inline-flex;
+	transition: all 0.3s ease-out;
+}
+
+.social-swap .icon-b {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transform: translateY(-20px) scale(0.5);
+	color: var(--color-teal);
+}
+
+a:hover > .social-swap .icon-a,
+a:focus-visible > .social-swap .icon-a {
+	opacity: 0;
+	transform: translateY(20px) scale(0.5);
+}
+
+a:hover > .social-swap .icon-b,
+a:focus-visible > .social-swap .icon-b {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
 /* Demo lazy-image fade (cryoutAnimateLazyImages): content/sidebar lazy
    images start transparent and fade in on load. JS-gated so no-JS
    visitors always see images; landing-page blocks keep their own
