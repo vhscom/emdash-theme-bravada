@@ -225,6 +225,31 @@
           "label": "Description",
           "type": "portableText",
           "searchable": true
+        },
+        {
+          "slug": "sku",
+          "label": "SKU",
+          "type": "string"
+        },
+        {
+          "slug": "gallery",
+          "label": "Gallery images",
+          "type": "json"
+        },
+        {
+          "slug": "variants",
+          "label": "Variants (label + options)",
+          "type": "json"
+        },
+        {
+          "slug": "reviews",
+          "label": "Reviews",
+          "type": "json"
+        },
+        {
+          "slug": "oos",
+          "label": "Out of stock",
+          "type": "boolean"
         }
       ]
     }
@@ -7383,6 +7408,58 @@
                 }
               ]
             }
+          ],
+          "sku": "SKU-1",
+          "gallery": [
+            "/images/demo/poster_2_up-600x600.jpg",
+            "/images/demo/Poster_2_flat-600x600.jpg"
+          ],
+          "variants": [
+            {
+              "label": "Shade",
+              "options": [
+                "Choose an option",
+                "light",
+                "dark",
+                "godlike",
+                "devlish"
+              ]
+            },
+            {
+              "label": "Color",
+              "options": [
+                "Choose an option",
+                "Black",
+                "Blue",
+                "Green"
+              ]
+            }
+          ],
+          "reviews": [
+            {
+              "author": "Cobus Bester",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "Really happy with this print. The colors are great, and the paper quality is good too."
+            },
+            {
+              "author": "Andrew",
+              "rating": 3.0,
+              "date": "7th June",
+              "text": "You only get the picture, not the person holding it, something they don’t mention in the description, now I’ve got to find my own person"
+            },
+            {
+              "author": "Coen Jacobs",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "This is my favorite poster. In fact, I’ve ordered 5 of them!"
+            },
+            {
+              "author": "Stuart",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "This is a fantastic quality print and is happily hanging framed on my wall now."
+            }
           ]
         },
         "taxonomies": {
@@ -7422,6 +7499,24 @@
                   "marks": []
                 }
               ]
+            }
+          ],
+          "gallery": [
+            "/images/demo/T_7_front-600x600.jpg",
+            "/images/demo/T_7_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Stuart",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "This will go great with my Hoodie that I ordered a few weeks ago."
+            },
+            {
+              "author": "Maria",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "Love this shirt! The ninja near and dear to my heart. <3"
             }
           ]
         },
@@ -7464,6 +7559,24 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/hoodie_4_front-600x600.jpg",
+            "/images/demo/hoodie_4_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Andrew",
+              "rating": 1.0,
+              "date": "7th June",
+              "text": "I bought this thinking it was a nice green colour, apparently it GREY! I’m colour blind so I don’t care but my girlfriend says grey makes me look fat"
+            },
+            {
+              "author": "Maria",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "I love grey hoodies! This is perfect with my grey Ninja shirt, when I get cold I throw this on and I can still be a Ninja."
+            }
           ]
         },
         "taxonomies": {
@@ -7504,6 +7617,18 @@
                   "marks": []
                 }
               ]
+            }
+          ],
+          "gallery": [
+            "/images/demo/T_5_front-600x600.jpg",
+            "/images/demo/T_5_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Cobus Bester",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "The ninja silhouette is one of my favorite designs. This is a great product."
             }
           ]
         },
@@ -7546,6 +7671,36 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/hoodie_7_front-600x600.jpg",
+            "/images/demo/hoodie_7_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "student",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "Perfect Hoodie for a Ninja!"
+            },
+            {
+              "author": "Coen Jacobs",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "I have lots of hoodies, but none is as cool as this one!"
+            },
+            {
+              "author": "Dan",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "I love hoodies, and ninjas, so what could be better than a ninja hoodie? Not much, if you ask me!"
+            },
+            {
+              "author": "Ryan",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "This is the most bombastic hoodie in this shop, it’s soft and has the sly WooThemes ninja on it. Why wouldn’t you buy this?"
+            }
           ]
         },
         "taxonomies": {
@@ -7587,6 +7742,30 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/hoodie_3_front-600x600.jpg",
+            "/images/demo/hoodie_3_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "James Koster",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "Perfect when you’re sat at your computer, waiting for the next batch of Woo Goodies to be released. The Patient Ninja is Patient."
+            },
+            {
+              "author": "Cobus Bester",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "The most comfortable hoodie I have ever owned!"
+            },
+            {
+              "author": "Magnus",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "This is my favorite hoodie! If only it came in red as well!"
+            }
           ]
         },
         "taxonomies": {
@@ -7627,6 +7806,24 @@
                   "marks": []
                 }
               ]
+            }
+          ],
+          "gallery": [
+            "/images/demo/T_2_front-600x600.jpg",
+            "/images/demo/T_2_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Cobus Bester",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "Wonderful quality, and an awesome design. WooThemes ftw!"
+            },
+            {
+              "author": "Andrew",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "This t-shirt is awesome! Would recommend to everyone! I’m ordering mine next week"
             }
           ]
         },
@@ -7670,6 +7867,18 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/poster_3_up-600x600.jpg",
+            "/images/demo/Poster_3_flat-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Dan",
+              "rating": 3.0,
+              "date": "7th June",
+              "text": "I thought I was buying a man holding a poster, but when it arrived it was just the poster. Cool poster though, so I’ll give it 3 stars!"
+            }
           ]
         },
         "taxonomies": {
@@ -7710,7 +7919,27 @@
                 }
               ]
             }
-          ]
+          ],
+          "sku": "N/A",
+          "gallery": [
+            "/images/demo/hoodie_5_front-600x600.jpg",
+            "/images/demo/hoodie_5_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Stuart",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "Another great quality product that anyone who see’s me wearing has asked where to purchase one of their own."
+            },
+            {
+              "author": "Ryan",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "This hoodie gets me lots of looks while out in public, I got the blue one and it’s awesome. Not sure if people are looking at my hoodie only, or also at my rocking bod."
+            }
+          ],
+          "oos": true
         },
         "taxonomies": {
           "product-category": [
@@ -7750,6 +7979,10 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/poster_1_up-600x600.jpg",
+            "/images/demo/Poster_1_flat-600x600.jpg"
           ]
         },
         "taxonomies": {
@@ -7790,7 +8023,33 @@
                 }
               ]
             }
-          ]
+          ],
+          "sku": "N/A",
+          "gallery": [
+            "/images/demo/T_4_front-600x600.jpg",
+            "/images/demo/T_4_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "James Koster",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "Nice T-shirt, I got one in black. Goes with anything!"
+            },
+            {
+              "author": "Cobus Bester",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "Very comfortable shirt, and I love the graphic!"
+            },
+            {
+              "author": "Stuart",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "Great T-shirt quality, Great Design and Great Service."
+            }
+          ],
+          "oos": true
         },
         "taxonomies": {
           "product-category": [
@@ -7830,6 +8089,10 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/cd_6_angle-600x600.jpg",
+            "/images/demo/cd_6_flat-600x600.jpg"
           ]
         },
         "taxonomies": {
@@ -7870,6 +8133,18 @@
                   "marks": []
                 }
               ]
+            }
+          ],
+          "gallery": [
+            "/images/demo/cd_5_angle-600x600.jpg",
+            "/images/demo/cd_5_flat-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Cobus Bester",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "Wonderful collection of WooThemes classics! A must buy for all Woo fans."
             }
           ]
         },
@@ -7912,6 +8187,18 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/cd_4_angle-600x600.jpg",
+            "/images/demo/cd_4_flat-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Coen Jacobs",
+              "rating": 3.0,
+              "date": "7th June",
+              "text": "This album gets a bit boring after you’ve listened to it more than once. Worth that first listen though."
+            }
           ]
         },
         "taxonomies": {
@@ -7952,6 +8239,24 @@
                   "marks": []
                 }
               ]
+            }
+          ],
+          "gallery": [
+            "/images/demo/cd_2_angle-600x600.jpg",
+            "/images/demo/cd_2_flat-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "James Koster",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "The most influential album of the last 25 years? This just might be it."
+            },
+            {
+              "author": "Coen Jacobs",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "Some rad tunes on this album!"
             }
           ]
         },
@@ -7995,6 +8300,20 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/T_1_front-600x600.jpg",
+            "/images/demo/T_1_back-600x600.jpg",
+            "/images/demo/T_3_front-600x600.jpg",
+            "/images/demo/T_3_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Cobus Bester",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "Simple and effective design. One of my favorites."
+            }
           ]
         },
         "taxonomies": {
@@ -8036,6 +8355,18 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/hoodie_6_front-600x600.jpg",
+            "/images/demo/hoodie_6_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Magnus",
+              "rating": 3.0,
+              "date": "7th June",
+              "text": "I like the logo but not the color."
+            }
           ]
         },
         "taxonomies": {
@@ -8076,6 +8407,10 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/poster_5_up-600x600.jpg",
+            "/images/demo/Poster_5_flat-600x600.jpg"
           ]
         },
         "taxonomies": {
@@ -8115,6 +8450,10 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/T_6_front-600x600.jpg",
+            "/images/demo/T_6_back-600x600.jpg"
           ]
         },
         "taxonomies": {
@@ -8155,6 +8494,10 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/poster_4_up-600x600.jpg",
+            "/images/demo/Poster_4_flat-600x600.jpg"
           ]
         },
         "taxonomies": {
@@ -8194,6 +8537,20 @@
                   "marks": []
                 }
               ]
+            }
+          ],
+          "gallery": [
+            "/images/demo/hoodie_2_front-600x600.jpg",
+            "/images/demo/hoodie_2_back-600x600.jpg",
+            "/images/demo/hoodie_1_front-600x600.jpg",
+            "/images/demo/hoodie_1_back-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Cobus Bester",
+              "rating": 5.0,
+              "date": "7th June",
+              "text": "This hoodie is great for those chilly winter days. I love the WooNinja!"
             }
           ]
         },
@@ -8235,6 +8592,10 @@
                 }
               ]
             }
+          ],
+          "gallery": [
+            "/images/demo/cd_3_angle-600x600.jpg",
+            "/images/demo/cd_3_flat-600x600.jpg"
           ]
         },
         "taxonomies": {
@@ -8276,6 +8637,18 @@
                   "marks": []
                 }
               ]
+            }
+          ],
+          "gallery": [
+            "/images/demo/cd_1_angle-600x600.jpg",
+            "/images/demo/cd_1_flat-600x600.jpg"
+          ],
+          "reviews": [
+            {
+              "author": "Cobus Bester",
+              "rating": 4.0,
+              "date": "7th June",
+              "text": "This album proves why The Woo are the best band ever. Best music ever!"
             }
           ]
         },

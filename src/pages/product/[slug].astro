@@ -29,6 +29,11 @@ const related = cats.length
 	: [];
 
 const d = product.data;
+const gallery: string[] = (d.gallery as string[]) ?? [];
+const mainImage = gallery[0] ?? getMediaUrl(d.featured_image);
+const variants = (d.variants as { label: string; options: string[] }[]) ?? [];
+const reviews =
+	(d.reviews as { author: string; rating?: number; date?: string; text: string }[]) ?? [];
 ---
 
 <Base
@@ -45,71 +50,213 @@ const d = product.data;
 		<article class="product-single">
 			<div class="product-top">
 				<div class="product-gallery">
-					<img src={getMediaUrl(d.featured_image)} alt={d.title} />
-					{d.price_old && <span class="shop-sale">Sale!</span>}
+					<div class="gallery-main">
+						<img src={mainImage} alt={d.title} />
+						{d.price_old && <span class="shop-sale">Sale!</span>}
+					</div>
+					{
+						gallery.length > 1 && (
+							<div class="gallery-thumbs">
+								{gallery.map((g, i) => (
+									<button
+										type="button"
+										class:list={["gallery-thumb", { current: i === 0 }]}
+										data-full={g}
+										aria-label={`Show image ${i + 1}`}
+									>
+										<img src={g} alt="" loading="lazy" />
+									</button>
+								))}
+							</div>
+						)
+					}
 				</div>
 				<div class="product-summary">
 					<h2 class="product-name">{d.title}</h2>
 					{
 						typeof d.rating === "number" && (
-							<span
-								class="product-rating"
-								role="img"
-								aria-label={`Rated ${d.rating} out of 5`}
-							>
-								<span class="rating-fill" style={`width: ${(d.rating / 5) * 100}%`}>
-									★★★★★
+							<p class="product-rating-row">
+								<span
+									class="product-rating"
+									role="img"
+									aria-label={`Rated ${d.rating} out of 5`}
+								>
+									<span class="rating-fill" style={`width: ${(d.rating / 5) * 100}%`}>
+										★★★★★
+									</span>
+									<span class="rating-track" aria-hidden="true">
+										★★★★★
+									</span>
 								</span>
-								<span class="rating-track" aria-hidden="true">
-									★★★★★
-								</span>
-							</span>
-						)
-					}
-					<p class="product-price">
-						{d.price_old && <del>{d.price_old}</del>}
-						{d.price && <ins>{d.price}</ins>}
-						{!d.price && d.stock && <span class="product-stock">{d.stock}</span>}
-					</p>
-					{d.excerpt && <p class="product-short">{d.excerpt}</p>}
-					<a href="/shop" class="product-buy">{d.button ?? "Add to basket"}</a>
-					{
-						cats.length > 0 && (
-							<p class="product-cats">
-								Categories:{" "}
-								{cats.map((c, i) => (
-									<>
-										{i > 0 && ", "}
-										<a href={`/shop`}>{c.label}</a>
-									</>
-								))}
+								{reviews.length > 0 && (
+									<a href="#tab-reviews" class="review-count">
+										({reviews.length} customer {reviews.length === 1 ? "review" : "reviews"})
+									</a>
+								)}
 							</p>
 						)
 					}
+					{
+						(d.price || d.price_old) && (
+							<p class="product-price">
+								{d.price_old && <del>{d.price_old}</del>}
+								{d.price && <ins>{d.price}</ins>}
+							</p>
+						)
+					}
+					{d.excerpt && <p class="product-short">{d.excerpt}</p>}
+					{
+						d.oos ? (
+							<p class="product-oos">
+								This product is currently out of stock and unavailable.
+							</p>
+						) : (
+							<>
+								{variants.length > 0 && (
+									<table class="product-variants">
+										<tbody>
+											{variants.map((v) => (
+												<tr>
+													<td class="variant-label">
+														<label>{v.label}</label>
+													</td>
+													<td class="variant-value">
+														<select>
+															<option value="">Choose an option</option>
+															{v.options
+																.filter((o) => o !== "Choose an option")
+																.map((o) => (
+																	<option>{o}</option>
+																))}
+														</select>
+													</td>
+												</tr>
+											))}
+										</tbody>
+									</table>
+								)}
+								<a href="/shop" class="product-buy">
+									{d.button ?? "Add to basket"}
+								</a>
+							</>
+						)
+					}
+					<p class="product-meta">
+						{d.sku && (
+							<>
+								SKU: <span>{d.sku}</span>{" "}
+							</>
+						)}
+						{
+							cats.length > 0 && (
+								<>
+									Categories:{" "}
+									{cats.map((c, i) => (
+										<>
+											{i > 0 && ", "}
+											<a href="/shop">{c.label}</a>
+										</>
+									))}
+								</>
+							)
+						}
+					</p>
 				</div>
 			</div>
-			{
-				d.content?.length > 0 && (
-					<section class="product-description">
-						<h3>Description</h3>
-						<RichText value={d.content} />
-					</section>
-				)
-			}
+
+			<div class="product-tabs">
+				<ul class="tabs-nav" role="tablist">
+					<li>
+						<button type="button" class="tab-link active" data-tab="description" role="tab" aria-selected="true">
+							Description
+						</button>
+					</li>
+					{
+						reviews.length > 0 && (
+							<li>
+								<button type="button" class="tab-link" data-tab="reviews" role="tab" aria-selected="false">
+									Reviews ({reviews.length})
+								</button>
+							</li>
+						)
+					}
+				</ul>
+				<section class="tab-panel active" data-panel="description" id="tab-description">
+					<h2 class="panel-title"><span>Description</span></h2>
+					<RichText value={d.content} />
+				</section>
+				{
+					reviews.length > 0 && (
+						<section class="tab-panel" data-panel="reviews" id="tab-reviews">
+							<h2 class="panel-title">
+								<span>
+									{reviews.length} {reviews.length === 1 ? "review" : "reviews"} for {d.title}
+								</span>
+							</h2>
+							<ol class="review-list">
+								{reviews.map((r) => (
+									<li>
+										<span class="review-avatar" aria-hidden="true">
+											<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+												<path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z" />
+											</svg>
+										</span>
+										<div class="review-body">
+											{typeof r.rating === "number" && (
+												<span class="product-rating review-stars" role="img" aria-label={`Rated ${r.rating} out of 5`}>
+													<span class="rating-fill" style={`width: ${(r.rating / 5) * 100}%`}>
+														★★★★★
+													</span>
+													<span class="rating-track" aria-hidden="true">
+														★★★★★
+													</span>
+												</span>
+											)}
+											<p class="review-meta">
+												<strong>{r.author}</strong>
+												{r.date && <span> – {r.date}</span>}
+											</p>
+											<p class="review-text">{r.text}</p>
+										</div>
+									</li>
+								))}
+							</ol>
+						</section>
+					)
+				}
+			</div>
+
 			{
 				related.length > 0 && (
 					<section class="product-related">
-						<h3>Related products</h3>
+						<h3 class="related-title-heading"><span>Related products</span></h3>
 						<ul class="related-grid">
 							{related.map((p) => (
-								<li>
+								<li class="related-item">
 									<a href={`/product/${p.id}`} class="related-thumb" tabindex="-1">
+										{p.data.price_old && <span class="shop-sale">Sale!</span>}
 										<img src={getMediaUrl(p.data.featured_image)} alt="" loading="lazy" />
+										<span class="related-button">{p.data.oos ? "Read more" : (p.data.button ?? "Add to basket")}</span>
 									</a>
 									<a href={`/product/${p.id}`} class="related-title">
 										{p.data.title}
 									</a>
-									{p.data.price && <span class="related-price">{p.data.price}</span>}
+									{typeof p.data.rating === "number" && (
+										<span class="product-rating related-stars" role="img" aria-label={`Rated ${p.data.rating} out of 5`}>
+											<span class="rating-fill" style={`width: ${(p.data.rating / 5) * 100}%`}>
+												★★★★★
+											</span>
+											<span class="rating-track" aria-hidden="true">
+												★★★★★
+											</span>
+										</span>
+									)}
+									{(p.data.price || p.data.price_old) && (
+										<span class="related-price">
+											{p.data.price_old && <del>{p.data.price_old}</del>}
+											{p.data.price && <ins>{p.data.price}</ins>}
+										</span>
+									)}
 								</li>
 							))}
 						</ul>
@@ -120,8 +267,39 @@ const d = product.data;
 	</div>
 </Base>
 
+<script>
+	// Gallery: thumbs swap the main image
+	for (const gal of document.querySelectorAll<HTMLElement>(".product-gallery")) {
+		const main = gal.querySelector<HTMLImageElement>(".gallery-main img");
+		const thumbs = gal.querySelectorAll<HTMLButtonElement>(".gallery-thumb");
+		thumbs.forEach((t) =>
+			t.addEventListener("click", () => {
+				if (main && t.dataset.full) main.src = t.dataset.full;
+				thumbs.forEach((x) => x.classList.toggle("current", x === t));
+			})
+		);
+	}
+
+	// Tabs
+	for (const tabs of document.querySelectorAll<HTMLElement>(".product-tabs")) {
+		const links = tabs.querySelectorAll<HTMLButtonElement>(".tab-link");
+		const panels = tabs.querySelectorAll<HTMLElement>(".tab-panel");
+		const activate = (name: string) => {
+			links.forEach((l) => {
+				const on = l.dataset.tab === name;
+				l.classList.toggle("active", on);
+				l.setAttribute("aria-selected", String(on));
+			});
+			panels.forEach((p) => p.classList.toggle("active", p.dataset.panel === name));
+		};
+		links.forEach((l) => l.addEventListener("click", () => activate(l.dataset.tab!)));
+		// "(N customer reviews)" deep link
+		document.querySelector(".review-count")?.addEventListener("click", () => activate("reviews"));
+	}
+</script>
+
 <style>
-	/* Demo product single: one-column white main */
+	/* Demo product single: one-column white main, 50/50 gallery/summary */
 	.product-shell {
 		max-width: calc(var(--wide-width) - 4em);
 		margin: 0 auto;
@@ -135,24 +313,52 @@ const d = product.data;
 	.product-top {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-		gap: 3em;
-		margin-bottom: 3em;
+		gap: 2.6em;
 	}
 
-	.product-gallery {
+	.gallery-main {
 		position: relative;
 		line-height: 0;
 	}
 
-	.product-gallery img {
+	.gallery-main img {
 		width: 100%;
 		height: auto;
+	}
+
+	.gallery-thumbs {
+		display: flex;
+		gap: 0;
+		margin-top: 0;
+	}
+
+	.gallery-thumb {
+		width: 25%;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		line-height: 0;
+		opacity: 0.85;
+		transition: opacity 0.2s ease-out;
+	}
+
+	.gallery-thumb.current,
+	.gallery-thumb:hover {
+		opacity: 1;
+	}
+
+	.gallery-thumb img {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
 	}
 
 	.shop-sale {
 		position: absolute;
 		top: 0.75em;
 		left: 0.75em;
+		z-index: 2;
 		padding: 0.3em 0.8em;
 		background: rgba(255, 255, 255, 0.75);
 		color: var(--color-gold);
@@ -160,8 +366,20 @@ const d = product.data;
 		line-height: 1.6;
 	}
 
+	/* Demo .product_title: Muli light 27.2px TEAL, no margin */
 	.product-name {
-		margin: 0 0 0.3em;
+		margin: 0;
+		font-family: var(--font-body);
+		font-size: 1.7rem;
+		font-weight: 300;
+		color: var(--color-teal);
+	}
+
+	.product-rating-row {
+		display: flex;
+		align-items: center;
+		gap: 0.6em;
+		margin: 0.4em 0 0;
 	}
 
 	.product-rating {
@@ -186,9 +404,21 @@ const d = product.data;
 		color: var(--color-teal);
 	}
 
+	/* Demo: gold review-count link */
+	.review-count {
+		font-size: 0.9em;
+		color: var(--color-gold);
+		text-decoration: none;
+	}
+
+	.review-count:hover {
+		color: var(--color-teal);
+	}
+
+	/* Demo .summary .price: teal 25.9px with 25.9px below */
 	.product-price {
-		margin: 0.8em 0;
-		font-size: 1.5em;
+		margin: 0.6em 0 1em;
+		font-size: 1.6rem;
 		color: var(--color-teal);
 	}
 
@@ -201,17 +431,46 @@ const d = product.data;
 		text-decoration: none;
 	}
 
-	.product-stock {
-		font-size: 0.75em;
-		color: var(--color-muted);
-	}
-
 	.product-short {
-		margin: 0 0 1.5em;
+		margin: 0 0 1.6em;
 		line-height: 1.8;
 	}
 
-	/* Demo gold button, teal hover */
+	/* Demo out-of-stock notice: red line */
+	.product-oos {
+		margin: 0 0 1.6em;
+		color: #c0392b;
+	}
+
+	/* Variations: label column + select (demo .variations) */
+	.product-variants {
+		margin: 0 0 1.5em;
+		border-collapse: collapse;
+	}
+
+	.variant-label {
+		padding: 0.4em 1.5em 0.4em 0;
+		font-weight: 700;
+		color: var(--color-heading);
+	}
+
+	.variant-value select {
+		padding: 0.6em 2.4em 0.6em 0.8em;
+		border: 1px solid var(--color-border);
+		border-radius: 0;
+		background-color: var(--color-surface);
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0.8em center;
+		font-family: var(--font-body);
+		font-size: 1rem;
+		color: var(--color-text);
+		appearance: none;
+		-webkit-appearance: none;
+		cursor: pointer;
+	}
+
+	/* Demo gold button (1em 2em padding), teal hover */
 	.product-buy {
 		display: inline-block;
 		padding: 1em 2em;
@@ -227,23 +486,138 @@ const d = product.data;
 		background: var(--color-teal-solid);
 	}
 
-	.product-cats {
-		margin-top: 1.5em;
+	/* Demo meta line: SKU + gold category links */
+	.product-meta {
+		margin-top: 1.6em;
+		font-size: 0.95em;
+		color: var(--color-text);
+	}
+
+	.product-meta a {
+		color: var(--color-gold);
+		text-decoration: none;
+	}
+
+	.product-meta a:hover {
+		color: var(--color-teal);
+	}
+
+	/* ---------- Tabs (demo woocommerce-tabs: 41.6px above, boxed
+	   active tab on a hairline, panels with gold-strip headings) ------ */
+	.product-tabs {
+		padding-top: 2.6em;
+	}
+
+	.tabs-nav {
+		display: flex;
+		margin: 0 0 1.6em;
+		padding: 0 0 0 1em;
+		list-style: none;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.tab-link {
+		position: relative;
+		bottom: -1px;
+		padding: 0.75em 1.2em;
+		border: 1px solid transparent;
+		background: none;
+		font-family: var(--font-body);
+		font-size: 0.9rem;
+		color: var(--color-text);
+		cursor: pointer;
+	}
+
+	.tab-link.active {
+		border-color: var(--color-border);
+		border-bottom-color: var(--color-surface);
+		background: var(--color-surface);
+	}
+
+	.tab-panel {
+		display: none;
+	}
+
+	.tab-panel.active {
+		display: block;
+	}
+
+	/* Gold highlighter strip on the panel headings (demo scrim) */
+	.panel-title,
+	.related-title-heading {
+		margin: 0 0 1.2em;
+		font-family: var(--font-body);
+		font-size: 1.2rem;
+		font-weight: 400;
+		color: var(--color-text);
+	}
+
+	.related-title-heading {
+		font-family: var(--font-heading);
+		font-weight: 700;
+		margin-bottom: 1.5em;
+	}
+
+	.panel-title span,
+	.related-title-heading span {
+		background-image: linear-gradient(
+			to bottom,
+			var(--gold-strip) 0%,
+			var(--gold-strip) 100%
+		);
+		background-repeat: no-repeat;
+		background-size: 100% 0.5em;
+		background-position: 0 90%;
+	}
+
+	/* Reviews */
+	.review-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.review-list li {
+		display: flex;
+		gap: 1em;
+		padding: 1.2em 0;
+		border-bottom: 1px solid var(--color-border-subtle);
+	}
+
+	.review-list li:last-child {
+		border-bottom: 0;
+	}
+
+	.review-avatar {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		background: var(--color-bg-subtle);
+		color: var(--color-muted);
+	}
+
+	.review-meta {
+		margin: 0.3em 0 0.4em;
 		font-size: 0.9em;
 		color: var(--color-muted);
 	}
 
-	.product-cats a {
-		color: var(--color-teal);
-		text-decoration: none;
+	.review-meta strong {
+		color: var(--color-heading);
 	}
 
-	.product-cats a:hover {
-		color: var(--color-gold);
+	.review-text {
+		margin: 0;
+		line-height: 1.8;
 	}
 
-	.product-description {
-		margin-bottom: 3em;
+	/* ---------- Related products (demo loop cards) ---------- */
+	.product-related {
+		margin-top: 2.6em;
 	}
 
 	.related-grid {
@@ -255,7 +629,7 @@ const d = product.data;
 		list-style: none;
 	}
 
-	.related-grid li {
+	.related-item {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -263,6 +637,7 @@ const d = product.data;
 	}
 
 	.related-thumb {
+		position: relative;
 		display: block;
 		width: 100%;
 		overflow: hidden;
@@ -278,9 +653,41 @@ const d = product.data;
 			opacity 0.3s ease-out;
 	}
 
-	.related-grid li:hover .related-thumb img {
+	.related-item:hover .related-thumb img,
+	.related-item:focus-within .related-thumb img {
 		transform: scale(1.1);
 		opacity: 0.8;
+	}
+
+	.related-button {
+		position: absolute;
+		z-index: 2;
+		left: 1em;
+		right: 1em;
+		top: 50%;
+		padding: 0.6em 1em;
+		background: var(--color-gold);
+		color: #ffffff;
+		font-size: 0.85rem;
+		font-weight: 700;
+		line-height: 1.4;
+		text-align: center;
+		opacity: 0;
+		transform: translateY(calc(-50% - 10px));
+		transition:
+			opacity 0.3s ease-out,
+			transform 0.3s ease-out,
+			background 0.3s ease-out;
+	}
+
+	.related-item:hover .related-button,
+	.related-item:focus-within .related-button {
+		opacity: 1;
+		transform: translateY(-50%);
+	}
+
+	.related-button:hover {
+		background: var(--color-teal-solid);
 	}
 
 	.related-title {
@@ -294,9 +701,22 @@ const d = product.data;
 		color: var(--color-gold);
 	}
 
+	.related-stars {
+		margin-top: 0.4em;
+	}
+
 	.related-price {
 		margin-top: 0.3em;
 		color: var(--color-teal);
+	}
+
+	.related-price del {
+		margin-right: 0.4em;
+		color: var(--color-muted);
+	}
+
+	.related-price ins {
+		text-decoration: none;
 	}
 
 	@media (max-width: 900px) {
