@@ -82,6 +82,19 @@ const { entries: recentPosts } = await getEmDashCollection("posts", {
 });
 const otherPosts = recentPosts.filter((p) => p.id !== post.id).slice(0, 3);
 
+// Adjacent posts for the floating prev/next navigation (demo #nav-fixed).
+// Newest-first list: the newer neighbour sits before this post, the
+// older one after. "Previous" is older (left), "Next" is newer (right),
+// matching the demo's WordPress convention.
+const { entries: allPosts } = await getEmDashCollection("posts", {
+	orderBy: { published_at: "desc" },
+	limit: 200,
+});
+const postIndex = allPosts.findIndex((p) => p.id === post.id);
+const newerPost = postIndex > 0 ? allPosts[postIndex - 1] : null;
+const olderPost =
+	postIndex >= 0 && postIndex < allPosts.length - 1 ? allPosts[postIndex + 1] : null;
+
 // Single batched query for related-posts tags, rather than one
 // getEntryTerms() call per related post.
 const otherTagsByEntry = await getTermsForEntries(
@@ -285,6 +298,53 @@ const publishDate =
 			</section>
 		)
 	}
+
+	{
+		(olderPost || newerPost) && (
+			<nav id="nav-fixed" aria-label="Post navigation">
+				{olderPost && (
+					<div class="nav-previous">
+						<a
+							href={`/posts/${olderPost.id}`}
+							rel="prev"
+							aria-label={`Previous post: ${olderPost.data.title}`}
+						>
+							<i aria-hidden="true">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+							</i>
+							<span class="nav-fixed-title">{olderPost.data.title}</span>
+						</a>
+					</div>
+				)}
+				{newerPost && (
+					<div class="nav-next">
+						<a
+							href={`/posts/${newerPost.id}`}
+							rel="next"
+							aria-label={`Next post: ${newerPost.data.title}`}
+						>
+							<span class="nav-fixed-title">{newerPost.data.title}</span>
+							<i aria-hidden="true">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+							</i>
+						</a>
+					</div>
+				)}
+			</nav>
+		)
+	}
+
+	<script>
+		// Reveal the floating prev/next tabs once the reader scrolls in
+		// (demo #nav-fixed.nav-fixed-show, toggled past 30px).
+		const navFixed = document.getElementById("nav-fixed");
+		if (navFixed) {
+			const onNavScroll = () =>
+				navFixed.classList.toggle("nav-fixed-show", window.scrollY > 30);
+			onNavScroll();
+			window.addEventListener("scroll", onNavScroll, { passive: true });
+		}
+	</script>
 
 	<script>
 		// Build table of contents from h2/h3 headings
@@ -968,6 +1028,98 @@ const publishDate =
 
 		.more-grid {
 			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Floating previous/next post tabs (demo #nav-fixed): edge-anchored
+	   arrow tabs, vertically centred, that fade in on scroll and expand
+	   on hover to reveal the neighbouring post's title. */
+	#nav-fixed {
+		opacity: 0;
+		transition: opacity 0.3s ease-out;
+	}
+
+	#nav-fixed.nav-fixed-show {
+		opacity: 1;
+	}
+
+	.nav-previous,
+	.nav-next {
+		position: fixed;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 50;
+	}
+
+	.nav-previous {
+		left: 0;
+	}
+
+	.nav-next {
+		right: 0;
+	}
+
+	#nav-fixed a {
+		display: flex;
+		align-items: center;
+		height: 64px;
+		max-width: 44px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-decoration: none;
+		color: #ffffff;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+		transition: max-width 0.35s ease-out;
+	}
+
+	/* Collapsed, only the arrow box shows; anchoring keeps the arrow at
+	   the screen edge while the title clips away. */
+	.nav-previous a {
+		justify-content: flex-start;
+		border-radius: 0 4px 4px 0;
+	}
+
+	.nav-next a {
+		justify-content: flex-end;
+		border-radius: 4px 0 0 4px;
+	}
+
+	#nav-fixed a:hover,
+	#nav-fixed a:focus-visible {
+		max-width: 60vw;
+	}
+
+	/* Demo: grey arrow box that turns teal on hover */
+	#nav-fixed i {
+		flex: 0 0 44px;
+		align-self: stretch;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: light-dark(#dbdbdb, #29403e);
+		transition: background 0.3s ease-out;
+	}
+
+	#nav-fixed a:hover i,
+	#nav-fixed a:focus-visible i {
+		background: var(--color-teal-solid);
+	}
+
+	.nav-fixed-title {
+		max-width: 340px;
+		padding: 0 1.2em;
+		background: var(--color-teal-solid);
+		font-style: italic;
+		font-size: 0.85rem;
+		line-height: 64px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/* Too cramped on phones — the demo hides the tabs on small screens */
+	@media (max-width: 700px) {
+		#nav-fixed {
+			display: none;
 		}
 	}
 </style>
