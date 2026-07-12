@@ -50,10 +50,36 @@ export interface Post {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Product {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
+  price?: string;
+  price_old?: string;
+  rating?: number;
+  button?: string;
+  stock?: string;
+  excerpt?: string;
+  content?: PortableTextBlock[];
+  sku?: string;
+  gallery?: unknown;
+  variants?: unknown;
+  reviews?: unknown;
+  oos?: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     portfolio: Portfolio;
     posts: Post;
+    products: Product;
   }
 }
