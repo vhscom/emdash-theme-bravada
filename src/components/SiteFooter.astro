@@ -10,8 +10,8 @@
  */
 import { getMenu, getEmDashCollection, getSiteSettings, getWidgetArea } from "emdash";
 import { resolveBlogSiteIdentity } from "../utils/site-identity";
-import RichText from "../components/RichText.astro";
-import SocialIcon from "../components/SocialIcon.astro";
+import RichText from "./RichText.astro";
+import SocialIcon from "./SocialIcon.astro";
 
 const { siteTitle, siteTagline } = resolveBlogSiteIdentity(await getSiteSettings());
 
