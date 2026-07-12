@@ -494,3 +494,27 @@ const isLoggedIn = !!Astro.locals.user;
 		}
 	}
 </style>
+
+<script>
+	// The header owns the hamburger button. It asks the MobileMenu to
+	// toggle via a "nav:toggle" event and mirrors the menu's authoritative
+	// "nav:change" broadcast onto the button — neither component queries
+	// the other's DOM.
+	const burger = document.querySelector<HTMLButtonElement>(".hamburger");
+	burger?.addEventListener("click", () =>
+		document.dispatchEvent(new CustomEvent("nav:toggle"))
+	);
+	document.addEventListener("nav:change", (e) => {
+		const { open, restoreFocus } = (e as CustomEvent).detail;
+		burger?.setAttribute("aria-expanded", String(open));
+		if (!open && restoreFocus) burger?.focus();
+	});
+
+	// Over-hero header turns solid once the page scrolls past the top.
+	// The header owns its own scroll state (the back-to-top button owns
+	// its own listener in Base).
+	const header = document.querySelector(".site-header");
+	const onScroll = () => header?.classList.toggle("header-fixed", window.scrollY > 30);
+	onScroll();
+	window.addEventListener("scroll", onScroll, { passive: true });
+</script>

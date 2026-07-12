@@ -575,18 +575,12 @@ const pageCtx = createPublicPageContext({
 		</button>
 
 		<script>
-			// Bravada fixed-menu scroll state: the over-hero header turns
-			// solid once the page scrolls past the top; the back-to-top
-			// button fades in after a screenful.
-			const header = document.querySelector(".site-header");
+			// Back-to-top button owns its own scroll visibility and click.
+			// (The header owns its .header-fixed scroll state in SiteHeader.)
 			const toTop = document.getElementById("toTop");
 
-			function onScroll() {
-				const y = window.scrollY;
-				header?.classList.toggle("header-fixed", y > 30);
-				toTop?.classList.toggle("visible", y > window.innerHeight);
-			}
-
+			const onScroll = () =>
+				toTop?.classList.toggle("visible", window.scrollY > window.innerHeight);
 			onScroll();
 			window.addEventListener("scroll", onScroll, { passive: true });
 

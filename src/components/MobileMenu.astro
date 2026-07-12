@@ -141,10 +141,13 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	// Bravada fullscreen burger menu (cryoutMobileMenuInit): fade the
 	// teal layer in, drop items in with staggered delays, morph the
 	// hamburger into an X, collapse submenus behind dropdown toggles.
-	// The hamburger lives in Base's header; we drive it via the global
-	// body.burgermenu-active class.
-	const burger = document.querySelector<HTMLButtonElement>(".hamburger");
+	// This component owns the menu's open state and the body classes.
+	// It never touches the hamburger — SiteHeader dispatches "nav:toggle"
+	// to ask for a change, and we broadcast "nav:change" so the header can
+	// mirror aria-expanded. The body.burgermenu-active class stays the CSS
+	// contract both components style against.
 	const mobileMenu = document.getElementById("mobile-menu");
+	let isOpen = false;
 
 	// Staggered entrance (demo: transition-delay = 0.03s * index)
 	mobileMenu
@@ -153,8 +156,9 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 			li.style.transitionDelay = `${0.03 * i}s`;
 		});
 
-	function setBurger(open: boolean) {
-		if (!mobileMenu) return;
+	function setOpen(open: boolean, restoreFocus = false) {
+		if (!mobileMenu || open === isOpen) return;
+		isOpen = open;
 		if (open) {
 			mobileMenu.hidden = false;
 			requestAnimationFrame(() =>
@@ -165,23 +169,17 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		} else {
 			document.body.classList.remove("burgermenu-active", "noscroll");
 			setTimeout(() => {
-				mobileMenu.hidden = true;
+				if (!isOpen) mobileMenu.hidden = true;
 			}, 500);
 		}
-		burger?.setAttribute("aria-expanded", String(open));
+		document.dispatchEvent(
+			new CustomEvent("nav:change", { detail: { open, restoreFocus } })
+		);
 	}
 
-	burger?.addEventListener("click", () =>
-		setBurger(!document.body.classList.contains("burgermenu-active"))
-	);
+	document.addEventListener("nav:toggle", () => setOpen(!isOpen));
 	document.addEventListener("keydown", (e) => {
-		if (
-			e.key === "Escape" &&
-			document.body.classList.contains("burgermenu-active")
-		) {
-			setBurger(false);
-			burger?.focus();
-		}
+		if (e.key === "Escape" && isOpen) setOpen(false, true);
 	});
 	// Close when a real link is followed. Placeholder "#" parents
 	// (the demo's inert dropdown parents) don't navigate or close —
@@ -195,7 +193,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 					?.click();
 				return;
 			}
-			setBurger(false);
+			setOpen(false);
 		});
 	});
 
