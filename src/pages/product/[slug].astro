@@ -38,6 +38,7 @@ const reviews =
 
 <Base
 	title={d.title}
+	description={(d.excerpt as string) || undefined}
 	content={{ collection: "products", id: d.id, slug }}
 	overHero
 >
@@ -51,7 +52,7 @@ const reviews =
 			<div class="product-top">
 				<div class="product-gallery">
 					<div class="gallery-main">
-						<img src={mainImage} alt={d.title} />
+						<img src={mainImage} alt={d.title} width="600" height="600" />
 						{d.price_old && <span class="shop-sale">Sale!</span>}
 					</div>
 					{
@@ -64,7 +65,7 @@ const reviews =
 										data-full={g}
 										aria-label={`Show image ${i + 1}`}
 									>
-										<img src={g} alt="" loading="lazy" />
+										<img src={g} alt="" loading="lazy" width="600" height="600" />
 									</button>
 								))}
 							</div>
@@ -121,7 +122,7 @@ const reviews =
 														<label>{v.label}</label>
 													</td>
 													<td class="variant-value">
-														<select>
+														<select aria-label={v.label}>
 															<option value="">Choose an option</option>
 															{v.options
 																.filter((o) => o !== "Choose an option")
@@ -166,28 +167,28 @@ const reviews =
 
 			<div class="product-tabs">
 				<ul class="tabs-nav" role="tablist">
-					<li>
-						<button type="button" class="tab-link active" data-tab="description" role="tab" aria-selected="true">
+					<li role="presentation">
+						<button type="button" class="tab-link active" data-tab="description" role="tab" id="tablabel-description" aria-controls="tab-description" aria-selected="true">
 							Description
 						</button>
 					</li>
 					{
 						reviews.length > 0 && (
-							<li>
-								<button type="button" class="tab-link" data-tab="reviews" role="tab" aria-selected="false">
+							<li role="presentation">
+								<button type="button" class="tab-link" data-tab="reviews" role="tab" id="tablabel-reviews" aria-controls="tab-reviews" aria-selected="false">
 									Reviews ({reviews.length})
 								</button>
 							</li>
 						)
 					}
 				</ul>
-				<section class="tab-panel active" data-panel="description" id="tab-description">
+				<section class="tab-panel active" data-panel="description" id="tab-description" role="tabpanel" aria-labelledby="tablabel-description" tabindex="0">
 					<h2 class="panel-title"><span>Description</span></h2>
 					<RichText value={d.content} />
 				</section>
 				{
 					reviews.length > 0 && (
-						<section class="tab-panel" data-panel="reviews" id="tab-reviews">
+						<section class="tab-panel" data-panel="reviews" id="tab-reviews" role="tabpanel" aria-labelledby="tablabel-reviews" tabindex="0">
 							<h2 class="panel-title">
 								<span>
 									{reviews.length} {reviews.length === 1 ? "review" : "reviews"} for {d.title}
@@ -235,7 +236,7 @@ const reviews =
 								<li class="related-item">
 									<a href={`/product/${p.id}`} class="related-thumb" tabindex="-1">
 										{p.data.price_old && <span class="shop-sale">Sale!</span>}
-										<img src={getMediaUrl(p.data.featured_image)} alt="" loading="lazy" />
+										<img src={getMediaUrl(p.data.featured_image)} alt="" loading="lazy" width="600" height="600" />
 										<span class="related-button">{p.data.oos ? "Read more" : (p.data.button ?? "Add to basket")}</span>
 									</a>
 									<a href={`/product/${p.id}`} class="related-title">

@@ -4,6 +4,7 @@ import RichText from "../components/RichText.astro";
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 import SidebarWidgets from "../components/SidebarWidgets.astro";
+import { metaDescription } from "../utils/reading-time";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -34,6 +35,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 
 <Base
 	title={page.data.title}
+	description={metaDescription(page.data.content) ?? page.data.title}
 	content={{ collection: "pages", id: page.data.id, slug }}
 	overHero
 >

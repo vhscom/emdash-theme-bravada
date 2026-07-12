@@ -46,6 +46,23 @@ export function extractText(blocks: PortableTextBlock[] | undefined): string {
 }
 
 /**
+ * Build a meta-description string from Portable Text content: the first
+ * ~155 characters of plain text, trimmed at a word boundary. Returns
+ * undefined when there is no usable text, so callers can fall back.
+ */
+export function metaDescription(
+	content: PortableTextBlock[] | undefined,
+	max = 155,
+): string | undefined {
+	const text = extractText(content).trim();
+	if (!text) return undefined;
+	if (text.length <= max) return text;
+	const clipped = text.slice(0, max);
+	const lastSpace = clipped.lastIndexOf(" ");
+	return `${(lastSpace > 40 ? clipped.slice(0, lastSpace) : clipped).trimEnd()}…`;
+}
+
+/**
  * Calculate reading time in minutes from Portable Text content
  */
 export function getReadingTime(content: PortableTextBlock[] | undefined): number {

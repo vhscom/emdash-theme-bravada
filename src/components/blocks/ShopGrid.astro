@@ -59,7 +59,7 @@ const countText = (page: number) =>
 				>
 					<a href={item.url ?? "#"} class="shop-thumb" tabindex="-1">
 						{item.sale && <span class="shop-sale">Sale!</span>}
-						{item.image && <img src={item.image} alt="" loading="lazy" />}
+						{item.image && <img src={item.image} alt="" loading="lazy" width="600" height="600" />}
 						<span class="shop-button">{item.button ?? "Add to basket"}</span>
 					</a>
 					<a href={item.url ?? "#"} class="shop-title">
