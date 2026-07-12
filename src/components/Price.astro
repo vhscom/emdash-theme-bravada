@@ -1,0 +1,43 @@
+---
+/**
+ * WooCommerce-style price: an optional struck-through old price (muted)
+ * followed by the current price. Teal by default, matching the demo's
+ * shop grid, product summary, and related-products cards. `size` sets
+ * the font size via --price-size.
+ */
+interface Props {
+	/** Current price, e.g. "£15.00" */
+	now?: string;
+	/** Pre-sale price, rendered struck through, e.g. "£35.00" */
+	was?: string;
+	/** font-size, e.g. "1.6rem" (default: inherit) */
+	size?: string;
+}
+
+const { now, was, size } = Astro.props;
+---
+
+{
+	(now || was) && (
+		<span class="price" style={size ? `--price-size: ${size}` : undefined}>
+			{was && <del>{was}</del>}
+			{now && <ins>{now}</ins>}
+		</span>
+	)
+}
+
+<style>
+	.price {
+		font-size: var(--price-size, inherit);
+		color: var(--color-teal);
+	}
+
+	.price del {
+		margin-right: 0.5em;
+		color: var(--color-muted);
+	}
+
+	.price ins {
+		text-decoration: none;
+	}
+</style>

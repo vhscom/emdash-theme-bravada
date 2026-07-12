@@ -3,6 +3,8 @@ import { getEmDashEntry, getEntryTerms, getEntriesByTerm, decodeSlug } from "emd
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import RichText from "../../components/RichText.astro";
+import StarRating from "../../components/StarRating.astro";
+import Price from "../../components/Price.astro";
 import { getMediaUrl } from "../../utils/media-url";
 
 const slug = decodeSlug(Astro.params.slug);
@@ -78,18 +80,7 @@ const reviews =
 					{
 						typeof d.rating === "number" && (
 							<p class="product-rating-row">
-								<span
-									class="product-rating"
-									role="img"
-									aria-label={`Rated ${d.rating} out of 5`}
-								>
-									<span class="rating-fill" style={`width: ${(d.rating / 5) * 100}%`}>
-										★★★★★
-									</span>
-									<span class="rating-track" aria-hidden="true">
-										★★★★★
-									</span>
-								</span>
+								<StarRating value={d.rating} size="0.9em" />
 								{reviews.length > 0 && (
 									<a href="#tab-reviews" class="review-count">
 										({reviews.length} customer {reviews.length === 1 ? "review" : "reviews"})
@@ -100,10 +91,7 @@ const reviews =
 					}
 					{
 						(d.price || d.price_old) && (
-							<p class="product-price">
-								{d.price_old && <del>{d.price_old}</del>}
-								{d.price && <ins>{d.price}</ins>}
-							</p>
+							<Price now={d.price} was={d.price_old} size="1.6rem" />
 						)
 					}
 					{d.excerpt && <p class="product-short">{d.excerpt}</p>}
@@ -205,14 +193,7 @@ const reviews =
 										</span>
 										<div class="review-body">
 											{typeof r.rating === "number" && (
-												<span class="product-rating review-stars" role="img" aria-label={`Rated ${r.rating} out of 5`}>
-													<span class="rating-fill" style={`width: ${(r.rating / 5) * 100}%`}>
-														★★★★★
-													</span>
-													<span class="rating-track" aria-hidden="true">
-														★★★★★
-													</span>
-												</span>
+												<StarRating value={r.rating} size="0.9em" />
 											)}
 											<p class="review-meta">
 												<strong>{r.author}</strong>
@@ -244,21 +225,9 @@ const reviews =
 										{p.data.title}
 									</a>
 									{typeof p.data.rating === "number" && (
-										<span class="product-rating related-stars" role="img" aria-label={`Rated ${p.data.rating} out of 5`}>
-											<span class="rating-fill" style={`width: ${(p.data.rating / 5) * 100}%`}>
-												★★★★★
-											</span>
-											<span class="rating-track" aria-hidden="true">
-												★★★★★
-											</span>
-										</span>
+										<StarRating value={p.data.rating} size="0.9em" />
 									)}
-									{(p.data.price || p.data.price_old) && (
-										<span class="related-price">
-											{p.data.price_old && <del>{p.data.price_old}</del>}
-											{p.data.price && <ins>{p.data.price}</ins>}
-										</span>
-									)}
+									<Price now={p.data.price as string} was={p.data.price_old as string} />
 								</li>
 							))}
 						</ul>
@@ -384,27 +353,6 @@ const reviews =
 		margin: 0.4em 0 0;
 	}
 
-	.product-rating {
-		position: relative;
-		display: inline-block;
-		font-size: 0.9em;
-		letter-spacing: 2px;
-		line-height: 1;
-		color: var(--color-teal);
-	}
-
-	.rating-track {
-		color: var(--color-border);
-	}
-
-	.rating-fill {
-		position: absolute;
-		top: 0;
-		left: 0;
-		overflow: hidden;
-		white-space: nowrap;
-		color: var(--color-teal);
-	}
 
 	/* Demo: gold review-count link */
 	.review-count {
@@ -417,20 +365,10 @@ const reviews =
 		color: var(--color-teal);
 	}
 
-	/* Demo .summary .price: teal 25.9px with 25.9px below */
-	.product-price {
+	/* Demo .summary .price: teal 25.9px with 25.9px below (Price component) */
+	.product-summary :global(.price) {
+		display: block;
 		margin: 0.6em 0 1em;
-		font-size: 1.6rem;
-		color: var(--color-teal);
-	}
-
-	.product-price del {
-		margin-right: 0.5em;
-		color: var(--color-muted);
-	}
-
-	.product-price ins {
-		text-decoration: none;
 	}
 
 	.product-short {
@@ -699,22 +637,12 @@ const reviews =
 		color: var(--color-gold);
 	}
 
-	.related-stars {
+	.related-item :global(.star-rating) {
 		margin-top: 0.4em;
 	}
 
-	.related-price {
+	.related-item :global(.price) {
 		margin-top: 0.3em;
-		color: var(--color-teal);
-	}
-
-	.related-price del {
-		margin-right: 0.4em;
-		color: var(--color-muted);
-	}
-
-	.related-price ins {
-		text-decoration: none;
 	}
 
 	@media (max-width: 900px) {

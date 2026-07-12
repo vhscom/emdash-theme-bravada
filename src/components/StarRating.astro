@@ -1,0 +1,53 @@
+---
+/**
+ * Bravada's five-star rating: a teal fill clipped to the score width
+ * over a faint full track. Shared by the shop grid, product widgets,
+ * and the single-product page (summary, reviews, related).
+ *
+ * `size` sets the star scale via the --star-size custom property; call
+ * sites tweak spacing by targeting :global(.star-rating).
+ */
+interface Props {
+	/** 0–5 */
+	value: number;
+	/** font-size for the stars, e.g. "0.9em" (default 0.85em) */
+	size?: string;
+}
+
+const { value, size } = Astro.props;
+const pct = (Math.max(0, Math.min(5, value)) / 5) * 100;
+---
+
+<span
+	class="star-rating"
+	role="img"
+	aria-label={`Rated ${value} out of 5`}
+	style={size ? `--star-size: ${size}` : undefined}
+>
+	<span class="star-rating-fill" style={`width: ${pct}%`}>★★★★★</span>
+	<span class="star-rating-track" aria-hidden="true">★★★★★</span>
+</span>
+
+<style>
+	.star-rating {
+		position: relative;
+		display: inline-block;
+		font-size: var(--star-size, 0.85em);
+		letter-spacing: 2px;
+		line-height: 1;
+		color: var(--color-teal);
+	}
+
+	.star-rating-track {
+		color: var(--color-border);
+	}
+
+	.star-rating-fill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		color: var(--color-teal);
+	}
+</style>

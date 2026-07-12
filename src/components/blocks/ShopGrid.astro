@@ -24,6 +24,9 @@ interface ShopGridNode {
 	items?: ShopItem[];
 }
 
+import StarRating from "../StarRating.astro";
+import Price from "../Price.astro";
+
 const { node } = Astro.props as { node: ShopGridNode };
 const { items = [] } = node;
 const priceNum = (p?: string) => Number((p ?? "").replace(/[^0-9.]/g, "")) || 0;
@@ -65,26 +68,8 @@ const countText = (page: number) =>
 					<a href={item.url ?? "#"} class="shop-title">
 						{item.title}
 					</a>
-					{typeof item.rating === "number" && (
-						<span
-							class="shop-stars"
-							role="img"
-							aria-label={`Rated ${item.rating} out of 5`}
-						>
-							<span class="shop-stars-fill" style={`width: ${(item.rating / 5) * 100}%`}>
-								★★★★★
-							</span>
-							<span class="shop-stars-track" aria-hidden="true">
-								★★★★★
-							</span>
-						</span>
-					)}
-					{(item.price || item.priceOld) && (
-						<span class="shop-price">
-							{item.priceOld && <del>{item.priceOld}</del>}
-							{item.price && <ins>{item.price}</ins>}
-						</span>
-					)}
+					{typeof item.rating === "number" && <StarRating value={item.rating} />}
+					<Price now={item.price} was={item.priceOld} />
 				</li>
 			))
 		}
@@ -330,42 +315,14 @@ const countText = (page: number) =>
 		color: var(--color-gold);
 	}
 
-	.shop-stars {
-		position: relative;
-		display: inline-block;
+	/* Rating and price are shared components (StarRating / Price); only
+	   their spacing within the card is a shop concern. */
+	.shop-product :global(.star-rating) {
 		margin-top: 0.4em;
-		font-size: 0.85em;
-		letter-spacing: 2px;
-		line-height: 1;
-		color: var(--color-teal);
 	}
 
-	.shop-stars-track {
-		color: var(--color-border);
-	}
-
-	.shop-stars-fill {
-		position: absolute;
-		top: 0;
-		left: 0;
-		overflow: hidden;
-		white-space: nowrap;
-		color: var(--color-teal);
-	}
-
-	.shop-price {
+	.shop-product :global(.price) {
 		margin-top: 0.5em;
-		color: var(--color-teal);
-	}
-
-	/* Sale pricing: struck-through old price in muted grey */
-	.shop-price del {
-		margin-right: 0.5em;
-		color: var(--color-muted);
-	}
-
-	.shop-price ins {
-		text-decoration: none;
 	}
 
 	/* Demo woocommerce-pagination: bordered squares with 1em gaps,

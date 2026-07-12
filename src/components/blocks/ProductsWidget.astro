@@ -21,6 +21,8 @@ interface ProductsNode {
 	items?: ProductItem[];
 }
 
+import StarRating from "../StarRating.astro";
+
 const { node } = Astro.props as { node: ProductsNode };
 const { items = [] } = node;
 ---
@@ -34,21 +36,7 @@ const { items = [] } = node;
 						{item.title}
 					</a>
 					{typeof item.rating === "number" && (
-						<span
-							class="product-stars"
-							role="img"
-							aria-label={`Rated ${item.rating} out of 5`}
-						>
-							<span
-								class="product-stars-fill"
-								style={`width: ${(item.rating / 5) * 100}%`}
-							>
-								★★★★★
-							</span>
-							<span class="product-stars-track" aria-hidden="true">
-								★★★★★
-							</span>
-						</span>
+						<StarRating value={item.rating} size="0.8em" />
 					)}
 					{item.price && <span class="product-price">{item.price}</span>}
 					{item.by && <span class="product-by">{item.by}</span>}
@@ -99,29 +87,6 @@ const { items = [] } = node;
 
 	.product-title:hover {
 		color: var(--color-gold);
-	}
-
-	/* Star rating: teal fill over a faint track */
-	.product-stars {
-		position: relative;
-		display: inline-block;
-		font-size: 0.8em;
-		letter-spacing: 2px;
-		line-height: 1;
-		color: var(--color-teal);
-	}
-
-	.product-stars-track {
-		color: var(--color-border);
-	}
-
-	.product-stars-fill {
-		position: absolute;
-		top: 0;
-		left: 0;
-		overflow: hidden;
-		white-space: nowrap;
-		color: var(--color-teal);
 	}
 
 	.product-price,
