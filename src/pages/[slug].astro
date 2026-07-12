@@ -22,7 +22,12 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 // Pages that open with their own Bravada slider (e.g. a landing page)
 // skip the standard fullscreen page header.
-const hasOwnHero = page.data.content?.[0]?._type === "bravada.hero";
+const firstBlock = page.data.content?.[0];
+const hasOwnHero = firstBlock?._type === "bravada.hero";
+
+// Social preview image: the page's leading hero slide, if it has one.
+const ogImage =
+	hasOwnHero && typeof firstBlock.image === "string" ? firstBlock.image : undefined;
 
 // Bravada per-page layout (the demo's Layouts pages): a select field
 // on the pages collection — none | left | right | two-left |
@@ -36,6 +41,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 <Base
 	title={page.data.title}
 	description={metaDescription(page.data.content) ?? page.data.title}
+	image={ogImage}
 	content={{ collection: "pages", id: page.data.id, slug }}
 	overHero
 >

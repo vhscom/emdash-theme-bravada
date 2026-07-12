@@ -31,6 +31,7 @@ const [types, tags] = await Promise.all([
 <Base
 	title={project.data.title}
 	description={metaDescription(project.data.content)}
+	image={getMediaUrl(project.data.featured_image)}
 	content={{ collection: "portfolio", id: project.data.id, slug }}
 	overHero
 >

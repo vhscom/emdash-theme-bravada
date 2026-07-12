@@ -39,6 +39,7 @@ const reviews =
 <Base
 	title={d.title}
 	description={(d.excerpt as string) || undefined}
+	image={mainImage}
 	content={{ collection: "products", id: d.id, slug }}
 	overHero
 >

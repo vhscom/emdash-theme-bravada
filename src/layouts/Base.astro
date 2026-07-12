@@ -46,6 +46,13 @@ const { siteTitle, siteTagline, siteLogo } = resolveBlogSiteIdentity(await getSi
 // SSR (output: "server") means Astro.url carries the real request host
 // in production, so this resolves correctly once deployed.
 const canonicalUrl = canonical ?? `${Astro.url.origin}${Astro.url.pathname}`;
+// Open Graph requires absolute image URLs; promote a root-relative path
+// to the current origin (SSR carries the real host in production).
+const ogImageUrl = image
+	? image.startsWith("http")
+		? image
+		: `${Astro.url.origin}${image}`
+	: undefined;
 // If title already includes site title (from getSeoMeta), use as-is
 const fullTitle = title.includes(siteTitle) ? title : `${title} — ${siteTitle}`;
 
@@ -80,9 +87,9 @@ const pageCtx = createPublicPageContext({
 	pageTitle: pageTitle ?? title,
 	description,
 	canonical: canonicalUrl,
-	image,
+	image: ogImageUrl,
 	content,
-	seo: { ogImage: image, robots },
+	seo: { ogImage: ogImageUrl, robots },
 	articleMeta: { publishedTime, modifiedTime, author },
 	siteName: siteTitle,
 });

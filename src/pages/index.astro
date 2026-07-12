@@ -37,7 +37,14 @@ if (Astro.cache?.enabled) {
 
 // The header floats transparent over the page when the landing content
 // leads with the Bravada slider (bravada-over-menu behavior)
-const overHero = home?.data.content?.[0]?._type === "bravada.hero";
+const firstBlock = home?.data.content?.[0];
+const overHero = firstBlock?._type === "bravada.hero";
+
+// Social preview image: the landing hero's first slide, else the logo.
+const heroImage =
+	firstBlock?._type === "bravada.hero" && typeof firstBlock.image === "string"
+		? firstBlock.image
+		: (settings?.logo?.url ?? undefined);
 
 const visiblePosts = posts.slice(0, POSTS_PER_PAGE);
 const hasMorePosts = posts.length > POSTS_PER_PAGE;
@@ -64,7 +71,7 @@ const cards = visiblePosts.map((post) => ({
 }));
 ---
 
-<Base title={siteTitle} description={siteTagline} overHero={overHero}>
+<Base title={siteTitle} description={siteTagline} image={heroImage} overHero={overHero}>
 	{
 		home?.data.content && (
 			<div class="landing-content">
