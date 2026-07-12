@@ -1,0 +1,496 @@
+---
+/**
+ * Bravada fixed header (#access): the 75px top bar with the wordmark
+ * ribbon, the desktop nav with three-level dropdowns, an optional admin
+ * link, and the hamburger that opens the fullscreen MobileMenu.
+ *
+ * Self-contained: fetches its own site identity and primary menu, and
+ * highlights the active section via the shared nav-section helper. The
+ * `overHero` prop (a per-page Base concern) floats the bar transparent
+ * over a leading hero until the page scrolls (Base's scroll script
+ * toggles .header-fixed). The wordmark ribbon and top-level wash-pill
+ * styles live in theme.css.
+ */
+import { getMenu, getSiteSettings } from "emdash";
+import { resolveBlogSiteIdentity } from "../utils/site-identity";
+import { createInSection } from "../utils/nav-section";
+
+interface Props {
+	/** Float the header transparent over a leading hero (bravada over-menu) */
+	overHero?: boolean;
+}
+
+const { overHero = false } = Astro.props;
+const { siteTitle, siteLogo } = resolveBlogSiteIdentity(await getSiteSettings());
+const menu = await getMenu("primary");
+const inSection = createInSection(Astro.url.pathname);
+const isLoggedIn = !!Astro.locals.user;
+---
+
+<header class:list={["site-header", { "over-hero": overHero }]}>
+	<nav class="nav">
+		<a href="/" class="site-title">
+			{siteLogo
+				? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="site-logo-img" />
+				: siteTitle
+			}
+		</a>
+		<div class="nav-right">
+			<ul class="nav-links">
+				{
+					menu?.items.map((item) => (
+						<li
+							class:list={[
+								"menu-item",
+								{
+									"has-children": item.children.length > 0,
+									current:
+										inSection(item.url) ||
+										item.children.some((c) => inSection(c.url)),
+								},
+							]}
+						>
+							<a href={item.url} target={item.target}>
+								<span>{item.label}</span>
+							</a>
+							{item.children.length > 0 && (
+								<ul class="sub-menu">
+									{item.children.map((child) => (
+										<li
+											class:list={[
+												{ "has-children": (child.children?.length ?? 0) > 0 },
+											]}
+										>
+											<a href={child.url} target={child.target}>
+												<span>{child.label}</span>
+											</a>
+											{(child.children?.length ?? 0) > 0 && (
+												<ul class="sub-menu">
+													{child.children.map((grand) => (
+														<li>
+															<a href={grand.url} target={grand.target}>
+																<span>{grand.label}</span>
+															</a>
+														</li>
+													))}
+												</ul>
+											)}
+										</li>
+									))}
+								</ul>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+		{
+			isLoggedIn && (
+				<a href="/_emdash/admin" class="nav-admin">
+					Admin
+				</a>
+			)
+		}
+		<button
+			type="button"
+			class="hamburger"
+			aria-label="Menu"
+			aria-expanded="false"
+			aria-controls="mobile-menu"
+		>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+	</nav>
+</header>
+
+<style>
+	/* Bravada fixed menu: 75px bar pinned to the top. Solid white
+	   normally; transparent when floating over a hero until the
+	   page scrolls (.header-fixed added by Base's scroll script). */
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background: var(--color-surface);
+		box-shadow: 0 1px 0 var(--color-border-subtle);
+		transition:
+			background 0.3s ease,
+			box-shadow 0.3s ease;
+	}
+
+	.site-header.over-hero {
+		position: fixed;
+		left: 0;
+		right: 0;
+		box-shadow: none;
+	}
+
+	.site-header.over-hero.header-fixed {
+		background: var(--color-surface);
+		box-shadow: 0 1px 0 var(--color-border-subtle);
+	}
+
+	.nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		max-width: var(--wide-width);
+		margin: 0 auto;
+		padding: var(--spacing-4) var(--spacing-6);
+		height: var(--nav-height);
+	}
+
+	.site-title {
+		/* Demo #site-title: 1.3em of the 16px root */
+		font-size: 1.3rem;
+		font-weight: 600;
+		color: var(--color-text);
+		text-decoration: none;
+		letter-spacing: var(--tracking-snug);
+	}
+
+	.site-title:hover {
+		color: var(--color-brand);
+	}
+
+	.site-logo-img {
+		height: 48px;
+		width: auto;
+		display: block;
+		margin: -8px 0;
+	}
+
+	.nav-right {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-6);
+		margin-inline-start: auto;
+	}
+
+	/* Demo #access: no gap between items — each link carries
+	   0 2em padding (1.4em under 1200px), so the hover wash pill
+	   hugs the label like the original */
+	.nav-links {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-size: var(--font-size-base);
+	}
+
+	.nav-links .menu-item {
+		position: relative;
+	}
+
+	/* Demo top-level hover is the wash pill only — no color change */
+	.nav-links a {
+		text-decoration: none;
+		color: var(--color-text);
+		transition: color var(--transition-fast);
+	}
+
+	/* Current section: gold like the demo's current-menu-item */
+	.nav-links .menu-item.current > a {
+		color: var(--color-gold);
+	}
+
+	.nav-links .menu-item > a {
+		display: block;
+		padding: 0 2em;
+		line-height: var(--nav-height);
+	}
+
+	@media (max-width: 1200px) {
+		.nav-links .menu-item > a {
+			padding: 0 1.4em;
+		}
+	}
+
+	/* Dropdowns: Bravada's dark teal submenu panel. It slides DOWN
+	   into place from -25px (demo: #access ul ul) with a soft
+	   drop shadow; item labels get a translucent white wash on
+	   hover (.sub-menu li a:hover span). */
+	/* Demo #access ul ul: transparent panel aligned to the item's
+	   left edge, min-width 125%, sliding down from -25px over
+	   .2s ease-in. Each LINK carries the dark teal background. */
+	.nav-links .sub-menu {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 1000;
+		min-width: 125%;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-25px);
+		transition: 0.2s all ease-in;
+	}
+
+	/* Caret pointing up at the parent item (demo
+	   #access > div > ul > li > ul::before, border-bottom teal) —
+	   first level only; flyouts have no caret */
+	.nav-links > .menu-item > .sub-menu::before {
+		content: "";
+		position: absolute;
+		bottom: 100%;
+		left: 2em;
+		border: 6px solid transparent;
+		border-bottom-color: var(--color-submenu-bg);
+	}
+
+	/* Third level flyout (demo #access ul ul ul): opens beside its
+	   parent row, 10px out, no vertical slide */
+	.nav-links .sub-menu .sub-menu {
+		top: 0;
+		left: calc(100% + 10px);
+		transform: none;
+	}
+
+	.nav-links .sub-menu li {
+		position: relative;
+	}
+
+	.nav-links .sub-menu li.has-children:hover > .sub-menu,
+	.nav-links .sub-menu li.has-children:focus-within > .sub-menu {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	/* Flyout-parent arrow (demo: a 6px teal triangle at the row's
+	   right edge that nudges outward on hover) */
+	.nav-links .sub-menu li.has-children > a::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: calc(100% - 6px);
+		width: 6px;
+		height: 6px;
+		margin: auto;
+		border: 6px solid transparent;
+		border-left-color: var(--color-submenu-bg);
+		transition: all 0.3s ease-out;
+	}
+
+	.nav-links .sub-menu li.has-children:hover > a::after {
+		left: 100%;
+	}
+
+	.nav-links .sub-menu li.has-children > a {
+		position: relative;
+	}
+
+	/* Right-pointing chevron on flyout parents, anchored to the
+	   row's right edge like the demo (span::after, absolute,
+	   right .25em); fades out as the arrow nudges on hover. The
+	   label reserves room for it. */
+	.nav-links .sub-menu li.has-children > a > span {
+		padding-right: 2em;
+	}
+
+	.nav-links .sub-menu li.has-children > a > span::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0.9em;
+		width: 0.45em;
+		height: 0.45em;
+		margin: auto;
+		border-right: 1.5px solid currentColor;
+		border-bottom: 1.5px solid currentColor;
+		transform: rotate(-45deg);
+		opacity: 0.5;
+		transition: 0.3s ease-out all;
+	}
+
+	.nav-links .sub-menu li.has-children:hover > a > span::after {
+		opacity: 0;
+	}
+
+	.nav-links .menu-item:hover > .sub-menu,
+	.nav-links .menu-item:focus-within > .sub-menu {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	/* Demo #access ul li: items never wrap — panels grow instead */
+	.nav-links .menu-item,
+	.nav-links .sub-menu li {
+		white-space: nowrap;
+	}
+
+	.nav-links .sub-menu li {
+		min-width: 150px;
+	}
+
+	/* Demo: #access ul li a { font-size: 1em } with line-height 3;
+	   white on #066664, gold on hover */
+	.nav-links .sub-menu a {
+		display: block;
+		padding: 0;
+		font-size: 1em;
+		line-height: 3;
+		background: var(--color-submenu-bg);
+		color: #ffffff !important;
+		transition: 0.3s color ease-out;
+	}
+
+	.nav-links .sub-menu a:hover,
+	.nav-links .sub-menu a:focus-visible {
+		color: var(--color-gold) !important;
+	}
+
+	.nav-links .sub-menu a span {
+		display: block;
+		padding: 0.3em 1.5em;
+		transition: 0.2s ease-out all;
+	}
+
+	.nav-links .sub-menu a:hover span,
+	.nav-links .sub-menu a:focus-visible span {
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.nav-admin {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		transition: color var(--transition-fast);
+	}
+
+	.nav-admin:hover {
+		color: var(--color-text);
+	}
+
+	/* Hamburger (Bravada .hamburger): three right-aligned bars
+	   (100/75/45%) that fill on hover and morph into an X. Shown at
+	   all widths like the demo — it opens the fullscreen side menu */
+	.hamburger {
+		display: inline-block;
+		position: relative;
+		align-self: center;
+		width: 36px;
+		height: 20px;
+		margin-left: 1em;
+		border: 0;
+		padding: 0;
+		background: transparent;
+		cursor: pointer;
+		transition: 0.5s ease-in-out;
+	}
+
+	.hamburger span {
+		display: block;
+		position: absolute;
+		right: 0;
+		height: 2px;
+		width: 100%;
+		border-radius: 3px;
+		background: var(--color-menu-link);
+		transition: 0.25s ease-in-out;
+	}
+
+	.site-header.over-hero:not(.header-fixed) .hamburger span {
+		background: #ffffff;
+	}
+
+	.hamburger span:nth-child(1) {
+		top: 0;
+		transform-origin: left top;
+	}
+
+	.hamburger span:nth-child(2) {
+		top: 9px;
+		width: 75%;
+		transform-origin: left center;
+	}
+
+	.hamburger span:nth-child(3) {
+		top: 18px;
+		width: 45%;
+		transform-origin: left bottom;
+	}
+
+	.hamburger:hover span {
+		width: 100%;
+	}
+
+	:global(body.burgermenu-active) .hamburger span {
+		width: 100%;
+		background: #ffffff;
+	}
+
+	:global(body.burgermenu-active) .hamburger span:nth-child(1) {
+		top: -3px;
+		transform: rotate(45deg);
+	}
+
+	:global(body.burgermenu-active) .hamburger span:nth-child(2) {
+		width: 0;
+		opacity: 0;
+		transform: translateX(-50%);
+	}
+
+	:global(body.burgermenu-active) .hamburger span:nth-child(3) {
+		top: 22px;
+		transform: rotate(-45deg);
+	}
+
+	/* While the burger menu is open the header floats above the teal
+	   layer: the menu links slide away (demo .burgermenu-active
+	   #access) and the hamburger — morphed into an X — stays exactly
+	   where it was clicked, acting as the close button. */
+	:global(body.burgermenu-active) .site-header,
+	:global(body.burgermenu-active) .site-header.over-hero.header-fixed {
+		z-index: 1001;
+		background: transparent;
+		box-shadow: none;
+	}
+
+	:global(body.burgermenu-active) .nav-right .nav-links,
+	:global(body.burgermenu-active) .nav-admin {
+		opacity: 0;
+		transform: translateX(50px);
+		pointer-events: none;
+	}
+
+	.nav-right .nav-links,
+	.nav-admin {
+		transition: 0.3s ease-out all;
+	}
+
+	:global(body.burgermenu-active) .site-title {
+		color: #ffffff !important;
+	}
+
+	:global(body.burgermenu-active) .site-title::before {
+		background: var(--color-gold);
+	}
+
+	/* Burger breakpoint: the inline menu gives way to the
+	   fullscreen mobile menu (Bravada shows the hamburger once
+	   the menu no longer fits) */
+	@media (max-width: 800px) {
+		.nav-right .nav-links {
+			display: none;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.site-title {
+			font-size: 1.15rem;
+		}
+
+		.nav-admin {
+			font-size: var(--font-size-xs);
+			white-space: nowrap;
+		}
+	}
+</style>
