@@ -12,6 +12,15 @@ same licence — see [LICENSE](./LICENSE).
 - **Bravada** — © 2020–25 Cryout Creations, GPL-3.0-or-later.
   <https://www.cryoutcreations.eu/wordpress-themes/bravada>
 
+## Base template
+
+This port was scaffolded from the EmDash blog starter
+([`@emdash-cms/template-blog`](https://github.com/emdash-cms/templates)),
+which is distributed for scaffolding new sites via `create-astro`. At the
+time of writing the templates repository declares no explicit licence
+(the EmDash CMS itself is MIT); template-derived structure is included
+here on the basis of that intended scaffolding use.
+
 ## Third-party components
 
 None of the third-party components bundled with the upstream WordPress theme
