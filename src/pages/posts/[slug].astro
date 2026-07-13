@@ -1154,12 +1154,13 @@ const publishDate =
 	/* Image-backed previous/next at the article foot (demo #nav-below):
 	   two 200px panels showing each neighbour's featured image under a
 	   directional dark gradient, with an uppercase label + title. */
+	/* Full-bleed like the demo: two edge-to-edge image panels forming a
+	   full-width band that flows into the "Continue reading" band and the
+	   footer below it. */
 	#nav-below {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		max-width: var(--wide-width);
-		margin: var(--spacing-16) auto 0;
-		padding: 0 var(--spacing-6);
+		margin-top: var(--spacing-16);
 	}
 
 	#nav-below a {
