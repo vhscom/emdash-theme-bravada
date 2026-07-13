@@ -137,10 +137,9 @@ const headerMeta = [
 	.filter(Boolean)
 	.join(", ");
 
-// Post-foot author block. The demo shows the author's avatar + name in the
-// hero; we can't hydrate a rich author card into the hero yet, so we surface
-// the byline in a block below the article instead. Falls back to the name
-// alone when the byline carries no avatar or bio (as the seed's does).
+// The demo's post hero stacks a circled author avatar over the byline
+// name in the after-title meta; the fuller author card (bio + website)
+// still lives in a block below the article.
 const author = bylines[0]?.byline;
 const authorAvatar = author?.avatarStorageKey
 	? `/_emdash/api/media/file/${author.avatarStorageKey}`
@@ -169,14 +168,23 @@ const publishDate =
 >
 	<PageHeader
 		title={post.data.title}
-		subtitle={[headerMeta, publishDate, `${readingTime} min read`]
+		subtitle={[authorAvatar ? null : headerMeta, publishDate, `${readingTime} min read`]
 			.filter(Boolean)
 			.join("  ·  ")}
 		image={featuredImageUrl}
 		imageAlt={post.data.title}
 		crumbs={[{ label: "Blog", href: "/posts" }, { label: post.data.title }]}
 		titleAttrs={post.edit.title}
-	/>
+	>
+		{
+			authorAvatar && (
+				<div class="hero-author" slot="meta">
+					<img src={authorAvatar} alt="" width="64" height="64" loading="eager" />
+					<em>{headerMeta}</em>
+				</div>
+			)
+		}
+	</PageHeader>
 	<div class="post-grid">
 		{/* One white card holds the article, related posts and comments;
 		    the sidebar sits alongside (demo: constrained inside .main). */}
@@ -414,6 +422,31 @@ const publishDate =
 </Base>
 
 <style>
+	/* Hero author chip — the demo's aftertitle-meta author: a 4em
+	   circled avatar stacked over the byline name (2px grey ring). */
+	.hero-author {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5em;
+		margin-top: 1.1em;
+	}
+
+	.hero-author img {
+		width: 4em;
+		height: 4em;
+		border-radius: 100%;
+		border: 2px solid rgb(255 255 255 / 65%);
+		object-fit: cover;
+	}
+
+	.hero-author em {
+		font-style: normal;
+		font-weight: 700;
+		font-size: 0.9375em;
+		color: #fff;
+	}
+
 	/* Article container */
 	.article {
 		max-width: var(--wide-width);
