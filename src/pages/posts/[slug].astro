@@ -18,6 +18,7 @@ import RichText from "../../components/RichText.astro";
 import PostCard from "../../components/PostCard.astro";
 import { getReadingTime } from "../../utils/reading-time";
 import { resolveBlogSiteIdentity } from "../../utils/site-identity";
+import { getMediaUrl } from "../../utils/media-url";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -94,6 +95,8 @@ const postIndex = allPosts.findIndex((p) => p.id === post.id);
 const newerPost = postIndex > 0 ? allPosts[postIndex - 1] : null;
 const olderPost =
 	postIndex >= 0 && postIndex < allPosts.length - 1 ? allPosts[postIndex + 1] : null;
+const olderImg = getMediaUrl(olderPost?.data.featured_image);
+const newerImg = getMediaUrl(newerPost?.data.featured_image);
 
 // Single batched query for related-posts tags, rather than one
 // getEntryTerms() call per related post.
@@ -272,6 +275,31 @@ const publishDate =
 			</aside>
 		</div>
 	</article>
+
+	{
+		(olderPost || newerPost) && (
+			<nav id="nav-below" aria-label="Previous and next post">
+				{olderPost && (
+					<a class="nav-below-prev" href={`/posts/${olderPost.id}`} rel="prev">
+						{olderImg && <img src={olderImg} alt="" loading="lazy" />}
+						<span class="nav-below-caption">
+							<em>Previous</em>
+							<span class="nav-below-title">{olderPost.data.title}</span>
+						</span>
+					</a>
+				)}
+				{newerPost && (
+					<a class="nav-below-next" href={`/posts/${newerPost.id}`} rel="next">
+						{newerImg && <img src={newerImg} alt="" loading="lazy" />}
+						<span class="nav-below-caption">
+							<em>Next</em>
+							<span class="nav-below-title">{newerPost.data.title}</span>
+						</span>
+					</a>
+				)}
+			</nav>
+		)
+	}
 
 	{
 		otherPostsWithTags.length > 0 && (
@@ -1120,6 +1148,108 @@ const publishDate =
 	@media (max-width: 700px) {
 		#nav-fixed {
 			display: none;
+		}
+	}
+
+	/* Image-backed previous/next at the article foot (demo #nav-below):
+	   two 200px panels showing each neighbour's featured image under a
+	   directional dark gradient, with an uppercase label + title. */
+	#nav-below {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		max-width: var(--wide-width);
+		margin: var(--spacing-16) auto 0;
+		padding: 0 var(--spacing-6);
+	}
+
+	#nav-below a {
+		position: relative;
+		display: block;
+		height: 200px;
+		overflow: hidden;
+		line-height: 0;
+		color: #ffffff;
+		background: var(--color-heading);
+	}
+
+	#nav-below img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+		object-position: 50% 50%;
+		transition: object-position 0.3s ease-out;
+	}
+
+	#nav-below a:hover img,
+	#nav-below a:focus-visible img {
+		object-position: 50% 55%;
+	}
+
+	/* Directional scrim so the caption stays legible over any image */
+	#nav-below a::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background: linear-gradient(
+			to right,
+			rgba(0, 0, 0, 0.85),
+			rgba(0, 0, 0, 0.3) 95%
+		);
+	}
+
+	#nav-below .nav-below-next::before {
+		background: linear-gradient(
+			to left,
+			rgba(0, 0, 0, 0.85),
+			rgba(0, 0, 0, 0.3) 95%
+		);
+	}
+
+	#nav-below .nav-below-caption {
+		position: absolute;
+		z-index: 2;
+		top: 50%;
+		left: 2.4em;
+		transform: translateY(-50%);
+		max-width: 78%;
+		line-height: 1.4;
+	}
+
+	#nav-below .nav-below-next {
+		text-align: right;
+	}
+
+	#nav-below .nav-below-next .nav-below-caption {
+		left: auto;
+		right: 2.4em;
+	}
+
+	/* Uppercase "Previous"/"Next" label on the gold highlighter strip */
+	#nav-below em {
+		display: inline;
+		font-style: normal;
+		font-size: 0.7em;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		background-image: var(--gold-scrim);
+		background-repeat: no-repeat;
+		background-size: 100% 0.4em;
+		background-position: 0 100%;
+	}
+
+	#nav-below .nav-below-title {
+		display: block;
+		margin-top: 0.35em;
+		font-family: var(--font-heading);
+		font-size: 1.5rem;
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	@media (max-width: 700px) {
+		#nav-below {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
