@@ -505,15 +505,15 @@
   ],
   "bylines": [
     {
-      "id": "byline-cryout",
-      "slug": "cryout",
-      "displayName": "Cryout",
-      "bio": "Cryout Creations builds fast, honest WordPress themes — and now writes about the craft behind them. Bravada is their magazine-style flagship, ported here to EmDash.",
-      "websiteUrl": "https://www.cryoutcreations.eu/",
+      "id": "byline-august",
+      "slug": "august",
+      "displayName": "August Reyes",
+      "bio": "August writes about design, typography, and the craft of publishing on the open web. A fictional demo author — replace with your own byline.",
+      "websiteUrl": "https://example.com/",
       "avatar": {
-        "storageKey": "authors/cryout.png",
-        "alt": "Cryout",
-        "filename": "cryout.png",
+        "storageKey": "authors/august.png",
+        "alt": "August Reyes",
+        "filename": "august.png",
         "mimeType": "image/png",
         "width": 512,
         "height": 512
@@ -4886,7 +4886,7 @@
         },
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -4976,7 +4976,7 @@
         },
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5065,7 +5065,7 @@
         },
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5153,7 +5153,7 @@
         },
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5243,7 +5243,7 @@
         },
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5332,7 +5332,7 @@
         },
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5420,7 +5420,7 @@
         },
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5439,7 +5439,7 @@
         "status": "published",
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5722,7 +5722,7 @@
         "status": "published",
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5794,7 +5794,7 @@
         "status": "published",
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -5866,7 +5866,7 @@
         "status": "published",
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -6040,7 +6040,7 @@
         "status": "published",
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -6170,7 +6170,7 @@
         "status": "published",
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -6243,7 +6243,7 @@
         "status": "published",
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
@@ -6343,7 +6343,7 @@
         "status": "published",
         "bylines": [
           {
-            "byline": "byline-cryout"
+            "byline": "byline-august"
           }
         ],
         "taxonomies": {
