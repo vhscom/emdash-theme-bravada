@@ -371,6 +371,19 @@ const publishDate =
 				navFixed.classList.toggle("nav-fixed-show", window.scrollY > 30);
 			onNavScroll();
 			window.addEventListener("scroll", onNavScroll, { passive: true });
+
+			// The full-bleed image prev/next band reaches the screen edges,
+			// so the floating tabs would collide with its captions. Retract
+			// the tabs while that band is on screen — it does the same job
+			// there anyway.
+			const navBelow = document.getElementById("nav-below");
+			if (navBelow && "IntersectionObserver" in window) {
+				new IntersectionObserver(
+					(entries) =>
+						navFixed.classList.toggle("nav-below-visible", entries[0].isIntersecting),
+					{ rootMargin: "0px 0px -20% 0px" }
+				).observe(navBelow);
+			}
 		}
 	</script>
 
@@ -1069,6 +1082,13 @@ const publishDate =
 
 	#nav-fixed.nav-fixed-show {
 		opacity: 1;
+	}
+
+	/* Retract while the full-bleed image band is on screen (avoids the
+	   tabs overlapping its edge-to-edge captions) */
+	#nav-fixed.nav-fixed-show.nav-below-visible {
+		opacity: 0;
+		pointer-events: none;
 	}
 
 	.nav-previous,
