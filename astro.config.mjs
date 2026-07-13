@@ -22,7 +22,18 @@ export default defineConfig({
 				directory: "./uploads",
 				baseUrl: "/_emdash/api/media/file",
 			}),
-			plugins: [auditLog],
+			plugins: [
+				auditLog,
+				{
+					id: "bravada-theme",
+					version: "0.1.0",
+					// Absolute file:// URL so the virtual emdash/plugins module
+					// can resolve this at build time (relative paths fail because
+					// the virtual module has no on-disk location to anchor them).
+					entrypoint: new URL("./src/plugins/bravada-theme/index.ts", import.meta.url)
+						.href,
+				},
+			],
 		}),
 	],
 	fonts: [

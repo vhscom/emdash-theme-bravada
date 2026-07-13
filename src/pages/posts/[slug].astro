@@ -7,6 +7,7 @@ import {
 	getSiteSettings,
 	getCommentCount,
 	getCollectionInfo,
+	getPluginSetting,
 } from "emdash";
 import { Comments, CommentForm } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
@@ -142,18 +143,18 @@ const authorAvatar = author?.avatarStorageKey
 	? `/_emdash/api/media/file/${author.avatarStorageKey}`
 	: undefined;
 
-// Theme setting: single-author sites can drop author attribution
-// everywhere on the post (hero chip, meta byline, author card) by
-// setting `showPostAuthor: false` in the seed's settings and
-// reapplying it (`npx emdash seed seed/seed.json --on-conflict=update`).
-const showAuthor =
-	(siteSettings as { showPostAuthor?: boolean } | undefined)?.showPostAuthor !== false;
-
-// Theme setting: hide the docked prev/next buttons (#nav-fixed) with
-// `showPostNav: false` in the seed's settings block. The full-bleed
-// previous/next image band above the footer is unaffected.
-const showPostNav =
-	(siteSettings as { showPostNav?: boolean } | undefined)?.showPostNav !== false;
+// Theme settings (admin → Plugins → Bravada Theme): showPostAuthor
+// drops author attribution everywhere on the post (hero chip, meta
+// byline, author card) for single-author sites; showPostNav hides the
+// docked prev/next buttons (#nav-fixed) — the full-bleed image band
+// above the footer is unaffected. Schema defaults aren't materialized,
+// so missing values mean "on".
+const [showAuthorSetting, showPostNavSetting] = await Promise.all([
+	getPluginSetting<boolean>("bravada-theme", "showPostAuthor"),
+	getPluginSetting<boolean>("bravada-theme", "showPostNav"),
+]);
+const showAuthor = showAuthorSetting !== false;
+const showPostNav = showPostNavSetting !== false;
 
 // Categories for the hero's pretitle row (demo: icon + linked list
 // above the title).

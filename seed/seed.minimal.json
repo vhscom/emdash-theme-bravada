@@ -7,9 +7,7 @@
   },
   "settings": {
     "title": "Bravada for Astro",
-    "tagline": "Clear, clean and simply gorgeous",
-    "showPostAuthor": true,
-    "showPostNav": true
+    "tagline": "Clear, clean and simply gorgeous"
   },
   "collections": [
     {

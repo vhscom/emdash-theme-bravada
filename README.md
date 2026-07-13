@@ -120,8 +120,9 @@ blog template.
 - **Colours and fonts**: override tokens in `src/styles/theme.css` (see the
   notes at the top of that file); webfonts are configured in
   `astro.config.mjs`. Don't edit `src/styles/tokens.css`.
-- **Post-page furniture**: see Theme settings below for `showPostAuthor`
-  (single-author sites) and `showPostNav` (docked prev/next buttons).
+- **Post-page furniture**: admin → Plugins → Bravada Theme toggles the
+  post author attribution and the docked prev/next buttons (see Theme
+  settings below).
 
 ## Deploy
 
@@ -147,25 +148,22 @@ For other targets (Cloudflare, Postgres, S3 storage) see the
 
 ## Theme settings
 
-Two boolean keys in the seed's `settings` block toggle post-page furniture.
-Apply changes by reapplying the seed **and restarting the dev server** (the
-running server caches settings in memory):
+Post-page display toggles live in a template-local plugin
+(`src/plugins/bravada-theme/`) and are edited in the admin:
+**Plugins → Bravada Theme**. Changes apply immediately — no restart, no
+seed edits.
 
-```bash
-npx emdash seed seed/seed.json --on-conflict=update
-```
-
-- **`showPostAuthor`** (default `true`) — post pages attribute content to
+- **Show post author** (default on) — post pages attribute content to
   the byline in three places: the avatar + name chip in the post hero, the
   byline in the article meta line, and the author card below the article.
-  For a single-author site where attribution is noise, `false` turns all
-  three off. The hero excerpt (the entry's Excerpt field, which is also the
+  For a single-author site where attribution is noise, turn all three off.
+  The hero excerpt (the entry's Excerpt field, which is also the
   search-engine description) is independent of author display — it keeps
   rendering, exactly as Bravada treats its excerpt and author-meta options
   as separate toggles.
-- **`showPostNav`** (default `true`) — the docked prev/next buttons that
-  fade in beside the article on scroll (demo `#nav-fixed`). `false` hides
-  them; the full-bleed previous/next image band above the footer stays.
+- **Show prev/next buttons** (default on) — the docked buttons that fade
+  in beside the article on scroll (demo `#nav-fixed`). Turning them off
+  leaves the full-bleed previous/next image band above the footer intact.
 
 ## Documentation
 
