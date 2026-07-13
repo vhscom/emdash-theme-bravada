@@ -5,6 +5,7 @@ import {
 	getSeoMeta,
 	decodeSlug,
 	getSiteSettings,
+	getSiteSetting,
 	getCommentCount,
 	getCollectionInfo,
 } from "emdash";
@@ -145,12 +146,29 @@ const authorAvatar = author?.avatarStorageKey
 	? `/_emdash/api/media/file/${author.avatarStorageKey}`
 	: undefined;
 
+// Theme setting: single-author sites can drop author attribution
+// everywhere on the post (hero chip, meta byline, author card) by
+// setting `showPostAuthor: false` in the seed's settings and
+// reapplying it (`npx emdash seed seed/seed.json --on-conflict=update`).
+const showAuthor = (await getSiteSetting("showPostAuthor")) !== false;
+
+// Categories for the hero's pretitle row (demo: icon + linked list
+// above the title).
+const categories = (post.data.terms?.category ?? []) as { slug: string; label: string }[];
+
 const publishDate =
 	post.data.publishedAt?.toLocaleDateString("en-US", {
 		year: "numeric",
 		month: "long",
 		day: "numeric",
 	}) ?? null;
+
+// The demo's hero date reads "9th May" — ordinal day + month.
+const ordinal = (n: number) =>
+	n + (["th", "st", "nd", "rd"][n % 100 > 10 && n % 100 < 14 ? 0 : Math.min(n % 10, 4)] ?? "th");
+const heroDate = post.data.publishedAt
+	? `${ordinal(post.data.publishedAt.getDate())} ${post.data.publishedAt.toLocaleDateString("en-US", { month: "long" })} ${post.data.publishedAt.getFullYear()}`
+	: null;
 ---
 
 <Base
@@ -168,22 +186,47 @@ const publishDate =
 >
 	<PageHeader
 		title={post.data.title}
-		subtitle={[authorAvatar ? null : headerMeta, publishDate, `${readingTime} min read`]
-			.filter(Boolean)
-			.join("  ·  ")}
 		image={featuredImageUrl}
 		imageAlt={post.data.title}
 		crumbs={[{ label: "Blog", href: "/posts" }, { label: post.data.title }]}
 		titleAttrs={post.edit.title}
 	>
 		{
-			authorAvatar && (
-				<div class="hero-author" slot="meta">
-					<img src={authorAvatar} alt="" width="64" height="64" loading="eager" />
-					<em>{headerMeta}</em>
+			categories.length > 0 && (
+				<div class="hero-cats" slot="pretitle">
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" /></svg>
+					{categories.map((c, i) => (
+						<>
+							{i > 0 && <span class="hero-cats-sep" />}
+							<a href={`/category/${c.slug}`}>{c.label}</a>
+						</>
+					))}
 				</div>
 			)
 		}
+		<div class="hero-meta" slot="meta">
+			<p class="hero-date">
+				{
+					heroDate && (
+						<>
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+							<time datetime={post.data.publishedAt?.toISOString()}>{heroDate}</time>
+							<span class="hero-meta-dot">·</span>
+						</>
+					)
+				}
+				<span>{readingTime} min read</span>
+			</p>
+			{
+				showAuthor && authorAvatar && (
+					<div class="hero-author">
+						<img src={authorAvatar} alt="" width="64" height="64" loading="eager" />
+						<em>{headerMeta}</em>
+					</div>
+				)
+			}
+			{showAuthor && !authorAvatar && headerMeta && <p class="hero-date">{headerMeta}</p>}
+		</div>
 	</PageHeader>
 	<div class="post-grid">
 		{/* One white card holds the article, related posts and comments;
@@ -193,7 +236,7 @@ const publishDate =
 				<header class="article-header">
 					<div class="article-meta">
 						{
-							bylines.length > 0 && (
+							showAuthor && bylines.length > 0 && (
 								<>
 									<span class="article-meta-byline">
 										{bylines.map((credit, i) => (
@@ -243,7 +286,7 @@ const publishDate =
 			</article>
 
 			{
-				author && (
+				showAuthor && author && (
 					<section class="post-author" aria-label="About the author">
 						{authorAvatar && (
 							<img
@@ -422,6 +465,60 @@ const publishDate =
 </Base>
 
 <style>
+	/* Hero pretitle categories — the demo's pretitle-meta: a folder
+	   icon and linked category list above the title. */
+	.hero-cats {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 0.6em;
+		margin-bottom: 1em;
+		font-size: 0.8125em;
+		letter-spacing: var(--tracking-wide, 0.06em);
+		text-transform: uppercase;
+		color: rgb(255 255 255 / 75%);
+	}
+
+	.hero-cats a {
+		color: rgb(255 255 255 / 88%);
+		text-decoration: none;
+		transition: 0.15s ease-out color;
+	}
+
+	.hero-cats a:hover {
+		color: var(--color-brand);
+	}
+
+	.hero-cats-sep::before {
+		content: "·";
+		color: rgb(255 255 255 / 55%);
+	}
+
+	/* Hero after-title meta — the demo's aftertitle-meta: icon'd date
+	   line, then the author chip. */
+	.hero-meta {
+		margin-top: 1em;
+	}
+
+	.hero-date {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5em;
+		margin: 0;
+		font-size: 0.9375em;
+		color: rgb(255 255 255 / 85%);
+	}
+
+	.hero-date svg {
+		opacity: 0.7;
+	}
+
+	.hero-meta-dot {
+		color: rgb(255 255 255 / 55%);
+	}
+
 	/* Hero author chip — the demo's aftertitle-meta author: a 4em
 	   circled avatar stacked over the byline name (2px grey ring). */
 	.hero-author {

@@ -47,6 +47,7 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 	<img class="page-hero-image" src={headerImage} alt={imageAlt} loading="eager" fetchpriority="high" />
 	<div class="page-hero-caption">
 		<div class="page-hero-caption-inside">
+			<slot name="pretitle" />
 			<h1 class="page-hero-title breakup-title" {...titleAttrs}>{title}</h1>
 			{subtitle && <p class="page-hero-sub">{subtitle}</p>}
 			<slot name="meta" />

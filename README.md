@@ -67,6 +67,18 @@ npx emdash seed seed/seed.json   # apply sample content without the setup wizard
 Full-text search, RSS, SEO/JSON-LD, comments-ready routes, dark/light mode and
 the audit-log plugin come from the underlying blog template.
 
+## Single-author sites
+
+Post pages attribute content to the byline in three places: the avatar + name
+chip in the post hero, the byline in the article meta line, and the author
+card below the article. For a single-author site where attribution is noise,
+turn all three off by setting `"showPostAuthor": false` in `seed/seed.json`'s
+`settings` block and reapplying it:
+
+```bash
+npx emdash seed seed/seed.json --on-conflict=update
+```
+
 ## License
 
 © 2026 vhs. A port of Bravada, © 2020–25
