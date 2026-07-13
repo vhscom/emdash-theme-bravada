@@ -38,6 +38,8 @@ external one.
 
 ## Structure
 
+- `seed/seed.minimal.json` — the same structure with no demo content, for
+  starting a clean site (see First run).
 - `seed/seed.json` — collections (posts, pages), category/tag taxonomies,
   primary + social menus, sidebar/footer widget areas, the Bravada sections,
   and sample content (a `home` landing page + demo posts).
@@ -80,16 +82,67 @@ hand Portable Text to `RichText.astro`, which dispatches the four
 `bravada.*` block types; design tokens in `src/styles/theme.css` restyle the
 base template without touching its layout primitives.
 
-## Run
+## First run
+
+Requires **Node 20+** and **pnpm** (fonts are fetched from Google at build
+time, so the first build needs network access).
 
 ```bash
 pnpm install
-npx emdash dev            # localhost:4321, admin at /_emdash/admin
-npx emdash seed seed/seed.json   # apply sample content without the setup wizard
+npx emdash dev                    # 1. localhost:4321 — migrations run, but the site starts EMPTY
+npx emdash seed seed/seed.json    # 2. apply the full Bravada demo content
 ```
 
-Full-text search, RSS, SEO/JSON-LD, comments-ready routes, dark/light mode and
-the audit-log plugin come from the underlying blog template.
+Then visit `http://localhost:4321/_emdash/admin` — the setup wizard creates
+your first admin account — and reload the homepage to see the demo landing
+page.
+
+Prefer to skip the demo content? Seed the structure only (collections,
+taxonomies, menus, widget areas, sections — no posts, shop, or portfolio):
+
+```bash
+npx emdash seed seed/seed.minimal.json
+```
+
+To start over at any point: stop the dev server, `rm data.db*`, and run
+`npx emdash dev` again.
+
+Full-text search, RSS, sitemap/robots, SEO/JSON-LD, comments-ready routes,
+dark/light mode and the audit-log plugin come from EmDash and the underlying
+blog template.
+
+## Make it yours
+
+- **Site title, tagline, logo** live in the CMS, not the code: admin →
+  Settings. The header wordmark, footer, RSS feed, and meta titles all follow.
+- **Menus and widgets** are admin-editable (Appearance → Menus / Widgets);
+  the seed's `primary`, `social`, and `mobile` menus are starting points.
+- **Colours and fonts**: override tokens in `src/styles/theme.css` (see the
+  notes at the top of that file); webfonts are configured in
+  `astro.config.mjs`. Don't edit `src/styles/tokens.css`.
+- **Single-author sites**: see the section below for `showPostAuthor`.
+
+## Deploy
+
+The template builds to a self-hosted Node server:
+
+```bash
+pnpm build
+node ./dist/server/entry.mjs   # honours HOST / PORT env vars
+```
+
+Production checklist:
+
+1. **Set the Site URL** (admin → Settings) — canonicals, Open Graph URLs,
+   the sitemap, and the RSS feed all derive absolute URLs from it.
+2. **Generate an encryption key**: `npx emdash secrets generate` and set
+   `EMDASH_ENCRYPTION_KEY` in the server environment (encrypts plugin
+   secrets at rest).
+3. **Persist `data.db*` and `uploads/`** — both live on disk; put them on a
+   volume that survives restarts and back them up together.
+
+For other targets (Cloudflare, Postgres, S3 storage) see the
+[EmDash deployment docs](https://docs.emdashcms.com).
 
 ## Single-author sites
 
