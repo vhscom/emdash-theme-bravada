@@ -149,6 +149,12 @@ const authorAvatar = author?.avatarStorageKey
 const showAuthor =
 	(siteSettings as { showPostAuthor?: boolean } | undefined)?.showPostAuthor !== false;
 
+// Theme setting: hide the docked prev/next buttons (#nav-fixed) with
+// `showPostNav: false` in the seed's settings block. The full-bleed
+// previous/next image band above the footer is unaffected.
+const showPostNav =
+	(siteSettings as { showPostNav?: boolean } | undefined)?.showPostNav !== false;
+
 // Categories for the hero's pretitle row (demo: icon + linked list
 // above the title).
 const categories = (post.data.terms?.category ?? []) as { slug: string; label: string }[];
@@ -374,7 +380,7 @@ const postHeroDate = heroDate(post.data.publishedAt);
 	}
 
 	{
-		(olderPost || newerPost) && (
+		showPostNav && (olderPost || newerPost) && (
 			<nav id="nav-fixed" aria-label="Post navigation">
 				{olderPost && (
 					<div class="nav-previous">

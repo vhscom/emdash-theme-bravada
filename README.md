@@ -120,7 +120,8 @@ blog template.
 - **Colours and fonts**: override tokens in `src/styles/theme.css` (see the
   notes at the top of that file); webfonts are configured in
   `astro.config.mjs`. Don't edit `src/styles/tokens.css`.
-- **Single-author sites**: see the section below for `showPostAuthor`.
+- **Post-page furniture**: see Theme settings below for `showPostAuthor`
+  (single-author sites) and `showPostNav` (docked prev/next buttons).
 
 ## Deploy
 
@@ -144,22 +145,27 @@ Production checklist:
 For other targets (Cloudflare, Postgres, S3 storage) see the
 [EmDash deployment docs](https://docs.emdashcms.com).
 
-## Single-author sites
+## Theme settings
 
-Post pages attribute content to the byline in three places: the avatar + name
-chip in the post hero, the byline in the article meta line, and the author
-card below the article. For a single-author site where attribution is noise,
-turn all three off by setting `"showPostAuthor": false` in `seed/seed.json`'s
-`settings` block and reapplying it:
+Two boolean keys in the seed's `settings` block toggle post-page furniture.
+Apply changes by reapplying the seed **and restarting the dev server** (the
+running server caches settings in memory):
 
 ```bash
 npx emdash seed seed/seed.json --on-conflict=update
 ```
 
-The hero excerpt (the entry's Excerpt field, which is also the search-engine
-description) is independent of author display — it keeps rendering on
-single-author sites, exactly as Bravada treats its excerpt and author-meta
-options as separate toggles.
+- **`showPostAuthor`** (default `true`) — post pages attribute content to
+  the byline in three places: the avatar + name chip in the post hero, the
+  byline in the article meta line, and the author card below the article.
+  For a single-author site where attribution is noise, `false` turns all
+  three off. The hero excerpt (the entry's Excerpt field, which is also the
+  search-engine description) is independent of author display — it keeps
+  rendering, exactly as Bravada treats its excerpt and author-meta options
+  as separate toggles.
+- **`showPostNav`** (default `true`) — the docked prev/next buttons that
+  fade in beside the article on scroll (demo `#nav-fixed`). `false` hides
+  them; the full-bleed previous/next image band above the footer stays.
 
 ## Documentation
 
