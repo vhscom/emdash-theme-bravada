@@ -15,7 +15,7 @@ import PageHeader from "../../components/PageHeader.astro";
 import RichText from "../../components/RichText.astro";
 import SidebarWidgets from "../../components/SidebarWidgets.astro";
 import { getReadingTime } from "../../utils/reading-time";
-import { resolveBlogSiteIdentity } from "../../utils/site-identity";
+import { resolveBlogSiteIdentity, resolveSiteOrigin } from "../../utils/site-identity";
 import { getMediaUrl } from "../../utils/media-url";
 
 const slug = decodeSlug(Astro.params.slug);
@@ -56,10 +56,7 @@ function getImageUrl(img: unknown): string | undefined {
 const featuredImageUrl = getImageUrl(post.data.featured_image);
 const siteSettings = await getSiteSettings();
 const { siteTitle } = resolveBlogSiteIdentity(siteSettings);
-// Match Base.astro: prefer the configured Site URL for canonical/OG URLs.
-const siteOrigin =
-	(typeof siteSettings?.url === "string" && siteSettings.url.replace(/\/+$/, "")) ||
-	Astro.url.origin;
+const siteOrigin = resolveSiteOrigin(siteSettings, Astro.url.origin);
 
 // Generate SEO meta from content
 const seo = getSeoMeta(post, {

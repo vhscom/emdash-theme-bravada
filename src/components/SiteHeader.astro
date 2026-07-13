@@ -24,6 +24,9 @@ const { overHero = false } = Astro.props;
 const { siteTitle, siteLogo } = resolveBlogSiteIdentity(await getSiteSettings());
 const menu = await getMenu("primary");
 const inSection = createInSection(Astro.url.pathname);
+// External-target menu links get noopener; stated once for all menu depths.
+const relFor = (target?: string) =>
+	target === "_blank" ? "noopener noreferrer" : undefined;
 const isLoggedIn = !!Astro.locals.user;
 ---
 
@@ -50,11 +53,7 @@ const isLoggedIn = !!Astro.locals.user;
 								},
 							]}
 						>
-							<a
-								href={item.url}
-								target={item.target}
-								rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-							>
+							<a href={item.url} target={item.target} rel={relFor(item.target)}>
 								<span>{item.label}</span>
 							</a>
 							{item.children.length > 0 && (
@@ -65,22 +64,14 @@ const isLoggedIn = !!Astro.locals.user;
 												{ "has-children": (child.children?.length ?? 0) > 0 },
 											]}
 										>
-											<a
-													href={child.url}
-													target={child.target}
-													rel={child.target === "_blank" ? "noopener noreferrer" : undefined}
-												>
+											<a href={child.url} target={child.target} rel={relFor(child.target)}>
 												<span>{child.label}</span>
 											</a>
 											{(child.children?.length ?? 0) > 0 && (
 												<ul class="sub-menu">
 													{child.children.map((grand) => (
 														<li>
-															<a
-																	href={grand.url}
-																	target={grand.target}
-																	rel={grand.target === "_blank" ? "noopener noreferrer" : undefined}
-																>
+															<a href={grand.url} target={grand.target} rel={relFor(grand.target)}>
 																<span>{grand.label}</span>
 															</a>
 														</li>

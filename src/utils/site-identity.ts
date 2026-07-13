@@ -8,8 +8,24 @@ export interface MediaReference {
 export interface BlogSiteIdentitySettings {
 	title?: string;
 	tagline?: string;
+	url?: string;
 	logo?: MediaReference;
 	favicon?: MediaReference;
+}
+
+/**
+ * Canonical site origin: the Site URL from EmDash settings when set
+ * (trailing slashes stripped), else the request origin. Keeps canonical
+ * and OG URLs deterministic behind proxies/previews.
+ */
+export function resolveSiteOrigin(
+	settings: BlogSiteIdentitySettings | undefined,
+	fallbackOrigin: string,
+) {
+	return (
+		(typeof settings?.url === "string" && settings.url.replace(/\/+$/, "")) ||
+		fallbackOrigin
+	);
 }
 
 const DEFAULT_SITE_TITLE = "My Blog";

@@ -4,7 +4,7 @@ import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import LiveSearch from "emdash/ui/search";
 import { Font } from "astro:assets";
-import { resolveBlogSiteIdentity } from "../utils/site-identity";
+import { resolveBlogSiteIdentity, resolveSiteOrigin } from "../utils/site-identity";
 import SiteHeader from "../components/SiteHeader.astro";
 import MobileMenu from "../components/MobileMenu.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -44,12 +44,7 @@ const {
 } = Astro.props;
 const siteSettings = await getSiteSettings();
 const { siteTitle } = resolveBlogSiteIdentity(siteSettings);
-// Prefer the Site URL from EmDash settings (admin > settings) so canonicals
-// stay deterministic behind proxies/previews; fall back to the request
-// origin, which SSR resolves correctly once deployed.
-const siteOrigin =
-	(typeof siteSettings?.url === "string" && siteSettings.url.replace(/\/+$/, "")) ||
-	Astro.url.origin;
+const siteOrigin = resolveSiteOrigin(siteSettings, Astro.url.origin);
 // Default canonical to the clean current URL (origin + path, no query).
 const canonicalUrl = canonical ?? `${siteOrigin}${Astro.url.pathname}`;
 // Open Graph requires absolute image URLs; promote a root-relative path
