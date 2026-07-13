@@ -1,9 +1,10 @@
-# Bravada — an EmDash theme
+# Bravada·Astro
 
-A port of the [Bravada](https://www.cryoutcreations.eu/wordpress-themes/bravada)
-WordPress theme (Cryout Creations) to [EmDash](https://emdashcms.com), built on
-the EmDash blog template. Runs on any Node.js server with SQLite and local file
-storage.
+Bravada for Astro: a port of the
+[Bravada](https://www.cryoutcreations.eu/wordpress-themes/bravada) WordPress
+theme (Cryout Creations) to [Astro](https://astro.build), powered by
+[EmDash](https://emdashcms.com) and built on the EmDash blog template. Runs on
+any Node.js server with SQLite and local file storage.
 
 The port carries Bravada's visual language — Playfair Display headings over
 Mulish body text, the teal/gold palette, the gold-ribbon wordmark, highlighter
