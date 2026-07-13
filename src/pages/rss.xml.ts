@@ -1,11 +1,12 @@
 import type { APIRoute } from "astro";
 import { getEmDashCollection, getSiteSettings } from "emdash";
 
-import { resolveBlogSiteIdentity } from "../utils/site-identity";
+import { resolveBlogSiteIdentity, resolveSiteOrigin } from "../utils/site-identity";
 
-export const GET: APIRoute = async ({ site, url }) => {
-	const siteUrl = site?.toString() || url.origin;
-	const { siteTitle, siteTagline } = resolveBlogSiteIdentity(await getSiteSettings());
+export const GET: APIRoute = async ({ url }) => {
+	const settings = await getSiteSettings();
+	const siteUrl = resolveSiteOrigin(settings, url.origin);
+	const { siteTitle, siteTagline } = resolveBlogSiteIdentity(settings);
 
 	const { entries: posts } = await getEmDashCollection("posts", {
 		orderBy: { published_at: "desc" },
