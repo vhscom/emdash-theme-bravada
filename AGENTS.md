@@ -41,7 +41,7 @@ Single typeface: **Inter** on `--font-body`, used for everything including headi
 
 The brand colour is `#0066cc` (`--color-brand`) -- used for links, the post-card title hover, and the search input focus ring. There's also a secondary text colour (`--color-text-secondary`) and a `--color-muted` for meta info. Don't add a second accent.
 
-The article layout is the standout feature: a three-column reading view with a left meta column (author bylines, date), centred 680px body column, and a right gutter for search, table of contents, and categories. Don't flatten that into one column on desktop -- the layout signals "this is something to read".
+Single posts use Bravada's blog layout: the article body sits on a white card (`--color-surface`) over the page tint, paired with a right sidebar rendered by `SidebarWidgets` from the `sidebar-b` widget area (Search, Recent Posts, and a tabbed widget -- the same Bravada widgets the two-sidebar layout pages use, so the post and page sidebars share styling and content). Author and date run inline in the article header (no separate meta column); body copy is `--font-size-base` (16px); a gold-strip **Related Posts** heading leads into the full-bleed image previous/next band that meets the footer. This deliberately mirrors the Bravada demo -- do not reintroduce the base template's three-column reading view.
 
 ## Customisation
 
@@ -58,17 +58,16 @@ CSS variables worth knowing (see `tokens.css` for the full list):
 - `--font-body`, `--font-heading`, `--font-mono`
 - `--font-weight-heading` (600) / `--font-weight-display` (700) -- heading weights; lower them if you switch to a serif
 - `--tracking-tight` / `--tracking-snug` / `--tracking-wide` / `--tracking-wider` -- letter-spacing tokens used across headings and meta labels
-- `--content-width` (680px) -- article body column
+- `--content-width` (680px) -- article body column (single-post card content)
 - `--wide-width` (1200px) -- max container
-- `--gutter-width` (200px) -- right sidebar (TOC) on article pages
-- `--meta-col-width` (180px) -- left meta column on article pages
+- `--sidebar-width` (320px) -- the blog/page right sidebar (`SidebarWidgets`)
 - `--avatar-size-{xs,sm,md,lg}` -- byline avatar sizes at different scales
 
 ## What not to do
 
 - Don't add a second accent colour or coloured section backgrounds. The page should be black, white, and one blue.
 - Don't replace Inter with a display sans (Bebas, Anton, etc.). Headings rely on weight contrast, not novelty faces.
-- Don't collapse the article gutter on desktop -- it's part of the reading experience.
+- Don't reintroduce the base template's three-column article layout (left meta column + centred body + right gutter); single posts follow the Bravada blog layout (white card + right `sidebar-b`).
 - Don't use stock blog copy ("Welcome to my blog", "Stay tuned for more"). Write a real tagline that says what this blog is about.
 - Don't seed the home page with three identical placeholder posts. If you only have one real post, show one real post.
 - Don't enable comments without a plan to moderate them. The template doesn't ship a comments system by default for a reason.

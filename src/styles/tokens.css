@@ -97,8 +97,7 @@
 		--content-width: 680px; /* article/page body column */
 		--wide-width: 1200px; /* max container (home, archives) */
 		--max-width: var(--content-width);
-		--gutter-width: 200px; /* right sidebar column (TOC) on article pages */
-		--meta-col-width: 180px; /* left meta column on article pages */
+		--sidebar-width: 320px; /* blog/page right sidebar (SidebarWidgets) */
 		--nav-height: 64px; /* sticky header height */
 		--search-input-width: 180px; /* nav search box width */
 
