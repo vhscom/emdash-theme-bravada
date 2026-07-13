@@ -4818,11 +4818,8 @@
           "title": "Some coffee art",
           "excerpt": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-01.jpg",
-              "alt": "Some coffee art",
-              "filename": "demo-image-01.jpg"
-            }
+            "src": "/images/demo/demo-image-01.jpg",
+            "alt": "Some coffee art"
           },
           "content": [
             {
@@ -4911,11 +4908,8 @@
           "title": "Throught the lens",
           "excerpt": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. Donec aliquam purus non euismod scelerisque.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-02.jpg",
-              "alt": "Throught the lens",
-              "filename": "demo-image-02.jpg"
-            }
+            "src": "/images/demo/demo-image-02.jpg",
+            "alt": "Throught the lens"
           },
           "content": [
             {
@@ -5003,11 +4997,8 @@
           "title": "Everything is small",
           "excerpt": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-03.jpg",
-              "alt": "Everything is small",
-              "filename": "demo-image-03.jpg"
-            }
+            "src": "/images/demo/demo-image-03.jpg",
+            "alt": "Everything is small"
           },
           "content": [
             {
@@ -5094,11 +5085,8 @@
           "title": "A bird's eye view",
           "excerpt": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci…",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-04.jpg",
-              "alt": "A bird's eye view",
-              "filename": "demo-image-04.jpg"
-            }
+            "src": "/images/demo/demo-image-04.jpg",
+            "alt": "A bird's eye view"
           },
           "content": [
             {
@@ -5187,11 +5175,8 @@
           "title": "A morning with technology",
           "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per…",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-05.jpg",
-              "alt": "A morning with technology",
-              "filename": "demo-image-05.jpg"
-            }
+            "src": "/images/demo/demo-image-05.jpg",
+            "alt": "A morning with technology"
           },
           "content": [
             {
@@ -5279,11 +5264,8 @@
           "title": "Running from the afternoon",
           "excerpt": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna. Ut efficitur venenatis porta. Mauris in dictum elit, porttitor…",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-15.jpg",
-              "alt": "Running from the afternoon",
-              "filename": "demo-image-15.jpg"
-            }
+            "src": "/images/demo/demo-image-15.jpg",
+            "alt": "Running from the afternoon"
           },
           "content": [
             {
@@ -5370,11 +5352,8 @@
           "title": "Coffee at the office",
           "excerpt": "Nullam mi diam, tempus maximus iaculis sit amet, gravida sit amet nunc. Proin at sodales ex. Duis viverra arcu aliquet neque cursus commodo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-06.jpg",
-              "alt": "Coffee at the office",
-              "filename": "demo-image-06.jpg"
-            }
+            "src": "/images/demo/demo-image-06.jpg",
+            "alt": "Coffee at the office"
           },
           "content": [
             {
@@ -5478,11 +5457,8 @@
           "title": "Everything is small",
           "excerpt": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum a...",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-03.jpg",
-              "alt": "Everything is small",
-              "filename": "demo-image-03.jpg"
-            }
+            "src": "/images/demo/demo-image-03.jpg",
+            "alt": "Everything is small"
           },
           "content": [
             {
@@ -5763,11 +5739,8 @@
           "title": "Vacation memories",
           "excerpt": "Sed finibus posuere mi, at cursus mauris eleifend non. Nam mollis vitae dolor ut efficitur. Nunc eget orci lectus. Fusce accumsan eros et massa consequat con...",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-09.jpg",
-              "alt": "Vacation memories",
-              "filename": "demo-image-09.jpg"
-            }
+            "src": "/images/demo/demo-image-09.jpg",
+            "alt": "Vacation memories"
           },
           "content": [
             {
@@ -5838,11 +5811,8 @@
           "title": "Everything must be in order",
           "excerpt": "Nullam ac molestie nibh. Donec quis enim a ex sodales interdum. Praesent ac nulla elit. Aliquam volutpat leo id pulvinar porta. Duis a eros nec ipsum laoreet...",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-10.jpg",
-              "alt": "Everything must be in order",
-              "filename": "demo-image-10.jpg"
-            }
+            "src": "/images/demo/demo-image-10.jpg",
+            "alt": "Everything must be in order"
           },
           "content": [
             {
@@ -5915,11 +5885,8 @@
           "title": "Some coffee art",
           "excerpt": "Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec iaculis ...",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-01.jpg",
-              "alt": "Some coffee art",
-              "filename": "demo-image-01.jpg"
-            }
+            "src": "/images/demo/demo-image-01.jpg",
+            "alt": "Some coffee art"
           },
           "content": [
             {
@@ -6092,11 +6059,8 @@
           "title": "A bird’s eye view",
           "excerpt": "Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc. Vestibulum ante ipsum primis in faucibus orci luctu...",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-04.jpg",
-              "alt": "A bird’s eye view",
-              "filename": "demo-image-04.jpg"
-            }
+            "src": "/images/demo/demo-image-04.jpg",
+            "alt": "A bird\u2019s eye view"
           },
           "content": [
             {
@@ -6224,11 +6188,8 @@
           "title": "A morning with technology",
           "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, ...",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-05.jpg",
-              "alt": "A morning with technology",
-              "filename": "demo-image-05.jpg"
-            }
+            "src": "/images/demo/demo-image-05.jpg",
+            "alt": "A morning with technology"
           },
           "content": [
             {
@@ -6299,11 +6260,8 @@
           "title": "Running from the afternoon",
           "excerpt": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna. Ut efficitur venenatis porta. Mauris in dictum elit, por...",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-15.jpg",
-              "alt": "Running from the afternoon",
-              "filename": "demo-image-15.jpg"
-            }
+            "src": "/images/demo/demo-image-15.jpg",
+            "alt": "Running from the afternoon"
           },
           "content": [
             {
@@ -6403,11 +6361,8 @@
           "title": "Without looking both ways",
           "excerpt": "Quisque quis purus pellentesque, fringilla metus vitae, ultrices ipsum. Donec congue felis congue ipsum interdum malesuada. Aenean mauris lacus, malesuada ut...",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2019/01/demo-image-07.jpg",
-              "alt": "Without looking both ways",
-              "filename": "demo-image-07.jpg"
-            }
+            "src": "/images/demo/demo-image-07.jpg",
+            "alt": "Without looking both ways"
           },
           "content": [
             {
@@ -6479,11 +6434,8 @@
           "title": "Card-in-a-box",
           "date": "November 2017",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-12.jpg",
-              "alt": "Card-in-a-box",
-              "filename": "portfolio-12.jpg"
-            }
+            "src": "/images/demo/portfolio-12.jpg",
+            "alt": "Card-in-a-box"
           },
           "content": [
             {
@@ -6562,11 +6514,8 @@
           "title": "B-Sides",
           "date": "December 2017",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-11.jpg",
-              "alt": "B-Sides",
-              "filename": "portfolio-11.jpg"
-            }
+            "src": "/images/demo/portfolio-11.jpg",
+            "alt": "B-Sides"
           },
           "content": [
             {
@@ -6645,11 +6594,8 @@
           "title": "Yellow Frame",
           "date": "December 2017",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-10.jpg",
-              "alt": "Yellow Frame",
-              "filename": "portfolio-10.jpg"
-            }
+            "src": "/images/demo/portfolio-10.jpg",
+            "alt": "Yellow Frame"
           },
           "content": [
             {
@@ -6716,11 +6662,8 @@
           "title": "Business cards",
           "date": "January 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-09.jpg",
-              "alt": "Business cards",
-              "filename": "portfolio-09.jpg"
-            }
+            "src": "/images/demo/portfolio-09.jpg",
+            "alt": "Business cards"
           },
           "content": [
             {
@@ -6786,11 +6729,8 @@
           "title": "Brand Sketch",
           "date": "January 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-08.jpg",
-              "alt": "Brand Sketch",
-              "filename": "portfolio-08.jpg"
-            }
+            "src": "/images/demo/portfolio-08.jpg",
+            "alt": "Brand Sketch"
           },
           "content": [
             {
@@ -6856,11 +6796,8 @@
           "title": "Flyer Presentation",
           "date": "January 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-07.jpg",
-              "alt": "Flyer Presentation",
-              "filename": "portfolio-07.jpg"
-            }
+            "src": "/images/demo/portfolio-07.jpg",
+            "alt": "Flyer Presentation"
           },
           "content": [
             {
@@ -6941,11 +6878,8 @@
           "title": "Pen & Paper",
           "date": "February 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-06.jpg",
-              "alt": "Pen & Paper",
-              "filename": "portfolio-06.jpg"
-            }
+            "src": "/images/demo/portfolio-06.jpg",
+            "alt": "Pen & Paper"
           },
           "content": [
             {
@@ -7026,11 +6960,8 @@
           "title": "Disk cover",
           "date": "February 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-05.jpg",
-              "alt": "Disk cover",
-              "filename": "portfolio-05.jpg"
-            }
+            "src": "/images/demo/portfolio-05.jpg",
+            "alt": "Disk cover"
           },
           "content": [
             {
@@ -7110,11 +7041,8 @@
           "title": "Notebook",
           "date": "March 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-04.jpg",
-              "alt": "Notebook",
-              "filename": "portfolio-04.jpg"
-            }
+            "src": "/images/demo/portfolio-04.jpg",
+            "alt": "Notebook"
           },
           "content": [
             {
@@ -7194,11 +7122,8 @@
           "title": "Empty Cards",
           "date": "March 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-03.jpg",
-              "alt": "Empty Cards",
-              "filename": "portfolio-03.jpg"
-            }
+            "src": "/images/demo/portfolio-03.jpg",
+            "alt": "Empty Cards"
           },
           "content": [
             {
@@ -7250,11 +7175,8 @@
           "title": "Presentation Paper",
           "date": "April 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-02.jpg",
-              "alt": "Presentation Paper",
-              "filename": "portfolio-02.jpg"
-            }
+            "src": "/images/demo/portfolio-02.jpg",
+            "alt": "Presentation Paper"
           },
           "content": [
             {
@@ -7307,11 +7229,8 @@
           "title": "New York vol. 27",
           "date": "April 2018",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2018/08/portfolio-01.jpg",
-              "alt": "New York vol. 27",
-              "filename": "portfolio-01.jpg"
-            }
+            "src": "/images/demo/portfolio-01.jpg",
+            "alt": "New York vol. 27"
           },
           "content": [
             {
@@ -7383,11 +7302,8 @@
           "button": "Select options",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_2_up-600x600.jpg",
-              "alt": "Flying Ninja",
-              "filename": "poster_2_up-600x600.jpg"
-            }
+            "src": "/images/demo/poster_2_up-600x600.jpg",
+            "alt": "Flying Ninja"
           },
           "content": [
             {
@@ -7475,11 +7391,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_7_front-600x600.jpg",
-              "alt": "Happy Ninja",
-              "filename": "T_7_front-600x600.jpg"
-            }
+            "src": "/images/demo/T_7_front-600x600.jpg",
+            "alt": "Happy Ninja"
           },
           "content": [
             {
@@ -7534,11 +7447,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_4_front-600x600.jpg",
-              "alt": "Happy Ninja",
-              "filename": "hoodie_4_front-600x600.jpg"
-            }
+            "src": "/images/demo/hoodie_4_front-600x600.jpg",
+            "alt": "Happy Ninja"
           },
           "content": [
             {
@@ -7593,11 +7503,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_5_front-600x600.jpg",
-              "alt": "Ninja Silhouette",
-              "filename": "T_5_front-600x600.jpg"
-            }
+            "src": "/images/demo/T_5_front-600x600.jpg",
+            "alt": "Ninja Silhouette"
           },
           "content": [
             {
@@ -7646,11 +7553,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_7_front-600x600.jpg",
-              "alt": "Ninja Silhouette",
-              "filename": "hoodie_7_front-600x600.jpg"
-            }
+            "src": "/images/demo/hoodie_7_front-600x600.jpg",
+            "alt": "Ninja Silhouette"
           },
           "content": [
             {
@@ -7717,11 +7621,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_3_front-600x600.jpg",
-              "alt": "Patient Ninja",
-              "filename": "hoodie_3_front-600x600.jpg"
-            }
+            "src": "/images/demo/hoodie_3_front-600x600.jpg",
+            "alt": "Patient Ninja"
           },
           "content": [
             {
@@ -7782,11 +7683,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_2_front-600x600.jpg",
-              "alt": "Premium Quality",
-              "filename": "T_2_front-600x600.jpg"
-            }
+            "src": "/images/demo/T_2_front-600x600.jpg",
+            "alt": "Premium Quality"
           },
           "content": [
             {
@@ -7842,11 +7740,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_3_up-600x600.jpg",
-              "alt": "Premium Quality",
-              "filename": "poster_3_up-600x600.jpg"
-            }
+            "src": "/images/demo/poster_3_up-600x600.jpg",
+            "alt": "Premium Quality"
           },
           "content": [
             {
@@ -7894,11 +7789,8 @@
           "stock": "This product is currently out of stock and unavailable.",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_5_front-600x600.jpg",
-              "alt": "Ship Your Idea",
-              "filename": "hoodie_5_front-600x600.jpg"
-            }
+            "src": "/images/demo/hoodie_5_front-600x600.jpg",
+            "alt": "Ship Your Idea"
           },
           "content": [
             {
@@ -7954,11 +7846,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_1_up-600x600.jpg",
-              "alt": "Ship Your Idea",
-              "filename": "poster_1_up-600x600.jpg"
-            }
+            "src": "/images/demo/poster_1_up-600x600.jpg",
+            "alt": "Ship Your Idea"
           },
           "content": [
             {
@@ -7998,11 +7887,8 @@
           "stock": "This product is currently out of stock and unavailable.",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_4_front-600x600.jpg",
-              "alt": "Ship Your Idea",
-              "filename": "T_4_front-600x600.jpg"
-            }
+            "src": "/images/demo/T_4_front-600x600.jpg",
+            "alt": "Ship Your Idea"
           },
           "content": [
             {
@@ -8064,11 +7950,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_6_angle-600x600.jpg",
-              "alt": "Woo Album #1",
-              "filename": "cd_6_angle-600x600.jpg"
-            }
+            "src": "/images/demo/cd_6_angle-600x600.jpg",
+            "alt": "Woo Album #1"
           },
           "content": [
             {
@@ -8109,11 +7992,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_5_angle-600x600.jpg",
-              "alt": "Woo Album #2",
-              "filename": "cd_5_angle-600x600.jpg"
-            }
+            "src": "/images/demo/cd_5_angle-600x600.jpg",
+            "alt": "Woo Album #2"
           },
           "content": [
             {
@@ -8162,11 +8042,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_4_angle-600x600.jpg",
-              "alt": "Woo Album #3",
-              "filename": "cd_4_angle-600x600.jpg"
-            }
+            "src": "/images/demo/cd_4_angle-600x600.jpg",
+            "alt": "Woo Album #3"
           },
           "content": [
             {
@@ -8215,11 +8092,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_2_angle-600x600.jpg",
-              "alt": "Woo Album #4",
-              "filename": "cd_2_angle-600x600.jpg"
-            }
+            "src": "/images/demo/cd_2_angle-600x600.jpg",
+            "alt": "Woo Album #4"
           },
           "content": [
             {
@@ -8275,11 +8149,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_1_front-600x600.jpg",
-              "alt": "Woo Logo",
-              "filename": "T_1_front-600x600.jpg"
-            }
+            "src": "/images/demo/T_1_front-600x600.jpg",
+            "alt": "Woo Logo"
           },
           "content": [
             {
@@ -8330,11 +8201,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_6_front-600x600.jpg",
-              "alt": "Woo Logo",
-              "filename": "hoodie_6_front-600x600.jpg"
-            }
+            "src": "/images/demo/hoodie_6_front-600x600.jpg",
+            "alt": "Woo Logo"
           },
           "content": [
             {
@@ -8382,11 +8250,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_5_up-600x600.jpg",
-              "alt": "Woo Logo",
-              "filename": "poster_5_up-600x600.jpg"
-            }
+            "src": "/images/demo/poster_5_up-600x600.jpg",
+            "alt": "Woo Logo"
           },
           "content": [
             {
@@ -8425,11 +8290,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/T_6_front-600x600.jpg",
-              "alt": "Woo Ninja",
-              "filename": "T_6_front-600x600.jpg"
-            }
+            "src": "/images/demo/T_6_front-600x600.jpg",
+            "alt": "Woo Ninja"
           },
           "content": [
             {
@@ -8469,11 +8331,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/poster_4_up-600x600.jpg",
-              "alt": "Woo Ninja",
-              "filename": "poster_4_up-600x600.jpg"
-            }
+            "src": "/images/demo/poster_4_up-600x600.jpg",
+            "alt": "Woo Ninja"
           },
           "content": [
             {
@@ -8513,11 +8372,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/hoodie_2_front-600x600.jpg",
-              "alt": "Woo Ninja",
-              "filename": "hoodie_2_front-600x600.jpg"
-            }
+            "src": "/images/demo/hoodie_2_front-600x600.jpg",
+            "alt": "Woo Ninja"
           },
           "content": [
             {
@@ -8567,11 +8423,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_3_angle-600x600.jpg",
-              "alt": "Woo Single #1",
-              "filename": "cd_3_angle-600x600.jpg"
-            }
+            "src": "/images/demo/cd_3_angle-600x600.jpg",
+            "alt": "Woo Single #1"
           },
           "content": [
             {
@@ -8613,11 +8466,8 @@
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
-            "$media": {
-              "url": "https://demos.cryoutcreations.eu/wp/bravada/wp-content/uploads/sites/14/2013/06/cd_1_angle-600x600.jpg",
-              "alt": "Woo Single #2",
-              "filename": "cd_1_angle-600x600.jpg"
-            }
+            "src": "/images/demo/cd_1_angle-600x600.jpg",
+            "alt": "Woo Single #2"
           },
           "content": [
             {

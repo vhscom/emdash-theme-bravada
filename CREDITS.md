@@ -39,11 +39,12 @@ obligation does not attach here.
 
 ## Images
 
-- **Header / screenshot photo** — by Simon Migaj, released under CC0
-  (bundled with the upstream theme).
-- **Other theme images from the Bravada zip** — © Cryout Creations, GPLv3.
-- **Seeded demo images** (team portraits, `cd_*`/`hoodie_*`/`poster_*`/`T_*`
-  product shots in `public/images/demo/`, and the Mr Cryout avatar) were
-  sourced from Cryout's demo site, not the GPL theme zip. Their license and
-  provenance are **unverified** — replace them with CC0 or your own assets
-  before any public launch.
+- **All demo/placeholder images** in `public/images/demo/`, the seeded media
+  library, and the author avatar are original generated abstract artwork
+  created for this port (2026). As part of this project they are covered by
+  its GPLv3 licence, and are additionally dedicated to the public domain
+  (CC0) — use them however you like. No photographs or other third-party
+  images ship with this port.
+- Upstream-only credits (images bundled with the Bravada theme zip but
+  **not** included here): header/screenshot photo by Simon Migaj (CC0);
+  other theme images © Cryout Creations, GPLv3.
