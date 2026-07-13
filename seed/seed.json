@@ -940,6 +940,54 @@
             {
               "_type": "block",
               "style": "normal",
+              "_key": "psl-portfolio",
+              "listItem": "bullet",
+              "level": 1,
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "psl-portfolios",
+                  "text": "Portfolio",
+                  "marks": [
+                    "psl-portfoliom"
+                  ]
+                }
+              ],
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "psl-portfoliom",
+                  "href": "/portfolio"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "style": "normal",
+              "_key": "psl-shop",
+              "listItem": "bullet",
+              "level": 1,
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "psl-shops",
+                  "text": "Shop",
+                  "marks": [
+                    "psl-shopm"
+                  ]
+                }
+              ],
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "psl-shopm",
+                  "href": "/shop"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "style": "normal",
               "_key": "psl-blog",
               "listItem": "bullet",
               "level": 1,
