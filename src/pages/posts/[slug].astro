@@ -252,11 +252,6 @@ const publishDate =
 				<div class="article-content">
 					<RichText value={post.data.content} />
 				</div>
-
-				<div class="article-comments">
-					<Comments collection="posts" contentId={post.data.id} threaded />
-					<CommentForm collection="posts" contentId={post.data.id} />
-				</div>
 			</div>
 
 			{/* Right gutter: TOC + Sidebar widgets */}
@@ -275,31 +270,6 @@ const publishDate =
 			</aside>
 		</div>
 	</article>
-
-	{
-		(olderPost || newerPost) && (
-			<nav id="nav-below" aria-label="Previous and next post">
-				{olderPost && (
-					<a class="nav-below-prev" href={`/posts/${olderPost.id}`} rel="prev">
-						{olderImg && <img src={olderImg} alt="" loading="lazy" />}
-						<span class="nav-below-caption">
-							<em>Previous</em>
-							<span class="nav-below-title">{olderPost.data.title}</span>
-						</span>
-					</a>
-				)}
-				{newerPost && (
-					<a class="nav-below-next" href={`/posts/${newerPost.id}`} rel="next">
-						{newerImg && <img src={newerImg} alt="" loading="lazy" />}
-						<span class="nav-below-caption">
-							<em>Next</em>
-							<span class="nav-below-title">{newerPost.data.title}</span>
-						</span>
-					</a>
-				)}
-			</nav>
-		)
-	}
 
 	{
 		otherPostsWithTags.length > 0 && (
@@ -324,6 +294,38 @@ const publishDate =
 					</div>
 				</div>
 			</section>
+		)
+	}
+
+	<section class="post-comments">
+		<div class="article-comments">
+			<Comments collection="posts" contentId={post.data.id} threaded />
+			<CommentForm collection="posts" contentId={post.data.id} />
+		</div>
+	</section>
+
+	{
+		(olderPost || newerPost) && (
+			<nav id="nav-below" aria-label="Previous and next post">
+				{olderPost && (
+					<a class="nav-below-prev" href={`/posts/${olderPost.id}`} rel="prev">
+						{olderImg && <img src={olderImg} alt="" loading="lazy" />}
+						<span class="nav-below-caption">
+							<em>Previous</em>
+							<span class="nav-below-title">{olderPost.data.title}</span>
+						</span>
+					</a>
+				)}
+				{newerPost && (
+					<a class="nav-below-next" href={`/posts/${newerPost.id}`} rel="next">
+						{newerImg && <img src={newerImg} alt="" loading="lazy" />}
+						<span class="nav-below-caption">
+							<em>Next</em>
+							<span class="nav-below-title">{newerPost.data.title}</span>
+						</span>
+					</a>
+				)}
+			</nav>
 		)
 	}
 
@@ -958,11 +960,16 @@ const publishDate =
 		border-radius: var(--radius);
 	}
 
-	/* Comments section */
+	/* Comments — a standalone constrained section after "Continue
+	   reading", matching the demo order (content → related → comments →
+	   full-bleed prev/next → footer). */
+	.post-comments {
+		padding: var(--spacing-16) var(--spacing-6) 0;
+	}
+
 	.article-comments {
-		margin-top: var(--spacing-16);
-		padding-top: var(--spacing-10);
-		border-top: 1px solid var(--color-border);
+		max-width: calc(var(--content-width) + 8em);
+		margin: 0 auto;
 	}
 
 	.article-comments :global(.ec-comments) {
