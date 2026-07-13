@@ -11,7 +11,6 @@ import { Comments, CommentForm } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import RichText from "../../components/RichText.astro";
-import PostCard from "../../components/PostCard.astro";
 import SidebarWidgets from "../../components/SidebarWidgets.astro";
 import { getReadingTime } from "../../utils/reading-time";
 import { resolveBlogSiteIdentity } from "../../utils/site-identity";
@@ -159,10 +158,11 @@ const publishDate =
 		crumbs={[{ label: "Blog", href: "/posts" }, { label: post.data.title }]}
 		titleAttrs={post.edit.title}
 	/>
-	<article class="article">
-		{/* Bravada blog layout: white content card + right sidebar */}
-		<div class="article-grid">
-			<div class="article-main">
+	<div class="post-grid">
+		{/* One white card holds the article, related posts and comments;
+		    the sidebar sits alongside (demo: constrained inside .main). */}
+		<div class="post-main">
+			<article>
 				<header class="article-header">
 					<div class="article-meta">
 						{
@@ -213,44 +213,39 @@ const publishDate =
 						</footer>
 					)
 				}
-			</div>
+			</article>
 
-			<SidebarWidgets name="sidebar-b" />
-		</div>
-	</article>
+			{
+				otherPostsWithTags.length > 0 && (
+					<section class="related-posts">
+						<h2 class="section-title"><span>Related Posts</span></h2>
+						<ul class="related-grid">
+							{otherPostsWithTags.map(({ post: p }) => {
+								const img = getMediaUrl(p.data.featured_image);
+								return (
+									<li class="related-item">
+										<a href={`/posts/${p.id}`} class="related-thumb" tabindex="-1">
+											{img && <img src={img} alt="" loading="lazy" />}
+										</a>
+										<a href={`/posts/${p.id}`} class="related-name">
+											{p.data.title}
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+					</section>
+				)
+			}
 
-	{
-		otherPostsWithTags.length > 0 && (
-			<section class="more-posts">
-				<div class="more-inner">
-					<h2 class="more-title"><span>Related Posts</span></h2>
-					<div class="more-grid">
-						{otherPostsWithTags.map(
-							({ post: p, tags: postTags, bylines: postBylines }) => (
-								<PostCard
-									title={p.data.title}
-									excerpt={p.data.excerpt}
-									featuredImage={p.data.featured_image}
-									href={`/posts/${p.id}`}
-									date={p.data.publishedAt ?? undefined}
-									readingTime={getReadingTime(p.data.content)}
-									tags={postTags.map((t) => ({ slug: t.slug, label: t.label }))}
-									bylines={postBylines}
-								/>
-							)
-						)}
-					</div>
-				</div>
+			<section class="post-comments">
+				<Comments collection="posts" contentId={post.data.id} threaded />
+				<CommentForm collection="posts" contentId={post.data.id} />
 			</section>
-		)
-	}
-
-	<section class="post-comments">
-		<div class="article-comments">
-			<Comments collection="posts" contentId={post.data.id} threaded />
-			<CommentForm collection="posts" contentId={post.data.id} />
 		</div>
-	</section>
+
+		<SidebarWidgets name="sidebar-b" />
+	</div>
 
 	{
 		(olderPost || newerPost) && (
@@ -368,19 +363,19 @@ const publishDate =
 		object-fit: cover;
 	}
 
-	/* Bravada blog layout: white content card + right sidebar, centred
-	   in the wide container. */
-	.article-grid {
+	/* Bravada blog layout: one white card (article + related + comments)
+	   beside the sidebar. The white starts right below the hero — no tint
+	   gap — and everything that isn't the sidebar sits inside it. */
+	.post-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
 		gap: var(--spacing-10);
 		max-width: var(--wide-width);
-		margin: var(--spacing-16) auto;
+		margin: 0 auto var(--spacing-16);
 		padding: 0 var(--spacing-6);
 	}
 
-	/* Main content on a white card (demo: article on #fff over the tint) */
-	.article-main {
+	.post-main {
 		min-width: 0;
 		background: var(--color-surface);
 		padding: clamp(1.75em, 4vw, 3.5em);
@@ -536,97 +531,144 @@ const publishDate =
 		text-decoration-thickness: 2px;
 	}
 
-	/* Comments — a standalone constrained section after "Continue
-	   reading", matching the demo order (content → related → comments →
-	   full-bleed prev/next → footer). */
-	.post-comments {
-		padding: var(--spacing-16) var(--spacing-6) 0;
-	}
-
-	.article-comments {
-		max-width: calc(var(--content-width) + 8em);
-		margin: 0 auto;
-	}
-
-	.article-comments :global(.ec-comments) {
-		--ec-comment-border: 1px solid var(--color-border);
-	}
-
-	.article-comments :global(.ec-comments-heading) {
-		font-size: var(--font-size-2xl);
-		font-weight: var(--font-weight-heading);
-		margin-bottom: var(--spacing-8);
-	}
-
-	.article-comments :global(.ec-comment-author) {
-		color: var(--color-text);
-	}
-
-	.article-comments :global(.ec-comment-date) {
-		font-family: var(--font-mono);
-		color: var(--color-muted);
-	}
-
-	.article-comments :global(.ec-comment-body) {
-		color: var(--color-text);
-	}
-
-	.article-comments :global(.ec-comment-form-field input),
-	.article-comments :global(.ec-comment-form-field textarea) {
-		background: var(--color-surface) !important;
-		border-color: var(--color-border) !important;
-		color: var(--color-text) !important;
-	}
-
-	.article-comments :global(.ec-comment-user-info) {
-		background: var(--color-surface) !important;
-		border-color: var(--color-border) !important;
-	}
-
-	.article-comments :global(.ec-comment-form-submit) {
-		background: var(--color-brand) !important;
-		color: var(--color-on-brand) !important;
-	}
-
-	/* More posts section */
-	.more-posts {
-		background: var(--color-bg-subtle);
-		padding: var(--spacing-16) 0;
-		margin-top: var(--spacing-16);
-	}
-
-	.more-inner {
-		max-width: var(--wide-width);
-		margin: 0 auto;
-		padding: 0 var(--spacing-6);
-	}
-
-	/* Demo "Related Posts": Playfair 700 at 1.2em on the gold strip */
-	.more-title {
+	/* Signature section heading (Related Posts + the comments title):
+	   Playfair 700 at 1.2em on the gold strip — like every other section
+	   title on the site. */
+	.section-title,
+	.post-comments :global(.ec-comments-heading) {
+		display: inline-block;
+		margin: 0 0 1.2em;
+		font-family: var(--font-heading);
 		font-size: 1.2rem;
 		font-weight: 700;
-		margin-bottom: var(--spacing-8);
-	}
-
-	.more-title span {
+		line-height: 1.6;
 		background-image: var(--gold-scrim);
 		background-repeat: no-repeat;
 		background-size: 100% 0.4em;
 		background-position: 0 90%;
 	}
 
-	.more-grid {
+	.section-title span {
+		/* the <span> already carries the strip via the rule above when the
+		   title has no wrapper; keep the wrapper transparent */
+		background: none;
+	}
+
+	/* Related posts — image cards constrained inside the white card */
+	.related-posts {
+		margin-top: var(--spacing-12);
+		padding-top: var(--spacing-10);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.related-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-8);
+		gap: var(--spacing-6);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.related-item {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.related-thumb {
+		display: block;
+		overflow: hidden;
+		line-height: 0;
+	}
+
+	.related-thumb img {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		transition: transform 0.4s ease-out;
+	}
+
+	.related-item:hover .related-thumb img,
+	.related-item:focus-within .related-thumb img {
+		transform: scale(1.05);
+	}
+
+	.related-name {
+		margin-top: 0.9em;
+		font-family: var(--font-heading);
+		font-size: 1rem;
+		font-weight: 700;
+		line-height: 1.3;
+		color: var(--color-heading);
+		text-decoration: none;
+	}
+
+	.related-name:hover {
+		color: var(--color-gold);
+	}
+
+	/* Comments live inside the white card, below related posts */
+	.post-comments {
+		margin-top: var(--spacing-12);
+		padding-top: var(--spacing-10);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.post-comments :global(.ec-comments) {
+		--ec-comment-border: 1px solid var(--color-border);
+	}
+
+	.post-comments :global(.ec-comment-author) {
+		color: var(--color-text);
+	}
+
+	.post-comments :global(.ec-comment-date) {
+		font-family: var(--font-mono);
+		color: var(--color-muted);
+	}
+
+	.post-comments :global(.ec-comment-body) {
+		color: var(--color-text);
+	}
+
+	/* Demo comment fields: flat #f0f0f0, no border, square; teal on focus */
+	.post-comments :global(.ec-comment-form-field input),
+	.post-comments :global(.ec-comment-form-field textarea) {
+		background: light-dark(#f0f0f0, var(--color-bg-subtle)) !important;
+		border: 0 !important;
+		border-radius: 0 !important;
+		padding: 0.9em 1.1em !important;
+		color: var(--color-text) !important;
+	}
+
+	.post-comments :global(.ec-comment-form-field input):focus,
+	.post-comments :global(.ec-comment-form-field textarea):focus {
+		outline: 2px solid var(--color-teal-solid) !important;
+		outline-offset: -2px;
+	}
+
+	.post-comments :global(.ec-comment-user-info) {
+		background: light-dark(#f0f0f0, var(--color-bg-subtle)) !important;
+		border: 0 !important;
+	}
+
+	/* Demo submit: gold, teal on hover */
+	.post-comments :global(.ec-comment-form-submit) {
+		background: var(--color-gold) !important;
+		color: #ffffff !important;
+		border-radius: 0 !important;
+	}
+
+	.post-comments :global(.ec-comment-form-submit:hover) {
+		background: var(--color-teal-solid) !important;
 	}
 
 	/* Responsive */
 	@media (max-width: 1100px) {
-		/* Stack the sidebar below the content card */
-		.article-grid {
+		/* Stack the sidebar below the white card */
+		.post-grid {
 			grid-template-columns: 1fr;
-			max-width: 820px;
+			max-width: 860px;
 		}
 	}
 
@@ -636,11 +678,11 @@ const publishDate =
 			border-radius: var(--radius);
 		}
 
-		.article-grid {
+		.post-grid {
 			padding: 0 var(--spacing-4);
 		}
 
-		.more-grid {
+		.related-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
@@ -650,7 +692,7 @@ const publishDate =
 			font-size: var(--font-size-3xl);
 		}
 
-		.more-grid {
+		.related-grid {
 			grid-template-columns: 1fr;
 		}
 	}
