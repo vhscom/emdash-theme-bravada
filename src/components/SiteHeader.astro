@@ -50,7 +50,11 @@ const isLoggedIn = !!Astro.locals.user;
 								},
 							]}
 						>
-							<a href={item.url} target={item.target}>
+							<a
+								href={item.url}
+								target={item.target}
+								rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+							>
 								<span>{item.label}</span>
 							</a>
 							{item.children.length > 0 && (
@@ -61,14 +65,22 @@ const isLoggedIn = !!Astro.locals.user;
 												{ "has-children": (child.children?.length ?? 0) > 0 },
 											]}
 										>
-											<a href={child.url} target={child.target}>
+											<a
+													href={child.url}
+													target={child.target}
+													rel={child.target === "_blank" ? "noopener noreferrer" : undefined}
+												>
 												<span>{child.label}</span>
 											</a>
 											{(child.children?.length ?? 0) > 0 && (
 												<ul class="sub-menu">
 													{child.children.map((grand) => (
 														<li>
-															<a href={grand.url} target={grand.target}>
+															<a
+																	href={grand.url}
+																	target={grand.target}
+																	rel={grand.target === "_blank" ? "noopener noreferrer" : undefined}
+																>
 																<span>{grand.label}</span>
 															</a>
 														</li>
