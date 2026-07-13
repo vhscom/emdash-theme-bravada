@@ -2182,7 +2182,7 @@
             {
               "_type": "bravada.map",
               "_key": "cmap",
-              "embed": "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3289.9448977999546!2d-77.02694567455475!3d38.89437387920217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sro!4v1548283274918",
+              "embed": "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3952.0489!2d98.40850!3d7.90160!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sth!4v1752403200000",
               "height": 420,
               "columns": [
                 {
@@ -2203,9 +2203,9 @@
               "_type": "bravada.contactform",
               "_key": "cform",
               "heading": "Get in touch",
-              "address": "935 Pennsylvania Avenue,\nNW Washington, D.C. 20535-0001",
-              "phone": "+1 (202) 555-0200",
-              "mobile": "+1 (202) 555-3112",
+              "address": "88 Ratsada Road,\nRatsada, Mueang Phuket, Phuket 83000, Thailand",
+              "phone": "+66 76 555 020",
+              "mobile": "+66 81 555 311",
               "email": "william@spooky.fox",
               "hours": "07:00 \u2013 21:30"
             }

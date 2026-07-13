@@ -1,4 +1,8 @@
 /**
+ * Derived from Bravada (frontend.js, cryoutSliderTitleBreakUp),
+ * © 2020–25 Cryout Creations, GPL-3.0-or-later.
+ * Modifications © 2026 vhs. Distributed under the same licence; see LICENSE.
+ *
  * Bravada cryoutSliderTitleBreakUp (client-side): splits a title's
  * letters into stacked cry-single/cry-double copies; every ~3.5s a
  * random handful gain .animated-letter — they turn gold and the
