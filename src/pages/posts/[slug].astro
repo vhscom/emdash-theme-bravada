@@ -137,6 +137,15 @@ const headerMeta = [
 	.filter(Boolean)
 	.join(", ");
 
+// Post-foot author block. The demo shows the author's avatar + name in the
+// hero; we can't hydrate a rich author card into the hero yet, so we surface
+// the byline in a block below the article instead. Falls back to the name
+// alone when the byline carries no avatar or bio (as the seed's does).
+const author = bylines[0]?.byline;
+const authorAvatar = author?.avatarStorageKey
+	? `/_emdash/api/media/file/${author.avatarStorageKey}`
+	: undefined;
+
 const publishDate =
 	post.data.publishedAt?.toLocaleDateString("en-US", {
 		year: "numeric",
@@ -224,6 +233,34 @@ const publishDate =
 					)
 				}
 			</article>
+
+			{
+				author && (
+					<section class="post-author" aria-label="About the author">
+						{authorAvatar && (
+							<img
+								class="post-author-avatar"
+								src={authorAvatar}
+								alt={author.avatarAlt ?? author.displayName}
+								width="64"
+								height="64"
+								loading="lazy"
+							/>
+						)}
+						<div class="post-author-text">
+							<span class="post-author-label">Written by</span>
+							{author.websiteUrl ? (
+								<a class="post-author-name" href={author.websiteUrl}>
+									{author.displayName}
+								</a>
+							) : (
+								<span class="post-author-name">{author.displayName}</span>
+							)}
+							{author.bio && <p class="post-author-bio">{author.bio}</p>}
+						</div>
+					</section>
+				)
+			}
 
 			{
 				relatedPosts.length > 0 && (
@@ -492,11 +529,31 @@ const publishDate =
 		margin-bottom: 1.5em;
 	}
 
+	.article-content :global(h1) {
+		font-size: var(--font-size-3xl);
+		margin-top: 2.5em;
+		margin-bottom: 0.75em;
+		scroll-margin-top: calc(var(--nav-height) + var(--spacing-4));
+	}
+
 	.article-content :global(h2) {
 		font-size: var(--font-size-2xl);
 		margin-top: 2.5em;
 		margin-bottom: 0.75em;
 		scroll-margin-top: calc(var(--nav-height) + var(--spacing-4));
+	}
+
+	/* The largest in-body headings wear the same gold highlighter strip the
+	   section titles do. inline-block shrinks the box to the text so the
+	   strip underlines the words, not the column; block siblings still wrap
+	   below. */
+	.article-content :global(h1),
+	.article-content :global(h2) {
+		display: inline-block;
+		background-image: var(--gold-scrim);
+		background-repeat: no-repeat;
+		background-size: 100% 0.4em;
+		background-position: 0 88%;
 	}
 
 	.article-content :global(h3) {
@@ -597,6 +654,53 @@ const publishDate =
 
 	.reply-title {
 		margin-top: var(--spacing-10);
+	}
+
+	/* Post-foot author block: avatar + name (+ bio when present). Mirrors the
+	   demo's hero author card, relocated below the article until the hero can
+	   carry a rich author card. */
+	.post-author {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-4);
+		margin-top: var(--spacing-12);
+		padding-top: var(--spacing-10);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.post-author-avatar {
+		flex: 0 0 auto;
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.post-author-label {
+		display: block;
+		font-size: var(--font-size-xs);
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-muted);
+	}
+
+	.post-author-name {
+		font-family: var(--font-heading);
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	a.post-author-name:hover {
+		color: var(--color-teal);
+	}
+
+	.post-author-bio {
+		margin: 0.4em 0 0;
+		font-size: var(--font-size-sm);
+		line-height: var(--leading-normal);
+		color: var(--color-text-secondary);
 	}
 
 	/* Related posts — image cards constrained inside the white card */
