@@ -507,7 +507,17 @@
     {
       "id": "byline-cryout",
       "slug": "cryout",
-      "displayName": "Cryout"
+      "displayName": "Cryout",
+      "bio": "Cryout Creations builds fast, honest WordPress themes — and now writes about the craft behind them. Bravada is their magazine-style flagship, ported here to EmDash.",
+      "websiteUrl": "https://www.cryoutcreations.eu/",
+      "avatar": {
+        "storageKey": "authors/cryout.jpeg",
+        "alt": "Cryout",
+        "filename": "cryout.jpeg",
+        "mimeType": "image/jpeg",
+        "width": 512,
+        "height": 512
+      }
     }
   ],
   "menus": [
