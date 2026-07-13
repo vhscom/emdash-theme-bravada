@@ -1,7 +1,7 @@
 ---
 /**
  * The Bravada static-page shell: a white content card flanked by up to
- * two 320px widget sidebars, arranged by the page's Layout field (the
+ * two var(--sidebar-width) widget sidebars, arranged by the page's Layout field (the
  * demo's one/two/three-column options). This is the field-driven
  * counterpart to the demo's several "Layouts" — one shell that branches
  * on `layout` rather than a separate template per arrangement.
@@ -36,10 +36,10 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 
 <style>
 	/* Demo static page: content on a white card inside the shell.
-	   The shell arranges the card and up to two 320px sidebars per the
+	   The shell arranges the card and up to two var(--sidebar-width) sidebars per the
 	   page's Layout field (demo one/two/three-column options). */
 	/* Demo #container: transparent shell — only .main is white; the
-	   sidebars sit directly on the page background. Sidebars are 320px
+	   sidebars sit directly on the page background. Sidebars are var(--sidebar-width)
 	   including their 2.2em inner gutter, no grid gap (demo box model:
 	   main = 100% − 640px). */
 	.page-shell {
@@ -51,11 +51,11 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	}
 
 	.page-shell.layout-left {
-		grid-template-columns: 320px minmax(0, 1fr);
+		grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
 	}
 
 	.page-shell.layout-right {
-		grid-template-columns: minmax(0, 1fr) 320px;
+		grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
 	}
 
 	.page-shell.layout-right > .page-article {
@@ -63,7 +63,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	}
 
 	.page-shell.layout-two-left {
-		grid-template-columns: 320px 320px minmax(0, 1fr);
+		grid-template-columns: var(--sidebar-width) var(--sidebar-width) minmax(0, 1fr);
 	}
 
 	.page-shell.layout-two-left > .page-article {
@@ -71,7 +71,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	}
 
 	.page-shell.layout-two-right {
-		grid-template-columns: minmax(0, 1fr) 320px 320px;
+		grid-template-columns: minmax(0, 1fr) var(--sidebar-width) var(--sidebar-width);
 	}
 
 	.page-shell.layout-two-right > .page-article {
@@ -79,7 +79,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	}
 
 	.page-shell.layout-sided {
-		grid-template-columns: 320px minmax(0, 1fr) 320px;
+		grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--sidebar-width);
 	}
 
 	.page-article {

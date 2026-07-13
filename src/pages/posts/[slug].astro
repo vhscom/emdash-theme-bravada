@@ -2,10 +2,11 @@
 import {
 	getEmDashEntry,
 	getEmDashCollection,
-	getTermsForEntries,
 	getSeoMeta,
 	decodeSlug,
 	getSiteSettings,
+	getCommentCount,
+	getCollectionInfo,
 } from "emdash";
 import { Comments, CommentForm } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
@@ -108,18 +109,27 @@ if (!olderPost || !newerPost) {
 			: undefined;
 }
 
-// Single batched query for related-posts tags, rather than one
-// getEntryTerms() call per related post.
-const otherTagsByEntry = await getTermsForEntries(
-	"posts",
-	otherPosts.map((p) => p.data.id),
-	"tag",
+// Comments are enabled per-collection; the demo only shows the comment
+// count badge on related cards when they are on (the default).
+const collectionInfo = await getCollectionInfo("posts");
+const commentsEnabled = collectionInfo?.commentsEnabled ?? true;
+const postCommentCount = commentsEnabled
+	? await getCommentCount("posts", post.data.id)
+	: 0;
+
+// Related cards (demo .related-item): thumbnail + comment-count badge +
+// title + date. Counts only queried when comments are enabled.
+const shortDate = (d?: Date | null) =>
+	d?.toLocaleDateString("en-US", { month: "long", day: "numeric" }) ?? null;
+const relatedPosts = await Promise.all(
+	otherPosts.map(async (p) => ({
+		id: p.id,
+		title: p.data.title,
+		img: getMediaUrl(p.data.featured_image),
+		date: shortDate(p.data.publishedAt),
+		commentCount: commentsEnabled ? await getCommentCount("posts", p.data.id) : 0,
+	})),
 );
-const otherPostsWithTags = otherPosts.map((p) => ({
-	post: p,
-	tags: otherTagsByEntry.get(p.data.id) ?? [],
-	bylines: p.data.bylines ?? [],
-}));
 
 const headerMeta = [
 	...(post.data.bylines ?? []).slice(0, 2).map((c) => c.byline.displayName),
@@ -216,30 +226,40 @@ const publishDate =
 			</article>
 
 			{
-				otherPostsWithTags.length > 0 && (
+				relatedPosts.length > 0 && (
 					<section class="related-posts">
 						<h2 class="section-title"><span>Related Posts</span></h2>
 						<ul class="related-grid">
-							{otherPostsWithTags.map(({ post: p }) => {
-								const img = getMediaUrl(p.data.featured_image);
-								return (
-									<li class="related-item">
-										<a href={`/posts/${p.id}`} class="related-thumb" tabindex="-1">
-											{img && <img src={img} alt="" loading="lazy" />}
+							{relatedPosts.map((p) => (
+								<li class="related-item">
+									<div class="related-thumb">
+										<a href={`/posts/${p.id}`} tabindex="-1">
+											{p.img && <img src={p.img} alt="" loading="lazy" />}
 										</a>
-										<a href={`/posts/${p.id}`} class="related-name">
-											{p.data.title}
-										</a>
-									</li>
-								);
-							})}
+										{commentsEnabled && (
+											<a href={`/posts/${p.id}#comments`} class="related-comments" aria-label={`${p.commentCount} comments`}>
+												<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+												{p.commentCount}
+											</a>
+										)}
+									</div>
+									<a href={`/posts/${p.id}`} class="related-name">{p.title}</a>
+									{p.date && <p class="related-date">{p.date}</p>}
+								</li>
+							))}
 						</ul>
 					</section>
 				)
 			}
 
 			<section class="post-comments">
+				{postCommentCount > 0 && (
+					<h2 class="section-title comments-count-title">
+						<span>{postCommentCount} {postCommentCount === 1 ? "Comment" : "Comments"}</span>
+					</h2>
+				)}
 				<Comments collection="posts" contentId={post.data.id} threaded />
+				<h2 class="section-title reply-title"><span>Leave a Reply</span></h2>
 				<CommentForm collection="posts" contentId={post.data.id} />
 			</section>
 		</div>
@@ -369,10 +389,17 @@ const publishDate =
 	.post-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
-		gap: var(--spacing-10);
+		gap: 0;
 		max-width: var(--wide-width);
 		margin: 0 auto var(--spacing-16);
 		padding: 0 var(--spacing-6);
+	}
+
+	/* Sidebar: a 2.2em inner gutter (like the layout pages) insets the
+	   widgets to ~285px, and a top pad drops the first widget to the
+	   white card's content line instead of touching the hero. */
+	.post-grid > :global(.bravada-sidebar) {
+		padding: clamp(1.75em, 4vw, 3.5em) 0 0 2.2em;
 	}
 
 	.post-main {
@@ -534,8 +561,7 @@ const publishDate =
 	/* Signature section heading (Related Posts + the comments title):
 	   Playfair 700 at 1.2em on the gold strip — like every other section
 	   title on the site. */
-	.section-title,
-	.post-comments :global(.ec-comments-heading) {
+	.section-title {
 		display: inline-block;
 		margin: 0 0 1.2em;
 		font-family: var(--font-heading);
@@ -548,10 +574,14 @@ const publishDate =
 		background-position: 0 90%;
 	}
 
-	.section-title span {
-		/* the <span> already carries the strip via the rule above when the
-		   title has no wrapper; keep the wrapper transparent */
-		background: none;
+	/* We render our own "N Comments" / "Leave a Reply" headings (demo
+	   text + scrim), so hide EmDash's built-in "No comments yet" one. */
+	.post-comments :global(.ec-comments-heading) {
+		display: none;
+	}
+
+	.reply-title {
+		margin-top: var(--spacing-10);
 	}
 
 	/* Related posts — image cards constrained inside the white card */
@@ -576,14 +606,14 @@ const publishDate =
 	}
 
 	.related-thumb {
-		display: block;
+		position: relative;
 		overflow: hidden;
 		line-height: 0;
 	}
 
 	.related-thumb img {
 		width: 100%;
-		aspect-ratio: 4 / 3;
+		aspect-ratio: 512 / 300;
 		object-fit: cover;
 		transition: transform 0.4s ease-out;
 	}
@@ -591,6 +621,33 @@ const publishDate =
 	.related-item:hover .related-thumb img,
 	.related-item:focus-within .related-thumb img {
 		transform: scale(1.05);
+	}
+
+	/* Comment-count badge: teal chip that fades in on hover (demo) */
+	.related-comments {
+		position: absolute;
+		top: 0.6em;
+		right: 0.6em;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		padding: 0.35em 0.6em;
+		background: var(--color-teal-solid);
+		color: #ffffff;
+		font-size: 0.75rem;
+		line-height: 1;
+		text-decoration: none;
+		opacity: 0;
+		transform: translateY(-4px);
+		transition:
+			opacity 0.3s ease-out,
+			transform 0.3s ease-out;
+	}
+
+	.related-item:hover .related-comments,
+	.related-item:focus-within .related-comments {
+		opacity: 1;
+		transform: translateY(0);
 	}
 
 	.related-name {
@@ -605,6 +662,12 @@ const publishDate =
 
 	.related-name:hover {
 		color: var(--color-gold);
+	}
+
+	.related-date {
+		margin: 0.35em 0 0;
+		font-size: 0.8rem;
+		color: var(--color-muted);
 	}
 
 	/* Comments live inside the white card, below related posts */
@@ -631,20 +694,34 @@ const publishDate =
 		color: var(--color-text);
 	}
 
-	/* Demo comment fields: flat #f0f0f0, no border, square; teal on focus */
+	/* Demo comment fields: flat #f0f0f0, no border, square and tight;
+	   gold focus ring (obnoxious but on-brand, like the demo) */
 	.post-comments :global(.ec-comment-form-field input),
 	.post-comments :global(.ec-comment-form-field textarea) {
 		background: light-dark(#f0f0f0, var(--color-bg-subtle)) !important;
 		border: 0 !important;
 		border-radius: 0 !important;
-		padding: 0.9em 1.1em !important;
+		padding: 0.65em 0.9em !important;
 		color: var(--color-text) !important;
 	}
 
 	.post-comments :global(.ec-comment-form-field input):focus,
 	.post-comments :global(.ec-comment-form-field textarea):focus {
-		outline: 2px solid var(--color-teal-solid) !important;
+		outline: 2px solid var(--color-gold) !important;
 		outline-offset: -2px;
+	}
+
+	/* Tighter field label spacing */
+	.post-comments :global(.ec-comment-form-field span) {
+		margin-bottom: 0.35em !important;
+		font-size: 0.95rem;
+	}
+
+	/* Required-field markers (demo: Name*, Email*) */
+	.post-comments :global(.ec-comment-form-field:has(input[required]) > span::after),
+	.post-comments :global(.ec-comment-form-field:has(textarea[required]) > span::after) {
+		content: " *";
+		color: var(--color-gold);
 	}
 
 	.post-comments :global(.ec-comment-user-info) {
