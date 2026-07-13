@@ -65,3 +65,10 @@ npx emdash seed seed/seed.json   # apply sample content without the setup wizard
 
 Full-text search, RSS, SEO/JSON-LD, comments-ready routes, dark/light mode and
 the audit-log plugin come from the underlying blog template.
+
+## License
+
+© 2026 vhs. A port of Bravada, © 2020–25
+[Cryout Creations](https://www.cryoutcreations.eu). Licensed under
+GPL-3.0-or-later — see [LICENSE](./LICENSE) for the full text and
+[CREDITS.md](./CREDITS.md) for attribution details.
