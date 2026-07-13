@@ -163,6 +163,15 @@ const publishDate =
 		day: "numeric",
 	}) ?? null;
 
+// The demo hero closes with what Bravada's source calls the "byline"
+// (option theme_meta_single_byline) — but core.php renders
+// get_the_excerpt() there: it IS the post excerpt, the same text
+// search engines receive as the meta description. Named hero-excerpt
+// here because "byline" already means author profiles in EmDash.
+// Like the demo (has_excerpt() check), it only renders when the post
+// actually has an excerpt.
+const heroExcerpt = (post.data.excerpt as string | undefined) || null;
+
 // The demo's hero date reads "9th May" — ordinal day + month.
 const ordinal = (n: number) =>
 	n + (["th", "st", "nd", "rd"][n % 100 > 10 && n % 100 < 14 ? 0 : Math.min(n % 10, 4)] ?? "th");
@@ -218,6 +227,13 @@ const heroDate = post.data.publishedAt
 				)
 			}
 			{showAuthor && !authorAvatar && headerMeta && <p class="hero-date">{headerMeta}</p>}
+			{
+				heroExcerpt && (
+					<p class="hero-excerpt" {...post.edit.excerpt}>
+						{heroExcerpt}
+					</p>
+				)
+			}
 		</div>
 	</PageHeader>
 	<div class="post-grid">
@@ -252,11 +268,6 @@ const heroDate = post.data.publishedAt
 						}
 						<span>{readingTime} min read</span>
 					</div>
-					{
-						post.data.excerpt && (
-							<p class="article-excerpt" {...post.edit.excerpt}>{post.data.excerpt}</p>
-						)
-					}
 				</header>
 
 				<div class="article-content">
@@ -624,10 +635,15 @@ const heroDate = post.data.publishedAt
 		margin-bottom: var(--spacing-4);
 	}
 
-	.article-excerpt {
-		font-size: var(--font-size-xl);
-		line-height: var(--leading-relaxed);
-		color: var(--color-text-secondary);
+	/* Hero excerpt — demo #header-page-title .byline: the post excerpt
+	   centered under the author, capped at 70% width. */
+	.hero-excerpt {
+		max-width: 70%;
+		min-width: 300px;
+		margin: 1.5em auto 1em;
+		font-size: 1em;
+		text-align: center;
+		color: #fff;
 	}
 
 	/* Article content typography */
