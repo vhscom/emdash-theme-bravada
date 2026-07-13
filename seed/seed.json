@@ -2,12 +2,12 @@
   "$schema": "https://emdashcms.com/seed.schema.json",
   "version": "1",
   "meta": {
-    "name": "Bravada·Astro",
+    "name": "Bravada for Astro",
     "description": "A faithful port of the Bravada WordPress theme (Cryout Creations): static slider, icon blocks, featured boxes, text areas, portfolio, testimonials and a masonry blog feed, rebuilt as EmDash sections over a magazine-style blog.",
     "author": "vhs"
   },
   "settings": {
-    "title": "Bravada·Astro",
+    "title": "Bravada for Astro",
     "tagline": "Clear, clean and simply gorgeous"
   },
   "collections": [

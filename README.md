@@ -1,6 +1,6 @@
-# Bravada·Astro
+# Bravada for Astro
 
-Bravada for Astro: a port of the
+A port of the
 [Bravada](https://www.cryoutcreations.eu/wordpress-themes/bravada) WordPress
 theme (Cryout Creations) to [Astro](https://astro.build), powered by
 [EmDash](https://emdashcms.com) and built on the EmDash blog template. Runs on

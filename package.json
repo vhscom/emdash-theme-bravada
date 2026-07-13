@@ -5,7 +5,7 @@
 	"type": "module",
 	"license": "GPL-3.0-or-later",
 	"emdash": {
-		"label": "Bravada·Astro",
+		"label": "Bravada for Astro",
 		"description": "Bravada for Astro — a port of the Bravada WordPress theme (Cryout Creations) to Astro, powered by EmDash",
 		"seed": "seed/seed.json"
 	},
