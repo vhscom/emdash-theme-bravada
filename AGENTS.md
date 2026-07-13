@@ -33,13 +33,13 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 
 ## This Template
 
-A blog with posts, pages, categories, tags, full-text search, and RSS. Designed for personal writing, technical writing, indie newsletters, and anything where the writing is the product. Editorial-tech aesthetic: confident sans-serif, restrained accent, real article structure with bylines and reading time.
+A blog with posts, pages, categories, tags, full-text search, and RSS, restyled as a port of the Bravada WordPress theme (Cryout Creations): magazine-style landing sections and a real article structure with bylines and reading time.
 
 ## Visual character
 
-Single typeface: **Inter** on `--font-body`, used for everything including headings (`--font-heading` defaults to the body face; tighter letter-spacing on h1/h2). **JetBrains Mono** on `--font-mono` for inline code and code blocks. Body and headings share the same family; weight and size carry the hierarchy (`--font-weight-heading` 600, `--font-weight-display` 700 for h1/page titles).
+Two faces carry the Bravada pairing: **Playfair Display** on `--font-display` for headings (`theme.css` aliases `--font-heading` to it) and **Mulish** on `--font-body` for body text -- the display/body contrast carries the hierarchy. **JetBrains Mono** on `--font-mono` for inline code and code blocks.
 
-The brand colour is `#0066cc` (`--color-brand`) -- used for links, the post-card title hover, and the search input focus ring. There's also a secondary text colour (`--color-text-secondary`) and a `--color-muted` for meta info. Don't add a second accent.
+The brand colour is Bravada's gold `#E9B44C` (`--color-brand`) -- links, buttons, highlights -- with teal `#0F8B8D` on `--color-brand-hover` (lightened to `#3db9bb` in dark mode). The palette deliberately follows the original Bravada demo, not WCAG adjustments -- read the notes at the top of `theme.css` before "fixing" contrast.
 
 Single posts use Bravada's blog layout: the article body sits on a white card (`--color-surface`) over the page tint, paired with a right sidebar rendered by `SidebarWidgets` from the `sidebar-b` widget area (Search, Recent Posts, and a tabbed widget -- the same Bravada widgets the two-sidebar layout pages use, so the post and page sidebars share styling and content). Author and date run inline in the article header (no separate meta column); body copy is `--font-size-base` (16px); a gold-strip **Related Posts** heading leads into the full-bleed image previous/next band that meets the footer. This deliberately mirrors the Bravada demo -- do not reintroduce the base template's three-column reading view.
 
@@ -49,14 +49,14 @@ Design tokens live in `src/styles/tokens.css` with their default values. To rest
 
 Colours are defined with `light-dark(<light>, <dark>)`, so each token carries both modes. Overriding with a plain colour changes light and dark at once; use `light-dark()` in the override to keep them distinct. There is no separate dark palette to maintain.
 
-Webfonts are configured in `astro.config.mjs` under `fonts:`. To swap the body face, change the `name:` for the entry bound to `cssVariable: "--font-body"`. Good alternatives: Geist, IBM Plex Sans, Söhne (if you have a licence), Public Sans. If you want a serif-bodied blog, swap to a humanist serif like Source Serif, Crimson Pro, or Lora -- but then also raise `--font-size-base` to `1.0625rem` for readability. To give headings their own face (or use a system font) without touching the font pipeline, override `--font-heading` or `--font-body` in `theme.css`.
+Webfonts are configured in `astro.config.mjs` under `fonts:` -- Mulish is bound to `cssVariable: "--font-body"`, Playfair Display to `--font-display`, and JetBrains Mono to `--font-mono`. To swap a face, change the `name:` on the corresponding entry; to restyle without touching the font pipeline, override `--font-heading` or `--font-body` in `theme.css`. All three shipped faces are SIL OFL 1.1 (credited in `CREDITS.md`) -- if you substitute a commercial face, make sure you hold a webfont licence for it.
 
 CSS variables worth knowing (see `tokens.css` for the full list):
 
 - `--color-brand`, `--color-brand-hover`, `--color-on-brand`, `--color-brand-ring`
 - `--color-bg`, `--color-bg-subtle`, `--color-surface`, `--color-text`, `--color-text-secondary`, `--color-muted`, `--color-border`, `--color-border-subtle`
-- `--font-body`, `--font-heading`, `--font-mono`
-- `--font-weight-heading` (600) / `--font-weight-display` (700) -- heading weights; lower them if you switch to a serif
+- `--font-body`, `--font-heading`, `--font-display`, `--font-mono`
+- `--font-weight-heading` / `--font-weight-display` -- heading weights (Playfair runs at 700)
 - `--tracking-tight` / `--tracking-snug` / `--tracking-wide` / `--tracking-wider` -- letter-spacing tokens used across headings and meta labels
 - `--content-width` (680px) -- article body column (single-post card content)
 - `--wide-width` (1200px) -- max container
@@ -65,8 +65,8 @@ CSS variables worth knowing (see `tokens.css` for the full list):
 
 ## What not to do
 
-- Don't add a second accent colour or coloured section backgrounds. The page should be black, white, and one blue.
-- Don't replace Inter with a display sans (Bebas, Anton, etc.). Headings rely on weight contrast, not novelty faces.
+- Don't add accents beyond Bravada's pair -- gold `#E9B44C` and teal `#0F8B8D` -- and don't "correct" the palette for WCAG contrast; fidelity to the original demo wins here.
+- Don't replace the Playfair Display / Mulish pairing with novelty faces. The serif-display-over-sans contrast is the Bravada signature.
 - Don't reintroduce the base template's three-column article layout (left meta column + centred body + right gutter); single posts follow the Bravada blog layout (white card + right `sidebar-b`).
 - Don't use stock blog copy ("Welcome to my blog", "Stay tuned for more"). Write a real tagline that says what this blog is about.
 - Don't seed the home page with three identical placeholder posts. If you only have one real post, show one real post.
