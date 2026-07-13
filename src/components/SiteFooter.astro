@@ -18,8 +18,9 @@ const { siteTitle, siteTagline } = resolveBlogSiteIdentity(await getSiteSettings
 // Optional "social" menu → the footer's social row (and mobile menu).
 const socialMenu = await getMenu("social");
 
-// Pages feed the footer's mini nav.
-const { entries: pages } = await getEmDashCollection("pages");
+// Pages feed the footer's mini nav (it shows at most two beyond Home,
+// so bound the fetch instead of hydrating the whole collection).
+const { entries: pages } = await getEmDashCollection("pages", { limit: 10 });
 
 // Footer widgets are rendered manually (not via <WidgetArea>) so that
 // content widgets can carry the theme's custom Portable Text blocks —
@@ -206,6 +207,13 @@ const footerWidgets = await getWidgetArea("footer");
 
 	.footer-widgets-section :global(.widget__content) {
 		color: var(--color-footer-text);
+	}
+
+	/* EmDash's Image figure ships margin: 1.5rem 0, which stacks with the
+	   widget title's margin-bottom into a double gap the demo doesn't
+	   have — the title's own margin is the only spacer. */
+	.footer-widgets-section :global(.widget__content > :first-child) {
+		margin-top: 0;
 	}
 
 	.footer-widgets-section :global(.widget a) {

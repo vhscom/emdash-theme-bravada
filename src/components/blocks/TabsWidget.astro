@@ -7,6 +7,7 @@
  */
 import { getEmDashCollection, getTaxonomyTerms, getTermsForEntries } from "emdash";
 import { getMediaUrl } from "../../utils/media-url";
+import { widgetDate } from "../../utils/dates";
 
 interface TabsNode {
 	limit?: number;
@@ -34,10 +35,7 @@ const toItem = (post: (typeof recent)[number]) => ({
 	href: `/posts/${post.id}`,
 	image: getMediaUrl(post.data.featured_image),
 	categories: catsByEntry.get(post.data.id) ?? [],
-	date: post.data.publishedAt?.toLocaleDateString("en-GB", {
-		day: "numeric",
-		month: "long",
-	}),
+	date: widgetDate(post.data.publishedAt),
 });
 
 const recentItems = recent.slice(0, limit).map(toItem);

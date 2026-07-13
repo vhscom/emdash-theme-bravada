@@ -1,0 +1,105 @@
+---
+/**
+ * Shared post term archive (category + tag routes): resolves the term,
+ * queries its posts, batches tag lookups, and renders the Bravada
+ * archive grid. The two routes differ only in taxonomy and wording.
+ */
+import { getEmDashCollection, getTermsForEntries, type TaxonomyTerm } from "emdash";
+import Base from "../layouts/Base.astro";
+import PageHeader from "./PageHeader.astro";
+import ArchiveLayout from "../layouts/ArchiveLayout.astro";
+import PostCard from "./PostCard.astro";
+import { getReadingTime } from "../utils/reading-time";
+
+interface Props {
+	taxonomy: "category" | "tag";
+	/** Resolved term — the route owns slug decoding and the 404 rewrite */
+	term: TaxonomyTerm;
+}
+
+const { taxonomy, term } = Astro.props;
+
+const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
+	where: { [taxonomy]: term.slug },
+	orderBy: { published_at: "desc" },
+});
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+// Single batched query for tags on every post in this archive, rather
+// than calling getEntryTerms() per post.
+const tagsByEntry = await getTermsForEntries(
+	"posts",
+	posts.map((p) => p.data.id),
+	"tag",
+);
+const cards = posts.map((post) => ({
+	post,
+	tags: (tagsByEntry.get(post.data.id) ?? []).map((t) => ({
+		slug: t.slug,
+		label: t.label,
+	})),
+	bylines: post.data.bylines ?? [],
+}));
+
+const isCategory = taxonomy === "category";
+const title = isCategory ? `${term.label} posts` : `Posts tagged "${term.label}"`;
+const description = isCategory
+	? `All posts in ${term.label}`
+	: `All posts tagged with ${term.label}`;
+const kind = isCategory ? "Category" : "Tag";
+const emptyText = isCategory
+	? "No posts in this category yet."
+	: "No posts with this tag yet.";
+---
+
+<Base title={title} description={description} overHero>
+	<PageHeader
+		title={term.label}
+		excerpt={term.description}
+		subtitle={`${kind} · ${posts.length} ${posts.length === 1 ? "post" : "posts"}`}
+		crumbs={[{ label: "Blog", href: "/posts" }, { label: term.label }]}
+	/>
+
+	<ArchiveLayout>
+		{
+			cards.length === 0 ? (
+				<p class="empty">{emptyText}</p>
+			) : (
+				<div class="archive-grid">
+					{cards.map(({ post, tags, bylines }) => (
+						<PostCard
+							title={post.data.title}
+							excerpt={post.data.excerpt}
+							featuredImage={post.data.featured_image}
+							href={`/posts/${post.id}`}
+							date={post.data.publishedAt ?? undefined}
+							readingTime={getReadingTime(post.data.content)}
+							tags={tags}
+							bylines={bylines}
+						/>
+					))}
+				</div>
+			)
+		}
+	</ArchiveLayout>
+</Base>
+
+<style>
+	.archive-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2em;
+		align-items: start;
+	}
+
+	.empty {
+		color: var(--color-muted);
+	}
+
+	@media (max-width: 640px) {
+		.archive-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

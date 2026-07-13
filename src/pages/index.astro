@@ -9,6 +9,7 @@ import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
 import RichText from "../components/RichText.astro";
 import { getReadingTime } from "../utils/reading-time";
+import { heroSlideImage } from "../utils/hero";
 import { resolveBlogSiteIdentity } from "../utils/site-identity";
 
 // Bravada's landing page shows a 6-post grid (#lp-posts) after the bands
@@ -41,10 +42,7 @@ const firstBlock = home?.data.content?.[0];
 const overHero = firstBlock?._type === "bravada.hero";
 
 // Social preview image: the landing hero's first slide, else the logo.
-const heroImage =
-	firstBlock?._type === "bravada.hero" && typeof firstBlock.image === "string"
-		? firstBlock.image
-		: (settings?.logo?.url ?? undefined);
+const heroImage = heroSlideImage(home?.data.content) ?? settings?.logo?.url ?? undefined;
 
 const visiblePosts = posts.slice(0, POSTS_PER_PAGE);
 const hasMorePosts = posts.length > POSTS_PER_PAGE;

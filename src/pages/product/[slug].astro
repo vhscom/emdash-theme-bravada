@@ -1,5 +1,5 @@
 ---
-import { getEmDashEntry, getEntryTerms, getEntriesByTerm, decodeSlug } from "emdash";
+import { getEmDashEntry, getEmDashCollection, getEntryTerms, decodeSlug } from "emdash";
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import RichText from "../../components/RichText.astro";
@@ -23,9 +23,15 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 const cats = await getEntryTerms("products", product.data.id, "product-category");
 
-// Related products: same first category, demo-style row of four
+// Related products: same first category, demo-style row of four.
+// A bounded where-filter query instead of hydrating the whole category.
 const related = cats.length
-	? (await getEntriesByTerm("products", "product-category", cats[0].slug))
+	? (
+			await getEmDashCollection("products", {
+				where: { "product-category": cats[0].slug },
+				limit: 5,
+			})
+		).entries
 			.filter((p) => p.id !== product.id)
 			.slice(0, 4)
 	: [];

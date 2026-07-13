@@ -7,6 +7,7 @@
  */
 import type { MediaValue, ContentBylineCredit } from "emdash";
 import { Image } from "emdash/ui";
+import { longDate } from "../utils/dates";
 
 interface Props {
 	title: string;
@@ -32,13 +33,7 @@ const {
 	bylines,
 } = Astro.props;
 
-const formattedDate = date
-	? date.toLocaleDateString("en-US", {
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-		})
-	: null;
+const formattedDate = longDate(date);
 const author = bylines?.[0]?.byline.displayName;
 ---
 

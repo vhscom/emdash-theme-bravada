@@ -1,10 +1,6 @@
 ---
-import { getTerm, getEmDashCollection, decodeSlug } from "emdash";
-import Base from "../../layouts/Base.astro";
-import PageHeader from "../../components/PageHeader.astro";
-import ProjectShell from "../../layouts/ProjectShell.astro";
-import ProjectGrid from "../../components/blocks/ProjectGrid.astro";
-import { getMediaUrl } from "../../utils/media-url";
+import { getTerm, decodeSlug } from "emdash";
+import ProjectTermArchive from "../../components/ProjectTermArchive.astro";
 
 const slug = decodeSlug(Astro.params.slug);
 const term = slug ? await getTerm("project-tag", slug) : null;
@@ -12,27 +8,6 @@ const term = slug ? await getTerm("project-tag", slug) : null;
 if (!term) {
 	return Astro.rewrite("/404");
 }
-
-const { entries: projects, cacheHint } = await getEmDashCollection("portfolio", {
-	where: { "project-tag": term.slug },
-});
-
-if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
-
-const items = projects.map((p) => ({
-	image: getMediaUrl(p.data.featured_image),
-	title: p.data.title,
-	url: `/portfolio/${p.id}`,
-}));
 ---
 
-<Base title={`${term.label} projects`} description={`Portfolio projects tagged ${term.label}.`} overHero>
-	<PageHeader
-		title={term.label}
-		excerpt={term.description}
-		crumbs={[{ label: "Projects", href: "/portfolio" }, { label: term.label }]}
-	/>
-	<ProjectShell>
-		<ProjectGrid node={{ items }} />
-	</ProjectShell>
-</Base>
+<ProjectTermArchive taxonomy="project-tag" term={term} />

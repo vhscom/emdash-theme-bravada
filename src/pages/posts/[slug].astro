@@ -17,6 +17,8 @@ import SidebarWidgets from "../../components/SidebarWidgets.astro";
 import { getReadingTime } from "../../utils/reading-time";
 import { resolveBlogSiteIdentity, resolveSiteOrigin } from "../../utils/site-identity";
 import { getMediaUrl } from "../../utils/media-url";
+import { longDate, monthDay, heroDate } from "../../utils/dates";
+import { heroSlideImage } from "../../utils/hero";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -32,31 +34,18 @@ if (!post) {
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
-// Get featured image URL for OG fallback
-// The image may have src (external) or meta.storageKey (local)
-function getImageUrl(img: unknown): string | undefined {
-	if (!img || typeof img !== "object") return undefined;
-	const image = img as Record<string, unknown>;
-	// Check for direct src
-	if (typeof image.src === "string" && image.src) {
-		return image.src.startsWith("http")
-			? image.src
-			: `${Astro.url.origin}${image.src}`;
-	}
-	// Build from storageKey for local images
-	const meta = image.meta as Record<string, unknown> | undefined;
-	const storageKey =
-		(typeof meta?.storageKey === "string" ? meta.storageKey : undefined) ||
-		(typeof image.id === "string" ? image.id : undefined);
-	if (storageKey) {
-		return `${Astro.url.origin}/_emdash/api/media/file/${storageKey}`;
-	}
-	return undefined;
-}
-const featuredImageUrl = getImageUrl(post.data.featured_image);
 const siteSettings = await getSiteSettings();
 const { siteTitle } = resolveBlogSiteIdentity(siteSettings);
 const siteOrigin = resolveSiteOrigin(siteSettings, Astro.url.origin);
+
+// Featured image for the hero and the OG fallback — Open Graph needs an
+// absolute URL, so promote root-relative media paths to the site origin.
+const featuredImagePath = getMediaUrl(post.data.featured_image);
+const featuredImageUrl = featuredImagePath
+	? featuredImagePath.startsWith("http")
+		? featuredImagePath
+		: `${siteOrigin}${featuredImagePath}`
+	: undefined;
 
 // Generate SEO meta from content
 const seo = getSeoMeta(post, {
@@ -76,25 +65,40 @@ const readingTime = getReadingTime(post.data.content);
 // no extra query needed.
 const tags = post.data.terms?.tag ?? [];
 
-// Fetch a few extra recent posts in case the current post is among them.
-const { entries: recentPosts } = await getEmDashCollection("posts", {
-	orderBy: { published_at: "desc" },
-	limit: 4,
-});
+// Adjacent posts for the floating prev/next navigation (demo #nav-fixed):
+// two targeted range queries instead of scanning the whole collection.
+// "Previous" is older (left), "Next" is newer (right), matching the
+// demo's WordPress convention. Independent queries run in parallel.
+// Range filters compare ISO strings lexicographically (per WhereRange).
+const publishedAtIso = post.data.publishedAt?.toISOString();
+const [{ entries: recentPosts }, newerResult, olderResult, collectionInfo] =
+	await Promise.all([
+		// A few extra recent posts in case the current post is among them.
+		getEmDashCollection("posts", {
+			orderBy: { published_at: "desc" },
+			limit: 4,
+		}),
+		publishedAtIso
+			? getEmDashCollection("posts", {
+					where: { published_at: { gt: publishedAtIso } },
+					orderBy: { published_at: "asc" },
+					limit: 1,
+				})
+			: null,
+		publishedAtIso
+			? getEmDashCollection("posts", {
+					where: { published_at: { lt: publishedAtIso } },
+					orderBy: { published_at: "desc" },
+					limit: 1,
+				})
+			: null,
+		// Comments are enabled per-collection; the demo only shows the
+		// comment count badge on related cards when they are on.
+		getCollectionInfo("posts"),
+	]);
 const otherPosts = recentPosts.filter((p) => p.id !== post.id).slice(0, 3);
-
-// Adjacent posts for the floating prev/next navigation (demo #nav-fixed).
-// Newest-first list: the newer neighbour sits before this post, the
-// older one after. "Previous" is older (left), "Next" is newer (right),
-// matching the demo's WordPress convention.
-const { entries: allPosts } = await getEmDashCollection("posts", {
-	orderBy: { published_at: "desc" },
-	limit: 200,
-});
-const postIndex = allPosts.findIndex((p) => p.id === post.id);
-const newerPost = postIndex > 0 ? allPosts[postIndex - 1] : null;
-const olderPost =
-	postIndex >= 0 && postIndex < allPosts.length - 1 ? allPosts[postIndex + 1] : null;
+const newerPost = newerResult?.entries[0] ?? null;
+const olderPost = olderResult?.entries[0] ?? null;
 const olderImg = getMediaUrl(olderPost?.data.featured_image);
 const newerImg = getMediaUrl(newerPost?.data.featured_image);
 
@@ -105,16 +109,9 @@ const newerImg = getMediaUrl(newerPost?.data.featured_image);
 let heroImg: string | undefined;
 if (!olderPost || !newerPost) {
 	const home = await getEmDashEntry("pages", "home");
-	const heroBlock = home?.entry?.data.content?.[0];
-	heroImg =
-		heroBlock?._type === "bravada.hero" && typeof heroBlock.image === "string"
-			? heroBlock.image
-			: undefined;
+	heroImg = heroSlideImage(home?.entry?.data.content);
 }
 
-// Comments are enabled per-collection; the demo only shows the comment
-// count badge on related cards when they are on (the default).
-const collectionInfo = await getCollectionInfo("posts");
 const commentsEnabled = collectionInfo?.commentsEnabled ?? true;
 const postCommentCount = commentsEnabled
 	? await getCommentCount("posts", post.data.id)
@@ -122,14 +119,12 @@ const postCommentCount = commentsEnabled
 
 // Related cards (demo .related-item): thumbnail + comment-count badge +
 // title + date. Counts only queried when comments are enabled.
-const shortDate = (d?: Date | null) =>
-	d?.toLocaleDateString("en-US", { month: "long", day: "numeric" }) ?? null;
 const relatedPosts = await Promise.all(
 	otherPosts.map(async (p) => ({
 		id: p.id,
 		title: p.data.title,
 		img: getMediaUrl(p.data.featured_image),
-		date: shortDate(p.data.publishedAt),
+		date: monthDay(p.data.publishedAt),
 		commentCount: commentsEnabled ? await getCommentCount("posts", p.data.id) : 0,
 	})),
 );
@@ -158,12 +153,7 @@ const showAuthor = (await getSiteSetting("showPostAuthor")) !== false;
 // above the title).
 const categories = (post.data.terms?.category ?? []) as { slug: string; label: string }[];
 
-const publishDate =
-	post.data.publishedAt?.toLocaleDateString("en-US", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	}) ?? null;
+const publishDate = longDate(post.data.publishedAt);
 
 // The demo hero closes with what Bravada's source calls the "byline"
 // (option theme_meta_single_byline) — but core.php renders
@@ -175,11 +165,7 @@ const publishDate =
 const heroExcerpt = (post.data.excerpt as string | undefined) || null;
 
 // The demo's hero date reads "9th May" — ordinal day + month.
-const ordinal = (n: number) =>
-	n + (["th", "st", "nd", "rd"][n % 100 > 10 && n % 100 < 14 ? 0 : Math.min(n % 10, 4)] ?? "th");
-const heroDate = post.data.publishedAt
-	? `${ordinal(post.data.publishedAt.getDate())} ${post.data.publishedAt.toLocaleDateString("en-US", { month: "long" })} ${post.data.publishedAt.getFullYear()}`
-	: null;
+const postHeroDate = heroDate(post.data.publishedAt);
 ---
 
 <Base
@@ -216,8 +202,8 @@ const heroDate = post.data.publishedAt
 		<div class="hero-meta" slot="meta">
 			<p class="hero-date">
 				{
-					heroDate && (
-						<time datetime={post.data.publishedAt?.toISOString()}>{heroDate}</time>
+					postHeroDate && (
+						<time datetime={post.data.publishedAt?.toISOString()}>{postHeroDate}</time>
 					)
 				}
 				<span>{readingTime} min read</span>
