@@ -53,8 +53,56 @@ external one.
 | All posts | `/posts` |
 | Single post | `/posts/:slug` |
 | Category / tag archive | `/category/:slug`, `/tag/:slug` |
+| Portfolio project | `/portfolio/:slug` |
+| Project type / tag archive | `/project-type/:slug`, `/project-tag/:slug` |
+| Product | `/product/:slug` |
 | Search | `/search` |
-| Static pages | `/pages/:slug` |
+| Static pages (about, contact, shop, …) | `/:slug` |
+
+RSS lives at `/rss.xml`; `sitemap.xml` and `robots.txt` are served by the
+EmDash integration.
+
+## Architecture
+
+Everything is server-rendered (`output: "server"`): content lives in SQLite
+and pages query it per request, so edits in the admin are live immediately —
+no rebuilds.
+
+```mermaid
+flowchart LR
+    subgraph Browser
+        V[Visitor]
+        E[Editor]
+    end
+
+    subgraph Node["Astro SSR (Node adapter)"]
+        R["Theme routes<br/>src/pages/*"]
+        B["Block components<br/>src/components/blocks/*"]
+        A["EmDash admin UI<br/>/_emdash/admin"]
+        I["Injected routes<br/>sitemap.xml · robots.txt · media API"]
+    end
+
+    subgraph Data
+        DB[("SQLite<br/>data.db")]
+        U["uploads/<br/>media files"]
+    end
+
+    V --> R
+    R -- "getEmDashCollection / getEmDashEntry" --> DB
+    R -- "Portable Text" --> B
+    V --> I
+    I --> DB
+    I --> U
+    E --> A
+    A --> DB
+    A --> U
+    S["seed/seed.json"] -. "npx emdash seed" .-> DB
+```
+
+The theme layer is deliberately thin: routes in `src/pages/` query EmDash and
+hand Portable Text to `RichText.astro`, which dispatches the four
+`bravada.*` block types; design tokens in `src/styles/theme.css` restyle the
+base template without touching its layout primitives.
 
 ## Run
 
@@ -83,6 +131,17 @@ The hero excerpt (the entry's Excerpt field, which is also the search-engine
 description) is independent of author display — it keeps rendering on
 single-author sites, exactly as Bravada treats its excerpt and author-meta
 options as separate toggles.
+
+## Documentation
+
+- [EmDash docs](https://docs.emdashcms.com) — querying content, schema,
+  menus, widgets, plugins, deployment.
+- [EmDash docs MCP](https://docs.emdashcms.com/docs-mcp) — this repo ships
+  `.mcp.json` / `.cursor/mcp.json` / `.vscode/mcp.json`, so Claude Code,
+  Cursor, and VS Code can search the EmDash docs while you work.
+- [Astro docs](https://docs.astro.build) — the underlying framework.
+- [Bravada](https://www.cryoutcreations.eu/wordpress-themes/bravada) — the
+  upstream WordPress theme this port is matched against.
 
 ## License
 
