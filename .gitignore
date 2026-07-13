@@ -10,3 +10,4 @@ data.db
 !.env.example
 data.db-shm
 data.db-wal
+.emdash

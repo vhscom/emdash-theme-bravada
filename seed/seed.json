@@ -132,6 +132,11 @@
             ]
           },
           "default": "page-sidebar"
+        },
+        {
+          "slug": "excerpt",
+          "label": "Excerpt",
+          "type": "text"
         }
       ]
     },

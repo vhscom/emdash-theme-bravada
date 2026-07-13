@@ -17,6 +17,15 @@ interface Props {
 	title: string;
 	/** Small line under the title (entry meta, result counts, …) */
 	subtitle?: string;
+	/**
+	 * The demo's hero "byline" slot (Bravada option
+	 * theme_meta_single_byline): the entry excerpt on posts/pages, the
+	 * term description on archives. Renders only when non-empty,
+	 * mirroring the demo's has_excerpt() gate.
+	 */
+	excerpt?: string | null;
+	/** Visual-editing attributes spread onto the excerpt */
+	excerptAttrs?: Record<string, string>;
 	/** Header image URL; defaults to the demo's lake panorama */
 	image?: string;
 	imageAlt?: string;
@@ -30,6 +39,8 @@ const DEFAULT_IMAGE = "/images/demo/static.jpg";
 const {
 	title,
 	subtitle,
+	excerpt,
+	excerptAttrs = {},
 	image,
 	imageAlt = "",
 	crumbs = [],
@@ -51,6 +62,13 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 			<h1 class="page-hero-title breakup-title" {...titleAttrs}>{title}</h1>
 			{subtitle && <p class="page-hero-sub">{subtitle}</p>}
 			<slot name="meta" />
+			{
+				excerpt && (
+					<p class="page-hero-excerpt" {...excerptAttrs}>
+						{excerpt}
+					</p>
+				)
+			}
 		</div>
 	</div>
 	{
@@ -195,6 +213,20 @@ const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE
 	.page-hero-caption-inside :global(.page-hero-meta) {
 		opacity: 0;
 		animation: 0.5s 0.5s page-hero-in ease-out forwards;
+	}
+
+	/* Demo #header-page-title .byline: the entry excerpt / archive
+	   description, centered under the meta, capped at 70% width and
+	   fading in last (.45s delay in the demo's cascade). */
+	.page-hero-excerpt {
+		max-width: 70%;
+		min-width: 300px;
+		margin: 1.5em auto 1em;
+		font-size: 1em;
+		text-align: center;
+		color: #fff;
+		opacity: 0;
+		animation: 0.5s 0.65s page-hero-in ease-out forwards;
 	}
 
 	@keyframes page-hero-in {

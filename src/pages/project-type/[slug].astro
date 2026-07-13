@@ -29,6 +29,7 @@ const items = projects.map((p) => ({
 <Base title={`${term.label} projects`} description={`Portfolio projects in ${term.label}.`} overHero>
 	<PageHeader
 		title={term.label}
+		excerpt={term.description}
 		crumbs={[{ label: "Projects", href: "/portfolio" }, { label: term.label }]}
 	/>
 	<ProjectShell>

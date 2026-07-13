@@ -37,11 +37,16 @@ const layout = (page.data.layout as string) || "none";
 // Per-page header image (the demo gives each template page its own
 // photo); falls back to PageHeader's site-wide default when unset.
 const headerImage = page.data.header_image as { src?: string; alt?: string } | undefined;
+
+// Bravada shows the excerpt in the hero on pages too (core.php:
+// is_singular(('post','page')) && has_excerpt()); it doubles as the
+// page's search description. Rendered only when set, like the demo.
+const excerpt = (page.data.excerpt as string | undefined) || null;
 ---
 
 <Base
 	title={page.data.title}
-	description={metaDescription(page.data.content) ?? page.data.title}
+	description={excerpt ?? metaDescription(page.data.content) ?? page.data.title}
 	image={ogImage}
 	content={{ collection: "pages", id: page.data.id, slug }}
 	overHero
@@ -52,6 +57,8 @@ const headerImage = page.data.header_image as { src?: string; alt?: string } | u
 				title={page.data.title}
 				image={headerImage?.src}
 				imageAlt={headerImage?.alt ?? ""}
+				excerpt={excerpt}
+				excerptAttrs={page.edit.excerpt}
 				crumbs={[{ label: page.data.title }]}
 				titleAttrs={page.edit.title}
 			/>

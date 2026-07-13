@@ -79,6 +79,11 @@ turn all three off by setting `"showPostAuthor": false` in `seed/seed.json`'s
 npx emdash seed seed/seed.json --on-conflict=update
 ```
 
+The hero excerpt (the entry's Excerpt field, which is also the search-engine
+description) is independent of author display — it keeps rendering on
+single-author sites, exactly as Bravada treats its excerpt and author-meta
+options as separate toggles.
+
 ## License
 
 © 2026 vhs. A port of Bravada, © 2020–25

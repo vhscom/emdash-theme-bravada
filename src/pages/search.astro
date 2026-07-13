@@ -28,9 +28,10 @@ const { items: results } = query
 			? `${results.length} result${results.length === 1 ? "" : "s"} for “${query}”`
 			: undefined}
 		crumbs={[{ label: "Search" }]}
-	/>
-	<section class="search-page">
-		<form method="get" action="/search" class="search-form">
+	>
+		{/* The demo renders the search form in the hero's byline slot
+		    (core.php: is_search() → get_search_form()). */}
+		<form method="get" action="/search" class="search-form" slot="meta">
 			<input
 				type="search"
 				name="q"
@@ -41,6 +42,8 @@ const { items: results } = query
 			/>
 			<button type="submit" class="search-button">Search</button>
 		</form>
+	</PageHeader>
+	<section class="search-page">
 
 		{
 			query && (
@@ -85,40 +88,45 @@ const { items: results } = query
 		padding: var(--spacing-8) var(--spacing-6) var(--spacing-16);
 	}
 
+	/* Hero search form — the demo's byline-slot search form, styled
+	   like Bravada's white pill inputs (radius 100px, gold button). */
 	.search-form {
 		display: flex;
 		gap: var(--spacing-2);
-		margin-bottom: var(--spacing-8);
+		max-width: 480px;
+		min-width: 300px;
+		margin: 1.5em auto 1em;
 	}
 
 	.search-input {
 		flex: 1;
-		padding: var(--spacing-2) var(--spacing-4);
+		padding: 0.6em 1.4em;
 		font-size: var(--font-size-base);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		background: var(--color-bg);
-		color: var(--color-text);
+		border: none;
+		border-radius: 100px;
+		background: #fff;
+		color: var(--color-heading, #162521);
 	}
 
 	.search-input:focus {
-		outline: none;
-		border-color: var(--color-brand);
+		outline: 2px solid var(--color-brand);
+		outline-offset: 2px;
 	}
 
 	.search-button {
-		padding: var(--spacing-2) var(--spacing-6);
+		padding: 0.6em 1.6em;
 		font-size: var(--font-size-base);
 		background: var(--color-brand);
 		color: var(--color-on-brand);
 		border: none;
-		border-radius: var(--radius);
+		border-radius: 100px;
 		cursor: pointer;
 		font-weight: 500;
+		transition: 0.2s ease-out background-color;
 	}
 
 	.search-button:hover {
-		opacity: 0.9;
+		background: var(--color-brand-hover);
 	}
 
 	.search-summary {

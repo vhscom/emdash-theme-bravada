@@ -199,6 +199,8 @@ const heroDate = post.data.publishedAt
 		imageAlt={post.data.title}
 		crumbs={[{ label: "Blog", href: "/posts" }, { label: post.data.title }]}
 		titleAttrs={post.edit.title}
+		excerpt={heroExcerpt}
+		excerptAttrs={post.edit.excerpt}
 	>
 		{
 			categories.length > 0 && (
@@ -227,13 +229,6 @@ const heroDate = post.data.publishedAt
 				)
 			}
 			{showAuthor && !authorAvatar && headerMeta && <p class="hero-date">{headerMeta}</p>}
-			{
-				heroExcerpt && (
-					<p class="hero-excerpt" {...post.edit.excerpt}>
-						{heroExcerpt}
-					</p>
-				)
-			}
 		</div>
 	</PageHeader>
 	<div class="post-grid">
@@ -635,16 +630,8 @@ const heroDate = post.data.publishedAt
 		margin-bottom: var(--spacing-4);
 	}
 
-	/* Hero excerpt — demo #header-page-title .byline: the post excerpt
-	   centered under the author, capped at 70% width. */
-	.hero-excerpt {
-		max-width: 70%;
-		min-width: 300px;
-		margin: 1.5em auto 1em;
-		font-size: 1em;
-		text-align: center;
-		color: #fff;
-	}
+	/* The hero excerpt (demo .byline) renders inside PageHeader via the
+	   excerpt prop — styling lives there. */
 
 	/* Article content typography */
 	.article-content {

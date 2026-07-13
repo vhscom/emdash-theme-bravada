@@ -49,6 +49,7 @@ const cards = posts.map((post) => ({
 >
 	<PageHeader
 		title={term.label}
+		excerpt={term.description}
 		subtitle={`Category · ${posts.length} ${posts.length === 1 ? "post" : "posts"}`}
 		crumbs={[{ label: "Blog", href: "/posts" }, { label: term.label }]}
 	/>

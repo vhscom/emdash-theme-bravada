@@ -14,6 +14,7 @@ export interface Page {
   content?: PortableTextBlock[];
   layout?: string;
   sidebar?: string;
+  excerpt?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
