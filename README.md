@@ -1,5 +1,7 @@
 # Bravada for Astro
 
+![The Bravada for Astro landing page: a teal hero with gold animated letters](.github/screenshot.png)
+
 A port of the
 [Bravada](https://www.cryoutcreations.eu/wordpress-themes/bravada) WordPress
 theme (Cryout Creations) to [Astro](https://astro.build), powered by
@@ -182,3 +184,5 @@ seed edits.
 [Cryout Creations](https://www.cryoutcreations.eu). Licensed under
 GPL-3.0-or-later — see [LICENSE](./LICENSE) for the full text and
 [CREDITS.md](./CREDITS.md) for attribution details.
+
+Maintained by vhs at [Comfusion](https://comfus.io).
