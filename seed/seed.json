@@ -935,7 +935,6 @@
       "widgets": [
         {
           "type": "content",
-          "title": "Pages",
           "content": [
             {
               "_type": "block",
