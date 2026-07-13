@@ -11,13 +11,13 @@ import { metaDescription } from "../../utils/reading-time";
 const slug = decodeSlug(Astro.params.slug);
 
 if (!slug) {
-	return Astro.redirect("/404");
+	return Astro.rewrite("/404");
 }
 
 const { entry: project, cacheHint } = await getEmDashEntry("portfolio", slug);
 
 if (!project) {
-	return Astro.redirect("/404");
+	return Astro.rewrite("/404");
 }
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);

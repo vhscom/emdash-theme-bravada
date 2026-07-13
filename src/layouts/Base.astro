@@ -42,17 +42,22 @@ const {
 	content,
 	overHero = false,
 } = Astro.props;
-const { siteTitle } = resolveBlogSiteIdentity(await getSiteSettings());
+const siteSettings = await getSiteSettings();
+const { siteTitle } = resolveBlogSiteIdentity(siteSettings);
+// Prefer the Site URL from EmDash settings (admin > settings) so canonicals
+// stay deterministic behind proxies/previews; fall back to the request
+// origin, which SSR resolves correctly once deployed.
+const siteOrigin =
+	(typeof siteSettings?.url === "string" && siteSettings.url.replace(/\/+$/, "")) ||
+	Astro.url.origin;
 // Default canonical to the clean current URL (origin + path, no query).
-// SSR (output: "server") means Astro.url carries the real request host
-// in production, so this resolves correctly once deployed.
-const canonicalUrl = canonical ?? `${Astro.url.origin}${Astro.url.pathname}`;
+const canonicalUrl = canonical ?? `${siteOrigin}${Astro.url.pathname}`;
 // Open Graph requires absolute image URLs; promote a root-relative path
-// to the current origin (SSR carries the real host in production).
+// to the site origin.
 const ogImageUrl = image
 	? image.startsWith("http")
 		? image
-		: `${Astro.url.origin}${image}`
+		: `${siteOrigin}${image}`
 	: undefined;
 // If title already includes site title (from getSeoMeta), use as-is
 const fullTitle = title.includes(siteTitle) ? title : `${title} — ${siteTitle}`;
@@ -72,6 +77,7 @@ const pageCtx = createPublicPageContext({
 	seo: { ogImage: ogImageUrl, robots },
 	articleMeta: { publishedTime, modifiedTime, author },
 	siteName: siteTitle,
+	siteUrl: siteOrigin,
 });
 
 ---

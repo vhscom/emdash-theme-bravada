@@ -21,13 +21,13 @@ import { getMediaUrl } from "../../utils/media-url";
 const slug = decodeSlug(Astro.params.slug);
 
 if (!slug) {
-	return Astro.redirect("/404");
+	return Astro.rewrite("/404");
 }
 
 const { entry: post, cacheHint } = await getEmDashEntry("posts", slug);
 
 if (!post) {
-	return Astro.redirect("/404");
+	return Astro.rewrite("/404");
 }
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
@@ -54,12 +54,17 @@ function getImageUrl(img: unknown): string | undefined {
 	return undefined;
 }
 const featuredImageUrl = getImageUrl(post.data.featured_image);
-const { siteTitle } = resolveBlogSiteIdentity(await getSiteSettings());
+const siteSettings = await getSiteSettings();
+const { siteTitle } = resolveBlogSiteIdentity(siteSettings);
+// Match Base.astro: prefer the configured Site URL for canonical/OG URLs.
+const siteOrigin =
+	(typeof siteSettings?.url === "string" && siteSettings.url.replace(/\/+$/, "")) ||
+	Astro.url.origin;
 
 // Generate SEO meta from content
 const seo = getSeoMeta(post, {
 	siteTitle,
-	siteUrl: Astro.url.origin,
+	siteUrl: siteOrigin,
 	path: `/posts/${slug}`,
 	defaultOgImage: featuredImageUrl,
 });

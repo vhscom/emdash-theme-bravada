@@ -10,13 +10,13 @@ import { getMediaUrl } from "../../utils/media-url";
 const slug = decodeSlug(Astro.params.slug);
 
 if (!slug) {
-	return Astro.redirect("/404");
+	return Astro.rewrite("/404");
 }
 
 const { entry: product, cacheHint } = await getEmDashEntry("products", slug);
 
 if (!product) {
-	return Astro.redirect("/404");
+	return Astro.rewrite("/404");
 }
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
