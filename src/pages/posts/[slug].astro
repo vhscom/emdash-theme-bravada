@@ -1240,7 +1240,9 @@ const publishDate =
 		object-position: 50% 55%;
 	}
 
-	/* Directional scrim so the caption stays legible over any image */
+	/* Both panels darken toward the page centre (demo effect): the two
+	   images bleed together at the seam under a shared dark vignette,
+	   while the outer edges — where the captions sit — stay lighter. */
 	#nav-below .nav-below-prev::before,
 	#nav-below .nav-below-next::before {
 		content: "";
@@ -1249,16 +1251,16 @@ const publishDate =
 		z-index: 1;
 		background: linear-gradient(
 			to right,
-			rgba(0, 0, 0, 0.85),
-			rgba(0, 0, 0, 0.3) 95%
+			rgba(0, 0, 0, 0.6),
+			rgba(0, 0, 0, 0.9) 95%
 		);
 	}
 
 	#nav-below .nav-below-next::before {
 		background: linear-gradient(
 			to left,
-			rgba(0, 0, 0, 0.85),
-			rgba(0, 0, 0, 0.3) 95%
+			rgba(0, 0, 0, 0.6),
+			rgba(0, 0, 0, 0.9) 95%
 		);
 	}
 
