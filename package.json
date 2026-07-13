@@ -3,6 +3,7 @@
 	"version": "0.0.3",
 	"private": true,
 	"type": "module",
+	"license": "GPL-3.0-or-later",
 	"emdash": {
 		"label": "Bravada",
 		"description": "Port of the Bravada WordPress theme (Cryout Creations) for EmDash",
