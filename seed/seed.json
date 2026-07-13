@@ -2069,38 +2069,24 @@
             {
               "_type": "block",
               "style": "normal",
-              "_key": "c0",
+              "_key": "cintro",
               "children": [
                 {
                   "_type": "span",
-                  "text": "935 Pennsylvania Avenue, NW Washington, D.C. 20535-0001",
-                  "_key": "c0s"
+                  "text": "Have a project in mind or just want to say hello? Drop us a line using the form below, or reach us directly with the details alongside.",
+                  "_key": "cintros"
                 }
               ]
             },
             {
-              "_type": "block",
-              "style": "normal",
-              "_key": "c2",
-              "children": [
-                {
-                  "_type": "span",
-                  "text": "Phone: +1 (202) 555-0200 · Mobile: +1 (202) 555-3112",
-                  "_key": "c2s"
-                }
-              ]
-            },
-            {
-              "_type": "block",
-              "style": "normal",
-              "_key": "c4",
-              "children": [
-                {
-                  "_type": "span",
-                  "text": "E-mail: william@spooky.fox · Opening Hours: 07:00 – 21:30",
-                  "_key": "c4s"
-                }
-              ]
+              "_type": "bravada.contactform",
+              "_key": "cform",
+              "heading": "Get in touch",
+              "address": "935 Pennsylvania Avenue,\nNW Washington, D.C. 20535-0001",
+              "phone": "+1 (202) 555-0200",
+              "mobile": "+1 (202) 555-3112",
+              "email": "william@spooky.fox",
+              "hours": "07:00 – 21:30"
             }
           ]
         }

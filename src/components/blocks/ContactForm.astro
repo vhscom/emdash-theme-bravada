@@ -1,0 +1,221 @@
+---
+/**
+ * bravada.contactform — the demo's contact page: a styled enquiry form
+ * beside the site's contact details. The form is intentionally not wired
+ * to a backend — it demonstrates the theme's form styling and, on submit,
+ * shows an inline confirmation. Drop in a real handler (an EmDash form
+ * plugin, a serverless endpoint, or a mailto action) where marked.
+ *
+ * Contact details render in a semantic <address> element.
+ */
+interface ContactNode {
+	heading?: string;
+	address?: string;
+	phone?: string;
+	mobile?: string;
+	email?: string;
+	hours?: string;
+}
+
+const { node } = Astro.props as { node: ContactNode };
+const { heading = "Get in touch", address, phone, mobile, email, hours } = node;
+const hasDetails = address || phone || mobile || email || hours;
+---
+
+<div class="contact-block">
+	<form class="contact-form" novalidate>
+		<h3 class="contact-form-title"><span>{heading}</span></h3>
+		<div class="field">
+			<label for="cf-name">Your Name <span class="req">(required)</span></label>
+			<input id="cf-name" name="name" type="text" autocomplete="name" required />
+		</div>
+		<div class="field">
+			<label for="cf-email">Your Email <span class="req">(required)</span></label>
+			<input id="cf-email" name="email" type="email" autocomplete="email" required />
+		</div>
+		<div class="field">
+			<label for="cf-subject">Subject</label>
+			<input id="cf-subject" name="subject" type="text" />
+		</div>
+		<div class="field">
+			<label for="cf-message">Your Message</label>
+			<textarea id="cf-message" name="message" rows="6"></textarea>
+		</div>
+		<button type="submit" class="contact-submit">Send Message</button>
+		<p class="contact-status" role="status" aria-live="polite" hidden></p>
+	</form>
+
+	{
+		hasDetails && (
+			<address class="contact-details">
+				{address && (
+					<p class="contact-line contact-address">{address}</p>
+				)}
+				{phone && (
+					<p class="contact-line">
+						Phone: <a href={`tel:${phone.replace(/[^+0-9]/g, "")}`}>{phone}</a>
+					</p>
+				)}
+				{mobile && (
+					<p class="contact-line">
+						Mobile: <a href={`tel:${mobile.replace(/[^+0-9]/g, "")}`}>{mobile}</a>
+					</p>
+				)}
+				{email && (
+					<p class="contact-line">
+						E-mail: <a href={`mailto:${email}`}>{email}</a>
+					</p>
+				)}
+				{hours && <p class="contact-line">Opening Hours: {hours}</p>}
+			</address>
+		)
+	}
+</div>
+
+<script>
+	// Demo-only submit: no backend is wired, so we intercept, show a
+	// confirmation, and reset. Replace this block with a real handler
+	// (fetch to a form endpoint, an EmDash form plugin, etc.).
+	for (const form of document.querySelectorAll<HTMLFormElement>(".contact-form")) {
+		const status = form.querySelector<HTMLElement>(".contact-status");
+		form.addEventListener("submit", (e) => {
+			e.preventDefault();
+			if (!form.checkValidity()) {
+				form.reportValidity();
+				return;
+			}
+			if (status) {
+				status.hidden = false;
+				status.textContent =
+					"Thanks — this demo form isn’t connected to a mailbox yet, but your styling works!";
+			}
+			form.reset();
+		});
+	}
+</script>
+
+<style>
+	.contact-block {
+		display: grid;
+		grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+		gap: clamp(2em, 5vw, 4em);
+		align-items: start;
+	}
+
+	/* Demo woocommerce-style form title on the gold highlighter strip */
+	.contact-form-title {
+		margin: 0 0 1.2em;
+		font-family: var(--font-heading);
+		font-size: 1.4rem;
+		font-weight: 700;
+	}
+
+	.contact-form-title span {
+		background-image: var(--gold-scrim);
+		background-repeat: no-repeat;
+		background-size: 100% 0.4em;
+		background-position: 0 90%;
+	}
+
+	.field {
+		margin-bottom: 1.4em;
+	}
+
+	.field label {
+		display: block;
+		margin-bottom: 0.5em;
+		font-size: 0.95rem;
+		color: var(--color-heading);
+	}
+
+	.field .req {
+		color: var(--color-muted);
+		font-size: 0.85em;
+	}
+
+	.contact-form input,
+	.contact-form textarea {
+		width: 100%;
+		padding: 0.85em 1em;
+		border: 1px solid var(--color-border);
+		border-radius: 0;
+		background: light-dark(#f5f5f5, var(--color-bg-subtle));
+		font-family: var(--font-body);
+		font-size: 1rem;
+		color: var(--color-text);
+		transition:
+			border-color 0.2s ease-out,
+			background 0.2s ease-out;
+	}
+
+	.contact-form textarea {
+		resize: vertical;
+		line-height: 1.7;
+	}
+
+	.contact-form input:focus,
+	.contact-form textarea:focus {
+		outline: none;
+		border-color: var(--color-teal-solid);
+		background: var(--color-surface);
+	}
+
+	/* Demo submit button: gold → teal on hover, like the shop buttons */
+	.contact-submit {
+		display: inline-block;
+		padding: 0.9em 2.4em;
+		border: 0;
+		background: var(--color-gold);
+		color: #ffffff;
+		font-family: var(--font-body);
+		font-weight: 700;
+		cursor: pointer;
+		transition: background 0.3s ease-out;
+	}
+
+	.contact-submit:hover,
+	.contact-submit:focus-visible {
+		background: var(--color-teal-solid);
+	}
+
+	.contact-status {
+		margin: 1em 0 0;
+		padding: 0.9em 1.1em;
+		background: light-dark(rgba(15, 139, 141, 0.1), rgba(61, 185, 187, 0.12));
+		color: var(--color-teal);
+		font-size: 0.95rem;
+	}
+
+	/* Contact details: semantic <address>, normal (non-italic) type with
+	   the demo's gold glyph prefixes reused from the footer contact widget */
+	.contact-details {
+		font-style: normal;
+		line-height: 1.9;
+	}
+
+	.contact-line {
+		margin: 0 0 0.4em;
+		color: var(--color-text);
+	}
+
+	.contact-address {
+		white-space: pre-line;
+		font-weight: 700;
+		color: var(--color-heading);
+	}
+
+	.contact-details a {
+		color: var(--color-gold);
+		text-decoration: none;
+	}
+
+	.contact-details a:hover {
+		color: var(--color-teal);
+	}
+
+	@media (max-width: 800px) {
+		.contact-block {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
