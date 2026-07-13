@@ -1020,37 +1020,37 @@
               "_key": "w-price",
               "items": [
                 {
-                  "title": "Ninja Silhouette",
+                  "title": "Fox Silhouette",
                   "image": "/images/demo/T_5_front-300x300.jpg",
-                  "url": "/product/ninja-silhouette",
+                  "url": "/product/fox-silhouette",
                   "rating": 5,
                   "price": "\u00a320.00"
                 },
                 {
-                  "title": "Happy Ninja",
+                  "title": "Happy Fox",
                   "image": "/images/demo/T_7_front-300x300.jpg",
-                  "url": "/product/happy-ninja",
+                  "url": "/product/happy-fox",
                   "rating": 5,
                   "price": "\u00a318.00"
                 },
                 {
-                  "title": "Woo Ninja",
+                  "title": "Spooky Fox",
                   "image": "/images/demo/hoodie_2_front-300x300.jpg",
-                  "url": "/product/woo-ninja-2",
+                  "url": "/product/spooky-fox-2",
                   "rating": 5,
                   "price": "\u00a335.00"
                 },
                 {
-                  "title": "Woo Album #4",
+                  "title": "Spooky Fox Album #4",
                   "image": "/images/demo/cd_2_angle-300x300.jpg",
-                  "url": "/product/woo-album-4",
+                  "url": "/product/spooky-fox-album-4",
                   "rating": 5,
                   "price": "\u00a39.00"
                 },
                 {
-                  "title": "Ninja Silhouette",
+                  "title": "Fox Silhouette",
                   "image": "/images/demo/hoodie_7_front-300x300.jpg",
-                  "url": "/product/ninja-silhouette-2",
+                  "url": "/product/fox-silhouette-2",
                   "rating": 4.75,
                   "price": "\u00a335.00"
                 }
@@ -1067,23 +1067,23 @@
               "_key": "w-by",
               "items": [
                 {
-                  "title": "Happy Ninja",
+                  "title": "Happy Fox",
                   "image": "/images/demo/hoodie_4_front-300x300.jpg",
-                  "url": "/product/happy-ninja-2",
+                  "url": "/product/happy-fox-2",
                   "rating": 5,
                   "by": "by Maria"
                 },
                 {
-                  "title": "Happy Ninja",
+                  "title": "Happy Fox",
                   "image": "/images/demo/T_7_front-300x300.jpg",
-                  "url": "/product/happy-ninja",
+                  "url": "/product/happy-fox",
                   "rating": 5,
                   "by": "by Maria"
                 },
                 {
-                  "title": "Ninja Silhouette",
+                  "title": "Fox Silhouette",
                   "image": "/images/demo/hoodie_7_front-300x300.jpg",
-                  "url": "/product/ninja-silhouette-2",
+                  "url": "/product/fox-silhouette-2",
                   "rating": 5,
                   "by": "by Ryan"
                 },
@@ -3173,49 +3173,49 @@
               "_key": "shop-grid",
               "items": [
                 {
-                  "title": "Flying Ninja",
+                  "title": "Flying Fox",
                   "image": "/images/demo/poster_2_up-300x300.jpg",
-                  "url": "/product/flying-ninja",
+                  "url": "/product/flying-fox",
                   "price": "\u00a313.00",
                   "rating": 4.0,
                   "button": "Select options"
                 },
                 {
-                  "title": "Happy Ninja",
+                  "title": "Happy Fox",
                   "image": "/images/demo/T_7_front-300x300.jpg",
-                  "url": "/product/happy-ninja",
+                  "url": "/product/happy-fox",
                   "price": "\u00a318.00",
                   "rating": 5.0,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Happy Ninja",
+                  "title": "Happy Fox",
                   "image": "/images/demo/hoodie_4_front-300x300.jpg",
-                  "url": "/product/happy-ninja-2",
+                  "url": "/product/happy-fox-2",
                   "price": "\u00a335.00",
                   "rating": 3.0,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Ninja Silhouette",
+                  "title": "Fox Silhouette",
                   "image": "/images/demo/T_5_front-300x300.jpg",
-                  "url": "/product/ninja-silhouette",
+                  "url": "/product/fox-silhouette",
                   "price": "\u00a320.00",
                   "rating": 5.0,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Ninja Silhouette",
+                  "title": "Fox Silhouette",
                   "image": "/images/demo/hoodie_7_front-300x300.jpg",
-                  "url": "/product/ninja-silhouette-2",
+                  "url": "/product/fox-silhouette-2",
                   "price": "\u00a335.00",
                   "rating": 4.75,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Patient Ninja",
+                  "title": "Patient Fox",
                   "image": "/images/demo/hoodie_3_front-300x300.jpg",
-                  "url": "/product/patient-ninja",
+                  "url": "/product/patient-fox",
                   "price": "\u00a335.00",
                   "rating": 4.67,
                   "button": "Add to basket"
@@ -3260,40 +3260,40 @@
                   "button": "Select options"
                 },
                 {
-                  "title": "Woo Album #1",
+                  "title": "Spooky Fox Album #1",
                   "image": "/images/demo/cd_6_angle-300x300.jpg",
-                  "url": "/product/woo-album-1",
+                  "url": "/product/spooky-fox-album-1",
                   "price": "\u00a39.00",
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Album #2",
+                  "title": "Spooky Fox Album #2",
                   "image": "/images/demo/cd_5_angle-300x300.jpg",
-                  "url": "/product/woo-album-2",
+                  "url": "/product/spooky-fox-album-2",
                   "price": "\u00a39.00",
                   "rating": 4.0,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Album #3",
+                  "title": "Spooky Fox Album #3",
                   "image": "/images/demo/cd_4_angle-300x300.jpg",
-                  "url": "/product/woo-album-3",
+                  "url": "/product/spooky-fox-album-3",
                   "price": "\u00a39.00",
                   "rating": 3.0,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Album #4",
+                  "title": "Spooky Fox Album #4",
                   "image": "/images/demo/cd_2_angle-300x300.jpg",
-                  "url": "/product/woo-album-4",
+                  "url": "/product/spooky-fox-album-4",
                   "price": "\u00a39.00",
                   "rating": 5.0,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Logo",
+                  "title": "Spooky Fox Logo",
                   "image": "/images/demo/T_1_front-300x300.jpg",
-                  "url": "/product/woo-logo",
+                  "url": "/product/spooky-fox-logo",
                   "price": "\u00a318.00",
                   "priceOld": "\u00a320.00",
                   "rating": 4.0,
@@ -3301,53 +3301,53 @@
                   "sale": true
                 },
                 {
-                  "title": "Woo Logo",
+                  "title": "Spooky Fox Logo",
                   "image": "/images/demo/hoodie_6_front-300x300.jpg",
-                  "url": "/product/woo-logo-2",
+                  "url": "/product/spooky-fox-logo-2",
                   "price": "\u00a335.00",
                   "rating": 3.0,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Logo",
+                  "title": "Spooky Fox Logo",
                   "image": "/images/demo/poster_5_up-300x300.jpg",
-                  "url": "/product/woo-logo-3",
+                  "url": "/product/spooky-fox-logo-3",
                   "price": "\u00a315.00",
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Ninja",
+                  "title": "Spooky Fox",
                   "image": "/images/demo/T_6_front-300x300.jpg",
-                  "url": "/product/woo-ninja",
+                  "url": "/product/spooky-fox",
                   "price": "\u00a320.00",
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Ninja",
+                  "title": "Spooky Fox",
                   "image": "/images/demo/poster_4_up-300x300.jpg",
-                  "url": "/product/woo-ninja-3",
+                  "url": "/product/spooky-fox-3",
                   "price": "\u00a315.00",
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Ninja",
+                  "title": "Spooky Fox",
                   "image": "/images/demo/hoodie_2_front-300x300.jpg",
-                  "url": "/product/woo-ninja-2",
+                  "url": "/product/spooky-fox-2",
                   "price": "\u00a335.00",
                   "rating": 5.0,
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Single #1",
+                  "title": "Spooky Fox Single #1",
                   "image": "/images/demo/cd_3_angle-300x300.jpg",
-                  "url": "/product/woo-single-1",
+                  "url": "/product/spooky-fox-single-1",
                   "price": "\u00a33.00",
                   "button": "Add to basket"
                 },
                 {
-                  "title": "Woo Single #2",
+                  "title": "Spooky Fox Single #2",
                   "image": "/images/demo/cd_1_angle-300x300.jpg",
-                  "url": "/product/woo-single-2",
+                  "url": "/product/spooky-fox-single-2",
                   "price": "\u00a32.00",
                   "priceOld": "\u00a33.00",
                   "rating": 4.0,
@@ -7111,29 +7111,29 @@
     ],
     "products": [
       {
-        "id": "prod-flying-ninja",
-        "slug": "flying-ninja",
+        "id": "prod-flying-fox",
+        "slug": "flying-fox",
         "status": "published",
         "data": {
-          "title": "Flying Ninja",
+          "title": "Flying Fox",
           "price": "\u00a313.00",
           "rating": 4.0,
           "button": "Select options",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/poster_2_up-600x600.jpg",
-            "alt": "Flying Ninja"
+            "alt": "Flying Fox"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "flying-ninja-d0",
+              "_key": "flying-fox-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "flying-ninja-ds0",
+                  "_key": "flying-fox-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7200,29 +7200,29 @@
         }
       },
       {
-        "id": "prod-happy-ninja",
-        "slug": "happy-ninja",
+        "id": "prod-happy-fox",
+        "slug": "happy-fox",
         "status": "published",
         "data": {
-          "title": "Happy Ninja",
+          "title": "Happy Fox",
           "price": "\u00a318.00",
           "rating": 5.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/T_7_front-600x600.jpg",
-            "alt": "Happy Ninja"
+            "alt": "Happy Fox"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "happy-ninja-d0",
+              "_key": "happy-fox-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "happy-ninja-ds0",
+                  "_key": "happy-fox-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7256,29 +7256,29 @@
         }
       },
       {
-        "id": "prod-happy-ninja-2",
-        "slug": "happy-ninja-2",
+        "id": "prod-happy-fox-2",
+        "slug": "happy-fox-2",
         "status": "published",
         "data": {
-          "title": "Happy Ninja",
+          "title": "Happy Fox",
           "price": "\u00a335.00",
           "rating": 3.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/hoodie_4_front-600x600.jpg",
-            "alt": "Happy Ninja"
+            "alt": "Happy Fox"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "happy-ninja-2-d0",
+              "_key": "happy-fox-2-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "happy-ninja-2-ds0",
+                  "_key": "happy-fox-2-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7312,29 +7312,29 @@
         }
       },
       {
-        "id": "prod-ninja-silhouette",
-        "slug": "ninja-silhouette",
+        "id": "prod-fox-silhouette",
+        "slug": "fox-silhouette",
         "status": "published",
         "data": {
-          "title": "Ninja Silhouette",
+          "title": "Fox Silhouette",
           "price": "\u00a320.00",
           "rating": 5.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/T_5_front-600x600.jpg",
-            "alt": "Ninja Silhouette"
+            "alt": "Fox Silhouette"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "ninja-silhouette-d0",
+              "_key": "fox-silhouette-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "ninja-silhouette-ds0",
+                  "_key": "fox-silhouette-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7362,29 +7362,29 @@
         }
       },
       {
-        "id": "prod-ninja-silhouette-2",
-        "slug": "ninja-silhouette-2",
+        "id": "prod-fox-silhouette-2",
+        "slug": "fox-silhouette-2",
         "status": "published",
         "data": {
-          "title": "Ninja Silhouette",
+          "title": "Fox Silhouette",
           "price": "\u00a335.00",
           "rating": 4.75,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/hoodie_7_front-600x600.jpg",
-            "alt": "Ninja Silhouette"
+            "alt": "Fox Silhouette"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "ninja-silhouette-2-d0",
+              "_key": "fox-silhouette-2-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "ninja-silhouette-2-ds0",
+                  "_key": "fox-silhouette-2-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7430,29 +7430,29 @@
         }
       },
       {
-        "id": "prod-patient-ninja",
-        "slug": "patient-ninja",
+        "id": "prod-patient-fox",
+        "slug": "patient-fox",
         "status": "published",
         "data": {
-          "title": "Patient Ninja",
+          "title": "Patient Fox",
           "price": "\u00a335.00",
           "rating": 4.67,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/hoodie_3_front-600x600.jpg",
-            "alt": "Patient Ninja"
+            "alt": "Patient Fox"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "patient-ninja-d0",
+              "_key": "patient-fox-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "patient-ninja-ds0",
+                  "_key": "patient-fox-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7760,28 +7760,28 @@
         }
       },
       {
-        "id": "prod-woo-album-1",
-        "slug": "woo-album-1",
+        "id": "prod-spooky-fox-album-1",
+        "slug": "spooky-fox-album-1",
         "status": "published",
         "data": {
-          "title": "Woo Album #1",
+          "title": "Spooky Fox Album #1",
           "price": "\u00a39.00",
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/cd_6_angle-600x600.jpg",
-            "alt": "Woo Album #1"
+            "alt": "Spooky Fox Album #1"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-album-1-d0",
+              "_key": "spooky-fox-album-1-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-album-1-ds0",
+                  "_key": "spooky-fox-album-1-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7801,29 +7801,29 @@
         }
       },
       {
-        "id": "prod-woo-album-2",
-        "slug": "woo-album-2",
+        "id": "prod-spooky-fox-album-2",
+        "slug": "spooky-fox-album-2",
         "status": "published",
         "data": {
-          "title": "Woo Album #2",
+          "title": "Spooky Fox Album #2",
           "price": "\u00a39.00",
           "rating": 4.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/cd_5_angle-600x600.jpg",
-            "alt": "Woo Album #2"
+            "alt": "Spooky Fox Album #2"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-album-2-d0",
+              "_key": "spooky-fox-album-2-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-album-2-ds0",
+                  "_key": "spooky-fox-album-2-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7851,29 +7851,29 @@
         }
       },
       {
-        "id": "prod-woo-album-3",
-        "slug": "woo-album-3",
+        "id": "prod-spooky-fox-album-3",
+        "slug": "spooky-fox-album-3",
         "status": "published",
         "data": {
-          "title": "Woo Album #3",
+          "title": "Spooky Fox Album #3",
           "price": "\u00a39.00",
           "rating": 3.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/cd_4_angle-600x600.jpg",
-            "alt": "Woo Album #3"
+            "alt": "Spooky Fox Album #3"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-album-3-d0",
+              "_key": "spooky-fox-album-3-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-album-3-ds0",
+                  "_key": "spooky-fox-album-3-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7901,29 +7901,29 @@
         }
       },
       {
-        "id": "prod-woo-album-4",
-        "slug": "woo-album-4",
+        "id": "prod-spooky-fox-album-4",
+        "slug": "spooky-fox-album-4",
         "status": "published",
         "data": {
-          "title": "Woo Album #4",
+          "title": "Spooky Fox Album #4",
           "price": "\u00a39.00",
           "rating": 5.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/cd_2_angle-600x600.jpg",
-            "alt": "Woo Album #4"
+            "alt": "Spooky Fox Album #4"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-album-4-d0",
+              "_key": "spooky-fox-album-4-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-album-4-ds0",
+                  "_key": "spooky-fox-album-4-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -7957,11 +7957,11 @@
         }
       },
       {
-        "id": "prod-woo-logo",
-        "slug": "woo-logo",
+        "id": "prod-spooky-fox-logo",
+        "slug": "spooky-fox-logo",
         "status": "published",
         "data": {
-          "title": "Woo Logo",
+          "title": "Spooky Fox Logo",
           "price": "\u00a318.00",
           "price_old": "\u00a320.00",
           "rating": 4.0,
@@ -7969,18 +7969,18 @@
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/T_1_front-600x600.jpg",
-            "alt": "Woo Logo"
+            "alt": "Spooky Fox Logo"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-logo-d0",
+              "_key": "spooky-fox-logo-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-logo-ds0",
+                  "_key": "spooky-fox-logo-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -8010,29 +8010,29 @@
         }
       },
       {
-        "id": "prod-woo-logo-2",
-        "slug": "woo-logo-2",
+        "id": "prod-spooky-fox-logo-2",
+        "slug": "spooky-fox-logo-2",
         "status": "published",
         "data": {
-          "title": "Woo Logo",
+          "title": "Spooky Fox Logo",
           "price": "\u00a335.00",
           "rating": 3.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/hoodie_6_front-600x600.jpg",
-            "alt": "Woo Logo"
+            "alt": "Spooky Fox Logo"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-logo-2-d0",
+              "_key": "spooky-fox-logo-2-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-logo-2-ds0",
+                  "_key": "spooky-fox-logo-2-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -8060,28 +8060,28 @@
         }
       },
       {
-        "id": "prod-woo-logo-3",
-        "slug": "woo-logo-3",
+        "id": "prod-spooky-fox-logo-3",
+        "slug": "spooky-fox-logo-3",
         "status": "published",
         "data": {
-          "title": "Woo Logo",
+          "title": "Spooky Fox Logo",
           "price": "\u00a315.00",
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/poster_5_up-600x600.jpg",
-            "alt": "Woo Logo"
+            "alt": "Spooky Fox Logo"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-logo-3-d0",
+              "_key": "spooky-fox-logo-3-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-logo-3-ds0",
+                  "_key": "spooky-fox-logo-3-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -8100,28 +8100,28 @@
         }
       },
       {
-        "id": "prod-woo-ninja",
-        "slug": "woo-ninja",
+        "id": "prod-spooky-fox",
+        "slug": "spooky-fox",
         "status": "published",
         "data": {
-          "title": "Woo Ninja",
+          "title": "Spooky Fox",
           "price": "\u00a320.00",
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/T_6_front-600x600.jpg",
-            "alt": "Woo Ninja"
+            "alt": "Spooky Fox"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-ninja-d0",
+              "_key": "spooky-fox-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-ninja-ds0",
+                  "_key": "spooky-fox-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -8141,28 +8141,28 @@
         }
       },
       {
-        "id": "prod-woo-ninja-3",
-        "slug": "woo-ninja-3",
+        "id": "prod-spooky-fox-3",
+        "slug": "spooky-fox-3",
         "status": "published",
         "data": {
-          "title": "Woo Ninja",
+          "title": "Spooky Fox",
           "price": "\u00a315.00",
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/poster_4_up-600x600.jpg",
-            "alt": "Woo Ninja"
+            "alt": "Spooky Fox"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-ninja-3-d0",
+              "_key": "spooky-fox-3-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-ninja-3-ds0",
+                  "_key": "spooky-fox-3-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -8181,29 +8181,29 @@
         }
       },
       {
-        "id": "prod-woo-ninja-2",
-        "slug": "woo-ninja-2",
+        "id": "prod-spooky-fox-2",
+        "slug": "spooky-fox-2",
         "status": "published",
         "data": {
-          "title": "Woo Ninja",
+          "title": "Spooky Fox",
           "price": "\u00a335.00",
           "rating": 5.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/hoodie_2_front-600x600.jpg",
-            "alt": "Woo Ninja"
+            "alt": "Spooky Fox"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-ninja-2-d0",
+              "_key": "spooky-fox-2-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-ninja-2-ds0",
+                  "_key": "spooky-fox-2-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -8233,28 +8233,28 @@
         }
       },
       {
-        "id": "prod-woo-single-1",
-        "slug": "woo-single-1",
+        "id": "prod-spooky-fox-single-1",
+        "slug": "spooky-fox-single-1",
         "status": "published",
         "data": {
-          "title": "Woo Single #1",
+          "title": "Spooky Fox Single #1",
           "price": "\u00a33.00",
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/cd_3_angle-600x600.jpg",
-            "alt": "Woo Single #1"
+            "alt": "Spooky Fox Single #1"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-single-1-d0",
+              "_key": "spooky-fox-single-1-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-single-1-ds0",
+                  "_key": "spooky-fox-single-1-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
@@ -8274,11 +8274,11 @@
         }
       },
       {
-        "id": "prod-woo-single-2",
-        "slug": "woo-single-2",
+        "id": "prod-spooky-fox-single-2",
+        "slug": "spooky-fox-single-2",
         "status": "published",
         "data": {
-          "title": "Woo Single #2",
+          "title": "Spooky Fox Single #2",
           "price": "\u00a32.00",
           "price_old": "\u00a33.00",
           "rating": 4.0,
@@ -8286,18 +8286,18 @@
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/cd_1_angle-600x600.jpg",
-            "alt": "Woo Single #2"
+            "alt": "Spooky Fox Single #2"
           },
           "content": [
             {
               "_type": "block",
-              "_key": "woo-single-2-d0",
+              "_key": "spooky-fox-single-2-d0",
               "style": "normal",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "woo-single-2-ds0",
+                  "_key": "spooky-fox-single-2-ds0",
                   "text": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
                   "marks": []
                 }
