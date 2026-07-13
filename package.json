@@ -1,11 +1,15 @@
 {
 	"name": "emdash-theme-bravada",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"private": true,
 	"type": "module",
 	"license": "GPL-3.0-or-later",
 	"author": "vhs <vhsdev@tutanota.com> (https://comfus.io)",
 	"homepage": "https://comfus.io",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vhscom/emdash-theme-bravada.git"
+	},
 	"emdash": {
 		"label": "Bravada for Astro",
 		"description": "Bravada for Astro \u2014 a port of the Bravada WordPress theme (Cryout Creations) to Astro, powered by EmDash",
