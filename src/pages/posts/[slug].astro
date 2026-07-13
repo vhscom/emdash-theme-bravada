@@ -233,12 +233,12 @@ const publishDate =
 							{relatedPosts.map((p) => (
 								<li class="related-item">
 									<div class="related-thumb">
-										<a href={`/posts/${p.id}`} tabindex="-1">
+										<a href={`/posts/${p.id}`} class="related-thumb-frame" tabindex="-1">
 											{p.img && <img src={p.img} alt="" loading="lazy" />}
 										</a>
 										{commentsEnabled && (
 											<a href={`/posts/${p.id}#comments`} class="related-comments" aria-label={`${p.commentCount} comments`}>
-												<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+												<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" /></svg>
 												{p.commentCount}
 											</a>
 										)}
@@ -356,6 +356,22 @@ const publishDate =
 						navFixed.classList.toggle("nav-below-visible", entries[0].isIntersecting),
 					{ rootMargin: "0px 0px -20% 0px" }
 				).observe(navBelow);
+			}
+		}
+	</script>
+
+	<script>
+		// Demo comment form: labels are visually hidden, so mirror each
+		// field's label text into its placeholder (with a * for required
+		// fields). The <label> stays in the DOM for screen readers.
+		for (const field of document.querySelectorAll<HTMLElement>(".ec-comment-form-field")) {
+			const label = field.querySelector<HTMLElement>(":scope > span");
+			const control = field.querySelector<HTMLInputElement | HTMLTextAreaElement>(
+				"input, textarea"
+			);
+			if (label && control && !control.getAttribute("placeholder")) {
+				const req = control.hasAttribute("required") ? " *" : "";
+				control.setAttribute("placeholder", label.textContent!.trim() + req);
 			}
 		}
 	</script>
@@ -605,49 +621,54 @@ const publishDate =
 		flex-direction: column;
 	}
 
+	/* Holds the framed image and the floating comment chip (no clip) */
 	.related-thumb {
 		position: relative;
-		overflow: hidden;
-		line-height: 0;
 	}
 
-	.related-thumb img {
+	/* Demo picture frame: a 5px white border + soft drop shadow, like the
+	   footer and shop-sidebar thumbnails */
+	.related-thumb-frame {
+		display: block;
+		overflow: hidden;
+		line-height: 0;
+		border: 5px solid var(--color-surface);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+	}
+
+	.related-thumb-frame img {
 		width: 100%;
 		aspect-ratio: 512 / 300;
 		object-fit: cover;
 		transition: transform 0.4s ease-out;
 	}
 
-	.related-item:hover .related-thumb img,
-	.related-item:focus-within .related-thumb img {
+	.related-item:hover .related-thumb-frame img,
+	.related-item:focus-within .related-thumb-frame img {
 		transform: scale(1.05);
 	}
 
-	/* Comment-count badge: teal chip that fades in on hover (demo) */
+	/* Demo comment chip: white bg, gold text, sitting just above the
+	   top-right of the frame (always shown when comments are enabled) */
 	.related-comments {
 		position: absolute;
-		top: 0.6em;
-		right: 0.6em;
+		top: -10px;
+		right: 10px;
 		display: inline-flex;
 		align-items: center;
-		gap: 0.35em;
-		padding: 0.35em 0.6em;
-		background: var(--color-teal-solid);
-		color: #ffffff;
-		font-size: 0.75rem;
-		line-height: 1;
+		gap: 0.3em;
+		padding: 0.2em 0.55em;
+		background: var(--color-surface);
+		color: var(--color-gold);
+		border-radius: 2px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+		font-size: 0.72rem;
+		line-height: 1.5;
 		text-decoration: none;
-		opacity: 0;
-		transform: translateY(-4px);
-		transition:
-			opacity 0.3s ease-out,
-			transform 0.3s ease-out;
 	}
 
-	.related-item:hover .related-comments,
-	.related-item:focus-within .related-comments {
-		opacity: 1;
-		transform: translateY(0);
+	.related-comments:hover {
+		color: var(--color-teal);
 	}
 
 	.related-name {
@@ -694,34 +715,46 @@ const publishDate =
 		color: var(--color-text);
 	}
 
-	/* Demo comment fields: flat #f0f0f0, no border, square and tight;
-	   gold focus ring (obnoxious but on-brand, like the demo) */
+	/* Demo comment fields: flat #f0f0f0, no border, square. The labels are
+	   hidden and their text moves into the placeholder (set by the script
+	   below), so no tightening is needed — the demo padding stands. */
 	.post-comments :global(.ec-comment-form-field input),
 	.post-comments :global(.ec-comment-form-field textarea) {
 		background: light-dark(#f0f0f0, var(--color-bg-subtle)) !important;
 		border: 0 !important;
 		border-radius: 0 !important;
-		padding: 0.65em 0.9em !important;
+		padding: 1em 1.2em !important;
 		color: var(--color-text) !important;
+		transition:
+			background 0.2s ease-out,
+			color 0.2s ease-out;
 	}
 
+	/* Demo signature: the whole field turns gold on focus. The demo uses
+	   white text on gold (unreadable while typing), so we keep dark text
+	   for accessibility while reproducing the gaudy gold fill. */
 	.post-comments :global(.ec-comment-form-field input):focus,
 	.post-comments :global(.ec-comment-form-field textarea):focus {
-		outline: 2px solid var(--color-gold) !important;
-		outline-offset: -2px;
+		outline: none !important;
+		background: var(--color-gold) !important;
+		color: #162521 !important;
 	}
 
-	/* Tighter field label spacing */
-	.post-comments :global(.ec-comment-form-field span) {
-		margin-bottom: 0.35em !important;
-		font-size: 0.95rem;
+	.post-comments :global(.ec-comment-form-field input):focus::placeholder,
+	.post-comments :global(.ec-comment-form-field textarea):focus::placeholder {
+		color: rgba(22, 37, 33, 0.65) !important;
 	}
 
-	/* Required-field markers (demo: Name*, Email*) */
-	.post-comments :global(.ec-comment-form-field:has(input[required]) > span::after),
-	.post-comments :global(.ec-comment-form-field:has(textarea[required]) > span::after) {
-		content: " *";
-		color: var(--color-gold);
+	/* Hide the field labels — placeholders carry the names (demo) — but
+	   keep them for screen readers via the wrapping <label>. */
+	.post-comments :global(.ec-comment-form-field > span) {
+		position: absolute !important;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
 	}
 
 	.post-comments :global(.ec-comment-user-info) {
