@@ -1,0 +1,146 @@
+---
+/**
+ * bravada.team — the demo About template's team band (Team Members
+ * plugin, tmm_3_columns theme): cards with a circular white-ringed
+ * portrait, first/last name, job title, short bio and gold social
+ * glyphs. Card border is hairline grey, going gold on hover, exactly
+ * per the Plus stylesheet.
+ */
+import SocialIcon from "../SocialIcon.astro";
+
+interface TeamLink {
+	label: string;
+	url: string;
+}
+
+interface TeamMember {
+	name: string;
+	role?: string;
+	bio?: string;
+	image?: string;
+	links?: TeamLink[];
+}
+
+interface TeamNode {
+	title?: string;
+	members?: TeamMember[];
+}
+
+const { node } = Astro.props as { node: TeamNode };
+const { title, members = [] } = node;
+---
+
+<section class="cry-team">
+	{title && <h3 class="cry-team-title hl-gold">{title}</h3>}
+	<div class="cry-team-grid">
+		{
+			members.map((m) => (
+				<div class="cry-team-member">
+					{m.image && (
+						<span class="cry-team-photo">
+							<img src={m.image} alt={m.name} loading="lazy" width="140" height="140" />
+						</span>
+					)}
+					<span class="cry-team-name">{m.name}</span>
+					{m.role && <span class="cry-team-job">{m.role}</span>}
+					{m.bio && <p class="cry-team-bio">{m.bio}</p>}
+					{m.links && m.links.length > 0 && (
+						<span class="cry-team-links">
+							{m.links.map((l) => (
+								<a href={l.url} aria-label={l.label}>
+									<SocialIcon label={l.label} size={16} />
+								</a>
+							))}
+						</span>
+					)}
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.cry-team {
+		margin: 3em 0 2em;
+	}
+
+	.cry-team-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.75em;
+	}
+
+	.cry-team-member {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding: 2em 1.5em 1.75em;
+		border: 1px solid var(--color-border-subtle);
+		background: var(--color-surface);
+		transition: 0.2s ease-out border-color;
+	}
+
+	.cry-team-member:hover {
+		border-color: var(--color-brand);
+	}
+
+	.cry-team-photo {
+		display: inline-block;
+		margin-bottom: 1.25em;
+		border: 4px solid var(--color-surface);
+		border-radius: 50%;
+		box-shadow: 0 0 0 1px var(--color-border-subtle);
+		line-height: 0;
+	}
+
+	.cry-team-photo img {
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.cry-team-name {
+		font-weight: 700;
+		font-size: 1.0625em;
+	}
+
+	.cry-team-job {
+		margin-top: 0.2em;
+		font-size: 0.8125em;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-brand-hover);
+	}
+
+	.cry-team-bio {
+		margin: 0.9em 0 0;
+		font-size: 0.9375em;
+		color: var(--color-text-secondary);
+	}
+
+	.cry-team-links {
+		display: flex;
+		gap: 0.9em;
+		margin-top: 1em;
+	}
+
+	.cry-team-links a {
+		color: var(--color-brand);
+		line-height: 0;
+		transition: 0.15s ease-out color;
+	}
+
+	.cry-team-links a:hover {
+		color: var(--color-brand-hover);
+	}
+
+	@media (max-width: 800px) {
+		.cry-team-grid {
+			grid-template-columns: 1fr;
+			max-width: 380px;
+			margin: 0 auto;
+		}
+	}
+</style>

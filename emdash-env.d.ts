@@ -10,6 +10,7 @@ export interface Page {
   slug: string | null;
   status: string;
   title: string;
+  header_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
   content?: PortableTextBlock[];
   layout?: string;
   sidebar?: string;

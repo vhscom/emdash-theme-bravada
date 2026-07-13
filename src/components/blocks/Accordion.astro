@@ -1,0 +1,138 @@
+---
+/**
+ * bravada.accordion — the demo About template's content band: an
+ * optional intro column (small heading + paragraphs) beside a
+ * Bootstrap-panel-style accordion (the Plus "collapse" shortcode).
+ * First panel starts open; panels are exclusive via <details name=…>,
+ * no JS. Gold bar marks the open panel; toggles go teal on hover.
+ */
+interface AccordionItem {
+	title: string;
+	body: string;
+}
+
+interface AccordionNode {
+	/** Intro column heading (demo uses an h5-scale heading) */
+	heading?: string;
+	/** Intro column paragraphs; omit for a full-width accordion */
+	paragraphs?: string[];
+	items?: AccordionItem[];
+	_key?: string;
+}
+
+const { node } = Astro.props as { node: AccordionNode };
+const { heading, paragraphs = [], items = [] } = node;
+const hasIntro = heading || paragraphs.length > 0;
+const group = `acc-${node._key ?? "x"}`;
+---
+
+<section class:list={["cry-accordion-band", { "has-intro": hasIntro }]}>
+	{
+		hasIntro && (
+			<div class="cry-accordion-intro">
+				{heading && <h5>{heading}</h5>}
+				{paragraphs.map((p) => (
+					<p>{p}</p>
+				))}
+			</div>
+		)
+	}
+	<div class="cry-accordion">
+		{
+			items.map((item, i) => (
+				<details name={group} open={i === 0}>
+					<summary>
+						<h4>{item.title}</h4>
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+					</summary>
+					<div class="cry-accordion-body">{item.body}</div>
+				</details>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.cry-accordion-band {
+		margin: 2.5em 0;
+	}
+
+	.has-intro {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5em;
+		align-items: start;
+	}
+
+	.cry-accordion-intro h5 {
+		margin: 0 0 1em;
+		font-size: 1.0625em;
+	}
+
+	.cry-accordion-intro p {
+		margin: 0 0 1em;
+		color: var(--color-text-secondary);
+	}
+
+	.cry-accordion details {
+		border: 1px solid var(--color-border);
+		border-bottom-width: 0;
+		background: var(--color-surface);
+	}
+
+	.cry-accordion details:last-child {
+		border-bottom-width: 1px;
+	}
+
+	.cry-accordion summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		padding: 0.9em 1.2em;
+		cursor: pointer;
+		list-style: none;
+		border-left: 3px solid transparent;
+		transition: 0.15s ease-out;
+	}
+
+	.cry-accordion summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.cry-accordion summary h4 {
+		margin: 0;
+		font-family: var(--font-body);
+		font-size: 1em;
+		font-weight: 700;
+	}
+
+	.cry-accordion summary svg {
+		flex-shrink: 0;
+		transition: 0.2s ease-out transform;
+		color: var(--color-muted);
+	}
+
+	.cry-accordion summary:hover h4 {
+		color: var(--color-brand-hover);
+	}
+
+	.cry-accordion details[open] > summary {
+		border-left-color: var(--color-brand);
+	}
+
+	.cry-accordion details[open] > summary svg {
+		transform: rotate(180deg);
+	}
+
+	.cry-accordion-body {
+		padding: 0 1.2em 1.1em;
+		color: var(--color-text-secondary);
+	}
+
+	@media (max-width: 800px) {
+		.has-intro {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

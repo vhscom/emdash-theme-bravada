@@ -1,0 +1,96 @@
+---
+/**
+ * bravada.map — the demo Contact template's map band (template-map +
+ * template-map-col): a full-width lazy map embed with up to three
+ * small-heading blurb columns beneath it. The embed is any iframe
+ * URL (the demo uses a Google Maps embed of its fictional address).
+ */
+interface MapColumn {
+	title: string;
+	text: string;
+}
+
+interface MapNode {
+	embed?: string;
+	height?: number;
+	columns?: MapColumn[];
+}
+
+const { node } = Astro.props as { node: MapNode };
+const { embed, height = 420, columns = [] } = node;
+---
+
+<section class="cry-map-band">
+	{
+		embed && (
+			<div class="cry-map" style={`height:${height}px`}>
+				<iframe
+					src={embed}
+					loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"
+					allowfullscreen
+					title="Map"
+				/>
+			</div>
+		)
+	}
+	{
+		columns.length > 0 && (
+			<div class="cry-map-cols">
+				{columns.map((c) => (
+					<div class="cry-map-col">
+						<h6>{c.title}</h6>
+						<p>{c.text}</p>
+					</div>
+				))}
+			</div>
+		)
+	}
+</section>
+
+<style>
+	.cry-map-band {
+		margin: 0 0 2.5em;
+	}
+
+	.cry-map {
+		line-height: 0;
+	}
+
+	.cry-map iframe {
+		width: 100%;
+		height: 100%;
+		border: 0;
+		filter: grayscale(35%);
+		transition: 0.3s ease-out filter;
+	}
+
+	.cry-map:hover iframe {
+		filter: none;
+	}
+
+	.cry-map-cols {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2.5em;
+		margin-top: 2.25em;
+	}
+
+	.cry-map-col h6 {
+		margin: 0 0 0.6em;
+		font-size: 0.9375em;
+	}
+
+	.cry-map-col p {
+		margin: 0;
+		font-size: 0.9375em;
+		color: var(--color-text-secondary);
+	}
+
+	@media (max-width: 800px) {
+		.cry-map-cols {
+			grid-template-columns: 1fr;
+			gap: 1.5em;
+		}
+	}
+</style>

@@ -33,6 +33,10 @@ const ogImage =
 // on the pages collection — none | left | right | two-left |
 // two-right | sided. The column arrangement lives in <PageLayout>.
 const layout = (page.data.layout as string) || "none";
+
+// Per-page header image (the demo gives each template page its own
+// photo); falls back to PageHeader's site-wide default when unset.
+const headerImage = page.data.header_image as { src?: string; alt?: string } | undefined;
 ---
 
 <Base
@@ -46,6 +50,8 @@ const layout = (page.data.layout as string) || "none";
 		!hasOwnHero && (
 			<PageHeader
 				title={page.data.title}
+				image={headerImage?.src}
+				imageAlt={headerImage?.alt ?? ""}
 				crumbs={[{ label: page.data.title }]}
 				titleAttrs={page.edit.title}
 			/>
