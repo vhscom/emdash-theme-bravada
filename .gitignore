@@ -8,3 +8,5 @@ data.db
 .env
 .env.*
 !.env.example
+data.db-shm
+data.db-wal
