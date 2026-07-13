@@ -98,6 +98,20 @@ const olderPost =
 const olderImg = getMediaUrl(olderPost?.data.featured_image);
 const newerImg = getMediaUrl(newerPost?.data.featured_image);
 
+// Where a neighbour is missing (first/last post) the demo fills that
+// panel with the site's hero image — the same one on the home page —
+// as a static, non-clickable placeholder. Only worth fetching when a
+// side is actually missing.
+let heroImg: string | undefined;
+if (!olderPost || !newerPost) {
+	const home = await getEmDashEntry("pages", "home");
+	const heroBlock = home?.entry?.data.content?.[0];
+	heroImg =
+		heroBlock?._type === "bravada.hero" && typeof heroBlock.image === "string"
+			? heroBlock.image
+			: undefined;
+}
+
 // Single batched query for related-posts tags, rather than one
 // getEntryTerms() call per related post.
 const otherTagsByEntry = await getTermsForEntries(
@@ -307,7 +321,7 @@ const publishDate =
 	{
 		(olderPost || newerPost) && (
 			<nav id="nav-below" aria-label="Previous and next post">
-				{olderPost && (
+				{olderPost ? (
 					<a class="nav-below-prev" href={`/posts/${olderPost.id}`} rel="prev">
 						{olderImg && <img src={olderImg} alt="" loading="lazy" />}
 						<span class="nav-below-caption">
@@ -315,8 +329,12 @@ const publishDate =
 							<span class="nav-below-title">{olderPost.data.title}</span>
 						</span>
 					</a>
+				) : (
+					<div class="nav-below-prev nav-below-filler" aria-hidden="true">
+						{heroImg && <img src={heroImg} alt="" loading="lazy" />}
+					</div>
 				)}
-				{newerPost && (
+				{newerPost ? (
 					<a class="nav-below-next" href={`/posts/${newerPost.id}`} rel="next">
 						{newerImg && <img src={newerImg} alt="" loading="lazy" />}
 						<span class="nav-below-caption">
@@ -324,6 +342,10 @@ const publishDate =
 							<span class="nav-below-title">{newerPost.data.title}</span>
 						</span>
 					</a>
+				) : (
+					<div class="nav-below-next nav-below-filler" aria-hidden="true">
+						{heroImg && <img src={heroImg} alt="" loading="lazy" />}
+					</div>
 				)}
 			</nav>
 		)
@@ -1190,13 +1212,11 @@ const publishDate =
 		margin-top: var(--spacing-16);
 	}
 
-	/* First/last post: only one neighbour — the sole panel spans full
-	   width instead of leaving half the band empty. */
-	#nav-below a:only-child {
-		grid-column: 1 / -1;
-	}
-
-	#nav-below a {
+	/* Panels are either a linked <a> (a real neighbour) or a static
+	   filler <div> showing the site hero where a neighbour is missing —
+	   both keep the 50/50 band, image, gradient and hover shift. */
+	#nav-below .nav-below-prev,
+	#nav-below .nav-below-next {
 		position: relative;
 		display: block;
 		height: 200px;
@@ -1214,13 +1234,15 @@ const publishDate =
 		transition: object-position 0.3s ease-out;
 	}
 
-	#nav-below a:hover img,
+	#nav-below .nav-below-prev:hover img,
+	#nav-below .nav-below-next:hover img,
 	#nav-below a:focus-visible img {
 		object-position: 50% 55%;
 	}
 
 	/* Directional scrim so the caption stays legible over any image */
-	#nav-below a::before {
+	#nav-below .nav-below-prev::before,
+	#nav-below .nav-below-next::before {
 		content: "";
 		position: absolute;
 		inset: 0;
