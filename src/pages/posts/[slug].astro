@@ -233,12 +233,11 @@ const publishDate =
 							{relatedPosts.map((p) => (
 								<li class="related-item">
 									<div class="related-thumb">
-										<a href={`/posts/${p.id}`} class="related-thumb-frame" tabindex="-1">
+										<a href={`/posts/${p.id}`} class="related-thumb-link" tabindex="-1">
 											{p.img && <img src={p.img} alt="" loading="lazy" />}
 										</a>
 										{commentsEnabled && (
 											<a href={`/posts/${p.id}#comments`} class="related-comments" aria-label={`${p.commentCount} comments`}>
-												<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" /></svg>
 												{p.commentCount}
 											</a>
 										)}
@@ -621,74 +620,81 @@ const publishDate =
 		flex-direction: column;
 	}
 
-	/* Holds the framed image and the floating comment chip (no clip) */
+	/* Demo .related-thumbnail: a 5px white photo frame that sits at 85%
+	   opacity, then lifts (top: -5px), brightens and deepens its shadow on
+	   hover — no image zoom. overflow:hidden clips the chip until it drops
+	   in. */
 	.related-thumb {
 		position: relative;
-	}
-
-	/* Demo picture frame: a 5px white border + soft drop shadow, like the
-	   footer and shop-sidebar thumbnails */
-	.related-thumb-frame {
-		display: block;
+		top: 0;
 		overflow: hidden;
 		line-height: 0;
 		border: 5px solid var(--color-surface);
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+		opacity: 0.85;
+		transition: all 0.25s ease;
 	}
 
-	.related-thumb-frame img {
+	.related-item:hover .related-thumb,
+	.related-item:focus-within .related-thumb {
+		top: -5px;
+		opacity: 1;
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	.related-thumb-link {
+		display: block;
+		line-height: 0;
+	}
+
+	.related-thumb-link img {
 		width: 100%;
 		aspect-ratio: 512 / 300;
 		object-fit: cover;
-		transition: transform 0.4s ease-out;
 	}
 
-	.related-item:hover .related-thumb-frame img,
-	.related-item:focus-within .related-thumb-frame img {
-		transform: scale(1.05);
-	}
-
-	/* Demo comment chip: white bg, gold text, sitting just above the
-	   top-right of the frame (always shown when comments are enabled) */
+	/* Demo comment count: gold number on a white chip, hidden above the
+	   frame (top:-25px, clipped) until the card is hovered, then it drops
+	   in to top:10px. */
 	.related-comments {
 		position: absolute;
-		top: -10px;
+		top: -25px;
 		right: 10px;
-		display: inline-flex;
-		align-items: center;
-		gap: 0.3em;
-		padding: 0.2em 0.55em;
+		padding: 0 7px;
 		background: var(--color-surface);
 		color: var(--color-gold);
 		border-radius: 2px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-		font-size: 0.72rem;
-		line-height: 1.5;
+		font-size: 0.85rem;
+		line-height: 1.6;
 		text-decoration: none;
+		transition: all 0.3s ease-out;
 	}
 
-	.related-comments:hover {
-		color: var(--color-teal);
+	.related-item:hover .related-comments,
+	.related-item:focus-within .related-comments {
+		top: 10px;
 	}
 
+	/* Demo related-title: Playfair 700 in the body grey — not the near
+	   black heading colour */
 	.related-name {
 		margin-top: 0.9em;
 		font-family: var(--font-heading);
-		font-size: 1rem;
+		font-size: 1.2rem;
 		font-weight: 700;
 		line-height: 1.3;
-		color: var(--color-heading);
+		color: var(--color-text);
 		text-decoration: none;
 	}
 
 	.related-name:hover {
-		color: var(--color-gold);
+		color: var(--color-teal);
 	}
 
 	.related-date {
-		margin: 0.35em 0 0;
+		margin: 0.25em 0 0;
 		font-size: 0.8rem;
-		color: var(--color-muted);
+		color: var(--color-text);
 	}
 
 	/* Comments live inside the white card, below related posts */
@@ -718,6 +724,8 @@ const publishDate =
 	/* Demo comment fields: flat #f0f0f0, no border, square. The labels are
 	   hidden and their text moves into the placeholder (set by the script
 	   below), so no tightening is needed — the demo padding stands. */
+	/* Demo comment fields: flat #f0f0f0, bold #707070 text, grey
+	   placeholder */
 	.post-comments :global(.ec-comment-form-field input),
 	.post-comments :global(.ec-comment-form-field textarea) {
 		background: light-dark(#f0f0f0, var(--color-bg-subtle)) !important;
@@ -725,24 +733,29 @@ const publishDate =
 		border-radius: 0 !important;
 		padding: 1em 1.2em !important;
 		color: var(--color-text) !important;
+		font-weight: 700 !important;
 		transition:
 			background 0.2s ease-out,
 			color 0.2s ease-out;
 	}
 
-	/* Demo signature: the whole field turns gold on focus. The demo uses
-	   white text on gold (unreadable while typing), so we keep dark text
-	   for accessibility while reproducing the gaudy gold fill. */
+	.post-comments :global(.ec-comment-form-field input)::placeholder,
+	.post-comments :global(.ec-comment-form-field textarea)::placeholder {
+		color: light-dark(#757575, var(--color-muted)) !important;
+	}
+
+	/* Demo behaviour: the whole field turns gold on focus, with white bold
+	   typed text, reproduced from the original. */
 	.post-comments :global(.ec-comment-form-field input):focus,
 	.post-comments :global(.ec-comment-form-field textarea):focus {
 		outline: none !important;
 		background: var(--color-gold) !important;
-		color: #162521 !important;
+		color: #ffffff !important;
 	}
 
 	.post-comments :global(.ec-comment-form-field input):focus::placeholder,
 	.post-comments :global(.ec-comment-form-field textarea):focus::placeholder {
-		color: rgba(22, 37, 33, 0.65) !important;
+		color: rgba(255, 255, 255, 0.8) !important;
 	}
 
 	/* Hide the field labels — placeholders carry the names (demo) — but
