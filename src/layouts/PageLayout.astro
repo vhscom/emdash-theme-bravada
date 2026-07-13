@@ -40,7 +40,7 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	   page's Layout field (demo one/two/three-column options). */
 	/* Demo #container: transparent shell — only .main is white; the
 	   sidebars sit directly on the page background. Sidebars are var(--sidebar-width)
-	   including their 2.2em inner gutter, no grid gap (demo box model:
+	   including their var(--sidebar-gutter) inner gutter, no grid gap (demo box model:
 	   main = 100% − 640px). */
 	.page-shell {
 		display: grid;
@@ -89,14 +89,14 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 	}
 
 	.page-shell :global(.bravada-sidebar) {
-		padding: 4em 0 6em 2.2em;
+		padding: 4em 0 6em var(--sidebar-gutter);
 	}
 
 	/* left-hand sidebars gutter on the right instead */
 	.page-shell.layout-left :global(.bravada-sidebar),
 	.page-shell.layout-two-left :global(.bravada-sidebar),
 	.page-shell.layout-sided :global(.bravada-sidebar:first-of-type) {
-		padding: 4em 2.2em 6em 0;
+		padding: 4em var(--sidebar-gutter) 6em 0;
 	}
 
 	@media (max-width: 1100px) {

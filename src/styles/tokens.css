@@ -98,6 +98,7 @@
 		--wide-width: 1200px; /* max container (home, archives) */
 		--max-width: var(--content-width);
 		--sidebar-width: 320px; /* blog/page right sidebar (SidebarWidgets) */
+		--sidebar-gutter: 2.75em; /* inner gutter between content and sidebar widgets */
 		--nav-height: 64px; /* sticky header height */
 		--search-input-width: 180px; /* nav search box width */
 

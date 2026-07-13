@@ -891,7 +891,7 @@
             {
               "_type": "bravada.postswidget",
               "_key": "sb-posts",
-              "limit": 5
+              "limit": 3
             }
           ]
         },

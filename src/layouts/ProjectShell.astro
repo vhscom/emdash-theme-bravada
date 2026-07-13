@@ -1,7 +1,7 @@
 ---
 /**
  * The portfolio single/archive shell: demo two-columns-right box model
- * (white main, transparent var(--sidebar-width) sidebar with the 2.2em inner gutter,
+ * (white main, transparent var(--sidebar-width) sidebar with the var(--sidebar-gutter) inner gutter,
  * zero gap) with the search + recent-posts sidebar area.
  */
 import SidebarWidgets from "../components/SidebarWidgets.astro";
@@ -32,7 +32,7 @@ import SidebarWidgets from "../components/SidebarWidgets.astro";
 	}
 
 	.page-shell :global(.bravada-sidebar) {
-		padding: 4em 0 6em 2.2em;
+		padding: 4em 0 6em var(--sidebar-gutter);
 	}
 
 	.page-content :global(p) {
