@@ -70,33 +70,9 @@ no rebuilds.
 
 ```mermaid
 flowchart LR
-    subgraph Browser
-        V[Visitor]
-        E[Editor]
-    end
-
-    subgraph Node["Astro SSR (Node adapter)"]
-        R["Theme routes<br/>src/pages/*"]
-        B["Block components<br/>src/components/blocks/*"]
-        A["EmDash admin UI<br/>/_emdash/admin"]
-        I["Injected routes<br/>sitemap.xml · robots.txt · media API"]
-    end
-
-    subgraph Data
-        DB[("SQLite<br/>data.db")]
-        U["uploads/<br/>media files"]
-    end
-
-    V --> R
-    R -- "getEmDashCollection / getEmDashEntry" --> DB
-    R -- "Portable Text" --> B
-    V --> I
-    I --> DB
-    I --> U
-    E --> A
-    A --> DB
-    A --> U
-    S["seed/seed.json"] -. "npx emdash seed" .-> DB
+    V[Visitor] --> P["src/pages/*"] --> Q[EmDash] --> DB[(SQLite)]
+    P --> B["bravada.* blocks"]
+    E[Editor] --> A["/_emdash/admin"] --> DB
 ```
 
 The theme layer is deliberately thin: routes in `src/pages/` query EmDash and
