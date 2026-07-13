@@ -1190,6 +1190,12 @@ const publishDate =
 		margin-top: var(--spacing-16);
 	}
 
+	/* First/last post: only one neighbour — the sole panel spans full
+	   width instead of leaving half the band empty. */
+	#nav-below a:only-child {
+		grid-column: 1 / -1;
+	}
+
 	#nav-below a {
 		position: relative;
 		display: block;
@@ -1270,8 +1276,10 @@ const publishDate =
 		display: block;
 		margin-top: 0.35em;
 		font-family: var(--font-heading);
-		font-size: 1.5rem;
-		font-weight: 700;
+		/* Demo: Playfair Display 400 at 1.7em — elegant, not the heavy 700
+		   used elsewhere for headings */
+		font-size: 1.7rem;
+		font-weight: 400;
 		line-height: 1.2;
 	}
 
