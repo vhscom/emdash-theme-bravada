@@ -194,12 +194,8 @@ const heroDate = post.data.publishedAt
 		{
 			categories.length > 0 && (
 				<div class="hero-cats" slot="pretitle">
-					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" /></svg>
-					{categories.map((c, i) => (
-						<>
-							{i > 0 && <span class="hero-cats-sep" />}
-							<a href={`/category/${c.slug}`}>{c.label}</a>
-						</>
+					{categories.map((c) => (
+						<a href={`/category/${c.slug}`}>{c.label}</a>
 					))}
 				</div>
 			)
@@ -208,11 +204,7 @@ const heroDate = post.data.publishedAt
 			<p class="hero-date">
 				{
 					heroDate && (
-						<>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-							<time datetime={post.data.publishedAt?.toISOString()}>{heroDate}</time>
-							<span class="hero-meta-dot">·</span>
-						</>
+						<time datetime={post.data.publishedAt?.toISOString()}>{heroDate}</time>
 					)
 				}
 				<span>{readingTime} min read</span>
@@ -465,81 +457,70 @@ const heroDate = post.data.publishedAt
 </Base>
 
 <style>
-	/* Hero pretitle categories — the demo's pretitle-meta: a folder
-	   icon and linked category list above the title. */
+	/* Hero pretitle categories — the demo's pretitle-meta: gold links
+	   with a dotted gold underline that turns white on hover; the
+	   theme's icon glyphs are display:none in the demo, so no icon. */
 	.hero-cats {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
-		gap: 0.6em;
+		gap: 1em;
 		margin-bottom: 1em;
-		font-size: 0.8125em;
-		letter-spacing: var(--tracking-wide, 0.06em);
-		text-transform: uppercase;
-		color: rgb(255 255 255 / 75%);
 	}
 
 	.hero-cats a {
-		color: rgb(255 255 255 / 88%);
+		color: var(--color-brand);
 		text-decoration: none;
-		transition: 0.15s ease-out color;
+		border-bottom: 1px dotted;
+		transition: 0.2s ease-out all;
 	}
 
 	.hero-cats a:hover {
-		color: var(--color-brand);
+		border-bottom-color: #fff;
 	}
 
-	.hero-cats-sep::before {
-		content: "·";
-		color: rgb(255 255 255 / 55%);
-	}
-
-	/* Hero after-title meta — the demo's aftertitle-meta: icon'd date
-	   line, then the author chip. */
+	/* Hero after-title meta — the demo's aftertitle-meta. */
 	.hero-meta {
 		margin-top: 1em;
 	}
 
+	/* Demo #header-page-title .date: uppercase, .4em tracking, half
+	   opacity — the airy small-caps date line. */
 	.hero-date {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.5em;
+		gap: 1.25em;
 		margin: 0;
-		font-size: 0.9375em;
-		color: rgb(255 255 255 / 85%);
+		font-size: 0.9em;
+		text-transform: uppercase;
+		letter-spacing: 0.4em;
+		opacity: 0.5;
+		color: #fff;
 	}
 
-	.hero-date svg {
-		opacity: 0.7;
-	}
-
-	.hero-meta-dot {
-		color: rgb(255 255 255 / 55%);
-	}
-
-	/* Hero author chip — the demo's aftertitle-meta author: a 4em
-	   circled avatar stacked over the byline name (2px grey ring). */
+	/* Hero author chip — demo .author-container: 2em stack margin,
+	   light weight, avatar in a 2px #BBB ring. */
 	.hero-author {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 0.5em;
-		margin-top: 1.1em;
+		margin-top: 2em;
 	}
 
 	.hero-author img {
 		width: 4em;
 		height: 4em;
-		border-radius: 100%;
-		border: 2px solid rgb(255 255 255 / 65%);
+		border-radius: 100px;
+		border: 2px solid #bbb;
 		object-fit: cover;
 	}
 
 	.hero-author em {
-		font-style: normal;
-		font-weight: 700;
+		font-weight: 300;
+		letter-spacing: 0.5px;
 		font-size: 0.9375em;
 		color: #fff;
 	}
