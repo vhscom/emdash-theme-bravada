@@ -4,6 +4,9 @@
 	"main": "./src/worker.ts",
 	"compatibility_date": "2026-02-24",
 	"compatibility_flags": ["nodejs_compat"],
+	// SSR makes several sequential D1 round-trips per request; run the
+	// worker near the database instead of near the visitor.
+	"placement": { "mode": "smart" },
 	"routes": [
 		{
 			"pattern": "bravada.comfus.io",
