@@ -332,16 +332,24 @@ const postHeroDate = heroDate(post.data.publishedAt);
 				)
 			}
 
-			<section class="post-comments">
-				{postCommentCount > 0 && (
-					<h2 class="section-title comments-count-title">
-						<span>{postCommentCount} {postCommentCount === 1 ? "Comment" : "Comments"}</span>
-					</h2>
-				)}
-				<Comments collection="posts" contentId={post.data.id} threaded />
-				<h2 class="section-title reply-title"><span>Leave a Reply</span></h2>
-				<CommentForm collection="posts" contentId={post.data.id} />
-			</section>
+			{
+				commentsEnabled && (
+					<section class="post-comments">
+						{postCommentCount > 0 && (
+							<h2 class="section-title comments-count-title">
+								<span>
+									{postCommentCount} {postCommentCount === 1 ? "Comment" : "Comments"}
+								</span>
+							</h2>
+						)}
+						<Comments collection="posts" contentId={post.data.id} threaded />
+						<h2 class="section-title reply-title">
+							<span>Leave a Reply</span>
+						</h2>
+						<CommentForm collection="posts" contentId={post.data.id} />
+					</section>
+				)
+			}
 		</div>
 
 		<SidebarWidgets name="sidebar-b" />
