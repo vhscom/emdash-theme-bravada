@@ -1289,7 +1289,8 @@
               "title": "Responsive",
               "text": "Nulla nec bibendum tellus. Sed rutrum nibh non odio efficitur, et faucibus metus porttitor. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
             }
-          ]
+          ],
+          "title": "Amazing feedback"
         }
       ]
     },
@@ -2063,7 +2064,8 @@
                   "title": "Responsive",
                   "text": "Nulla nec bibendum tellus. Sed rutrum nibh non odio efficitur, et faucibus metus porttitor. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
                 }
-              ]
+              ],
+              "title": "Amazing feedback"
             },
             {
               "_type": "bravada.text",
