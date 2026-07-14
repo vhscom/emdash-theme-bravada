@@ -114,7 +114,10 @@ h6 {
 }
 
 /* Translate-based reveals shift elements past the viewport edge before
-   they animate in; clip (not hidden) preserves position: sticky. */
+   they animate in; clip (not hidden) preserves position: sticky. This
+   also doubles as the last-resort backstop against horizontal overflow
+   from oversized content (e.g. injected embeds/ads in content areas —
+   see the iframe/embed guard below) that isn't caught closer to source. */
 html,
 body {
 	overflow-x: clip;
@@ -870,12 +873,17 @@ html.js .lp-tt.aos .lp-tt-text {
 	color: var(--color-teal);
 }
 
-/* Centered italic blockquote with a giant faded quote mark above */
+/* Centered italic blockquote with a giant faded quote mark above.
+   display: table sizes to content, so long unbroken text (or a bare
+   URL) can exceed the viewport at narrow widths without these. */
 .page-content blockquote,
 .article-content blockquote {
 	position: relative;
 	display: table;
 	width: auto;
+	max-width: 100%;
+	overflow-wrap: break-word;
+	word-break: break-word;
 	margin: 2em auto 0;
 	padding: 2em;
 	font-style: italic;
@@ -897,6 +905,20 @@ html.js .lp-tt.aos .lp-tt-text {
 	line-height: 1;
 	text-align: center;
 	color: color-mix(in srgb, var(--color-text) 20%, transparent);
+}
+
+/* Guard against injected content (embeds, ads, third-party widgets) that
+   editors paste into posts/pages without theme-controlled sizing. Generic
+   on purpose — no ad-network-specific selectors — so it holds regardless
+   of which embed or ad provider a site uses. */
+.page-content iframe,
+.article-content iframe,
+.page-content embed,
+.article-content embed,
+.page-content object,
+.article-content object {
+	max-width: 100%;
+	overflow: hidden;
 }
 
 /* Visually-hidden utility (screen readers only) */

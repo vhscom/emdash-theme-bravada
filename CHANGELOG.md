@@ -4,6 +4,23 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.2.1] - 2026-07-14
+
+### Fixed
+
+- Blockquote overflow: `.page-content`/`.article-content blockquote`
+  used `display: table; width: auto` with no `max-width`, so a long
+  unbroken word or bare URL could exceed the viewport at narrow
+  widths. Added `max-width: 100%` and `overflow-wrap`/`word-break`.
+- Injected content (embeds, ads, third-party widgets) pasted into
+  posts/pages could carry fixed, oversized dimensions with no theme
+  sizing constraint. Added a generic `max-width: 100%` +
+  `overflow: hidden` guard on `iframe`/`embed`/`object` inside content
+  areas — no ad-network-specific selectors, so it holds regardless of
+  provider. Documented the existing `html, body { overflow-x: clip }`
+  rule as an intentional last-resort backstop for the same class of
+  bug.
+
 ## [0.2.0] - 2026-07-14
 
 ### Added
