@@ -180,6 +180,13 @@ const paras = paragraphs ?? (text ? [text] : []);
 			padding: 2em;
 		}
 
+		/* Demo mobile: the image sits above the card on BOTH variants —
+		   left in column flow the pulled-up image would climb over the
+		   card's last lines instead of peeking out of the band top */
+		.image-right .lp-text-image {
+			order: 0;
+		}
+
 		.lp-text-image {
 			width: auto;
 		}
