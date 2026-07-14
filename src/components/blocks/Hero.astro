@@ -267,6 +267,13 @@ const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
 			margin: 2em auto;
 		}
 
+		/* Demo mobile: caption buttons stack and stretch nearly full width */
+		.staticslider-caption-buttons {
+			flex-direction: column;
+			align-items: stretch;
+			align-self: stretch;
+		}
+
 		.meta-arrow {
 			bottom: 20px;
 		}
