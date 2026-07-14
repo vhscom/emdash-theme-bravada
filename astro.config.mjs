@@ -1,6 +1,6 @@
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
-import { d1, kvCache, r2, sandbox } from "@emdash-cms/cloudflare";
+import { cloudflareCache, d1, kvCache, r2, sandbox } from "@emdash-cms/cloudflare";
 import auditLog from "@emdash-cms/plugin-audit-log";
 import { defineConfig, fontProviders } from "astro/config";
 import emdash from "emdash/astro";
@@ -11,10 +11,10 @@ export default defineConfig({
 	// Edge-cache rendered pages via the Workers Cache API; the theme's
 	// Astro.cache.set(cacheHint) calls tag responses so content edits
 	// purge exactly the affected pages. Requires the CF_ZONE_ID and
-	// CF_CACHE_PURGE_TOKEN worker secrets — enable once they are set.
-	// cache: {
-	// 	provider: cloudflareCache(),
-	// },
+	// CF_CACHE_PURGE_TOKEN worker secrets.
+	cache: {
+		provider: cloudflareCache(),
+	},
 	image: {
 		layout: "constrained",
 		responsiveStyles: true,
