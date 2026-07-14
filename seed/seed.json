@@ -821,7 +821,7 @@
               "children": [
                 {
                   "_type": "span",
-                  "text": "935 Pennsylvania Avenue,\nNW Washington,\nD.C. 20535-0001",
+                  "text": "88 Ratsada Road,\nRatsada, Mueang Phuket,\nPhuket 83000, Thailand",
                   "_key": "fw2s"
                 }
               ]
@@ -833,7 +833,7 @@
               "children": [
                 {
                   "_type": "span",
-                  "text": "Phone: +1 (202) 555-0200",
+                  "text": "Phone: +66 76 555 020",
                   "_key": "fw3s"
                 }
               ]
@@ -845,7 +845,7 @@
               "children": [
                 {
                   "_type": "span",
-                  "text": "Mobile: +1 (202) 555-3112",
+                  "text": "Mobile: +66 81 555 311",
                   "_key": "fw4s"
                 }
               ]
@@ -1289,7 +1289,8 @@
               "title": "Responsive",
               "text": "Nulla nec bibendum tellus. Sed rutrum nibh non odio efficitur, et faucibus metus porttitor. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
             }
-          ]
+          ],
+          "title": "Amazing feedback"
         }
       ]
     },
@@ -2063,7 +2064,8 @@
                   "title": "Responsive",
                   "text": "Nulla nec bibendum tellus. Sed rutrum nibh non odio efficitur, et faucibus metus porttitor. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
                 }
-              ]
+              ],
+              "title": "Amazing feedback"
             },
             {
               "_type": "bravada.text",

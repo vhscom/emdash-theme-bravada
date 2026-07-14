@@ -118,6 +118,13 @@ function iconSvg(name: string | undefined): string | null {
 		overflow: hidden;
 	}
 
+	/* Contain the ghost-header's top margin like the other bands do
+	   (without a BFC it collapses through the section edge and the
+	   header hugs the band top) */
+	.lp-blocks {
+		overflow: hidden;
+	}
+
 	.lp-blocks-light {
 		background-color: var(--tint-blocks1);
 	}

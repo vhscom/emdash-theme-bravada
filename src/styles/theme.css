@@ -431,7 +431,7 @@ body {
 .ghost-header .ghost-sub {
 	position: relative;
 	order: 2;
-	margin: -1.4em 0 0;
+	margin: 0;
 	max-width: 45%;
 	font-size: 1.4em;
 	line-height: 1.2;
@@ -440,9 +440,29 @@ body {
 	color: var(--color-text);
 }
 
+/* The overlap pull only makes sense when there IS a ghost title to
+   overlap — a description-only header would get hoisted out of the
+   section entirely. */
+.ghost-header .ghost-title ~ .ghost-sub {
+	margin-top: -1.4em;
+}
+
 @media (max-width: 800px) {
+	/* The ghost title shrinks with the viewport but the -1.4em pull-up
+	   doesn't: short single-line titles get overshot and the description
+	   escapes the section top. Ease the overlap as the title scales. */
 	.ghost-header .ghost-sub {
 		max-width: 90%;
+	}
+
+	.ghost-header .ghost-title ~ .ghost-sub {
+		margin-top: -0.7em;
+	}
+}
+
+@media (max-width: 480px) {
+	.ghost-header .ghost-title ~ .ghost-sub {
+		margin-top: -0.35em;
 	}
 }
 
