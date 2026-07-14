@@ -1,6 +1,6 @@
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
-import { d1, r2, sandbox } from "@emdash-cms/cloudflare";
+import { d1, kvCache, r2, sandbox } from "@emdash-cms/cloudflare";
 import auditLog from "@emdash-cms/plugin-audit-log";
 import { defineConfig, fontProviders } from "astro/config";
 import emdash from "emdash/astro";
@@ -8,6 +8,13 @@ import emdash from "emdash/astro";
 export default defineConfig({
 	output: "server",
 	adapter: cloudflare(),
+	// Edge-cache rendered pages via the Workers Cache API; the theme's
+	// Astro.cache.set(cacheHint) calls tag responses so content edits
+	// purge exactly the affected pages. Requires the CF_ZONE_ID and
+	// CF_CACHE_PURGE_TOKEN worker secrets — enable once they are set.
+	// cache: {
+	// 	provider: cloudflareCache(),
+	// },
 	image: {
 		layout: "constrained",
 		responsiveStyles: true,
@@ -17,6 +24,12 @@ export default defineConfig({
 		emdash({
 			database: d1({ binding: "DB", session: "auto" }),
 			storage: r2({ binding: "MEDIA" }),
+			// Query results shared across isolates — most page reads hit KV
+			// instead of D1.
+			objectCache: kvCache({ binding: "CACHE" }),
+			// Keep public HTML identical for every visitor so it is safe to
+			// cache; logged-in editors get the client-side Edit pill.
+			toolbar: "client",
 			sandboxRunner: sandbox(),
 			plugins: [
 				auditLog,

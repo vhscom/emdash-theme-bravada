@@ -20,6 +20,12 @@
 			"database_id": "31fe29f5-68ec-4666-86d5-b5d78758229b",
 		},
 	],
+	"kv_namespaces": [
+		{
+			"binding": "CACHE",
+			"id": "c9ae0eaa807b47dda6605d22345cadcd",
+		},
+	],
 	"r2_buckets": [
 		{
 			"binding": "MEDIA",
