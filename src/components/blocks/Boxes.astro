@@ -352,6 +352,24 @@ const cols = Math.min(Math.max(node.columns ?? (variant === "animated" ? 3 : 4),
 		opacity: 1;
 	}
 
+	/* Demo shows only the title until hover: Read More expands with the
+	   text, which also keeps it from overflowing the fixed-height card
+	   on small screens */
+	.lp-boxes-animated .lp-box-readmore {
+		max-height: 0;
+		margin: 0;
+		overflow: hidden;
+		opacity: 0;
+		transition: 2s ease-out all;
+	}
+
+	.lp-boxes-animated .lp-box:hover .lp-box-readmore,
+	.lp-boxes-animated .lp-box:focus-within .lp-box-readmore {
+		max-height: 3em;
+		margin: 1.1em 0 0.55em;
+		opacity: 1;
+	}
+
 	/* ------ overlay (lp-boxes-animated2): white wash, centered ------ */
 	.lp-boxes-overlay .box-overlay {
 		background-color: #ffffff;
@@ -434,14 +452,17 @@ const cols = Math.min(Math.max(node.columns ?? (variant === "animated" ? 3 : 4),
 	}
 
 	@media (max-width: 600px) {
+		/* Demo mobile: boxes run flush edge-to-edge with no gaps; the
+		   accent strip peeks only above/below the stack */
 		.lp-boxes-inside {
 			grid-template-columns: 1fr;
-			padding: 2em 1em;
+			gap: 0;
+			padding: 2em 0;
 		}
 
 		.lp-boxes-inside::before {
-			left: 1em;
-			width: calc(100% - 2em);
+			left: 0;
+			width: 100%;
 		}
 	}
 </style>

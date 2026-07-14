@@ -99,13 +99,16 @@ time, so the first build needs network access).
 
 ```bash
 pnpm install
-npx emdash dev                    # 1. localhost:4321 — migrations run, but the site starts EMPTY
-npx emdash seed seed/seed.json    # 2. apply the full Bravada demo content
+npx emdash dev                    # localhost:4321 — migrations run, but the site starts EMPTY
 ```
 
 Then visit `http://localhost:4321/_emdash/admin` — the setup wizard creates
-your first admin account — and reload the homepage to see the demo landing
-page.
+your first admin account and offers **"Include sample content"**, which
+applies the full Bravada demo seed for you. Prefer the command line?
+
+```bash
+npx emdash seed seed/seed.json    # same thing, without the wizard checkbox
+```
 
 Prefer to skip the demo content? Seed the structure only (collections,
 taxonomies, menus, widget areas, sections — no posts, shop, or portfolio):
