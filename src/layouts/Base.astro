@@ -4,7 +4,11 @@ import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import LiveSearch from "emdash/ui/search";
 import { Font } from "astro:assets";
-import { resolveBlogSiteIdentity, resolveSiteOrigin } from "../utils/site-identity";
+import {
+	resolveBlogSiteIdentity,
+	resolveSiteOrigin,
+	TITLE_SEPARATOR,
+} from "../utils/site-identity";
 import SiteHeader from "../components/SiteHeader.astro";
 import MobileMenu from "../components/MobileMenu.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -55,7 +59,9 @@ const ogImageUrl = image
 		: `${siteOrigin}${image}`
 	: undefined;
 // If title already includes site title (from getSeoMeta), use as-is
-const fullTitle = title.includes(siteTitle) ? title : `${title} — ${siteTitle}`;
+const fullTitle = title.includes(siteTitle)
+	? title
+	: `${title}${TITLE_SEPARATOR}${siteTitle}`;
 
 // Build public page context for plugin contributions
 // SEO data is passed here and rendered securely by EmDashHead

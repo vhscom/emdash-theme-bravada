@@ -1,6 +1,6 @@
 {
 	"name": "emdash-theme-bravada",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"private": true,
 	"type": "module",
 	"license": "GPL-3.0-or-later",
@@ -12,7 +12,7 @@
 	},
 	"emdash": {
 		"label": "Bravada for Astro",
-		"description": "Bravada for Astro \u2014 a port of the Bravada WordPress theme (Cryout Creations) to Astro, powered by EmDash",
+		"description": "Bravada for Astro — a port of the Bravada WordPress theme (Cryout Creations) to Astro, powered by EmDash",
 		"seed": "seed/seed.json"
 	},
 	"scripts": {

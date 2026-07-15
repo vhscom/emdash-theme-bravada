@@ -1,11 +1,19 @@
 ---
-import { getEmDashEntry, getEmDashCollection, getEntryTerms, decodeSlug } from "emdash";
+import {
+	getEmDashEntry,
+	getEmDashCollection,
+	getEntryTerms,
+	decodeSlug,
+	getSiteSettings,
+} from "emdash";
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import RichText from "../../components/RichText.astro";
 import StarRating from "../../components/StarRating.astro";
 import Price from "../../components/Price.astro";
 import { getMediaUrl } from "../../utils/media-url";
+import { metaDescription } from "../../utils/reading-time";
+import { resolveSiteOrigin } from "../../utils/site-identity";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -42,11 +50,51 @@ const mainImage = gallery[0] ?? getMediaUrl(d.featured_image);
 const variants = (d.variants as { label: string; options: string[] }[]) ?? [];
 const reviews =
 	(d.reviews as { author: string; rating?: number; date?: string; text: string }[]) ?? [];
+
+// Meta description: the excerpt when present, else a snippet of the
+// long description — products otherwise ship no description at all.
+const description = (d.excerpt as string) || metaDescription(d.content) || undefined;
+
+// schema.org/Product JSON-LD. Prices are stored as display strings
+// ("£13.00"); the offer is only emitted when one parses cleanly.
+const siteOrigin = resolveSiteOrigin(await getSiteSettings(), Astro.url.origin);
+const absoluteUrl = (path: string | undefined) =>
+	path ? (path.startsWith("http") ? path : `${siteOrigin}${path}`) : undefined;
+const priceMatch = typeof d.price === "string" ? d.price.match(/([£$€])\s*([\d.,]+)/) : null;
+const CURRENCIES: Record<string, string> = { "£": "GBP", $: "USD", "€": "EUR" };
+const productLd = {
+	"@context": "https://schema.org",
+	"@type": "Product",
+	name: d.title,
+	url: `${siteOrigin}/product/${slug}`,
+	...(absoluteUrl(mainImage) && { image: absoluteUrl(mainImage) }),
+	...(description && { description }),
+	...(d.sku && { sku: d.sku }),
+	...(priceMatch && {
+		offers: {
+			"@type": "Offer",
+			price: priceMatch[2].replace(/,/g, ""),
+			priceCurrency: CURRENCIES[priceMatch[1]],
+			availability: d.oos
+				? "https://schema.org/OutOfStock"
+				: "https://schema.org/InStock",
+			url: `${siteOrigin}/product/${slug}`,
+		},
+	}),
+	...(typeof d.rating === "number" &&
+		reviews.length > 0 && {
+			aggregateRating: {
+				"@type": "AggregateRating",
+				ratingValue: d.rating,
+				reviewCount: reviews.length,
+			},
+		}),
+};
 ---
 
 <Base
 	title={d.title}
-	description={(d.excerpt as string) || undefined}
+	description={description}
 	image={mainImage}
 	content={{ collection: "products", id: d.id, slug }}
 	overHero
@@ -259,6 +307,7 @@ const reviews =
 			}
 		</article>
 	</div>
+	<script type="application/ld+json" set:html={JSON.stringify(productLd)} />
 </Base>
 
 <div class="gallery-lightbox" hidden role="dialog" aria-modal="true" aria-label="Full size image" tabindex="-1">
