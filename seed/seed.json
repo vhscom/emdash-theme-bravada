@@ -15,6 +15,7 @@
       "slug": "posts",
       "label": "Posts",
       "labelSingular": "Post",
+      "urlPattern": "/posts/{slug}",
       "supports": [
         "drafts",
         "revisions",
@@ -52,10 +53,12 @@
       "slug": "pages",
       "label": "Pages",
       "labelSingular": "Page",
+      "urlPattern": "/{slug}",
       "supports": [
         "drafts",
         "revisions",
-        "search"
+        "search",
+        "seo"
       ],
       "fields": [
         {
@@ -143,6 +146,7 @@
       "slug": "portfolio",
       "label": "Portfolio",
       "labelSingular": "Project",
+      "urlPattern": "/portfolio/{slug}",
       "supports": [
         "drafts",
         "revisions",
@@ -179,6 +183,7 @@
       "slug": "products",
       "label": "Products",
       "labelSingular": "Product",
+      "urlPattern": "/product/{slug}",
       "supports": [
         "drafts",
         "revisions",

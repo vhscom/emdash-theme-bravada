@@ -4,12 +4,40 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.3.0] - 2026-07-15
 
 ### Added
 
 - Product gallery: hover zoom lens, click-to-open magnifier lightbox, and
   slide transitions between gallery images (`/product/:slug`).
+- `schema.org/Product` JSON-LD on product pages (name, image, description,
+  SKU, offer with parsed price/currency and stock availability, aggregate
+  rating when reviews exist) and `schema.org/CreativeWork` JSON-LD on
+  portfolio pages (name, image, description, date, project types/tags).
+- Product pages derive a meta description from the long description when
+  the excerpt is empty (same `metaDescription()` snippet fallback pages
+  and portfolio already used) — previously they shipped none.
+
+### Changed
+
+- Sitemap now covers every collection: the `pages` collection gained
+  `seo` support (it was silently absent from the sitemap index), and all
+  four collections carry an explicit `urlPattern` in `seed/seed.json`.
+  Notably `products` was defaulting to `/products/{slug}` while the real
+  route is `/product/{slug}`, so **every product URL in the live sitemap
+  404'd**. Existing databases need the same schema update (seeds don't
+  re-apply): set `url_pattern` and `has_seo` per collection, either via
+  `PUT /_emdash/api/schema/collections/:slug` (read-modify-write — the
+  PUT replaces the whole record) or directly in D1:
+  `UPDATE _emdash_collections SET url_pattern='/posts/{slug}' WHERE slug='posts';`
+  `UPDATE _emdash_collections SET url_pattern='/{slug}', has_seo=1, supports='["drafts","revisions","search","seo"]' WHERE slug='pages';`
+  `UPDATE _emdash_collections SET url_pattern='/portfolio/{slug}' WHERE slug='portfolio';`
+  `UPDATE _emdash_collections SET url_pattern='/product/{slug}' WHERE slug='products';`
+- Title separator unified on the em dash: `TITLE_SEPARATOR` in
+  `src/utils/site-identity.ts` is used by `Base.astro`'s fallback title
+  and passed to the `getSeoMeta()` call on single posts (post titles
+  previously used the library default `" | "` while everything else used
+  `" — "`).
 
 ### Changed
 

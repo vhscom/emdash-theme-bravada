@@ -15,7 +15,11 @@ import PageHeader from "../../components/PageHeader.astro";
 import RichText from "../../components/RichText.astro";
 import SidebarWidgets from "../../components/SidebarWidgets.astro";
 import { getReadingTime } from "../../utils/reading-time";
-import { resolveBlogSiteIdentity, resolveSiteOrigin } from "../../utils/site-identity";
+import {
+	resolveBlogSiteIdentity,
+	resolveSiteOrigin,
+	TITLE_SEPARATOR,
+} from "../../utils/site-identity";
 import { getMediaUrl } from "../../utils/media-url";
 import { longDate, monthDay, heroDate } from "../../utils/dates";
 import { heroSlideImage } from "../../utils/hero";
@@ -53,6 +57,7 @@ const seo = getSeoMeta(post, {
 	siteUrl: siteOrigin,
 	path: `/posts/${slug}`,
 	defaultOgImage: featuredImageUrl,
+	titleSeparator: TITLE_SEPARATOR,
 });
 
 // Bylines are already hydrated by getEmDashEntry

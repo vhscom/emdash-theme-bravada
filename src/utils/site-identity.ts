@@ -28,6 +28,13 @@ export function resolveSiteOrigin(
 	);
 }
 
+/**
+ * One separator everywhere: Base.astro's fallback title joins with this,
+ * so getSeoMeta call sites must pass it as `titleSeparator` instead of
+ * accepting the library default " | ".
+ */
+export const TITLE_SEPARATOR = " — ";
+
 const DEFAULT_SITE_TITLE = "My Blog";
 const DEFAULT_SITE_TAGLINE = "Thoughts, stories, and ideas.";
 
