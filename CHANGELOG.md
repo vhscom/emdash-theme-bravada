@@ -42,11 +42,6 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   pointing at posts that don't exist in this site's smaller seed (carried
   over from the original demo's larger post inventory and never
   reconciled).
-
-## [0.2.1] - 2026-07-14
-
-### Fixed
-
 - Blockquote overflow: `.page-content`/`.article-content blockquote`
   used `display: table; width: auto` with no `max-width`, so a long
   unbroken word or bare URL could exceed the viewport at narrow
