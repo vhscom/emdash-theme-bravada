@@ -1094,11 +1094,11 @@
                   "price": "\u00a39.00"
                 },
                 {
-                  "title": "Fox Silhouette",
-                  "image": "/images/demo/hoodie_7_front-300x300.jpg",
-                  "url": "/product/fox-silhouette-2",
+                  "title": "Flying Fox",
+                  "image": "/images/demo/poster_2_up-300x300.jpg",
+                  "url": "/product/flying-fox",
                   "rating": 4.75,
-                  "price": "\u00a335.00"
+                  "price": "\u00a315.00"
                 }
               ]
             }
@@ -1120,9 +1120,9 @@
                   "by": "by Maria"
                 },
                 {
-                  "title": "Happy Fox",
-                  "image": "/images/demo/T_7_front-300x300.jpg",
-                  "url": "/product/happy-fox",
+                  "title": "Spooky Fox Logo",
+                  "image": "/images/demo/T_1_front-300x300.jpg",
+                  "url": "/product/spooky-fox-logo",
                   "rating": 5,
                   "by": "by Maria"
                 },
@@ -1990,7 +1990,7 @@
               "_key": "lp-text-three",
               "title": "Never put it down",
               "image": "/images/demo/square_presentation.jpg",
-              "imageAlt": "Team working around a screen",
+              "imageAlt": "An open laptop with code on screen beside a cup of coffee",
               "imageSide": "left",
               "tint": "#EEEBE9",
               "paragraphs": [
