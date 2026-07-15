@@ -7,7 +7,7 @@ import { Font } from "astro:assets";
 import {
 	resolveBlogSiteIdentity,
 	resolveSiteOrigin,
-	TITLE_SEPARATOR,
+	resolveTitleSeparator,
 } from "../utils/site-identity";
 import SiteHeader from "../components/SiteHeader.astro";
 import MobileMenu from "../components/MobileMenu.astro";
@@ -61,7 +61,7 @@ const ogImageUrl = image
 // If title already includes site title (from getSeoMeta), use as-is
 const fullTitle = title.includes(siteTitle)
 	? title
-	: `${title}${TITLE_SEPARATOR}${siteTitle}`;
+	: `${title}${resolveTitleSeparator(siteSettings)}${siteTitle}`;
 
 // Build public page context for plugin contributions
 // SEO data is passed here and rendered securely by EmDashHead

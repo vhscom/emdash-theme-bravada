@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { resolveBlogSiteIdentity, resolveSiteOrigin } from "./site-identity";
+import {
+	resolveBlogSiteIdentity,
+	resolveSiteOrigin,
+	resolveTitleSeparator,
+} from "./site-identity";
 
 describe("resolveBlogSiteIdentity", () => {
 	it("uses configured title and tagline", () => {
@@ -44,5 +48,24 @@ describe("resolveSiteOrigin", () => {
 			"http://localhost:4321",
 		);
 		expect(resolveSiteOrigin({ url: "" }, "http://req")).toBe("http://req");
+	});
+});
+
+describe("resolveTitleSeparator", () => {
+	it("defaults to a spaced pipe", () => {
+		expect(resolveTitleSeparator(undefined)).toBe(" | ");
+		expect(resolveTitleSeparator({})).toBe(" | ");
+		expect(resolveTitleSeparator({ seo: {} })).toBe(" | ");
+	});
+
+	it("normalises the admin setting to single surrounding spaces", () => {
+		expect(resolveTitleSeparator({ seo: { titleSeparator: "—" } })).toBe(" — ");
+		expect(resolveTitleSeparator({ seo: { titleSeparator: " — " } })).toBe(" — ");
+		expect(resolveTitleSeparator({ seo: { titleSeparator: "|" } })).toBe(" | ");
+	});
+
+	it("falls back to the default when the setting is blank", () => {
+		expect(resolveTitleSeparator({ seo: { titleSeparator: "" } })).toBe(" | ");
+		expect(resolveTitleSeparator({ seo: { titleSeparator: "   " } })).toBe(" | ");
 	});
 });

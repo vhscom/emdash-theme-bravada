@@ -33,11 +33,12 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   `UPDATE _emdash_collections SET url_pattern='/{slug}', has_seo=1, supports='["drafts","revisions","search","seo"]' WHERE slug='pages';`
   `UPDATE _emdash_collections SET url_pattern='/portfolio/{slug}' WHERE slug='portfolio';`
   `UPDATE _emdash_collections SET url_pattern='/product/{slug}' WHERE slug='products';`
-- Title separator unified on the em dash: `TITLE_SEPARATOR` in
-  `src/utils/site-identity.ts` is used by `Base.astro`'s fallback title
-  and passed to the `getSeoMeta()` call on single posts (post titles
-  previously used the library default `" | "` while everything else used
-  `" — "`).
+- Title separator unified and admin-configurable:
+  `resolveTitleSeparator()` in `src/utils/site-identity.ts` reads the
+  Settings → SEO title separator (normalised to single surrounding
+  spaces) and is used by both `Base.astro`'s fallback title and the
+  `getSeoMeta()` call on single posts. Default is a compact `" | "`;
+  previously posts used `" | "` while everything else hardcoded `" — "`.
 
 ### Changed
 

@@ -18,7 +18,7 @@ import { getReadingTime } from "../../utils/reading-time";
 import {
 	resolveBlogSiteIdentity,
 	resolveSiteOrigin,
-	TITLE_SEPARATOR,
+	resolveTitleSeparator,
 } from "../../utils/site-identity";
 import { getMediaUrl } from "../../utils/media-url";
 import { longDate, monthDay, heroDate } from "../../utils/dates";
@@ -57,7 +57,7 @@ const seo = getSeoMeta(post, {
 	siteUrl: siteOrigin,
 	path: `/posts/${slug}`,
 	defaultOgImage: featuredImageUrl,
-	titleSeparator: TITLE_SEPARATOR,
+	titleSeparator: resolveTitleSeparator(siteSettings),
 });
 
 // Bylines are already hydrated by getEmDashEntry
