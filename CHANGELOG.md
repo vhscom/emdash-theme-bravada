@@ -64,6 +64,12 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Demo post "Throught the lens" renamed to "Through the lens" — the typo
+  was in the title, the slug (`/posts/throught-the-lens`), the featured
+  image alt text, and every menu/section/page link to it. Existing
+  databases need the equivalent `UPDATE`s on `ec_posts`
+  (slug/title/featured_image), `ec_pages.content`, and
+  `_emdash_sections.content`; revision history is left as-is.
 - Gallery slide getting stuck after switching back to a previously-viewed
   image; zoom-lens stacking, thumbnail keyboard activation, and lightbox
   focus handling.

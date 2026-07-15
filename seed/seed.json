@@ -1215,7 +1215,7 @@
               "icon": "briefcase",
               "title": "Fast delivery",
               "text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis.",
-              "url": "/posts/throught-the-lens"
+              "url": "/posts/through-the-lens"
             },
             {
               "icon": "notebook",
@@ -1384,7 +1384,7 @@
               "image": "/images/demo/featured-boxes-02-413x300.jpg",
               "title": "Bagged emotions",
               "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
-              "url": "/posts/throught-the-lens"
+              "url": "/posts/through-the-lens"
             }
           ]
         }
@@ -1421,9 +1421,9 @@
             },
             {
               "image": "/images/demo/demo-image-02-413x300.jpg",
-              "title": "Throught the lens",
+              "title": "Through the lens",
               "text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
-              "url": "/posts/throught-the-lens"
+              "url": "/posts/through-the-lens"
             },
             {
               "image": "/images/demo/demo-image-03-413x300.jpg",
@@ -1492,7 +1492,7 @@
                 "Brands",
                 "Sketch"
               ],
-              "url": "/posts/throught-the-lens"
+              "url": "/posts/through-the-lens"
             },
             {
               "image": "/images/demo/portfolio-03-512x512.jpg",
@@ -1680,7 +1680,7 @@
                   "icon": "briefcase",
                   "title": "Fast delivery",
                   "text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis.",
-                  "url": "/posts/throught-the-lens"
+                  "url": "/posts/through-the-lens"
                 },
                 {
                   "icon": "notebook",
@@ -1765,7 +1765,7 @@
                   "image": "/images/demo/featured-boxes-02-413x300.jpg",
                   "title": "Bagged emotions",
                   "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
-                  "url": "/posts/throught-the-lens"
+                  "url": "/posts/through-the-lens"
                 }
               ]
             },
@@ -1799,9 +1799,9 @@
                 },
                 {
                   "image": "/images/demo/demo-image-02-413x300.jpg",
-                  "title": "Throught the lens",
+                  "title": "Through the lens",
                   "text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
-                  "url": "/posts/throught-the-lens"
+                  "url": "/posts/through-the-lens"
                 },
                 {
                   "image": "/images/demo/demo-image-03-413x300.jpg",
@@ -1880,7 +1880,7 @@
                   "image": "/images/demo/featured-boxes-02-413x300.jpg",
                   "title": "Bagged emotions",
                   "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
-                  "url": "/posts/throught-the-lens"
+                  "url": "/posts/through-the-lens"
                 },
                 {
                   "image": "/images/demo/featured-boxes-08-413x300.jpg",
@@ -6045,14 +6045,14 @@
       },
       {
         "id": "post-2",
-        "slug": "throught-the-lens",
+        "slug": "through-the-lens",
         "status": "published",
         "data": {
-          "title": "Throught the lens",
+          "title": "Through the lens",
           "excerpt": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi. Donec aliquam purus non euismod scelerisque.",
           "featured_image": {
             "src": "/images/demo/demo-image-02.jpg",
-            "alt": "Throught the lens"
+            "alt": "Through the lens"
           },
           "content": [
             {
