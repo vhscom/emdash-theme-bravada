@@ -16,6 +16,12 @@ title sweeps, ghost section headers, the slow zoom-under-teal image hover, the
 dark footer — and rebuilds its **landing page as EmDash sections**: reusable
 blocks editors drop into any Portable Text field with the `/section` command.
 
+Every demo image — heroes, headers, shop and portfolio photography — is real
+CC0/CC BY photography rather than placeholder art; see
+[CREDITS.md](./CREDITS.md) for the full attribution table. Local images ship
+with pre-built AVIF/WebP siblings served through `<picture>` for the hero,
+page headers, portfolio, and project-grid images.
+
 ## Landing-page sections
 
 Bravada's front-page elements map to four custom Portable Text block types,
@@ -61,7 +67,7 @@ external one.
 | Category / tag archive | `/category/:slug`, `/tag/:slug` |
 | Portfolio project | `/portfolio/:slug` |
 | Project type / tag archive | `/project-type/:slug`, `/project-tag/:slug` |
-| Product | `/product/:slug` |
+| Product | `/product/:slug` (zoomable gallery: hover lens, click for a magnifier lightbox) |
 | Search | `/search` |
 | Static pages (about, contact, shop, …) | `/:slug` |
 
