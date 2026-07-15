@@ -11,6 +11,9 @@ export interface BlogSiteIdentitySettings {
 	url?: string;
 	logo?: MediaReference;
 	favicon?: MediaReference;
+	seo?: {
+		titleSeparator?: string;
+	};
 }
 
 /**
@@ -29,11 +32,18 @@ export function resolveSiteOrigin(
 }
 
 /**
- * One separator everywhere: Base.astro's fallback title joins with this,
- * so getSeoMeta call sites must pass it as `titleSeparator` instead of
- * accepting the library default " | ".
+ * One separator everywhere: Base.astro's fallback title and every
+ * getSeoMeta call site resolve the separator through this, so the admin
+ * setting (Settings → SEO → title separator) wins when set. The pipe
+ * default keeps titles compact.
  */
-export const TITLE_SEPARATOR = " — ";
+const DEFAULT_TITLE_SEPARATOR = " | ";
+
+export function resolveTitleSeparator(settings?: BlogSiteIdentitySettings) {
+	const configured = settings?.seo?.titleSeparator?.trim();
+	// Normalise to single surrounding spaces so "|" and " | " behave alike.
+	return configured ? ` ${configured} ` : DEFAULT_TITLE_SEPARATOR;
+}
 
 const DEFAULT_SITE_TITLE = "My Blog";
 const DEFAULT_SITE_TAGLINE = "Thoughts, stories, and ideas.";
