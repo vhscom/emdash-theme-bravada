@@ -17,16 +17,34 @@ interface ProjectGridNode {
 
 const { node } = Astro.props as { node: ProjectGridNode };
 const { items = [] } = node;
+
+// Local /images/demo/*.jpg assets ship pre-built AVIF/WebP siblings.
+function modernSources(src?: string) {
+	if (!src?.startsWith("/images/")) return null;
+	return { avif: src.replace(/\.jpg$/, ".avif"), webp: src.replace(/\.jpg$/, ".webp") };
+}
 ---
 
 <div class="project-grid">
 	{
-		items.map((item) => (
-			<a href={item.url ?? "#"} class="project-grid-item">
-				{item.image && <img src={item.image} alt="" loading="lazy" />}
-				<span class="project-grid-title">{item.title}</span>
-			</a>
-		))
+		items.map((item) => {
+			const sources = modernSources(item.image);
+			return (
+				<a href={item.url ?? "#"} class="project-grid-item">
+					{item.image &&
+						(sources ? (
+							<picture>
+								<source srcset={sources.avif} type="image/avif" />
+								<source srcset={sources.webp} type="image/webp" />
+								<img src={item.image} alt="" loading="lazy" />
+							</picture>
+						) : (
+							<img src={item.image} alt="" loading="lazy" />
+						))}
+					<span class="project-grid-title">{item.title}</span>
+				</a>
+			);
+		})
 	}
 </div>
 

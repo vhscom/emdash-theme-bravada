@@ -4,6 +4,45 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Product gallery: hover zoom lens, click-to-open magnifier lightbox, and
+  slide transitions between gallery images (`/product/:slug`).
+
+### Changed
+
+- Imagery refresh: `public/images/demo/` — originally flat gradient/abstract
+  placeholder artwork — is now real CC0/CC BY photography (heroes, page
+  headers, homepage content images, portfolio, and all shop product photos),
+  matching the original Bravada demo's photographic identity. Local images
+  ship with pre-built AVIF/WebP siblings served through `<picture>` for the
+  hero, page headers, portfolio, and project-grid images.
+- Shop product photography rebuilt: every T-shirt/hoodie front-back pair,
+  poster up/flat pair, and CD angle/flat pair now uses distinct photography
+  (previously several pairs were byte-identical duplicates, and two CD
+  products shared one photo). Sidebar "Top rated products"/"Recent reviews"
+  widgets no longer list overlapping items.
+- `CREDITS.md` rewritten: a complete, alphabetically-sorted attribution
+  table for every CC BY/CC BY-SA image (author, license, source), a CC0
+  category summary, and a note that gallery detail-crop variants inherit
+  their parent photo's license.
+- README: notes that demo imagery is real photography with a pointer to
+  `CREDITS.md`, documents the AVIF/WebP `<picture>` convention and the
+  product gallery's zoom/lightbox interactions; screenshot and GitHub
+  social preview regenerated against the new hero photography.
+
+### Fixed
+
+- Gallery slide getting stuck after switching back to a previously-viewed
+  image; zoom-lens stacking, thumbnail keyboard activation, and lightbox
+  focus handling.
+- Several 404 links on the homepage: featured-box and icon-block items
+  pointing at posts that don't exist in this site's smaller seed (carried
+  over from the original demo's larger post inventory and never
+  reconciled).
+
 ## [0.2.1] - 2026-07-14
 
 ### Fixed

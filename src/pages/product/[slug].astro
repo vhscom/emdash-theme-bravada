@@ -61,7 +61,24 @@ const reviews =
 			<div class="product-top">
 				<div class="product-gallery">
 					<div class="gallery-main">
-						<img src={mainImage} alt={d.title} width="600" height="600" />
+						<div class="gallery-viewport">
+							<img
+								class="gallery-slide is-active"
+								src={mainImage}
+								data-full={mainImage}
+								alt={d.title}
+								width="600"
+								height="600"
+							/>
+							<img class="gallery-slide" src={mainImage} alt="" width="600" height="600" aria-hidden="true" />
+							<div class="gallery-zoom-pane" aria-hidden="true"></div>
+						</div>
+						<button type="button" class="gallery-zoom-trigger" aria-label="View full size image">
+							<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+								<circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" />
+								<line x1="15.5" y1="15.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+							</svg>
+						</button>
 						{d.price_old && <span class="shop-sale">Sale!</span>}
 					</div>
 					{
@@ -244,18 +261,135 @@ const reviews =
 	</div>
 </Base>
 
+<div class="gallery-lightbox" hidden role="dialog" aria-modal="true" aria-label="Full size image" tabindex="-1">
+	<button type="button" class="gallery-lightbox-close" aria-label="Close">&times;</button>
+	<img src="" alt="" />
+</div>
+
 <script>
-	// Gallery: thumbs swap the main image
+	const canHover = () => matchMedia("(pointer: fine)").matches;
+
+	// Gallery: thumbs slide the main image in, pointer-fine hover pans a zoom lens
 	for (const gal of document.querySelectorAll<HTMLElement>(".product-gallery")) {
-		const main = gal.querySelector<HTMLImageElement>(".gallery-main img");
+		const viewport = gal.querySelector<HTMLElement>(".gallery-viewport");
+		const zoomPane = gal.querySelector<HTMLElement>(".gallery-zoom-pane");
+		const trigger = gal.querySelector<HTMLButtonElement>(".gallery-zoom-trigger");
 		const thumbs = gal.querySelectorAll<HTMLButtonElement>(".gallery-thumb");
-		thumbs.forEach((t) =>
-			t.addEventListener("click", () => {
-				if (main && t.dataset.full) main.src = t.dataset.full;
-				thumbs.forEach((x) => x.classList.toggle("current", x === t));
-			})
-		);
+		if (!viewport) continue;
+
+		// Two fixed <img> layers, ping-ponged by index — never created or torn down,
+		// so "which one is current" is a plain variable instead of a DOM query that can
+		// go stale if a transition gets interrupted or never fires transitionend.
+		const slides = viewport.querySelectorAll<HTMLImageElement>(".gallery-slide");
+		let activeIndex = 0;
+		const currentImg = () => slides[activeIndex];
+
+		const slideTo = (src: string, direction: "left" | "right") => {
+			const active = slides[activeIndex];
+			const standby = slides[1 - activeIndex];
+			if (!active || !standby || active.dataset.full === src) return;
+
+			// Snap the standby layer to its entry side with no transition, then swap.
+			standby.style.transition = "none";
+			standby.style.transform = `translateX(${direction === "right" ? 100 : -100}%)`;
+			standby.src = src;
+			standby.dataset.full = src;
+			standby.alt = active.alt;
+			standby.removeAttribute("aria-hidden");
+			// Force layout so the snapped position is committed before re-enabling the transition.
+			void standby.getBoundingClientRect();
+			standby.style.transition = "";
+			setTimeout(() => {
+				active.style.transform = `translateX(${direction === "right" ? -100 : 100}%)`;
+				standby.style.transform = "translateX(0)";
+			}, 0);
+
+			active.classList.remove("is-active");
+			active.setAttribute("aria-hidden", "true");
+			standby.classList.add("is-active");
+			activeIndex = 1 - activeIndex;
+		};
+
+		const activateThumb = (t: HTMLButtonElement, i: number) => {
+			if (!t.dataset.full || t.classList.contains("current")) return;
+			const prevIndex = Array.from(thumbs).findIndex((x) => x.classList.contains("current"));
+			slideTo(t.dataset.full, i > prevIndex ? "right" : "left");
+			thumbs.forEach((x) => x.classList.toggle("current", x === t));
+		};
+
+		thumbs.forEach((t, i) => {
+			t.addEventListener("click", () => activateThumb(t, i));
+			// Explicit Enter/Space handling: preventDefault cancels the browser's own
+			// synthesized click for the keydown, so activation runs through exactly one
+			// path (this one) instead of racing a native click from the same keypress.
+			t.addEventListener("keydown", (e) => {
+				if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+					e.preventDefault();
+					activateThumb(t, i);
+				}
+			});
+		});
+
+		if (zoomPane) {
+			viewport.addEventListener("mouseenter", () => {
+				if (!canHover()) return;
+				zoomPane.classList.add("is-active");
+			});
+			viewport.addEventListener("mousemove", (e) => {
+				if (!zoomPane.classList.contains("is-active")) return;
+				// Re-read the active slide on every move (not just mouseenter) so a
+				// thumbnail switch mid-hover can't leave the zoom pane showing a stale image.
+				const img = currentImg();
+				if (img) zoomPane.style.backgroundImage = `url(${img.currentSrc || img.src})`;
+				const rect = viewport.getBoundingClientRect();
+				const x = ((e.clientX - rect.left) / rect.width) * 100;
+				const y = ((e.clientY - rect.top) / rect.height) * 100;
+				zoomPane.style.backgroundPosition = `${x}% ${y}%`;
+			});
+			viewport.addEventListener("mouseleave", () => zoomPane.classList.remove("is-active"));
+		}
+
+		trigger?.addEventListener("click", () => {
+			const img = currentImg();
+			const lightbox = document.querySelector<HTMLElement>(".gallery-lightbox");
+			const closeBtn = lightbox?.querySelector<HTMLButtonElement>(".gallery-lightbox-close");
+			const lightboxImg = lightbox?.querySelector("img");
+			if (!img || !lightbox || !lightboxImg || !closeBtn) return;
+			lightboxImg.src = img.currentSrc || img.src;
+			lightboxImg.alt = img.alt;
+			lightboxReturnFocus = trigger;
+			lightbox.hidden = false;
+			closeBtn.focus();
+		});
 	}
+
+	const lightbox = document.querySelector<HTMLElement>(".gallery-lightbox");
+	const lightboxClose = lightbox?.querySelector<HTMLButtonElement>(".gallery-lightbox-close");
+	let lightboxReturnFocus: HTMLElement | null = null;
+
+	const closeLightbox = () => {
+		if (!lightbox || lightbox.hidden) return;
+		lightbox.hidden = true;
+		lightboxReturnFocus?.focus();
+		lightboxReturnFocus = null;
+	};
+
+	lightbox?.addEventListener("click", (e) => {
+		if (e.target === lightbox || (e.target as HTMLElement).closest(".gallery-lightbox-close")) {
+			closeLightbox();
+		}
+	});
+	document.addEventListener("keydown", (e) => {
+		if (!lightbox || lightbox.hidden) return;
+		if (e.key === "Escape") {
+			closeLightbox();
+		} else if (e.key === "Tab" && lightboxClose) {
+			// The close button is the only focusable element in the dialog; keep Tab
+			// (and Shift+Tab) from escaping into the page behind it.
+			e.preventDefault();
+			lightboxClose.focus();
+		}
+	});
 
 	// Tabs
 	for (const tabs of document.querySelectorAll<HTMLElement>(".product-tabs")) {
@@ -298,9 +432,107 @@ const reviews =
 		line-height: 0;
 	}
 
-	.gallery-main img {
+	.gallery-viewport {
+		position: relative;
+		overflow: hidden;
+		aspect-ratio: 1;
+	}
+
+	.gallery-slide {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
 		width: 100%;
-		height: auto;
+		height: 100%;
+		object-fit: cover;
+		transform: translateX(100%);
+		transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.gallery-slide.is-active {
+		z-index: 2;
+		transform: translateX(0);
+	}
+
+	/* Pointer-fine cursor-pan zoom lens, layered above both slide layers */
+	.gallery-zoom-pane {
+		position: absolute;
+		inset: 0;
+		z-index: 3;
+		background-repeat: no-repeat;
+		background-size: 200%;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.2s ease-out;
+	}
+
+	.gallery-zoom-pane.is-active {
+		opacity: 1;
+	}
+
+	.gallery-zoom-trigger {
+		position: absolute;
+		top: 0.9em;
+		right: 0.9em;
+		z-index: 4;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25em;
+		height: 2.25em;
+		padding: 0;
+		border: 0;
+		background: rgba(255, 255, 255, 0.85);
+		color: var(--color-text);
+		cursor: pointer;
+		transition:
+			background 0.2s ease-out,
+			color 0.2s ease-out;
+	}
+
+	.gallery-zoom-trigger:hover,
+	.gallery-zoom-trigger:focus-visible {
+		background: var(--color-gold);
+		color: #ffffff;
+	}
+
+	@media (pointer: coarse) {
+		.gallery-zoom-pane {
+			display: none;
+		}
+	}
+
+	.gallery-lightbox {
+		position: fixed;
+		inset: 0;
+		z-index: 1000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 4vh 4vw;
+		background: rgba(20, 20, 20, 0.92);
+	}
+
+	.gallery-lightbox[hidden] {
+		display: none;
+	}
+
+	.gallery-lightbox img {
+		max-width: 100%;
+		max-height: 92vh;
+		object-fit: contain;
+	}
+
+	.gallery-lightbox-close {
+		position: absolute;
+		top: 1em;
+		right: 1.2em;
+		border: 0;
+		background: none;
+		color: #ffffff;
+		font-size: 2.4rem;
+		line-height: 1;
+		cursor: pointer;
 	}
 
 	.gallery-thumbs {

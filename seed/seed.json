@@ -1094,11 +1094,11 @@
                   "price": "\u00a39.00"
                 },
                 {
-                  "title": "Fox Silhouette",
-                  "image": "/images/demo/hoodie_7_front-300x300.jpg",
-                  "url": "/product/fox-silhouette-2",
+                  "title": "Flying Fox",
+                  "image": "/images/demo/poster_2_up-300x300.jpg",
+                  "url": "/product/flying-fox",
                   "rating": 4.75,
-                  "price": "\u00a335.00"
+                  "price": "\u00a315.00"
                 }
               ]
             }
@@ -1120,9 +1120,9 @@
                   "by": "by Maria"
                 },
                 {
-                  "title": "Happy Fox",
-                  "image": "/images/demo/T_7_front-300x300.jpg",
-                  "url": "/product/happy-fox",
+                  "title": "Spooky Fox Logo",
+                  "image": "/images/demo/T_1_front-300x300.jpg",
+                  "url": "/product/spooky-fox-logo",
                   "rating": 5,
                   "by": "by Maria"
                 },
@@ -1669,7 +1669,7 @@
                   "icon": "trophy",
                   "title": "Premium quality",
                   "text": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere.",
-                  "url": "/posts/coffee-at-the-office"
+                  "url": "/posts/printing-your-dreams"
                 },
                 {
                   "icon": "briefcase",
@@ -1742,19 +1742,19 @@
                   "image": "/images/demo/featured-boxes-03-413x300.jpg",
                   "title": "Bedside table",
                   "text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
-                  "url": "/posts/keeping-your-desk-clean"
+                  "url": "/posts/monday-meetings"
                 },
                 {
                   "image": "/images/demo/featured-boxes-07-413x300.jpg",
                   "title": "Orange feelings",
                   "text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
-                  "url": "/posts/indoor-tree-of-life"
+                  "url": "/posts/running-from-the-afternoon"
                 },
                 {
                   "image": "/images/demo/featured-boxes-06-413x300.jpg",
                   "title": "Straw vase",
                   "text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
-                  "url": "/posts/green-herbs-and-health"
+                  "url": "/posts/vacation-memories"
                 },
                 {
                   "image": "/images/demo/featured-boxes-02-413x300.jpg",
@@ -1790,7 +1790,7 @@
                   "image": "/images/demo/demo-image-01-413x300.jpg",
                   "title": "Some coffee art",
                   "text": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
-                  "url": "/posts/dinner-and-a-view"
+                  "url": "/posts/some-coffee-art"
                 },
                 {
                   "image": "/images/demo/demo-image-02-413x300.jpg",
@@ -1802,25 +1802,25 @@
                   "image": "/images/demo/demo-image-03-413x300.jpg",
                   "title": "Everything is small",
                   "text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
-                  "url": "/posts/keeping-your-desk-clean"
+                  "url": "/posts/everything-is-small"
                 },
                 {
                   "image": "/images/demo/demo-image-04-413x300.jpg",
                   "title": "A bird's eye view",
                   "text": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc.",
-                  "url": "/posts/light-bulbs-at-dawn"
+                  "url": "/posts/a-birds-eye-view"
                 },
                 {
                   "image": "/images/demo/demo-image-05-413x300.jpg",
                   "title": "A morning with technology",
                   "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis.",
-                  "url": "/posts/morning-typing"
+                  "url": "/posts/a-morning-with-technology"
                 },
                 {
                   "image": "/images/demo/demo-image-15-413x300.jpg",
                   "title": "Running from the afternoon",
                   "text": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna.",
-                  "url": "/posts/laptop-keyboards"
+                  "url": "/posts/running-from-the-afternoon"
                 }
               ]
             },
@@ -1857,19 +1857,19 @@
                   "image": "/images/demo/featured-boxes-03-413x300.jpg",
                   "title": "Bedside table",
                   "text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
-                  "url": "/posts/keeping-your-desk-clean"
+                  "url": "/posts/monday-meetings"
                 },
                 {
                   "image": "/images/demo/featured-boxes-07-413x300.jpg",
                   "title": "Orange feelings",
                   "text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
-                  "url": "/posts/indoor-tree-of-life"
+                  "url": "/posts/running-from-the-afternoon"
                 },
                 {
                   "image": "/images/demo/featured-boxes-06-413x300.jpg",
                   "title": "Straw vase",
                   "text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
-                  "url": "/posts/green-herbs-and-health"
+                  "url": "/posts/vacation-memories"
                 },
                 {
                   "image": "/images/demo/featured-boxes-02-413x300.jpg",
@@ -1887,19 +1887,19 @@
                   "image": "/images/demo/featured-boxes-05-413x300.jpg",
                   "title": "Sweetest morning",
                   "text": "Fusce id interdum lectus. Ut eu nisi mi. Nullam rhoncus mollis leo mollis feugiat.",
-                  "url": "/posts/coffee-at-the-office"
+                  "url": "/posts/a-morning-with-technology"
                 },
                 {
                   "image": "/images/demo/featured-boxes-01-413x300.jpg",
                   "title": "Feeling lazy",
                   "text": "Sed porttitor malesuada malesuada. Nullam vehicula sapien non dolor consequat.",
-                  "url": "/posts/morning-typing"
+                  "url": "/posts/chalk-ideas"
                 },
                 {
                   "image": "/images/demo/featured-boxes-04-413x300.jpg",
                   "title": "The living room",
                   "text": "Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
-                  "url": "/posts/coffee-at-the-office"
+                  "url": "/posts/everything-must-be-in-order"
                 }
               ]
             },
@@ -1990,7 +1990,7 @@
               "_key": "lp-text-three",
               "title": "Never put it down",
               "image": "/images/demo/square_presentation.jpg",
-              "imageAlt": "Team working around a screen",
+              "imageAlt": "An open laptop with code on screen beside a cup of coffee",
               "imageSide": "left",
               "tint": "#EEEBE9",
               "paragraphs": [
