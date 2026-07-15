@@ -61,7 +61,22 @@ const reviews =
 			<div class="product-top">
 				<div class="product-gallery">
 					<div class="gallery-main">
-						<img src={mainImage} alt={d.title} width="600" height="600" />
+						<div class="gallery-viewport">
+							<img
+								class="gallery-current"
+								src={mainImage}
+								alt={d.title}
+								width="600"
+								height="600"
+							/>
+							<div class="gallery-zoom-pane" aria-hidden="true"></div>
+						</div>
+						<button type="button" class="gallery-zoom-trigger" aria-label="View full size image">
+							<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+								<circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" />
+								<line x1="15.5" y1="15.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+							</svg>
+						</button>
 						{d.price_old && <span class="shop-sale">Sale!</span>}
 					</div>
 					{
@@ -244,18 +259,92 @@ const reviews =
 	</div>
 </Base>
 
+<div class="gallery-lightbox" hidden>
+	<button type="button" class="gallery-lightbox-close" aria-label="Close">&times;</button>
+	<img src="" alt="" />
+</div>
+
 <script>
-	// Gallery: thumbs swap the main image
+	const canHover = () => matchMedia("(pointer: fine)").matches;
+
+	// Gallery: thumbs slide the main image in, pointer-fine hover pans a zoom lens
 	for (const gal of document.querySelectorAll<HTMLElement>(".product-gallery")) {
-		const main = gal.querySelector<HTMLImageElement>(".gallery-main img");
+		const viewport = gal.querySelector<HTMLElement>(".gallery-viewport");
+		const zoomPane = gal.querySelector<HTMLElement>(".gallery-zoom-pane");
+		const trigger = gal.querySelector<HTMLButtonElement>(".gallery-zoom-trigger");
 		const thumbs = gal.querySelectorAll<HTMLButtonElement>(".gallery-thumb");
-		thumbs.forEach((t) =>
+		if (!viewport) continue;
+
+		const currentImg = () =>
+			viewport.querySelector<HTMLImageElement>(".gallery-current:not(.gallery-outgoing-left):not(.gallery-outgoing-right)");
+
+		const slideTo = (src: string, direction: "left" | "right") => {
+			const outgoing = currentImg();
+			if (!outgoing || outgoing.src === src) return;
+			const incoming = new Image();
+			incoming.src = src;
+			incoming.alt = outgoing.alt;
+			incoming.width = 600;
+			incoming.height = 600;
+			incoming.className = `gallery-current gallery-incoming-${direction}`;
+			viewport.appendChild(incoming);
+			// Force layout so the entering transform is the starting point before we animate it.
+			// setTimeout (not requestAnimationFrame) so the transition still runs in backgrounded tabs.
+			void incoming.getBoundingClientRect();
+			setTimeout(() => {
+				outgoing.classList.add(direction === "right" ? "gallery-outgoing-left" : "gallery-outgoing-right");
+				incoming.classList.remove(`gallery-incoming-${direction}`);
+			}, 0);
+			outgoing.addEventListener("transitionend", () => outgoing.remove(), { once: true });
+		};
+
+		thumbs.forEach((t, i) =>
 			t.addEventListener("click", () => {
-				if (main && t.dataset.full) main.src = t.dataset.full;
+				if (!t.dataset.full || t.classList.contains("current")) return;
+				const prevIndex = Array.from(thumbs).findIndex((x) => x.classList.contains("current"));
+				slideTo(t.dataset.full, i > prevIndex ? "right" : "left");
 				thumbs.forEach((x) => x.classList.toggle("current", x === t));
 			})
 		);
+
+		if (zoomPane) {
+			viewport.addEventListener("mouseenter", () => {
+				if (!canHover()) return;
+				const img = currentImg();
+				if (!img) return;
+				zoomPane.style.backgroundImage = `url(${img.currentSrc || img.src})`;
+				zoomPane.classList.add("is-active");
+			});
+			viewport.addEventListener("mousemove", (e) => {
+				if (!zoomPane.classList.contains("is-active")) return;
+				const rect = viewport.getBoundingClientRect();
+				const x = ((e.clientX - rect.left) / rect.width) * 100;
+				const y = ((e.clientY - rect.top) / rect.height) * 100;
+				zoomPane.style.backgroundPosition = `${x}% ${y}%`;
+			});
+			viewport.addEventListener("mouseleave", () => zoomPane.classList.remove("is-active"));
+		}
+
+		trigger?.addEventListener("click", () => {
+			const img = currentImg();
+			const lightbox = document.querySelector<HTMLElement>(".gallery-lightbox");
+			const lightboxImg = lightbox?.querySelector("img");
+			if (!img || !lightbox || !lightboxImg) return;
+			lightboxImg.src = img.currentSrc || img.src;
+			lightboxImg.alt = img.alt;
+			lightbox.hidden = false;
+		});
 	}
+
+	const lightbox = document.querySelector<HTMLElement>(".gallery-lightbox");
+	lightbox?.addEventListener("click", (e) => {
+		if (e.target === lightbox || (e.target as HTMLElement).closest(".gallery-lightbox-close")) {
+			lightbox.hidden = true;
+		}
+	});
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape" && lightbox && !lightbox.hidden) lightbox.hidden = true;
+	});
 
 	// Tabs
 	for (const tabs of document.querySelectorAll<HTMLElement>(".product-tabs")) {
@@ -298,9 +387,117 @@ const reviews =
 		line-height: 0;
 	}
 
-	.gallery-main img {
+	.gallery-viewport {
+		position: relative;
+		overflow: hidden;
+		aspect-ratio: 1;
+	}
+
+	.gallery-current {
+		position: absolute;
+		inset: 0;
 		width: 100%;
-		height: auto;
+		height: 100%;
+		object-fit: cover;
+		transform: translateX(0);
+		transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.gallery-incoming-left {
+		transform: translateX(-100%);
+	}
+
+	.gallery-incoming-right {
+		transform: translateX(100%);
+	}
+
+	.gallery-outgoing-left {
+		transform: translateX(-100%);
+	}
+
+	.gallery-outgoing-right {
+		transform: translateX(100%);
+	}
+
+	/* Pointer-fine cursor-pan zoom lens, layered over the current slide */
+	.gallery-zoom-pane {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background-repeat: no-repeat;
+		background-size: 200%;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.2s ease-out;
+	}
+
+	.gallery-zoom-pane.is-active {
+		opacity: 1;
+	}
+
+	.gallery-zoom-trigger {
+		position: absolute;
+		top: 0.9em;
+		right: 0.9em;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25em;
+		height: 2.25em;
+		padding: 0;
+		border: 0;
+		background: rgba(255, 255, 255, 0.85);
+		color: var(--color-text);
+		cursor: pointer;
+		transition:
+			background 0.2s ease-out,
+			color 0.2s ease-out;
+	}
+
+	.gallery-zoom-trigger:hover,
+	.gallery-zoom-trigger:focus-visible {
+		background: var(--color-gold);
+		color: #ffffff;
+	}
+
+	@media (pointer: coarse) {
+		.gallery-zoom-pane {
+			display: none;
+		}
+	}
+
+	.gallery-lightbox {
+		position: fixed;
+		inset: 0;
+		z-index: 1000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 4vh 4vw;
+		background: rgba(20, 20, 20, 0.92);
+	}
+
+	.gallery-lightbox[hidden] {
+		display: none;
+	}
+
+	.gallery-lightbox img {
+		max-width: 100%;
+		max-height: 92vh;
+		object-fit: contain;
+	}
+
+	.gallery-lightbox-close {
+		position: absolute;
+		top: 1em;
+		right: 1.2em;
+		border: 0;
+		background: none;
+		color: #ffffff;
+		font-size: 2.4rem;
+		line-height: 1;
+		cursor: pointer;
 	}
 
 	.gallery-thumbs {
