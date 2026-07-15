@@ -39,9 +39,6 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   spaces) and is used by both `Base.astro`'s fallback title and the
   `getSeoMeta()` call on single posts. Default is a compact `" | "`;
   previously posts used `" | "` while everything else hardcoded `" — "`.
-
-### Changed
-
 - Imagery refresh: `public/images/demo/` — originally flat gradient/abstract
   placeholder artwork — is now real CC0/CC BY photography (heroes, page
   headers, homepage content images, portfolio, and all shop product photos),
