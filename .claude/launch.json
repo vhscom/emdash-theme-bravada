@@ -1,0 +1,11 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "bravada-dev",
+			"runtimeExecutable": "npx",
+			"runtimeArgs": ["emdash", "dev"],
+			"port": 4321
+		}
+	]
+}

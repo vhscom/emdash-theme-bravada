@@ -52,10 +52,34 @@ const {
 // fallback when neither a per-page image nor a site default is set.
 const settings = await getSiteSettings();
 const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE;
+
+// Local /images/demo/*.jpg assets ship pre-built AVIF/WebP siblings
+// (same basename) so the LCP header image can serve a modern format
+// without runtime image processing.
+const heroAvif = headerImage.startsWith("/images/")
+	? headerImage.replace(/\.jpg$/, ".avif")
+	: undefined;
+const heroWebp = headerImage.startsWith("/images/")
+	? headerImage.replace(/\.jpg$/, ".webp")
+	: undefined;
 ---
 
 <section class="page-hero full-bleed">
-	<img class="page-hero-image" src={headerImage} alt={imageAlt} loading="eager" fetchpriority="high" />
+	{heroAvif && heroWebp ? (
+		<picture>
+			<source srcset={heroAvif} type="image/avif" />
+			<source srcset={heroWebp} type="image/webp" />
+			<img
+				class="page-hero-image"
+				src={headerImage}
+				alt={imageAlt}
+				loading="eager"
+				fetchpriority="high"
+			/>
+		</picture>
+	) : (
+		<img class="page-hero-image" src={headerImage} alt={imageAlt} loading="eager" fetchpriority="high" />
+	)}
 	<div class="page-hero-caption">
 		<div class="page-hero-caption-inside">
 			<slot name="pretitle" />

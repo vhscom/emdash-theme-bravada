@@ -34,11 +34,41 @@ const { title, subtitle, image, imageAlt = "", buttons = [] } = node;
 
 const EFFECTS = ["bravada", "ripley", "sculpt", "sundown"];
 const effect = EFFECTS.includes(node.effect ?? "") ? node.effect : "bravada";
+
+// Local /images/demo/*.jpg assets ship pre-built AVIF/WebP siblings
+// (same basename) so the LCP hero can serve a modern format without
+// runtime image processing.
+const heroAvif = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".avif") : undefined;
+const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp") : undefined;
 ---
 
 <section class="lp-slider full-bleed" data-effect={effect}>
 	<div class="lp-staticslider">
-		{image && <img class="lp-staticslider-image" src={image} alt={imageAlt} loading="eager" fetchpriority="high" />}
+		{
+			image && heroAvif && heroWebp ? (
+				<picture>
+					<source srcset={heroAvif} type="image/avif" />
+					<source srcset={heroWebp} type="image/webp" />
+					<img
+						class="lp-staticslider-image"
+						src={image}
+						alt={imageAlt}
+						loading="eager"
+						fetchpriority="high"
+					/>
+				</picture>
+			) : (
+				image && (
+					<img
+						class="lp-staticslider-image"
+						src={image}
+						alt={imageAlt}
+						loading="eager"
+						fetchpriority="high"
+					/>
+				)
+			)
+		}
 		<div class="staticslider-caption">
 			<div class="staticslider-caption-inside">
 				{title && <h2 class="staticslider-caption-title breakup-title">{title}</h2>}
