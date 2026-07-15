@@ -63,12 +63,14 @@ const reviews =
 					<div class="gallery-main">
 						<div class="gallery-viewport">
 							<img
-								class="gallery-current"
+								class="gallery-slide is-active"
 								src={mainImage}
+								data-full={mainImage}
 								alt={d.title}
 								width="600"
 								height="600"
 							/>
+							<img class="gallery-slide" src={mainImage} alt="" width="600" height="600" aria-hidden="true" />
 							<div class="gallery-zoom-pane" aria-hidden="true"></div>
 						</div>
 						<button type="button" class="gallery-zoom-trigger" aria-label="View full size image">
@@ -275,27 +277,37 @@ const reviews =
 		const thumbs = gal.querySelectorAll<HTMLButtonElement>(".gallery-thumb");
 		if (!viewport) continue;
 
-		const currentImg = () =>
-			viewport.querySelector<HTMLImageElement>(".gallery-current:not(.gallery-outgoing-left):not(.gallery-outgoing-right)");
+		// Two fixed <img> layers, ping-ponged by index — never created or torn down,
+		// so "which one is current" is a plain variable instead of a DOM query that can
+		// go stale if a transition gets interrupted or never fires transitionend.
+		const slides = viewport.querySelectorAll<HTMLImageElement>(".gallery-slide");
+		let activeIndex = 0;
+		const currentImg = () => slides[activeIndex];
 
 		const slideTo = (src: string, direction: "left" | "right") => {
-			const outgoing = currentImg();
-			if (!outgoing || outgoing.src === src) return;
-			const incoming = new Image();
-			incoming.src = src;
-			incoming.alt = outgoing.alt;
-			incoming.width = 600;
-			incoming.height = 600;
-			incoming.className = `gallery-current gallery-incoming-${direction}`;
-			viewport.appendChild(incoming);
-			// Force layout so the entering transform is the starting point before we animate it.
-			// setTimeout (not requestAnimationFrame) so the transition still runs in backgrounded tabs.
-			void incoming.getBoundingClientRect();
+			const active = slides[activeIndex];
+			const standby = slides[1 - activeIndex];
+			if (!active || !standby || active.dataset.full === src) return;
+
+			// Snap the standby layer to its entry side with no transition, then swap.
+			standby.style.transition = "none";
+			standby.style.transform = `translateX(${direction === "right" ? 100 : -100}%)`;
+			standby.src = src;
+			standby.dataset.full = src;
+			standby.alt = active.alt;
+			standby.removeAttribute("aria-hidden");
+			// Force layout so the snapped position is committed before re-enabling the transition.
+			void standby.getBoundingClientRect();
+			standby.style.transition = "";
 			setTimeout(() => {
-				outgoing.classList.add(direction === "right" ? "gallery-outgoing-left" : "gallery-outgoing-right");
-				incoming.classList.remove(`gallery-incoming-${direction}`);
+				active.style.transform = `translateX(${direction === "right" ? -100 : 100}%)`;
+				standby.style.transform = "translateX(0)";
 			}, 0);
-			outgoing.addEventListener("transitionend", () => outgoing.remove(), { once: true });
+
+			active.classList.remove("is-active");
+			active.setAttribute("aria-hidden", "true");
+			standby.classList.add("is-active");
+			activeIndex = 1 - activeIndex;
 		};
 
 		thumbs.forEach((t, i) =>
@@ -393,30 +405,20 @@ const reviews =
 		aspect-ratio: 1;
 	}
 
-	.gallery-current {
+	.gallery-slide {
 		position: absolute;
 		inset: 0;
+		z-index: 1;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transform: translateX(0);
+		transform: translateX(100%);
 		transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
-	.gallery-incoming-left {
-		transform: translateX(-100%);
-	}
-
-	.gallery-incoming-right {
-		transform: translateX(100%);
-	}
-
-	.gallery-outgoing-left {
-		transform: translateX(-100%);
-	}
-
-	.gallery-outgoing-right {
-		transform: translateX(100%);
+	.gallery-slide.is-active {
+		z-index: 2;
+		transform: translateX(0);
 	}
 
 	/* Pointer-fine cursor-pan zoom lens, layered over the current slide */
