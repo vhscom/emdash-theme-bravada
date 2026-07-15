@@ -4,6 +4,17 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Section library: the `icon-blocks` and `portfolio-grid` seed sections
+  linked to `/posts/coffee-at-the-office`, a demo post renamed before
+  0.1.0 (the home page's inline copies were fixed at the time; the
+  library rows were missed). Icon block now links to
+  `/posts/printing-your-dreams`, the portfolio card to
+  `/portfolio/flyer-presentation`, matching the home page.
+
 ## [0.3.0] - 2026-07-15
 
 ### Added
