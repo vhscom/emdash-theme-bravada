@@ -1,9 +1,18 @@
 ---
 export const prerender = false;
 
-import { search } from "emdash";
+import {
+	search,
+	getEmDashEntry,
+	getEmDashCollection,
+	getTermsForEntries,
+	getTaxonomyTerms,
+} from "emdash";
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
+import ArchiveLayout from "../layouts/ArchiveLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import { getReadingTime } from "../utils/reading-time";
 
 const query = Astro.url.searchParams.get("q")?.trim() || "";
 
@@ -14,6 +23,50 @@ const query = Astro.url.searchParams.get("q")?.trim() || "";
 const { items: results } = query
 	? await search(query, { collections: ["posts"], limit: 30 })
 	: { items: [] };
+
+// The theme renders search hits as the same masonry article cards the
+// blog uses, so hydrate the ranked FTS hits into full entries (image,
+// excerpt, bylines) and fetch their category/tag strips in two bulk
+// queries, like the archives do.
+const entries = (
+	await Promise.all(
+		results.map((r) => getEmDashEntry("posts", r.slug ?? r.id)),
+	)
+).flatMap((r) => (r.entry ? [r.entry] : []));
+
+const [categoriesByEntry, tagsByEntry] = await Promise.all([
+	getTermsForEntries("posts", entries.map((p) => p.data.id), "category"),
+	getTermsForEntries("posts", entries.map((p) => p.data.id), "tag"),
+]);
+
+// Theme nothing-found fallback (content-empty-page): three widget
+// columns below the message. The theme shows Recent Posts / Recent
+// Comments / Categories; with no comments system we show Recent Posts /
+// Categories / Tags.
+const noResults = Boolean(query) && entries.length === 0;
+const [recent, categoryTerms, tagTerms] = noResults
+	? await Promise.all([
+			getEmDashCollection("posts", {
+				orderBy: { published_at: "desc" },
+				limit: 5,
+			}),
+			getTaxonomyTerms("category"),
+			getTaxonomyTerms("tag"),
+		])
+	: [null, [], []];
+
+const cards = entries.map((post) => ({
+	post,
+	categories: (categoriesByEntry.get(post.data.id) ?? []).map((t) => ({
+		slug: t.slug,
+		label: t.label,
+	})),
+	tags: (tagsByEntry.get(post.data.id) ?? []).map((t) => ({
+		slug: t.slug,
+		label: t.label,
+	})),
+	bylines: post.data.bylines ?? [],
+}));
 ---
 
 <Base
@@ -23,171 +76,363 @@ const { items: results } = query
 	overHero
 >
 	<PageHeader
-		title="Search"
-		subtitle={query
-			? `${results.length} result${results.length === 1 ? "" : "s"} for “${query}”`
-			: undefined}
-		crumbs={[{ label: "Search" }]}
+		title={query ? `Search Results for: ${query}` : "Search"}
+		crumbs={[
+			{ label: query ? `Search results for "${query}"` : "Search" },
+		]}
 	>
-		{/* The demo renders the search form in the hero's byline slot
-		    (core.php: is_search() → get_search_form()). */}
-		<form method="get" action="/search" class="search-form" slot="meta">
-			<input
-				type="search"
-				name="q"
-				value={query}
-				placeholder="Search posts..."
-				class="search-input"
-				autofocus
-			/>
-			<button type="submit" class="search-button">Search</button>
+		{/* The theme renders get_search_form() in the hero byline slot on
+		    the search page: markup and class names below mirror the
+		    theme's own (.searchform > input.s + button.searchsubmit with
+		    two i.icon-search2 glyphs that swap on form hover). The svg
+		    is the search2 glyph extracted from the theme's iconmeta
+		    font. */}
+		<Fragment slot="meta">
+		<form method="get" action="/search" class="searchform" role="search">
+			<label>
+				<span class="sr-only">Search for:</span>
+				<input
+					type="search"
+					name="q"
+					value={query}
+					placeholder="Search"
+					class="s"
+				/>
+			</label>
+			<button type="submit" class="searchsubmit" aria-label="Search">
+				<i class="icon-search2" aria-hidden="true">
+					<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
+				</i>
+				<i class="icon-search2" aria-hidden="true">
+					<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
+				</i>
+			</button>
 		</form>
-	</PageHeader>
-	<section class="search-page">
-
+		{/* Result count below the bar (results only; the empty case
+		    renders the theme's Nothing Found block in the content) */}
 		{
-			query && (
-				<p class="search-summary">
-					{results.length === 0
-						? `No results for "${query}"`
-						: `${results.length} result${results.length === 1 ? "" : "s"} for "${query}"`}
+			query && cards.length > 0 && (
+				<p class="search-count">
+					{`${cards.length} result${cards.length === 1 ? "" : "s"} for “${query}”`}
 				</p>
+			)
+		}
+		</Fragment>
+	</PageHeader>
+	<ArchiveLayout>
+		{
+			noResults && (
+				<header class="no-results">
+					<h2 class="nf-title">Nothing Found</h2>
+					<div class="no-results-div">
+						<p>
+							No search results for: <em>{query}</em>
+						</p>
+						<form
+							method="get"
+							action="/search"
+							class="searchform searchform-content"
+							role="search"
+						>
+							<label>
+								<span class="sr-only">Search for:</span>
+								<input
+									type="search"
+									name="q"
+									value={query}
+									placeholder="Search"
+									class="s"
+								/>
+							</label>
+							<button type="submit" class="searchsubmit" aria-label="Search">
+								<i class="icon-search2" aria-hidden="true">
+						<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
+					</i>
+								<i class="icon-search2" aria-hidden="true">
+						<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
+					</i>
+							</button>
+						</form>
+					</div>
+				</header>
 			)
 		}
 
 		{
-			results.length > 0 && (
-				<ol class="search-results">
-					{results.map((result) => (
-						<li class="search-result">
-							<a
-								href={`/posts/${result.slug ?? result.id}`}
-								class="result-link"
-							>
-								<h2 class="result-title">
-									{result.title ?? "Untitled"}
-								</h2>
-								{result.snippet && (
-									<p class="result-snippet" set:html={result.snippet} />
-								)}
-							</a>
-						</li>
+			noResults && (
+				<aside class="content-empty-page">
+					<section class="nf-widget">
+						<h3 class="widget-title">Recent Posts</h3>
+						<ul>
+							{recent?.entries.map((p) => (
+								<li>
+									<a href={`/posts/${p.id}`}>{p.data.title}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+					<section class="nf-widget">
+						<h3 class="widget-title">Categories</h3>
+						<ul>
+							{categoryTerms.map((t) => (
+								<li>
+									<a href={`/category/${t.slug}`}>{t.label}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+					<section class="nf-widget">
+						<h3 class="widget-title">Tags</h3>
+						<ul>
+							{tagTerms.map((t) => (
+								<li>
+									<a href={`/tag/${t.slug}`}>{t.label}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				</aside>
+			)
+		}
+
+		{
+			cards.length > 0 && (
+				<div class="archive-grid">
+					{cards.map(({ post, categories, tags, bylines }) => (
+						<PostCard
+							title={post.data.title ?? "Untitled"}
+							excerpt={post.data.excerpt}
+							featuredImage={post.data.featured_image}
+							href={`/posts/${post.id}`}
+							date={post.data.publishedAt ?? undefined}
+							readingTime={getReadingTime(post.data.content)}
+							categories={categories}
+							tags={tags}
+							bylines={bylines}
+						/>
 					))}
-				</ol>
+				</div>
 			)
 		}
 
 		{!query && <p class="search-hint">Enter a search term to find posts.</p>}
-	</section>
+	</ArchiveLayout>
 </Base>
 
 <style>
-	.search-page {
-		max-width: var(--max-width);
-		margin: 0 auto;
-		padding: var(--spacing-8) var(--spacing-6) var(--spacing-16);
+	/* Theme .searchform in the hero byline: white square input with a
+	   soft drop shadow and a gold 2.6em .searchsubmit inside its right
+	   edge. All dimensions are the theme's em values; the theme's
+	   mobile base font (12.96px) shrinks the whole form
+	   proportionally, reproduced by the media query below. Measured
+	   against the theme: form 590×64 at 1440, 309×52 at 390. */
+	.searchform {
+		position: relative;
+		display: block;
+		/* Wider than the caption column on phones (the theme's byline
+		   column is wider than ours) — centre on the viewport instead */
+		width: min(590px, calc(100vw - 5em));
+		margin: 1.5em 0 1em 50%;
+		transform: translateX(-50%);
+		font-size: 1rem;
+		box-shadow: 0 10px 20px rgb(0 0 0 / 0.05);
+		transition: 0.25s all ease-in-out;
 	}
 
-	/* Hero search form — the demo's byline-slot search form, styled
-	   like Bravada's white pill inputs (radius 100px, gold button). */
-	.search-form {
-		display: flex;
-		gap: var(--spacing-2);
-		max-width: 480px;
-		min-width: 300px;
-		margin: 1.5em auto 1em;
+	@media (max-width: 640px) {
+		.searchform {
+			font-size: 0.81rem;
+		}
 	}
 
-	.search-input {
-		flex: 1;
-		padding: 0.6em 1.4em;
-		font-size: var(--font-size-base);
+	.searchform input[type="search"] {
+		display: block;
+		width: 100%;
+		height: 4em;
+		padding: 0 3.5em 0 1.5em;
+		font-size: 1em;
 		border: none;
-		border-radius: 100px;
+		border-radius: 0;
 		background: #fff;
-		color: var(--color-heading, #162521);
+		color: var(--color-text);
 	}
 
-	.search-input:focus {
-		outline: 2px solid var(--color-brand);
-		outline-offset: 2px;
+	.searchform input[type="search"]:focus {
+		outline: none;
 	}
 
-	.search-button {
-		padding: 0.6em 1.6em;
-		font-size: var(--font-size-base);
-		background: var(--color-brand);
-		color: var(--color-on-brand);
+	.searchform .searchsubmit {
+		position: absolute;
+		right: 0.7em;
+		bottom: 0.7em;
+		height: 2.6em;
+		width: 2.6em;
 		border: none;
-		border-radius: 100px;
+		border-radius: 0;
+		padding: 0;
+		font-size: 1em;
+		background: var(--color-brand);
+		color: #fff;
 		cursor: pointer;
-		font-weight: 500;
-		transition: 0.2s ease-out background-color;
+		transition: 0.25s all ease-in-out;
 	}
 
-	.search-button:hover {
+	.searchform .searchsubmit:hover {
 		background: var(--color-brand-hover);
 	}
 
-	.search-summary {
-		color: var(--color-muted);
-		margin-bottom: var(--spacing-6);
+	/* Theme .searchsubmit i / i + i: hovering the form drops the
+	   visible glyph away while its double scales in from above */
+	.searchsubmit i {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: 0.4s all;
+	}
+
+	.searchsubmit i svg {
+		width: 0.9em;
+		height: 0.9em;
+	}
+
+	.searchsubmit i + i {
+		z-index: 1;
+		opacity: 0;
+		transform: translateY(-20px) scale(0.25);
+	}
+
+	.searchform:hover .searchsubmit i {
+		opacity: 0;
+		transform: translateY(20px) scale(0.25);
+	}
+
+	.searchform:hover .searchsubmit i + i {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	/* Result count under the bar, in the hero-subtitle treatment the
+	   other page headers use (light, letter-spaced, fading in) */
+	.search-count {
+		margin: 0.5em auto 0;
+		font-size: 1.1em;
+		font-weight: 300;
+		letter-spacing: 1px;
+		opacity: 0;
+		animation: 0.5s 0.5s search-count-in ease-out forwards;
+	}
+
+	.search-count em {
+		font-style: italic;
+	}
+
+	@keyframes search-count-in {
+		to {
+			opacity: 1;
+		}
+	}
+
+	/* Theme nothing-found block (header.content-search.no-results):
+	   plain dark title, 'No search results for:' with the query in
+	   italics, and the same searchform inline in the content column */
+	.no-results {
+		margin-bottom: 2.5em;
+	}
+
+	.nf-title {
+		margin: 0 0 0.3em;
+		font-family: var(--font-heading);
+		font-size: 2.2em;
+		font-weight: 700;
+		color: var(--color-heading);
+	}
+
+	.no-results-div p {
+		margin: 0 0 1em;
+		color: var(--color-text-secondary);
+	}
+
+	.no-results-div em {
+		font-style: italic;
+	}
+
+	.searchform-content {
+		width: 100%;
+		margin: 1.5em 0 0;
+		transform: none;
+	}
+
+	/* Theme content-empty-page: widget columns under the message,
+	   titled with the sidebar's gold-highlight motif */
+	.content-empty-page {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2em;
+		margin-top: 3em;
+	}
+
+	@media (max-width: 800px) {
+		.content-empty-page {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.nf-widget .widget-title {
+		display: inline-block;
+		margin: 0 0 1em;
+		font-family: var(--font-heading);
+		font-size: 1.2em;
+		font-weight: 700;
+		line-height: 1.6;
+		color: var(--color-heading);
+		background-image: var(--gold-scrim);
+		background-repeat: no-repeat;
+		background-size: 100% 0.5em;
+		background-position: 0 85%;
+	}
+
+	.nf-widget ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.nf-widget li {
+		padding: 0.5em 0;
+		border-bottom: 1px solid var(--color-border-subtle);
+	}
+
+	.nf-widget li:last-child {
+		border-bottom: none;
+	}
+
+	.nf-widget a {
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		transition: 0.2s ease-out color;
+	}
+
+	.nf-widget a:hover {
+		color: var(--color-brand);
 	}
 
 	.search-hint {
 		color: var(--color-muted);
 	}
 
-	.search-results {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
+	/* Same two-up card grid as the term archives */
+	.archive-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2em;
+		align-items: start;
 	}
 
-	.search-result {
-		padding: var(--spacing-6) 0;
-		border-bottom: 1px solid var(--color-border-subtle);
-	}
-
-	.search-result:first-child {
-		padding-top: 0;
-	}
-
-	.search-result:last-child {
-		border-bottom: none;
-	}
-
-	.result-link {
-		display: block;
-		text-decoration: none;
-		color: inherit;
-	}
-
-	.result-title {
-		font-size: var(--font-size-xl);
-		font-weight: var(--font-weight-heading);
-		line-height: var(--leading-snug);
-		margin-bottom: var(--spacing-2);
-		transition: color var(--transition-fast);
-	}
-
-	.result-link:hover .result-title {
-		color: var(--color-brand);
-	}
-
-	.result-snippet {
-		font-size: var(--font-size-base);
-		line-height: var(--leading-relaxed);
-		color: var(--color-text-secondary);
-	}
-
-	/* FTS returns <mark> wrapping the matched terms */
-	.result-snippet :global(mark) {
-		background: var(--color-brand-ring);
-		color: inherit;
-		padding: 0 0.1em;
-		border-radius: 2px;
+	@media (max-width: 640px) {
+		.archive-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

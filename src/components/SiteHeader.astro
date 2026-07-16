@@ -123,6 +123,28 @@ const isLoggedIn = !!Astro.locals.user;
 			box-shadow 0.3s ease;
 	}
 
+	/* Theme fixed-menu entrance: when the bar enters its fixed state
+	   (scrollTop > 100, matching the theme's threshold) it slides down
+	   from above over 1s (@keyframes header-fixed: opacity 0 /
+	   top -100px → visible). Desktop only — under 800px the theme
+	   disables this and uses the mobile slide instead. */
+	@media (min-width: 801px) {
+		.site-header.header-fixed {
+			animation: header-fixed 1s ease-out;
+		}
+	}
+
+	@keyframes header-fixed {
+		from {
+			opacity: 0;
+			transform: translateY(-100px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
 	.site-header.over-hero {
 		position: fixed;
 		left: 0;
@@ -560,7 +582,8 @@ const isLoggedIn = !!Astro.locals.user;
 	let lastScrollTop = 0;
 	const onScroll = () => {
 		const y = window.scrollY;
-		header?.classList.toggle("header-fixed", y > 30);
+		// Theme threshold: the bar enters its fixed state past 100px
+		header?.classList.toggle("header-fixed", y > 100);
 		const navbarHeight = header?.offsetHeight ?? 75;
 		const docHeight = document.documentElement.scrollHeight;
 		const viewport = window.innerHeight;
