@@ -116,6 +116,19 @@ const hasSecondary = ["two-left", "two-right", "sided"].includes(layout);
 		.page-shell {
 			margin: 2em auto;
 		}
+
+		/* Stacked sidebars lose the desktop grid's outer edge, so the
+		   one-sided gutter above (built for sitting beside the card)
+		   leaves one side flush against the viewport. Match it on both
+		   sides once the sidebar spans full width — same selector list
+		   as the desktop rules above so specificity doesn't let those
+		   one-sided paddings win inside this media query. */
+		.page-shell :global(.bravada-sidebar),
+		.page-shell.layout-left :global(.bravada-sidebar),
+		.page-shell.layout-two-left :global(.bravada-sidebar),
+		.page-shell.layout-sided :global(.bravada-sidebar:first-of-type) {
+			padding: 3em clamp(1.5em, 4.4vw, 4em) 4em;
+		}
 	}
 
 	.page-content :global(p) {

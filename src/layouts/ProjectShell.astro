@@ -44,5 +44,13 @@ import SidebarWidgets from "../components/SidebarWidgets.astro";
 			grid-template-columns: 1fr;
 			margin: 2em auto;
 		}
+
+		/* Stacked sidebar loses the desktop grid's outer edge, so the
+		   one-sided gutter above (built for sitting beside the card)
+		   leaves the right side flush against the viewport. Match it on
+		   both sides once the sidebar spans full width. */
+		.page-shell :global(.bravada-sidebar) {
+			padding: 3em clamp(1.5em, 4.4vw, 4em) 4em;
+		}
 	}
 </style>
