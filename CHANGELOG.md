@@ -14,6 +14,10 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   header hides on scroll and slides back on mobile like the original.
   One deliberate improvement: parent menu items without a link toggle
   their submenu instead of doing nothing.
+- Webfonts trimmed to the faces the theme actually renders: Playfair
+  Display ships regular and bold only (no italics), JetBrains Mono a
+  single regular face. Mulish is unchanged — all its weights and
+  italics are in use.
 
 ### Fixed
 
