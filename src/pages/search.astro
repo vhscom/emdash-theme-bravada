@@ -14,6 +14,7 @@ import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 import ArchiveLayout from "../layouts/ArchiveLayout.astro";
 import PostCard from "../components/PostCard.astro";
+import SearchForm from "../components/SearchForm.astro";
 import { getReadingTime } from "../utils/reading-time";
 
 const query = Astro.url.searchParams.get("q")?.trim() || "";
@@ -123,26 +124,7 @@ const cards = entries.map((post) => ({
 		    is the search2 glyph extracted from the theme's iconmeta
 		    font. */}
 		<Fragment slot="meta">
-		<form method="get" action="/search" class="searchform" role="search">
-			<label>
-				<span class="sr-only">Search for:</span>
-				<input
-					type="search"
-					name="q"
-					value={query}
-					placeholder="Search"
-					class="s"
-				/>
-			</label>
-			<button type="submit" class="searchsubmit" aria-label="Search">
-				<i class="icon-search2" aria-hidden="true">
-					<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
-				</i>
-				<i class="icon-search2" aria-hidden="true">
-					<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
-				</i>
-			</button>
-		</form>
+		<SearchForm value={query} class="searchform-hero" />
 		{/* Result count below the bar (results only; the empty case
 		    renders the theme's Nothing Found block in the content) */}
 		{
@@ -163,31 +145,7 @@ const cards = entries.map((post) => ({
 						<p>
 							No search results for: <em>{query}</em>
 						</p>
-						<form
-							method="get"
-							action="/search"
-							class="searchform searchform-content"
-							role="search"
-						>
-							<label>
-								<span class="sr-only">Search for:</span>
-								<input
-									type="search"
-									name="q"
-									value={query}
-									placeholder="Search"
-									class="s"
-								/>
-							</label>
-							<button type="submit" class="searchsubmit" aria-label="Search">
-								<i class="icon-search2" aria-hidden="true">
-						<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
-					</i>
-								<i class="icon-search2" aria-hidden="true">
-						<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
-					</i>
-							</button>
-						</form>
+						<SearchForm value={query} class="searchform-content" />
 					</div>
 				</header>
 			)
@@ -271,101 +229,27 @@ const cards = entries.map((post) => ({
 </Base>
 
 <style>
-	/* Theme .searchform in the hero byline: white square input with a
-	   soft drop shadow and a gold 2.6em .searchsubmit inside its right
-	   edge. All dimensions are the theme's em values; the theme's
-	   mobile base font (12.96px) shrinks the whole form
-	   proportionally, reproduced by the media query below. Measured
-	   against the theme: form 590×64 at 1440, 309×52 at 390. */
-	.searchform {
-		position: relative;
-		display: block;
-		/* Wider than the caption column on phones (the theme's byline
-		   column is wider than ours) — centre on the viewport instead */
+	/* Layout only — the control itself is the shared SearchForm
+	   component. Hero: the theme's 590px column centred on the
+	   viewport (wider than our caption column on phones), scaling with
+	   the theme's mobile base font. Content: full column width. */
+	.searchform-hero {
 		width: min(590px, calc(100vw - 5em));
 		margin: 1.5em 0 1em 50%;
 		transform: translateX(-50%);
-		font-size: 1rem;
-		box-shadow: 0 10px 20px rgb(0 0 0 / 0.05);
-		transition: 0.25s all ease-in-out;
 	}
 
 	@media (max-width: 640px) {
-		.searchform {
+		.searchform-hero {
 			font-size: 0.81rem;
 		}
 	}
 
-	.searchform input[type="search"] {
-		display: block;
+	.searchform-content {
 		width: 100%;
-		height: 4em;
-		padding: 0 3.5em 0 1.5em;
-		font-size: 1em;
-		border: none;
-		border-radius: 0;
-		background: #fff;
-		color: var(--color-text);
+		margin: 1.5em 0 0;
 	}
 
-	.searchform input[type="search"]:focus {
-		outline: none;
-	}
-
-	.searchform .searchsubmit {
-		position: absolute;
-		right: 0.7em;
-		bottom: 0.7em;
-		height: 2.6em;
-		width: 2.6em;
-		border: none;
-		border-radius: 0;
-		padding: 0;
-		font-size: 1em;
-		background: var(--color-brand);
-		color: #fff;
-		cursor: pointer;
-		transition: 0.25s all ease-in-out;
-	}
-
-	.searchform .searchsubmit:hover {
-		background: var(--color-brand-hover);
-	}
-
-	/* Theme .searchsubmit i / i + i: hovering the form drops the
-	   visible glyph away while its double scales in from above */
-	.searchsubmit i {
-		position: absolute;
-		inset: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: 0.4s all;
-	}
-
-	.searchsubmit i svg {
-		width: 0.9em;
-		height: 0.9em;
-	}
-
-	.searchsubmit i + i {
-		z-index: 1;
-		opacity: 0;
-		transform: translateY(-20px) scale(0.25);
-	}
-
-	.searchform:hover .searchsubmit i {
-		opacity: 0;
-		transform: translateY(20px) scale(0.25);
-	}
-
-	.searchform:hover .searchsubmit i + i {
-		opacity: 1;
-		transform: translateY(0) scale(1);
-	}
-
-	/* Result count under the bar, in the hero-subtitle treatment the
-	   other page headers use (light, letter-spaced, fading in) */
 	.search-count {
 		margin: 0.5em auto 0;
 		font-size: 1.1em;

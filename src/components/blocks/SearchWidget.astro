@@ -1,8 +1,10 @@
 ---
 /**
- * bravada.search — the demo sidebar search: white input with a solid
- * gold submit block. Submits to the site search page.
+ * bravada.search — the sidebar search widget: the shared SearchForm
+ * (theme .searchform) at sidebar scale.
  */
+import SearchForm from "../SearchForm.astro";
+
 interface SearchNode {
 	placeholder?: string;
 }
@@ -11,110 +13,12 @@ const { node } = Astro.props as { node: SearchNode };
 const placeholder = node.placeholder ?? "Search";
 ---
 
-<form role="search" method="get" action="/search" class="bravada-search">
-	<label>
-		<span class="sr-only">Search for:</span>
-		<input type="search" name="q" placeholder={placeholder} autocomplete="off" />
-	</label>
-	<button type="submit" aria-label="Search">
-		<span class="submit-swap">
-			<i class="glyph-a" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></i>
-			<i class="glyph-b" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></i>
-		</span>
-	</button>
-</form>
+<SearchForm placeholder={placeholder} class="bravada-search" />
 
 <style>
-	/* Demo .searchform: borderless white input, 4em tall, with a 2.6em
-	   gold submit square floated inside, inset .7em from the right and
-	   vertically centred */
+	/* Sidebar scale: the control's em values stay at the 16px root even
+	   though the sidebar inherits a smaller font */
 	.bravada-search {
-		position: relative;
-		background: var(--color-surface);
-		/* Demo .searchform shadow */
-		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-	}
-
-	.bravada-search label {
-		display: block;
-	}
-
-	.bravada-search input[type="search"] {
-		width: 100%;
-		height: 4em;
-		padding: 0 3.5em 0 1.5em;
-		border: 0;
-		border-radius: 0;
-		background: var(--color-surface);
-		font-family: var(--font-body);
 		font-size: 1rem;
-		color: var(--color-text);
 	}
-
-	.bravada-search input[type="search"]:focus {
-		outline: none;
-	}
-
-	.bravada-search button {
-		position: absolute;
-		right: 0.7rem;
-		bottom: 0.7rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		/* rem: the demo square is 2.6em of the 16px root, and the sidebar
-		   inherits a smaller font */
-		width: 2.6rem;
-		height: 2.6rem;
-		padding: 0;
-		border: none;
-		background: var(--color-gold);
-		color: #ffffff;
-		cursor: pointer;
-		transition: background 0.2s ease-out;
-	}
-
-	/* Demo: the gold square goes teal as soon as the CONTROL is hovered
-	   (not just the button) and stays teal while anything has focus */
-	.bravada-search:hover button,
-	.bravada-search:focus-within button,
-	.bravada-search button:focus-visible {
-		background: var(--color-teal-solid);
-	}
-
-	/* Demo .searchform .searchsubmit i + i: on form hover the magnifier
-	   flies down and a duplicate drops in from above (.4s ease-out) */
-	.submit-swap {
-		position: relative;
-		display: inline-flex;
-	}
-
-	.submit-swap i {
-		display: inline-flex;
-		font-style: normal;
-		transition: 0.4s all ease-out;
-	}
-
-	.submit-swap .glyph-b {
-		position: absolute;
-		inset: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		opacity: 0;
-		transform: translateY(-20px) scale(0.25);
-	}
-
-	.bravada-search:hover .glyph-a,
-	.bravada-search:focus-within .glyph-a {
-		opacity: 0;
-		transform: translateY(20px) scale(0.25);
-	}
-
-	.bravada-search:hover .glyph-b,
-	.bravada-search:focus-within .glyph-b {
-		opacity: 1;
-		transform: translateY(0) scale(1);
-	}
-
 </style>

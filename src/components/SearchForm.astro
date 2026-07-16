@@ -1,0 +1,138 @@
+---
+/**
+ * The theme's .searchform, shared by every white search control: label
+ * + input.s + gold square .searchsubmit holding two i.icon-search2
+ * glyphs (the search2 path from the theme's iconmeta font). Hovering
+ * or focusing anywhere on the control turns the button teal and swaps
+ * the glyph — the visible one flies down while its duplicate drops in
+ * (.4s), exactly the theme's behaviour.
+ *
+ * Layout (width, margins, font scaling) belongs to the caller via
+ * `class`; this component owns the control itself.
+ */
+interface Props {
+	value?: string;
+	placeholder?: string;
+	class?: string;
+}
+
+const { value = "", placeholder = "Search", class: className } = Astro.props;
+---
+
+<form
+	role="search"
+	method="get"
+	action="/search"
+	class:list={["searchform", className]}
+>
+	<label>
+		<span class="sr-only">Search for:</span>
+		<input
+			type="search"
+			name="q"
+			value={value}
+			placeholder={placeholder}
+			class="s"
+			autocomplete="off"
+		/>
+	</label>
+	<button type="submit" class="searchsubmit" aria-label="Search">
+		<i class="icon-search2" aria-hidden="true">
+			<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
+		</i>
+		<i class="icon-search2" aria-hidden="true">
+			<svg viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
+		</i>
+	</button>
+</form>
+
+<style>
+	/* Theme .searchform: white input, 4em tall, soft drop shadow, gold
+	   2.6em submit square inset .7em from the right edge */
+	.searchform {
+		position: relative;
+		display: block;
+		font-size: 1rem;
+		box-shadow: 0 10px 20px rgb(0 0 0 / 0.05);
+		transition: 0.25s all ease-in-out;
+	}
+
+	.searchform label {
+		display: block;
+	}
+
+	.searchform input[type="search"] {
+		display: block;
+		width: 100%;
+		height: 4em;
+		padding: 0 3.5em 0 1.5em;
+		font-size: 1em;
+		border: none;
+		border-radius: 0;
+		background: var(--color-surface);
+		font-family: var(--font-body);
+		color: var(--color-text);
+	}
+
+	.searchform input[type="search"]:focus {
+		outline: none;
+	}
+
+	.searchform .searchsubmit {
+		position: absolute;
+		right: 0.7em;
+		bottom: 0.7em;
+		height: 2.6em;
+		width: 2.6em;
+		border: none;
+		border-radius: 0;
+		padding: 0;
+		font-size: 1em;
+		background: var(--color-brand);
+		color: #ffffff;
+		cursor: pointer;
+		transition: 0.25s all ease-in-out;
+	}
+
+	/* Theme: the gold square goes teal as soon as the CONTROL is
+	   hovered (not just the button) and stays teal while focused */
+	.searchform:hover .searchsubmit,
+	.searchform:focus-within .searchsubmit,
+	.searchform .searchsubmit:focus-visible {
+		background: var(--color-teal-solid);
+	}
+
+	/* Theme .searchsubmit i / i + i: on control hover the magnifier
+	   flies down and its duplicate drops in from above */
+	.searchsubmit i {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: 0.4s all;
+	}
+
+	.searchsubmit i svg {
+		width: 0.9em;
+		height: 0.9em;
+	}
+
+	.searchsubmit i + i {
+		z-index: 1;
+		opacity: 0;
+		transform: translateY(-20px) scale(0.25);
+	}
+
+	.searchform:hover .searchsubmit i,
+	.searchform:focus-within .searchsubmit i {
+		opacity: 0;
+		transform: translateY(20px) scale(0.25);
+	}
+
+	.searchform:hover .searchsubmit i + i,
+	.searchform:focus-within .searchsubmit i + i {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+</style>
