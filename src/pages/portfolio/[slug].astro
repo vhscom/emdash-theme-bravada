@@ -76,5 +76,5 @@ const workLd = {
 		/>
 		<RichText value={project.data.content} />
 	</ProjectShell>
-	<script type="application/ld+json" set:html={JSON.stringify(workLd)} />
+	<script type="application/ld+json" is:inline set:html={JSON.stringify(workLd)} />
 </Base>

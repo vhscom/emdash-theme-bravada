@@ -473,13 +473,13 @@
               "icon": "trophy",
               "title": "Premium quality",
               "text": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere.",
-              "url": "/posts/coffee-at-the-office"
+              "url": "/posts/printing-your-dreams"
             },
             {
               "icon": "briefcase",
               "title": "Fast delivery",
               "text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis.",
-              "url": "/posts/throught-the-lens"
+              "url": "/posts/through-the-lens"
             },
             {
               "icon": "notebook",
@@ -647,7 +647,7 @@
               "image": "/images/demo/featured-boxes-02-413x300.jpg",
               "title": "Bagged emotions",
               "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
-              "url": "/posts/throught-the-lens"
+              "url": "/posts/through-the-lens"
             }
           ]
         }
@@ -684,9 +684,9 @@
             },
             {
               "image": "/images/demo/demo-image-02-413x300.jpg",
-              "title": "Throught the lens",
+              "title": "Through the lens",
               "text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
-              "url": "/posts/throught-the-lens"
+              "url": "/posts/through-the-lens"
             },
             {
               "image": "/images/demo/demo-image-03-413x300.jpg",
@@ -755,7 +755,7 @@
                 "Brands",
                 "Sketch"
               ],
-              "url": "/posts/throught-the-lens"
+              "url": "/posts/through-the-lens"
             },
             {
               "image": "/images/demo/portfolio-03-512x512.jpg",
@@ -797,7 +797,7 @@
                 "Brands",
                 "Sketch"
               ],
-              "url": "/posts/coffee-at-the-office"
+              "url": "/portfolio/flyer-presentation"
             },
             {
               "image": "/images/demo/portfolio-08-512x512.jpg",
