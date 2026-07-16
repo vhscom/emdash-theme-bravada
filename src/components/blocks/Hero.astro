@@ -12,6 +12,8 @@
  * personalities: bravada (gold), ripley (petrol), sculpt (plum),
  * sundown (red). Editable on the block in the admin.
  */
+import MetaArrow from "../MetaArrow.astro";
+
 interface HeroButton {
 	label: string;
 	url: string;
@@ -89,22 +91,10 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 				}
 			</div>
 		</div>
-		<a href="#lp-after-slider" class="meta-arrow" aria-label="Scroll to content">
-			<svg
-				width="26"
-				height="26"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg
-			>
-		</a>
+		<MetaArrow targetId="lp-after-slider" />
 	</div>
 </section>
-<span id="lp-after-slider"></span>
+<span id="lp-after-slider" class="after-hero-anchor"></span>
 
 <script>
 	import { initTitleBreakup } from "../../utils/breakup-client";
@@ -113,19 +103,6 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 	// letter CSS lives in theme.css under .breakup-title)
 	initTitleBreakup(".staticslider-caption-title");
 
-	// Chevron scrolls smoothly to whatever follows the slider
-	for (const arrow of document.querySelectorAll<HTMLAnchorElement>(
-		".lp-slider .meta-arrow"
-	)) {
-		arrow.addEventListener("click", (e) => {
-			const slider = arrow.closest(".lp-slider");
-			const next = slider?.nextElementSibling;
-			if (next) {
-				e.preventDefault();
-				next.scrollIntoView({ behavior: "smooth" });
-			}
-		});
-	}
 </script>
 
 <style>
@@ -244,36 +221,6 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 		}
 	}
 
-	/* Bouncing scroll chevron (.meta-arrow, 2.2s ease-out infinite) */
-	.meta-arrow {
-		position: absolute;
-		z-index: 15;
-		left: 0;
-		right: 0;
-		bottom: 50px;
-		width: 100px;
-		height: 40px;
-		margin: 0 auto;
-		text-align: center;
-		color: #ffffff;
-	}
-
-	.meta-arrow:hover {
-		color: var(--color-gold);
-	}
-
-	.meta-arrow svg {
-		animation: meta-arrow 2.2s ease-out infinite;
-	}
-
-	@keyframes meta-arrow {
-		60%,
-		100% {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-	}
-
 	@media (prefers-reduced-motion: reduce) {
 		.staticslider-caption-title,
 		.staticslider-caption-text,
@@ -282,9 +229,6 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 			opacity: 1;
 		}
 
-		.meta-arrow svg {
-			animation: none;
-		}
 	}
 
 	@media (max-width: 800px) {
@@ -304,8 +248,5 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 			align-self: stretch;
 		}
 
-		.meta-arrow {
-			bottom: 20px;
-		}
 	}
 </style>

@@ -1,5 +1,6 @@
 ---
 import { getSiteSettings } from "emdash";
+import MetaArrow from "./MetaArrow.astro";
 /**
  * Bravada inner-page header (#header-image-main, fullscreen): every
  * non-landing page opens on a full-viewport image under the demo's
@@ -95,6 +96,9 @@ const heroWebp = headerImage.startsWith("/images/")
 			}
 		</div>
 	</div>
+	{/* Theme meta-arrow: the bouncing chevron on every header-image
+	    page, scrolling the reader down to the content */}
+	<MetaArrow targetId="after-page-hero" />
 	{
 		crumbs.length > 0 && (
 			<nav class="page-hero-crumbs" aria-label="Breadcrumb">
@@ -125,11 +129,16 @@ const heroWebp = headerImage.startsWith("/images/")
 		)
 	}
 </section>
+{/* Chevron scroll target: offset by the fixed bar's height so the
+    scroll rests with the nav bottom exactly on the hero's last pixel
+    and no content is covered */}
+<span id="after-page-hero" class="after-hero-anchor"></span>
 
 <script>
 	import { initTitleBreakup } from "../utils/breakup-client";
 
 	initTitleBreakup(".page-hero-title");
+
 
 	// cryoutHeaderParallax: as the page scrolls, the scrim deepens
 	// toward black, the caption fades away, and the image crop drifts

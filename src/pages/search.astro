@@ -1,19 +1,126 @@
 ---
 export const prerender = false;
 
-import { search } from "emdash";
+import {
+	search,
+	getEmDashCollection,
+	getAllTermsForEntries,
+	getTaxonomyTerms,
+	getCollectionInfo,
+	getComments,
+} from "emdash";
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
+import ArchiveLayout from "../layouts/ArchiveLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import SearchForm from "../components/SearchForm.astro";
+import { getReadingTime } from "../utils/reading-time";
 
 const query = Astro.url.searchParams.get("q")?.trim() || "";
+
+// Theme pagination: 10 results per page with numeric page links. The
+// FTS API paginates by forward-only cursor, so fetch one capped batch
+// (200 — beyond any plausible demo corpus) and window it; the total
+// falls out for free.
+const PER_PAGE = 10;
+const MAX_RESULTS = 200;
 
 // Use the FTS-backed search() API instead of loading every post and
 // filtering in JS. FTS scales as the post count grows, returns ranked
 // results, and handles tokenization/stemming. Templates that grep all
 // post bodies in JS quickly become unusable past a few hundred posts.
-const { items: results } = query
-	? await search(query, { collections: ["posts"], limit: 30 })
+const { items: allResults } = query
+	? await search(query, { collections: ["posts"], limit: MAX_RESULTS })
 	: { items: [] };
+
+const totalPages = Math.max(1, Math.ceil(allResults.length / PER_PAGE));
+const page = Math.min(
+	totalPages,
+	Math.max(1, Number.parseInt(Astro.url.searchParams.get("page") ?? "1") || 1),
+);
+const results = allResults.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+const pageUrl = (n: number) =>
+	`/search?q=${encodeURIComponent(query)}${n > 1 ? `&page=${n}` : ""}`;
+
+// The theme renders search hits as the same masonry article cards the
+// blog uses, so hydrate the ranked FTS hits into full entries (image,
+// excerpt, bylines) with one bulk query — a slug[] where-filter ORs the
+// column — then restore the FTS ranking, and fetch every taxonomy's
+// terms for the whole set in one more query.
+const slugs = results.map((r) => r.slug ?? r.id);
+const { entries: hydrated, cacheHint } = slugs.length
+	? await getEmDashCollection("posts", {
+			where: { slug: slugs },
+			limit: slugs.length,
+		})
+	: { entries: [], cacheHint: undefined };
+if (cacheHint && Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const bySlug = new Map(hydrated.map((e) => [e.id, e]));
+const entries = slugs.flatMap((slug) => {
+	const e = bySlug.get(slug);
+	return e ? [e] : [];
+});
+
+const termsByEntry = await getAllTermsForEntries(
+	"posts",
+	entries.map((p) => p.data.id),
+);
+
+// Theme nothing-found fallback (content-empty-page): three widget
+// columns below the message — Recent Posts / Recent Comments /
+// Categories. When comments are disabled the middle column shows the
+// tag cloud instead.
+const noResults = Boolean(query) && allResults.length === 0;
+const [recent, categoryTerms, tagTerms, collectionInfo] = noResults
+	? await Promise.all([
+			getEmDashCollection("posts", {
+				orderBy: { published_at: "desc" },
+				limit: 5,
+			}),
+			getTaxonomyTerms("category"),
+			getTaxonomyTerms("tag"),
+			getCollectionInfo("posts"),
+		])
+	: [null, [], [], null];
+const commentsEnabled = collectionInfo?.commentsEnabled ?? false;
+
+// There is no site-wide recent-comments query, so gather the latest
+// approved comments across the recent posts (plenty for a fallback
+// column on a demo-scale site).
+const recentComments = commentsEnabled
+	? (
+			await Promise.all(
+				(recent?.entries ?? []).map(async (p) => {
+					const { items } = await getComments({
+						collection: "posts",
+						contentId: p.data.id,
+					});
+					return items.map((c) => ({
+						author: c.authorName,
+						postTitle: p.data.title ?? "Untitled",
+						href: `/posts/${p.id}#comments`,
+						createdAt: c.createdAt,
+					}));
+				}),
+			)
+		)
+			.flat()
+			.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+			.slice(0, 5)
+	: [];
+
+// An enabled-but-silent comments section would render an empty column —
+// fall back to the tag cloud until there is something to show.
+const showComments = commentsEnabled && recentComments.length > 0;
+
+const cards = entries.map((post) => ({
+	post,
+	categories: termsByEntry.get(post.data.id)?.category ?? [],
+	tags: termsByEntry.get(post.data.id)?.tag ?? [],
+	bylines: post.data.bylines ?? [],
+}));
 ---
 
 <Base
@@ -23,171 +130,319 @@ const { items: results } = query
 	overHero
 >
 	<PageHeader
-		title="Search"
-		subtitle={query
-			? `${results.length} result${results.length === 1 ? "" : "s"} for “${query}”`
-			: undefined}
-		crumbs={[{ label: "Search" }]}
+		title={query ? `Search Results for: ${query}` : "Search"}
+		crumbs={[
+			{ label: query ? `Search results for "${query}"` : "Search" },
+		]}
 	>
-		{/* The demo renders the search form in the hero's byline slot
-		    (core.php: is_search() → get_search_form()). */}
-		<form method="get" action="/search" class="search-form" slot="meta">
-			<input
-				type="search"
-				name="q"
-				value={query}
-				placeholder="Search posts..."
-				class="search-input"
-				autofocus
-			/>
-			<button type="submit" class="search-button">Search</button>
-		</form>
+		{/* The theme renders get_search_form() in the hero byline slot on
+		    the search page: markup and class names below mirror the
+		    theme's own (.searchform > input.s + button.searchsubmit with
+		    two i.icon-search2 glyphs that swap on form hover). The svg
+		    is the search2 glyph extracted from the theme's iconmeta
+		    font. */}
+		<Fragment slot="meta">
+		<SearchForm value={query} class="searchform-hero" />
+		</Fragment>
 	</PageHeader>
-	<section class="search-page">
-
+	<ArchiveLayout>
 		{
-			query && (
-				<p class="search-summary">
-					{results.length === 0
-						? `No results for "${query}"`
-						: `${results.length} result${results.length === 1 ? "" : "s"} for "${query}"`}
-				</p>
+			noResults && (
+				<header class="no-results">
+					<h2 class="nf-title">Nothing Found</h2>
+					<div class="no-results-div">
+						<p>
+							No search results for: <em>{query}</em>
+						</p>
+						<SearchForm value={query} class="searchform-content" />
+					</div>
+				</header>
 			)
 		}
 
 		{
-			results.length > 0 && (
-				<ol class="search-results">
-					{results.map((result) => (
-						<li class="search-result">
-							<a
-								href={`/posts/${result.slug ?? result.id}`}
-								class="result-link"
-							>
-								<h2 class="result-title">
-									{result.title ?? "Untitled"}
-								</h2>
-								{result.snippet && (
-									<p class="result-snippet" set:html={result.snippet} />
-								)}
-							</a>
-						</li>
+			noResults && (
+				<aside class="content-empty-page">
+					<section class="nf-widget">
+						<h3 class="widget-title">Recent Posts</h3>
+						<ul>
+							{recent?.entries.map((p) => (
+								<li>
+									<a href={`/posts/${p.id}`}>{p.data.title}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+					{showComments ? (
+						<section class="nf-widget">
+							<h3 class="widget-title">Recent Comments</h3>
+							<ul>
+								{recentComments.map((c) => (
+									<li>
+										<span class="nf-comment-author">{c.author}</span> on{" "}
+										<a href={c.href}>{c.postTitle}</a>
+									</li>
+								))}
+							</ul>
+						</section>
+					) : (
+						<section class="nf-widget">
+							<h3 class="widget-title">Tags</h3>
+							<ul class="nf-tag-cloud">
+								{tagTerms.map((t) => (
+									<li>
+										<a class="nf-tag" href={`/tag/${t.slug}`}>
+											{t.label}
+										</a>
+									</li>
+								))}
+							</ul>
+						</section>
+					)}
+					<section class="nf-widget">
+						<h3 class="widget-title">Categories</h3>
+						<ul>
+							{categoryTerms.map((t) => (
+								<li>
+									<a href={`/category/${t.slug}`}>{t.label}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				</aside>
+			)
+		}
+
+		{
+			cards.length > 0 && (
+				<div class="archive-grid">
+					{cards.map(({ post, categories, tags, bylines }) => (
+						<PostCard
+							title={post.data.title ?? "Untitled"}
+							excerpt={post.data.excerpt}
+							featuredImage={post.data.featured_image}
+							href={`/posts/${post.id}`}
+							date={post.data.publishedAt ?? undefined}
+							readingTime={getReadingTime(post.data.content)}
+							categories={categories}
+							tags={tags}
+							bylines={bylines}
+						/>
 					))}
-				</ol>
+				</div>
+			)
+		}
+
+		{
+			totalPages > 1 && (
+				<nav class="pagination" aria-label="Search results pages">
+					{page > 1 && (
+						<a class="page-numbers prev" href={pageUrl(page - 1)} aria-label="Previous page">
+							<svg viewBox="0 0 400 800" aria-hidden="true"><path fill="currentColor" transform="translate(0,780) scale(1,-1)" d="M359.101 636.078q0-7.182-6.156-12.312l-224.694-225.72 224.694-224.694q6.156-6.156 6.156-13.338t-6.156-13.338l-28.728-28.728q-5.13-5.13-12.312-5.13t-13.338 5.13l-266.761 266.761q-6.156 6.156-6.156 13.338t6.156 13.338l266.761 266.761q5.13 6.156 13.338 6.156t12.312-6.156l28.728-28.728q6.156-5.13 6.156-13.338z"></path></svg>
+						</a>
+					)}
+					{Array.from({ length: totalPages }, (_, i) => i + 1).map((n) =>
+						n === page ? (
+							<span class="page-numbers current" aria-current="page">
+								{n}
+							</span>
+						) : (
+							<a class="page-numbers" href={pageUrl(n)}>
+								{n}
+							</a>
+						),
+					)}
+					{page < totalPages && (
+						<a class="page-numbers next" href={pageUrl(page + 1)} aria-label="Next page">
+							<svg viewBox="0 0 400 800" aria-hidden="true"><path fill="currentColor" transform="translate(0,780) scale(1,-1)" d="M340.633 398.045q0-7.182-6.156-13.338l-266.761-266.761q-5.13-5.13-12.312-5.13t-13.338 5.13l-28.728 28.728q-6.156 6.156-6.156 13.338t6.156 13.338l224.694 224.694-224.694 225.72q-6.156 5.13-6.156 12.312t6.156 13.338l28.728 28.728q5.13 6.156 13.338 6.156t12.312-6.156l266.761-266.761q6.156-5.13 6.156-13.338z"></path></svg>
+						</a>
+					)}
+				</nav>
 			)
 		}
 
 		{!query && <p class="search-hint">Enter a search term to find posts.</p>}
-	</section>
+	</ArchiveLayout>
 </Base>
 
 <style>
-	.search-page {
-		max-width: var(--max-width);
-		margin: 0 auto;
-		padding: var(--spacing-8) var(--spacing-6) var(--spacing-16);
+	/* Layout only — the control itself is the shared SearchForm
+	   component (:global because the passed class lands on the
+	   component's root, outside this page's style scope). Hero: the
+	   theme's 590px column centred on the viewport with the theme's
+	   45px breathing room under the title, scaling with the theme's
+	   mobile base font. Content: full column width. */
+	:global(.searchform-hero) {
+		width: min(590px, calc(100vw - 5em));
+		margin: 2.8em 0 1em 50%;
+		transform: translateX(-50%);
 	}
 
-	/* Hero search form — the demo's byline-slot search form, styled
-	   like Bravada's white pill inputs (radius 100px, gold button). */
-	.search-form {
+	@media (max-width: 640px) {
+		:global(.searchform-hero) {
+			font-size: 0.81rem;
+		}
+	}
+
+	:global(.searchform-content) {
+		width: 100%;
+		margin: 1.5em 0 0;
+	}
+
+	/* Theme nothing-found block (header.content-search.no-results):
+	   plain dark title, 'No search results for:' with the query in
+	   italics, and the same searchform inline in the content column */
+	.no-results {
+		margin-bottom: 2.5em;
+	}
+
+	.nf-title {
+		/* Theme entry-title on the nothing-found header: 1.7em, no gap
+		   before the message line */
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 1.7em;
+		font-weight: 700;
+		color: var(--color-heading);
+	}
+
+	.no-results-div p {
+		margin: 0 0 1em;
+		color: var(--color-text-secondary);
+	}
+
+	.no-results-div em {
+		font-style: italic;
+	}
+
+
+	/* Theme content-empty-page: widget columns under the message,
+	   titled with the sidebar's gold-highlight motif */
+	.content-empty-page {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2em;
+		margin-top: 3em;
+	}
+
+	@media (max-width: 800px) {
+		.content-empty-page {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.nf-widget .widget-title {
+		display: inline-block;
+		margin: 0 0 0.6em;
+		font-family: var(--font-heading);
+		font-size: 1.2em;
+		font-weight: 700;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		background-image: var(--gold-scrim);
+		background-repeat: no-repeat;
+		background-size: 100% 0.5em;
+		background-position: 0 85%;
+	}
+
+	.nf-widget ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.nf-widget li {
+		padding: 0 0 0.5em;
+		/* Theme divider: rgba black over the page tint — our
+		   border-subtle token is lighter here and nearly invisible */
+		border-bottom: 1px solid rgb(0 0 0 / 0.05);
+		line-height: 2;
+	}
+
+	.nf-widget li + li {
+		padding-top: 0.5em;
+	}
+
+	.nf-widget li:last-child {
+		border-bottom: none;
+	}
+
+	/* Theme content links are gold */
+	.nf-widget a {
+		color: var(--color-brand);
+		text-decoration: none;
+		transition: 0.2s ease-out color;
+	}
+
+	.nf-widget a:hover {
+		color: var(--color-brand-hover);
+	}
+
+	/* Comment rows: dark author name, gold post link (theme
+	   widget_recent_comments) */
+	.nf-comment-author {
+		color: var(--color-text-secondary);
+	}
+
+	/* Tags render as the theme's tag-cloud pills */
+	.nf-tag-cloud {
 		display: flex;
-		gap: var(--spacing-2);
-		max-width: 480px;
-		min-width: 300px;
-		margin: 1.5em auto 1em;
+		flex-wrap: wrap;
+		gap: 0.5em;
 	}
 
-	.search-input {
-		flex: 1;
-		padding: 0.6em 1.4em;
-		font-size: var(--font-size-base);
+	.nf-widget .nf-tag-cloud li {
+		padding: 0;
 		border: none;
-		border-radius: 100px;
-		background: #fff;
-		color: var(--color-heading, #162521);
+		line-height: normal;
 	}
 
-	.search-input:focus {
-		outline: 2px solid var(--color-brand);
-		outline-offset: 2px;
+	.nf-tag {
+		display: inline-block;
+		padding: 0.15em 0.7em;
+		border: 1px solid var(--color-border);
+		font-size: var(--font-size-xs);
 	}
 
-	.search-button {
-		padding: 0.6em 1.6em;
-		font-size: var(--font-size-base);
-		background: var(--color-brand);
-		color: var(--color-on-brand);
-		border: none;
-		border-radius: 100px;
-		cursor: pointer;
-		font-weight: 500;
-		transition: 0.2s ease-out background-color;
+	/* Theme .pagination: 2.5em squares in a centred row, 15px apart,
+	   gold page links and arrows, teal current page */
+	.pagination {
+		display: flex;
+		justify-content: center;
+		gap: 15px;
+		margin: 2.5em auto 0;
+		padding: 0.25em 1em;
 	}
 
-	.search-button:hover {
-		background: var(--color-brand-hover);
+	.pagination .page-numbers {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 2.5em;
+		width: 2.5em;
+		font-size: 1em;
+		text-align: center;
+		text-decoration: none;
+		color: var(--color-brand);
+		transition: all 0.3s ease-in-out;
 	}
 
-	.search-summary {
-		color: var(--color-muted);
-		margin-bottom: var(--spacing-6);
+	.pagination .page-numbers.current {
+		color: var(--color-teal-solid);
+		cursor: default;
+	}
+
+	.pagination a.page-numbers:hover {
+		color: var(--color-brand-hover);
+	}
+
+	.pagination .page-numbers svg {
+		width: 0.55em;
+		height: 1.1em;
 	}
 
 	.search-hint {
 		color: var(--color-muted);
 	}
 
-	.search-results {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.search-result {
-		padding: var(--spacing-6) 0;
-		border-bottom: 1px solid var(--color-border-subtle);
-	}
-
-	.search-result:first-child {
-		padding-top: 0;
-	}
-
-	.search-result:last-child {
-		border-bottom: none;
-	}
-
-	.result-link {
-		display: block;
-		text-decoration: none;
-		color: inherit;
-	}
-
-	.result-title {
-		font-size: var(--font-size-xl);
-		font-weight: var(--font-weight-heading);
-		line-height: var(--leading-snug);
-		margin-bottom: var(--spacing-2);
-		transition: color var(--transition-fast);
-	}
-
-	.result-link:hover .result-title {
-		color: var(--color-brand);
-	}
-
-	.result-snippet {
-		font-size: var(--font-size-base);
-		line-height: var(--leading-relaxed);
-		color: var(--color-text-secondary);
-	}
-
-	/* FTS returns <mark> wrapping the matched terms */
-	.result-snippet :global(mark) {
-		background: var(--color-brand-ring);
-		color: inherit;
-		padding: 0 0.1em;
-		border-radius: 2px;
-	}
 </style>

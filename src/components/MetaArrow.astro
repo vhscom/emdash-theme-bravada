@@ -1,0 +1,84 @@
+---
+/**
+ * Theme meta-arrow: the thin chevron (iconmeta chevron-thin-down)
+ * drifting down and fading in a 2.2s loop, centred in a 100x65 box
+ * 80px above the hero's bottom edge (50px under 1200px), body-grey so
+ * it never reads fully opaque over the scrim. Clicking scrolls
+ * smoothly to `targetId` — callers render that anchor element right
+ * after their hero with class="after-hero-anchor" so the scroll rests
+ * with the fixed bar's bottom on the hero's last pixel.
+ */
+interface Props {
+	targetId: string;
+}
+
+const { targetId } = Astro.props;
+---
+
+<a href={`#${targetId}`} class="meta-arrow" aria-label="Scroll to content">
+	<svg width="21.5" height="12" viewBox="82 217 860 478" aria-hidden="true"><path fill="currentColor" transform="translate(0,912) scale(1,-1)" d="M891.802 681.351c13.926 13.722 36.301 13.722 50.125 0s13.875-35.891 0-49.613l-404.89-400.896c-13.824-13.722-36.198-13.722-50.125 0l-404.89 400.896c-13.824 13.722-13.824 35.891 0 49.613 13.875 13.722 36.301 13.722 50.125 0l379.853-365.619 379.802 365.619z"></path></svg>
+</a>
+
+<script>
+	// Smooth-scroll to the target; scroll-margin-top on the anchor
+	// (`.after-hero-anchor`, theme.css) supplies the header offset.
+	for (const arrow of document.querySelectorAll<HTMLAnchorElement>(
+		"a.meta-arrow"
+	)) {
+		arrow.addEventListener("click", (e) => {
+			const target = document.getElementById(
+				arrow.getAttribute("href")?.slice(1) ?? ""
+			);
+			if (target) {
+				e.preventDefault();
+				target.scrollIntoView({ behavior: "smooth" });
+			}
+		});
+	}
+</script>
+
+<style>
+	.meta-arrow {
+		position: absolute;
+		z-index: 15;
+		left: 0;
+		right: 0;
+		bottom: 80px;
+		width: 100px;
+		height: 65px;
+		margin: 0 auto;
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		/* Theme seats the glyph's centre 23px into the 65px box —
+		   above centre, well clear of anything at the hero's foot */
+		padding-top: 17px;
+		/* Theme: color inherits the body grey, so the glyph never reads
+		   fully opaque over the dark scrim — hover keeps the color */
+		color: rgb(112 112 112);
+	}
+
+	.meta-arrow svg {
+		animation: meta-arrow 2.2s ease-out infinite;
+	}
+
+	@keyframes meta-arrow {
+		60%,
+		100% {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+	}
+
+	@media (max-width: 1200px) {
+		.meta-arrow {
+			bottom: 50px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.meta-arrow svg {
+			animation: none;
+		}
+	}
+</style>

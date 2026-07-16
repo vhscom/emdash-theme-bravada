@@ -339,7 +339,7 @@ const postHeroDate = heroDate(post.data.publishedAt);
 
 			{
 				commentsEnabled && (
-					<section class="post-comments">
+					<section class="post-comments" id="comments">
 						{postCommentCount > 0 && (
 							<h2 class="section-title comments-count-title">
 								<span>
@@ -921,6 +921,10 @@ const postHeroDate = heroDate(post.data.publishedAt);
 		margin: 0.25em 0 0;
 		font-size: 0.8rem;
 		color: var(--color-text);
+	}
+
+	.post-comments {
+		scroll-margin-top: calc(var(--nav-height) + 1em);
 	}
 
 	/* Comments live inside the white card, below related posts */
