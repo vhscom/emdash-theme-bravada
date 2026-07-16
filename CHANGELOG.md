@@ -25,7 +25,8 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   reads "Search Results for: …", the breadcrumb names the query, the
   form is the theme's white square input with a gold square submit
   button, and results display as the same article cards the blog uses
-  — on phones and desktop. A fruitless search gets the theme's Nothing
+  — on phones and desktop, paginated ten to a page with the theme's
+  numeric page links. A fruitless search gets the theme's Nothing
   Found page: the message, a search form, and fallback columns of
   recent posts, recent comments (a tag cloud when comments are off or
   silent), and categories.

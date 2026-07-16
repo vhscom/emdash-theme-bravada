@@ -18,13 +18,30 @@ import { getReadingTime } from "../utils/reading-time";
 
 const query = Astro.url.searchParams.get("q")?.trim() || "";
 
+// Theme pagination: 10 results per page with numeric page links. The
+// FTS API paginates by forward-only cursor, so fetch one capped batch
+// (200 — beyond any plausible demo corpus) and window it; the total
+// falls out for free.
+const PER_PAGE = 10;
+const MAX_RESULTS = 200;
+
 // Use the FTS-backed search() API instead of loading every post and
 // filtering in JS. FTS scales as the post count grows, returns ranked
 // results, and handles tokenization/stemming. Templates that grep all
 // post bodies in JS quickly become unusable past a few hundred posts.
-const { items: results } = query
-	? await search(query, { collections: ["posts"], limit: 30 })
+const { items: allResults } = query
+	? await search(query, { collections: ["posts"], limit: MAX_RESULTS })
 	: { items: [] };
+
+const totalPages = Math.max(1, Math.ceil(allResults.length / PER_PAGE));
+const page = Math.min(
+	totalPages,
+	Math.max(1, Number.parseInt(Astro.url.searchParams.get("page") ?? "1") || 1),
+);
+const results = allResults.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+const pageUrl = (n: number) =>
+	`/search?q=${encodeURIComponent(query)}${n > 1 ? `&page=${n}` : ""}`;
 
 // The theme renders search hits as the same masonry article cards the
 // blog uses, so hydrate the ranked FTS hits into full entries (image,
@@ -55,7 +72,7 @@ const termsByEntry = await getAllTermsForEntries(
 // columns below the message — Recent Posts / Recent Comments /
 // Categories. When comments are disabled the middle column shows the
 // tag cloud instead.
-const noResults = Boolean(query) && entries.length === 0;
+const noResults = Boolean(query) && allResults.length === 0;
 const [recent, categoryTerms, tagTerms, collectionInfo] = noResults
 	? await Promise.all([
 			getEmDashCollection("posts", {
@@ -126,15 +143,6 @@ const cards = entries.map((post) => ({
 		    font. */}
 		<Fragment slot="meta">
 		<SearchForm value={query} class="searchform-hero" />
-		{/* Result count below the bar (results only; the empty case
-		    renders the theme's Nothing Found block in the content) */}
-		{
-			query && cards.length > 0 && (
-				<p class="search-count">
-					{`${cards.length} result${cards.length === 1 ? "" : "s"} for “${query}”`}
-				</p>
-			)
-		}
 		</Fragment>
 	</PageHeader>
 	<ArchiveLayout>
@@ -225,6 +233,34 @@ const cards = entries.map((post) => ({
 			)
 		}
 
+		{
+			totalPages > 1 && (
+				<nav class="pagination" aria-label="Search results pages">
+					{page > 1 && (
+						<a class="page-numbers prev" href={pageUrl(page - 1)} aria-label="Previous page">
+							<svg viewBox="0 0 400 800" aria-hidden="true"><path fill="currentColor" transform="translate(0,780) scale(1,-1)" d="M359.101 636.078q0-7.182-6.156-12.312l-224.694-225.72 224.694-224.694q6.156-6.156 6.156-13.338t-6.156-13.338l-28.728-28.728q-5.13-5.13-12.312-5.13t-13.338 5.13l-266.761 266.761q-6.156 6.156-6.156 13.338t6.156 13.338l266.761 266.761q5.13 6.156 13.338 6.156t12.312-6.156l28.728-28.728q6.156-5.13 6.156-13.338z"></path></svg>
+						</a>
+					)}
+					{Array.from({ length: totalPages }, (_, i) => i + 1).map((n) =>
+						n === page ? (
+							<span class="page-numbers current" aria-current="page">
+								{n}
+							</span>
+						) : (
+							<a class="page-numbers" href={pageUrl(n)}>
+								{n}
+							</a>
+						),
+					)}
+					{page < totalPages && (
+						<a class="page-numbers next" href={pageUrl(page + 1)} aria-label="Next page">
+							<svg viewBox="0 0 400 800" aria-hidden="true"><path fill="currentColor" transform="translate(0,780) scale(1,-1)" d="M340.633 398.045q0-7.182-6.156-13.338l-266.761-266.761q-5.13-5.13-12.312-5.13t-13.338 5.13l-28.728 28.728q-6.156 6.156-6.156 13.338t6.156 13.338l224.694 224.694-224.694 225.72q-6.156 5.13-6.156 12.312t6.156 13.338l28.728 28.728q5.13 6.156 13.338 6.156t12.312-6.156l266.761-266.761q6.156-5.13 6.156-13.338z"></path></svg>
+						</a>
+					)}
+				</nav>
+			)
+		}
+
 		{!query && <p class="search-hint">Enter a search term to find posts.</p>}
 	</ArchiveLayout>
 </Base>
@@ -251,22 +287,6 @@ const cards = entries.map((post) => ({
 	:global(.searchform-content) {
 		width: 100%;
 		margin: 1.5em 0 0;
-	}
-
-	.search-count {
-		margin: 0.5em auto 0;
-		font-size: 1.1em;
-		font-weight: 300;
-		letter-spacing: 1px;
-		opacity: 0;
-		animation: 0.5s 0.5s search-count-in ease-out forwards;
-	}
-
-
-	@keyframes search-count-in {
-		to {
-			opacity: 1;
-		}
 	}
 
 	/* Theme nothing-found block (header.content-search.no-results):
@@ -382,6 +402,43 @@ const cards = entries.map((post) => ({
 		padding: 0.15em 0.7em;
 		border: 1px solid var(--color-border);
 		font-size: var(--font-size-xs);
+	}
+
+	/* Theme .pagination: 2.5em squares in a centred row, 15px apart,
+	   gold page links and arrows, teal current page */
+	.pagination {
+		display: flex;
+		justify-content: center;
+		gap: 15px;
+		margin: 2.5em auto 0;
+		padding: 0.25em 1em;
+	}
+
+	.pagination .page-numbers {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 2.5em;
+		width: 2.5em;
+		font-size: 1em;
+		text-align: center;
+		text-decoration: none;
+		color: var(--color-brand);
+		transition: all 0.3s ease-in-out;
+	}
+
+	.pagination .page-numbers.current {
+		color: var(--color-teal-solid);
+		cursor: default;
+	}
+
+	.pagination a.page-numbers:hover {
+		color: var(--color-brand-hover);
+	}
+
+	.pagination .page-numbers svg {
+		width: 0.55em;
+		height: 1.1em;
 	}
 
 	.search-hint {
