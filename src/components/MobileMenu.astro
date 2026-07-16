@@ -393,10 +393,12 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	/* Demo submenu reveal: max-height 0.5s ease-in-out + opacity to
 	   0.9 over 0.3s. Keep it display:block always — toggling display
 	   would kill the transition — and gate focus with visibility. */
+	/* The submenu adds NO margins of its own, open or closed — measured
+	   on the demo at 390px, expanding keeps one continuous rhythm: the
+	   li margins alone space every row (top items pitch 39.4, sub items
+	   36.4, boundaries identical). */
 	.mobile-sub-menu {
 		max-height: 0;
-		/* No margins while collapsed — a closed submenu must take no
-		   space at all (the demo hides closed subs entirely) */
 		margin: 0;
 		padding: 0;
 		list-style: none;
@@ -405,22 +407,20 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		visibility: hidden;
 		transition:
 			0.5s max-height ease-in-out,
-			0.3s margin ease-in-out,
 			0.3s opacity ease-in-out,
 			0.3s visibility ease-in-out;
 	}
 
 	.mobile-sub-menu.toggled-on {
 		max-height: 1500px;
-		/* Top margin only: the parent item's own bottom margin already
-		   provides the rhythm below the group — anything more stacks
-		   into a visible hole after the last child */
-		margin: 1em 0 0;
+		/* One li-margin's worth of air above the group (the demo's ul
+		   margin-top); below, the parent li's own margin is the only
+		   spacing — the demo collapses everything else away */
+		margin-top: min(4vw, 1em);
 		opacity: 0.9;
 		visibility: visible;
 		transition:
 			0.5s max-height ease-in-out,
-			0.3s margin ease-in-out,
 			0.3s 0.2s opacity ease-in-out;
 	}
 
