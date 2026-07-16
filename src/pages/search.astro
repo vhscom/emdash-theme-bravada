@@ -454,7 +454,9 @@ const cards = entries.map((post) => ({
 
 	.nf-widget li {
 		padding: 0 0 0.5em;
-		border-bottom: 1px solid var(--color-border-subtle);
+		/* Theme divider: rgba black over the page tint — our
+		   border-subtle token is lighter here and nearly invisible */
+		border-bottom: 1px solid rgb(0 0 0 / 0.05);
 		line-height: 2;
 	}
 
