@@ -230,22 +230,24 @@ const cards = entries.map((post) => ({
 
 <style>
 	/* Layout only — the control itself is the shared SearchForm
-	   component. Hero: the theme's 590px column centred on the
-	   viewport (wider than our caption column on phones), scaling with
-	   the theme's mobile base font. Content: full column width. */
-	.searchform-hero {
+	   component (:global because the passed class lands on the
+	   component's root, outside this page's style scope). Hero: the
+	   theme's 590px column centred on the viewport with the theme's
+	   45px breathing room under the title, scaling with the theme's
+	   mobile base font. Content: full column width. */
+	:global(.searchform-hero) {
 		width: min(590px, calc(100vw - 5em));
-		margin: 1.5em 0 1em 50%;
+		margin: 2.8em 0 1em 50%;
 		transform: translateX(-50%);
 	}
 
 	@media (max-width: 640px) {
-		.searchform-hero {
+		:global(.searchform-hero) {
 			font-size: 0.81rem;
 		}
 	}
 
-	.searchform-content {
+	:global(.searchform-content) {
 		width: 100%;
 		margin: 1.5em 0 0;
 	}
