@@ -18,9 +18,14 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   Display ships regular and bold only (no italics), JetBrains Mono a
   single regular face. Mulish is unchanged — all its weights and
   italics are in use.
+- The burger-menu search is a plain search form again, submitting to
+  the results page — the live-suggestions dropdown didn't suit the
+  fullscreen menu.
 
 ### Fixed
 
+- Text no longer clips in the burger-menu search field while typing (a
+  display bug the original theme also has; not ported).
 - Two section-library entries linked to a demo post that no longer
   exists; they now point at live content, matching the home page.
 

@@ -11,7 +11,6 @@
  * body.burgermenu-active header-state rules live in Base.
  */
 import { getMenu } from "emdash";
-import LiveSearch from "emdash/ui/search";
 import SocialIcon from "./SocialIcon.astro";
 import { createInSection, annotateMenu } from "../utils/nav-section";
 
@@ -29,7 +28,13 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	<ul id="mobile-nav">
 		<li class="mobile-search">
 			<div class="mobile-search-shell">
-				<button type="button" class="mobile-search-submit" aria-label="Search">
+				<form
+					class="mobile-search-form"
+					action="/search"
+					method="get"
+					role="search"
+				>
+				<button type="submit" class="mobile-search-submit" aria-label="Search">
 					<span class="msi msi-a" aria-hidden="true">
 						<svg width="29" height="29" viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
 					</span>
@@ -37,15 +42,14 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 						<svg width="29" height="29" viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
 					</span>
 				</button>
-				<LiveSearch
-					placeholder="Search"
-					class="mobile-live-search"
-					inputClass="mobile-search-input"
-					resultsClass="mobile-search-results"
-					resultClass="site-search-result"
-					collections={["posts", "pages"]}
-					searchPage="/search"
-				/>
+					<input
+						type="search"
+						name="q"
+						class="mobile-search-input"
+						placeholder="Search"
+						aria-label="Search"
+					/>
+				</form>
 			</div>
 		</li>
 		{
@@ -154,7 +158,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	const mobileMenu = document.getElementById("mobile-menu");
 	let isOpen = false;
 
-	// Staggered entrance (demo: transition-delay = 0.03s * index, with
+	// Staggered entrance (theme: transition-delay = 0.03s * index, with
 	// the social icons continuing the sequence as individual entries)
 	mobileMenu
 		?.querySelectorAll<HTMLElement>("#mobile-nav > li, .mobile-socials a")
@@ -170,7 +174,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 			requestAnimationFrame(() =>
 				requestAnimationFrame(() => {
 					document.body.classList.add("burgermenu-active", "noscroll");
-					// Demo: opening moves focus to the search input
+					// Theme: opening moves focus to the search input
 					mobileMenu
 						.querySelector<HTMLInputElement>(".mobile-search-input")
 						?.focus();
@@ -191,7 +195,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	document.addEventListener("keydown", (e) => {
 		if (e.key === "Escape" && isOpen) setOpen(false, true);
 	});
-	// Demo tab loop: the search input is the first tab stop, the
+	// Theme tab loop: the search input is the first tab stop, the
 	// hamburger the last. Shift+Tab from the input wraps to the burger
 	// (via the header); the header dispatches "nav:focus-first" when
 	// Tab wraps forward off the burger.
@@ -208,12 +212,12 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 			document.dispatchEvent(new CustomEvent("nav:focus-last"));
 		}
 	});
-	// Demo behavior on link click: nothing. The overlay stays put and
+	// Theme behavior on link click: nothing. The overlay stays put and
 	// the navigation replaces the page — no exit animation plays. Only
 	// same-page hash links dismiss the menu (there is no page load to
 	// hide it), matching cryoutMobileMenuInit. Placeholder "#" parents
 	// don't navigate — clicking the label toggles its submenu like the
-	// chevron does (our one divergence from the demo's inert parents).
+	// chevron does (our one divergence from the theme's inert parents).
 	mobileMenu?.querySelectorAll("a").forEach((a) => {
 		a.addEventListener("click", (e) => {
 			const href = a.getAttribute("href") ?? "";
@@ -230,20 +234,8 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		});
 	});
 
-	// The magnifier is a real search control like the demo's submit
-	// button: it navigates to the results page with the typed query.
-	mobileMenu
-		?.querySelector<HTMLButtonElement>(".mobile-search-submit")
-		?.addEventListener("click", () => {
-			const input = mobileMenu.querySelector<HTMLInputElement>(
-				".mobile-search-input"
-			);
-			const q = input?.value.trim();
-			location.href = q ? `/search?q=${encodeURIComponent(q)}` : "/search";
-		});
-
 	// Submenu accordions. Closing a parent cascades closed through all
-	// nested levels (demo cryoutInitNav resets toggles, links, and
+	// nested levels (theme cryoutInitNav resets toggles, links, and
 	// sub-lists of every descendant).
 	mobileMenu
 		?.querySelectorAll<HTMLButtonElement>(".dropdown-toggle")
@@ -280,7 +272,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		justify-content: center;
 		overflow-y: auto;
 		overflow-x: hidden;
-		/* Demo customizer sets padding-top 117px so overflowing menus
+		/* Theme customizer sets padding-top 117px so overflowing menus
 		   start below the fixed header (the layer stays centered when
 		   content fits) */
 		padding: 117px 2em 2em;
@@ -300,12 +292,12 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		pointer-events: auto;
 	}
 
-	/* Demo side menu (.side-section/.side-menu): a left-aligned column
+	/* Theme side menu (.side-section/.side-menu): a left-aligned column
 	   centered on the layer — 400px minimum, growing to 35vw on wide
 	   screens. It flexes between the top padding and the bottom-pinned
 	   socials, scrolling internally (hidden scrollbars) when the menu
 	   is taller than the space, so every item stays reachable. The
-	   menu and socials centre together as one group (demo layout);
+	   menu and socials centre together as one group (theme layout);
 	   the socials only sit near the page bottom when a long menu
 	   pushes them there. */
 	#mobile-nav {
@@ -390,11 +382,11 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		border-bottom: 3px solid;
 	}
 
-	/* Demo submenu reveal: max-height 0.5s ease-in-out + opacity to
+	/* Theme submenu reveal: max-height 0.5s ease-in-out + opacity to
 	   0.9 over 0.3s. Keep it display:block always — toggling display
 	   would kill the transition — and gate focus with visibility. */
 	/* The submenu adds NO margins of its own, open or closed — measured
-	   on the demo at 390px, expanding keeps one continuous rhythm: the
+	   on the theme at 390px, expanding keeps one continuous rhythm: the
 	   li margins alone space every row (top items pitch 39.4, sub items
 	   36.4, boundaries identical). */
 	.mobile-sub-menu {
@@ -413,9 +405,9 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 
 	.mobile-sub-menu.toggled-on {
 		max-height: 1500px;
-		/* One li-margin's worth of air above the group (the demo's ul
+		/* One li-margin's worth of air above the group (the theme's ul
 		   margin-top); below, the parent li's own margin is the only
-		   spacing — the demo collapses everything else away */
+		   spacing — the theme collapses everything else away */
 		margin-top: min(4vw, 1em);
 		opacity: 0.9;
 		visibility: visible;
@@ -424,7 +416,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 			0.3s 0.2s opacity ease-in-out;
 	}
 
-	/* Demo nested items: 32px vs the 40px top level, same 28px
+	/* Theme nested items: 32px vs the 40px top level, same 28px
 	   spacing, no indent */
 	.mobile-sub-menu li {
 		margin-bottom: min(4vw, 1.75rem);
@@ -438,7 +430,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		font-size: clamp(1.1rem, 4vw, 2rem);
 	}
 
-	/* Burger-menu search (demo #mobile-nav .searchform): a giant
+	/* Burger-menu search (theme #mobile-nav .searchform): a giant
 	   Playfair input with only a 2px underline, transparent
 	   background, and the search glyph sitting at the left. Powered
 	   by EmDash LiveSearch — suggestions drop in below; Enter with
@@ -448,7 +440,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		z-index: 10;
 		width: 100%;
 		/* The input's intrinsic width must not inflate the menu column
-		   past the demo's 400px (fit-content counts an input's
+		   past the theme's 400px (fit-content counts an input's
 		   character-based size even when width is 100%) */
 		contain: inline-size;
 	}
@@ -459,7 +451,7 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		width: 100%;
 	}
 
-	/* Demo .searchsubmit: a real search button (2em box, 1.4em wide)
+	/* Theme .searchsubmit: a real search button (2em box, 1.4em wide)
 	   anchored at the input's bottom-left; its glyph centres in the box,
 	   floating above the underline and spanning baseline to cap height
 	   of the 2.5em placeholder. Two stacked icons swap on form hover —
@@ -504,28 +496,29 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		transform: translateY(0) scale(1);
 	}
 
-	.mobile-search-shell :global(.mobile-live-search) {
+	.mobile-search-form {
 		display: block;
 		width: 100%;
-		position: relative;
 	}
 
-	:global(.mobile-search-input) {
+	.mobile-search-input {
 		display: block;
 		width: 100% !important;
 		border: 0 !important;
 		border-bottom: 2px solid !important;
 		border-radius: 0 !important;
-		/* Demo input metrics: fixed 2.5em Playfair with 1.2em left
+		/* Theme input metrics: fixed 2.5em Playfair with 1.2em left
 		   padding clearing the 2em magnifier */
 		padding: 0 0 0.4em 1.2em !important;
 		background: transparent !important;
 		font-family: var(--font-heading) !important;
 		font-size: 2.5em !important;
-		/* Demo input box: 1.2em tall — without this the input auto-sizes
-		   taller and the text floats up from the underline */
-		height: 1.2em !important;
-		/* Demo input is Playfair regular — the 400 face is loaded
+		/* Theme metrics are content-box (1.2em text + .4em padding);
+		   with our border-box sizing the height must include the
+		   padding and border, or the glyphs clip once the field is
+		   focused — a display bug the original theme itself has */
+		height: calc(1.6em + 2px) !important;
+		/* Theme input is Playfair regular — the 400 face is loaded
 		   explicitly in astro.config.mjs; without it the browser
 		   substitutes 500 and the placeholder renders fatter */
 		font-weight: 400 !important;
@@ -533,56 +526,21 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		color: inherit !important;
 	}
 
-	:global(.mobile-search-input):focus {
+	.mobile-search-input:focus {
 		outline: none;
 	}
 
-	:global(.mobile-search-input)::placeholder {
+	.mobile-search-input::placeholder {
 		color: inherit;
 		opacity: 1;
 	}
 
-	:global(.mobile-search-input)::-webkit-search-cancel-button {
+	.mobile-search-input::-webkit-search-cancel-button {
 		-webkit-appearance: none;
 		appearance: none;
 	}
 
-	/* Suggestion panel under the underline, light like the demo's
-	   content surfaces so results stay readable on the teal layer */
-	:global(.mobile-search-results) {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		right: 0;
-		margin-top: var(--spacing-2);
-		text-align: left;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-lg);
-		box-shadow: var(--shadow-lg);
-		max-height: min(45vh, 380px);
-		overflow-y: auto;
-		z-index: 1000;
-	}
-
-	:global(.mobile-search-results .emdash-live-search-loading),
-	:global(.mobile-search-results .emdash-live-search-no-results) {
-		padding: var(--spacing-4);
-		text-align: center;
-		color: var(--color-muted);
-		font-size: var(--font-size-sm);
-		font-family: var(--font-body);
-	}
-
-	/* Result rows reuse .site-search-result styles; reset the giant
-	   Playfair inherited from the menu */
-	:global(.mobile-search-results .site-search-result) {
-		font-family: var(--font-body);
-		font-size: var(--font-size-base);
-		font-weight: 400;
-	}
-
-	/* Demo: gold social glyphs in their own block (source .side-socials
+	/* Theme: gold social glyphs in their own block (source .side-socials
 	   sits outside the menu list), directly below the menu — the group
 	   centres together on the layer. The row itself sits still; each
 	   icon slides in from the left with its own stagger slot,
