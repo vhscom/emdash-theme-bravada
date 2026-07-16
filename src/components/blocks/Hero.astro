@@ -116,13 +116,14 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 		text-align: center;
 	}
 
-	/* Fullscreen slider (bravada-fullscreen-headerimage): the image
-	   fills the whole viewport; svh keeps mobile URL bars honest */
+	/* Fullscreen slider (bravada-fullscreen-headerimage): the theme
+	   sizes the image to 100vh, which iOS resolves as the LARGE
+	   viewport — lvh matches that on browsers that shrink vh */
 	.lp-staticslider-image {
 		display: block;
 		width: 100%;
 		height: 100vh;
-		height: 100svh;
+		height: 100lvh;
 		min-height: 480px;
 		object-fit: cover;
 		vertical-align: middle;
@@ -166,7 +167,9 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 		justify-content: center;
 		width: 100%;
 		margin: 0 auto;
-		padding: 85px 2.5em 0;
+		/* Theme .staticslider-caption: centred in the FULL slider box
+		   (padding 0; the fixed header floats over the image) */
+		padding: 0 2.5em;
 		color: #ffffff;
 	}
 

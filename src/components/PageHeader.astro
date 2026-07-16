@@ -187,8 +187,10 @@ const heroWebp = headerImage.startsWith("/images/")
 	.page-hero-image {
 		display: block;
 		width: 100%;
+		/* Theme sizes header images to 100vh — the LARGE viewport on
+		   iOS; lvh matches that on browsers that shrink vh */
 		height: 100vh;
-		height: 100svh;
+		height: 100lvh;
 		min-height: 420px;
 		object-fit: cover;
 	}
@@ -212,7 +214,9 @@ const heroWebp = headerImage.startsWith("/images/")
 		display: flex;
 		flex-flow: column;
 		justify-content: center;
-		padding: 85px 2.5em 0;
+		/* Theme #header-page-title: centred in the full image box with
+		   horizontal padding only (padding: 0 2em) */
+		padding: 0 2.5em;
 		color: #ffffff;
 	}
 

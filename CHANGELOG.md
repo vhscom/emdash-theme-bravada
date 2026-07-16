@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.4.0] - 2026-07-16
 
 ### Changed
 
@@ -44,6 +44,13 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   display bug the original theme also has; not ported).
 - Two section-library entries linked to a demo post that no longer
   exists; they now point at live content, matching the home page.
+- Full-screen heroes now use the large viewport height on phones, so
+  the hero fills the screen edge-to-edge like the theme instead of
+  stopping short at the browser bars.
+- Hero captions are vertically centred in the image again — on small
+  screens the caption group sat low enough for the scroll chevron to
+  overlap the buttons, and the search page's title and search box rode
+  below centre.
 
 ## [0.3.0] - 2026-07-15
 
