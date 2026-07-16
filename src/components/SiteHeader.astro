@@ -146,7 +146,7 @@ const isLoggedIn = !!Astro.locals.user;
 	}
 
 	.site-title {
-		/* Demo #site-title: 1.3em of the 16px root */
+		/* Theme #site-title: 1.3em of the 16px root */
 		font-size: 1.3rem;
 		font-weight: 600;
 		color: var(--color-text);
@@ -172,7 +172,7 @@ const isLoggedIn = !!Astro.locals.user;
 		margin-inline-start: auto;
 	}
 
-	/* Demo #access: no gap between items — each link carries
+	/* Theme #access: no gap between items — each link carries
 	   0 2em padding (1.4em under 1200px), so the hover wash pill
 	   hugs the label like the original */
 	.nav-links {
@@ -187,14 +187,14 @@ const isLoggedIn = !!Astro.locals.user;
 		position: relative;
 	}
 
-	/* Demo top-level hover is the wash pill only — no color change */
+	/* Theme top-level hover is the wash pill only — no color change */
 	.nav-links a {
 		text-decoration: none;
 		color: var(--color-text);
 		transition: color var(--transition-fast);
 	}
 
-	/* Current section: gold like the demo's current-menu-item */
+	/* Current section: gold like the theme's current-menu-item */
 	.nav-links .menu-item.current > a {
 		color: var(--color-gold);
 	}
@@ -212,10 +212,10 @@ const isLoggedIn = !!Astro.locals.user;
 	}
 
 	/* Dropdowns: Bravada's dark teal submenu panel. It slides DOWN
-	   into place from -25px (demo: #access ul ul) with a soft
+	   into place from -25px (theme: #access ul ul) with a soft
 	   drop shadow; item labels get a translucent white wash on
 	   hover (.sub-menu li a:hover span). */
-	/* Demo #access ul ul: transparent panel aligned to the item's
+	/* Theme #access ul ul: transparent panel aligned to the item's
 	   left edge, min-width 125%, sliding down from -25px over
 	   .2s ease-in. Each LINK carries the dark teal background. */
 	.nav-links .sub-menu {
@@ -234,7 +234,7 @@ const isLoggedIn = !!Astro.locals.user;
 		transition: 0.2s all ease-in;
 	}
 
-	/* Caret pointing up at the parent item (demo
+	/* Caret pointing up at the parent item (theme
 	   #access > div > ul > li > ul::before, border-bottom teal) —
 	   first level only; flyouts have no caret */
 	.nav-links > .menu-item > .sub-menu::before {
@@ -246,7 +246,7 @@ const isLoggedIn = !!Astro.locals.user;
 		border-bottom-color: var(--color-submenu-bg);
 	}
 
-	/* Third level flyout (demo #access ul ul ul): opens beside its
+	/* Third level flyout (theme #access ul ul ul): opens beside its
 	   parent row, 10px out, no vertical slide */
 	.nav-links .sub-menu .sub-menu {
 		top: 0;
@@ -264,7 +264,7 @@ const isLoggedIn = !!Astro.locals.user;
 		visibility: visible;
 	}
 
-	/* Flyout-parent arrow (demo: a 6px teal triangle at the row's
+	/* Flyout-parent arrow (theme: a 6px teal triangle at the row's
 	   right edge that nudges outward on hover) */
 	.nav-links .sub-menu li.has-children > a::after {
 		content: "";
@@ -289,7 +289,7 @@ const isLoggedIn = !!Astro.locals.user;
 	}
 
 	/* Right-pointing chevron on flyout parents, anchored to the
-	   row's right edge like the demo (span::after, absolute,
+	   row's right edge like the theme (span::after, absolute,
 	   right .25em); fades out as the arrow nudges on hover. The
 	   label reserves room for it. */
 	.nav-links .sub-menu li.has-children > a > span {
@@ -323,7 +323,7 @@ const isLoggedIn = !!Astro.locals.user;
 		transform: translateY(0);
 	}
 
-	/* Demo #access ul li: items never wrap — panels grow instead */
+	/* Theme #access ul li: items never wrap — panels grow instead */
 	.nav-links .menu-item,
 	.nav-links .sub-menu li {
 		white-space: nowrap;
@@ -333,7 +333,7 @@ const isLoggedIn = !!Astro.locals.user;
 		min-width: 150px;
 	}
 
-	/* Demo: #access ul li a { font-size: 1em } with line-height 3;
+	/* Theme: #access ul li a { font-size: 1em } with line-height 3;
 	   white on #066664, gold on hover */
 	.nav-links .sub-menu a {
 		display: block;
@@ -374,7 +374,7 @@ const isLoggedIn = !!Astro.locals.user;
 
 	/* Hamburger (Bravada .hamburger): three right-aligned bars
 	   (100/75/45%) that fill on hover and morph into an X. Shown at
-	   all widths like the demo — it opens the fullscreen side menu */
+	   all widths like the theme — it opens the fullscreen side menu */
 	.hamburger {
 		display: inline-block;
 		position: relative;
@@ -447,9 +447,11 @@ const isLoggedIn = !!Astro.locals.user;
 	}
 
 	/* While the burger menu is open the header floats above the teal
-	   layer: the menu links slide away (demo .burgermenu-active
+	   layer: the menu links slide away (theme .burgermenu-active
 	   #access) and the hamburger — morphed into an X — stays exactly
-	   where it was clicked, acting as the close button. */
+	   where it was clicked, acting as the close button. (The source's
+	   .is-active .menu-burger centring belongs to the header-top
+	   slide-down state, which this port doesn't have.) */
 	:global(body.burgermenu-active) .site-header,
 	:global(body.burgermenu-active) .site-header.over-hero.header-fixed {
 		z-index: 1001;
@@ -484,6 +486,27 @@ const isLoggedIn = !!Astro.locals.user;
 		.nav-right .nav-links {
 			display: none;
 		}
+
+		/* Theme mobile fixed-menu: scrolling down slides the header out of
+		   view; scrolling up slides it back (body.mobile-hidden /
+		   body.mobile-fixed set by the scroll script below). The header
+		   keeps its slot in the layout — only transform moves, so there
+		   is no reflow jump when the state flips. */
+		.site-header {
+			transition:
+				transform 0.3s ease-out,
+				background 0.3s ease,
+				box-shadow 0.3s ease;
+		}
+
+		:global(body.mobile-hidden) .site-header {
+			transform: translateY(-100%);
+		}
+
+		:global(body.mobile-fixed) .site-header,
+		:global(body.burgermenu-active) .site-header {
+			transform: translateY(0);
+		}
 	}
 
 	@media (max-width: 640px) {
@@ -512,12 +535,56 @@ const isLoggedIn = !!Astro.locals.user;
 		burger?.setAttribute("aria-expanded", String(open));
 		if (!open && restoreFocus) burger?.focus();
 	});
+	// Theme tab loop: while the menu is open the burger is the last tab
+	// stop — Tab wraps forward to the menu's search input, and the menu
+	// asks for the burger back on Shift+Tab ("nav:focus-last").
+	burger?.addEventListener("keydown", (e) => {
+		if (
+			e.key === "Tab" &&
+			!e.shiftKey &&
+			document.body.classList.contains("burgermenu-active")
+		) {
+			e.preventDefault();
+			document.dispatchEvent(new CustomEvent("nav:focus-first"));
+		}
+	});
+	document.addEventListener("nav:focus-last", () => burger?.focus());
 
 	// Over-hero header turns solid once the page scrolls past the top.
 	// The header owns its own scroll state (the back-to-top button owns
-	// its own listener in Base).
-	const header = document.querySelector(".site-header");
-	const onScroll = () => header?.classList.toggle("header-fixed", window.scrollY > 30);
+	// its own listener in Base). On small screens the header also
+	// follows the theme's cryoutFixedMobileMenu pattern: it scrolls away
+	// going down and slides back (body.mobile-fixed) going up; the CSS
+	// only reacts to the class below 800px.
+	const header = document.querySelector<HTMLElement>(".site-header");
+	let lastScrollTop = 0;
+	const onScroll = () => {
+		const y = window.scrollY;
+		header?.classList.toggle("header-fixed", y > 30);
+		const navbarHeight = header?.offsetHeight ?? 75;
+		const docHeight = document.documentElement.scrollHeight;
+		const viewport = window.innerHeight;
+		const body = document.body;
+		// Same thresholds as the source: hide only after two header
+		// heights of downward scroll; reveal on upward scroll mid-page;
+		// reset near the top so the header is always in place there.
+		if (lastScrollTop < y && y > navbarHeight * 2) {
+			body.classList.add("mobile-hidden");
+			body.classList.remove("mobile-fixed");
+		} else if (
+			y > viewport &&
+			y < docHeight - viewport * 2 &&
+			lastScrollTop > y &&
+			y > navbarHeight
+		) {
+			body.classList.add("mobile-fixed");
+			body.classList.remove("mobile-hidden");
+		}
+		lastScrollTop = y;
+		if (y <= navbarHeight) {
+			body.classList.remove("mobile-fixed", "mobile-hidden");
+		}
+	};
 	onScroll();
 	window.addEventListener("scroll", onScroll, { passive: true });
 </script>
