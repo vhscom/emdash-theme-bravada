@@ -29,6 +29,10 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - Every inner-page header gains the theme's bouncing chevron that
   scrolls readers down to the content (previously only the homepage
   hero had it).
+- The no-results page offers recent comments in its middle column like
+  the theme when comments are on (the tag cloud stands in otherwise),
+  and archive pages now share the same sidebar as single posts instead
+  of carrying their own variant.
 
 ### Fixed
 

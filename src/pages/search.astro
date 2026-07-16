@@ -7,6 +7,8 @@ import {
 	getEmDashCollection,
 	getTermsForEntries,
 	getTaxonomyTerms,
+	getCollectionInfo,
+	getComments,
 } from "emdash";
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
@@ -40,11 +42,11 @@ const [categoriesByEntry, tagsByEntry] = await Promise.all([
 ]);
 
 // Theme nothing-found fallback (content-empty-page): three widget
-// columns below the message. The theme shows Recent Posts / Recent
-// Comments / Categories; with no comments system we show Recent Posts /
-// Categories / Tags.
+// columns below the message — Recent Posts / Recent Comments /
+// Categories. When comments are disabled the middle column shows the
+// tag cloud instead.
 const noResults = Boolean(query) && entries.length === 0;
-const [recent, categoryTerms, tagTerms] = noResults
+const [recent, categoryTerms, tagTerms, collectionInfo] = noResults
 	? await Promise.all([
 			getEmDashCollection("posts", {
 				orderBy: { published_at: "desc" },
@@ -52,8 +54,41 @@ const [recent, categoryTerms, tagTerms] = noResults
 			}),
 			getTaxonomyTerms("category"),
 			getTaxonomyTerms("tag"),
+			getCollectionInfo("posts"),
 		])
-	: [null, [], []];
+	: [null, [], [], null];
+const commentsEnabled = noResults
+	? (collectionInfo?.commentsEnabled ?? false)
+	: false;
+
+// There is no site-wide recent-comments query, so gather the latest
+// approved comments across the recent posts (plenty for a fallback
+// column on a demo-scale site).
+const recentComments = commentsEnabled
+	? (
+			await Promise.all(
+				(recent?.entries ?? []).map(async (p) => {
+					const { items } = await getComments({
+						collection: "posts",
+						contentId: p.data.id,
+					});
+					return items.map((c) => ({
+						author: c.authorName,
+						postTitle: p.data.title ?? "Untitled",
+						href: `/posts/${p.id}#comments`,
+						createdAt: c.createdAt,
+					}));
+				}),
+			)
+		)
+			.flat()
+			.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+			.slice(0, 5)
+	: [];
+
+// An enabled-but-silent comments section would render an empty column —
+// fall back to the tag cloud until there is something to show.
+const showComments = commentsEnabled && recentComments.length > 0;
 
 const cards = entries.map((post) => ({
 	post,
@@ -171,24 +206,38 @@ const cards = entries.map((post) => ({
 							))}
 						</ul>
 					</section>
+					{showComments ? (
+						<section class="nf-widget">
+							<h3 class="widget-title">Recent Comments</h3>
+							<ul>
+								{recentComments.map((c) => (
+									<li>
+										<span class="nf-comment-author">{c.author}</span> on{" "}
+										<a href={c.href}>{c.postTitle}</a>
+									</li>
+								))}
+							</ul>
+						</section>
+					) : (
+						<section class="nf-widget">
+							<h3 class="widget-title">Tags</h3>
+							<ul class="nf-tag-cloud">
+								{tagTerms.map((t) => (
+									<li>
+										<a class="nf-tag" href={`/tag/${t.slug}`}>
+											{t.label}
+										</a>
+									</li>
+								))}
+							</ul>
+						</section>
+					)}
 					<section class="nf-widget">
 						<h3 class="widget-title">Categories</h3>
 						<ul>
 							{categoryTerms.map((t) => (
 								<li>
 									<a href={`/category/${t.slug}`}>{t.label}</a>
-								</li>
-							))}
-						</ul>
-					</section>
-					<section class="nf-widget">
-						<h3 class="widget-title">Tags</h3>
-						<ul class="nf-tag-cloud">
-							{tagTerms.map((t) => (
-								<li>
-									<a class="nf-tag" href={`/tag/${t.slug}`}>
-										{t.label}
-									</a>
 								</li>
 							))}
 						</ul>
@@ -426,6 +475,12 @@ const cards = entries.map((post) => ({
 
 	.nf-widget a:hover {
 		color: var(--color-brand-hover);
+	}
+
+	/* Comment rows: dark author name, gold post link (theme
+	   widget_recent_comments) */
+	.nf-comment-author {
+		color: var(--color-text-secondary);
 	}
 
 	/* Tags render as the theme's tag-cloud pills */
