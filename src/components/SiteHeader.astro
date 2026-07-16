@@ -449,7 +449,9 @@ const isLoggedIn = !!Astro.locals.user;
 	/* While the burger menu is open the header floats above the teal
 	   layer: the menu links slide away (demo .burgermenu-active
 	   #access) and the hamburger — morphed into an X — stays exactly
-	   where it was clicked, acting as the close button. */
+	   where it was clicked, acting as the close button. (The source's
+	   .is-active .menu-burger centring belongs to the header-top
+	   slide-down state, which this port doesn't have.) */
 	:global(body.burgermenu-active) .site-header,
 	:global(body.burgermenu-active) .site-header.over-hero.header-fixed {
 		z-index: 1001;
@@ -484,6 +486,27 @@ const isLoggedIn = !!Astro.locals.user;
 		.nav-right .nav-links {
 			display: none;
 		}
+
+		/* Demo mobile fixed-menu: scrolling down slides the header out of
+		   view; scrolling up slides it back (body.mobile-hidden /
+		   body.mobile-fixed set by the scroll script below). The header
+		   keeps its slot in the layout — only transform moves, so there
+		   is no reflow jump when the state flips. */
+		.site-header {
+			transition:
+				transform 0.3s ease-out,
+				background 0.3s ease,
+				box-shadow 0.3s ease;
+		}
+
+		:global(body.mobile-hidden) .site-header {
+			transform: translateY(-100%);
+		}
+
+		:global(body.mobile-fixed) .site-header,
+		:global(body.burgermenu-active) .site-header {
+			transform: translateY(0);
+		}
 	}
 
 	@media (max-width: 640px) {
@@ -512,12 +535,56 @@ const isLoggedIn = !!Astro.locals.user;
 		burger?.setAttribute("aria-expanded", String(open));
 		if (!open && restoreFocus) burger?.focus();
 	});
+	// Demo tab loop: while the menu is open the burger is the last tab
+	// stop — Tab wraps forward to the menu's search input, and the menu
+	// asks for the burger back on Shift+Tab ("nav:focus-last").
+	burger?.addEventListener("keydown", (e) => {
+		if (
+			e.key === "Tab" &&
+			!e.shiftKey &&
+			document.body.classList.contains("burgermenu-active")
+		) {
+			e.preventDefault();
+			document.dispatchEvent(new CustomEvent("nav:focus-first"));
+		}
+	});
+	document.addEventListener("nav:focus-last", () => burger?.focus());
 
 	// Over-hero header turns solid once the page scrolls past the top.
 	// The header owns its own scroll state (the back-to-top button owns
-	// its own listener in Base).
-	const header = document.querySelector(".site-header");
-	const onScroll = () => header?.classList.toggle("header-fixed", window.scrollY > 30);
+	// its own listener in Base). On small screens the header also
+	// follows the demo's cryoutFixedMobileMenu pattern: it scrolls away
+	// going down and slides back (body.mobile-fixed) going up; the CSS
+	// only reacts to the class below 800px.
+	const header = document.querySelector<HTMLElement>(".site-header");
+	let lastScrollTop = 0;
+	const onScroll = () => {
+		const y = window.scrollY;
+		header?.classList.toggle("header-fixed", y > 30);
+		const navbarHeight = header?.offsetHeight ?? 75;
+		const docHeight = document.documentElement.scrollHeight;
+		const viewport = window.innerHeight;
+		const body = document.body;
+		// Same thresholds as the source: hide only after two header
+		// heights of downward scroll; reveal on upward scroll mid-page;
+		// reset near the top so the header is always in place there.
+		if (lastScrollTop < y && y > navbarHeight * 2) {
+			body.classList.add("mobile-hidden");
+			body.classList.remove("mobile-fixed");
+		} else if (
+			y > viewport &&
+			y < docHeight - viewport * 2 &&
+			lastScrollTop > y &&
+			y > navbarHeight
+		) {
+			body.classList.add("mobile-fixed");
+			body.classList.remove("mobile-hidden");
+		}
+		lastScrollTop = y;
+		if (y <= navbarHeight) {
+			body.classList.remove("mobile-fixed", "mobile-hidden");
+		}
+	};
 	onScroll();
 	window.addEventListener("scroll", onScroll, { passive: true });
 </script>

@@ -29,9 +29,14 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	<ul id="mobile-nav">
 		<li class="mobile-search">
 			<div class="mobile-search-shell">
-				<span class="mobile-search-glyph" aria-hidden="true">
-					<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-				</span>
+				<button type="button" class="mobile-search-submit" aria-label="Search">
+					<span class="msi msi-a" aria-hidden="true">
+						<svg width="29" height="29" viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
+					</span>
+					<span class="msi msi-b" aria-hidden="true">
+						<svg width="29" height="29" viewBox="0 0 1024 1024" aria-hidden="true"><path fill="currentColor" transform="translate(0,960) scale(1,-1)" d="M426.667 917.332q78 0 149.167-30.5t122.5-81.833 81.833-122.5 30.5-149.167q0-67-21.833-128.333t-62.167-111.333l242.333-242q12.333-12.333 12.333-30.333 0-18.333-12.167-30.5t-30.5-12.167q-18 0-30.333 12.333l-242 242.333q-50-40.333-111.333-62.167t-128.333-21.833q-78 0-149.167 30.5t-122.5 81.833-81.833 122.5-30.5 149.167 30.5 149.167 81.833 122.5 122.5 81.833 149.167 30.5zM426.667 831.999q-60.667 0-116-23.667t-95.333-63.667-63.667-95.333-23.667-116 23.667-116 63.667-95.333 95.333-63.667 116-23.667 116 23.667 95.333 63.667 63.667 95.333 23.667 116-23.667 116-63.667 95.333-95.333 63.667-116 23.667z"></path></svg>
+					</span>
+				</button>
 				<LiveSearch
 					placeholder="Search"
 					class="mobile-live-search"
@@ -110,31 +115,31 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 				</li>
 			))
 		}
-		{
-			socialMenu && socialMenu.items.length > 0 && (
-				<li class="mobile-socials">
-					{socialMenu.items.map((item) => (
-						<a
-							href={item.url}
-							target={item.target}
-							title={item.label}
-							rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-						>
-							<span class="social-swap">
-								<span class="icon-a">
-									<SocialIcon label={item.label} size={20} />
-								</span>
-								<span class="icon-b" aria-hidden="true">
-									<SocialIcon label={item.label} size={20} />
-								</span>
-							</span>
-							<span class="sr-only">{item.label}</span>
-						</a>
-					))}
-				</li>
-			)
-		}
 	</ul>
+	{
+		socialMenu && socialMenu.items.length > 0 && (
+			<div class="mobile-socials">
+				{socialMenu.items.map((item) => (
+					<a
+						href={item.url}
+						target={item.target}
+						title={item.label}
+						rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+					>
+						<span class="social-swap">
+							<span class="icon-a">
+								<SocialIcon label={item.label} size={20} />
+							</span>
+							<span class="icon-b" aria-hidden="true">
+								<SocialIcon label={item.label} size={20} />
+							</span>
+						</span>
+						<span class="sr-only">{item.label}</span>
+					</a>
+				))}
+			</div>
+		)
+	}
 </nav>
 
 <script>
@@ -149,11 +154,12 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	const mobileMenu = document.getElementById("mobile-menu");
 	let isOpen = false;
 
-	// Staggered entrance (demo: transition-delay = 0.03s * index)
+	// Staggered entrance (demo: transition-delay = 0.03s * index, with
+	// the social icons continuing the sequence as individual entries)
 	mobileMenu
-		?.querySelectorAll<HTMLElement>("#mobile-nav > li")
-		.forEach((li, i) => {
-			li.style.transitionDelay = `${0.03 * i}s`;
+		?.querySelectorAll<HTMLElement>("#mobile-nav > li, .mobile-socials a")
+		.forEach((el, i) => {
+			el.style.transitionDelay = `${0.03 * i}s`;
 		});
 
 	function setOpen(open: boolean, restoreFocus = false) {
@@ -164,6 +170,10 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 			requestAnimationFrame(() =>
 				requestAnimationFrame(() => {
 					document.body.classList.add("burgermenu-active", "noscroll");
+					// Demo: opening moves focus to the search input
+					mobileMenu
+						.querySelector<HTMLInputElement>(".mobile-search-input")
+						?.focus();
 				})
 			);
 		} else {
@@ -177,27 +187,64 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		);
 	}
 
-	document.addEventListener("nav:toggle", () => setOpen(!isOpen));
+	document.addEventListener("nav:toggle", () => setOpen(!isOpen, true));
 	document.addEventListener("keydown", (e) => {
 		if (e.key === "Escape" && isOpen) setOpen(false, true);
 	});
-	// Close when a real link is followed. Placeholder "#" parents
-	// (the demo's inert dropdown parents) don't navigate or close —
-	// clicking the label toggles its submenu like the chevron does.
+	// Demo tab loop: the search input is the first tab stop, the
+	// hamburger the last. Shift+Tab from the input wraps to the burger
+	// (via the header); the header dispatches "nav:focus-first" when
+	// Tab wraps forward off the burger.
+	document.addEventListener("nav:focus-first", () => {
+		mobileMenu
+			?.querySelector<HTMLInputElement>(".mobile-search-input")
+			?.focus();
+	});
+	mobileMenu?.addEventListener("keydown", (e) => {
+		if (!isOpen || e.key !== "Tab" || !e.shiftKey) return;
+		const input = mobileMenu.querySelector(".mobile-search-input");
+		if (document.activeElement === input) {
+			e.preventDefault();
+			document.dispatchEvent(new CustomEvent("nav:focus-last"));
+		}
+	});
+	// Demo behavior on link click: nothing. The overlay stays put and
+	// the navigation replaces the page — no exit animation plays. Only
+	// same-page hash links dismiss the menu (there is no page load to
+	// hide it), matching cryoutMobileMenuInit. Placeholder "#" parents
+	// don't navigate — clicking the label toggles its submenu like the
+	// chevron does (our one divergence from the demo's inert parents).
 	mobileMenu?.querySelectorAll("a").forEach((a) => {
 		a.addEventListener("click", (e) => {
-			if (a.getAttribute("href") === "#") {
+			const href = a.getAttribute("href") ?? "";
+			if (href === "#") {
 				e.preventDefault();
 				a.closest("li")
 					?.querySelector<HTMLButtonElement>(".dropdown-toggle")
 					?.click();
 				return;
 			}
-			setOpen(false);
+			if (href.startsWith("#") || (a.hash && a.pathname === location.pathname)) {
+				setOpen(false);
+			}
 		});
 	});
 
-	// Submenu accordions
+	// The magnifier is a real search control like the demo's submit
+	// button: it navigates to the results page with the typed query.
+	mobileMenu
+		?.querySelector<HTMLButtonElement>(".mobile-search-submit")
+		?.addEventListener("click", () => {
+			const input = mobileMenu.querySelector<HTMLInputElement>(
+				".mobile-search-input"
+			);
+			const q = input?.value.trim();
+			location.href = q ? `/search?q=${encodeURIComponent(q)}` : "/search";
+		});
+
+	// Submenu accordions. Closing a parent cascades closed through all
+	// nested levels (demo cryoutInitNav resets toggles, links, and
+	// sub-lists of every descendant).
 	mobileMenu
 		?.querySelectorAll<HTMLButtonElement>(".dropdown-toggle")
 		.forEach((btn) => {
@@ -209,6 +256,13 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 				sub?.classList.toggle("toggled-on", open);
 				link?.classList.toggle("toggled-on", open);
 				btn.setAttribute("aria-expanded", String(open));
+				if (!open && sub) {
+					sub.querySelectorAll(".toggled-on, .toggle-on").forEach((el) => {
+						el.classList.remove("toggled-on", "toggle-on");
+						if (el.matches(".dropdown-toggle"))
+							el.setAttribute("aria-expanded", "false");
+					});
+				}
 			});
 		});
 </script>
@@ -226,7 +280,10 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		justify-content: center;
 		overflow-y: auto;
 		overflow-x: hidden;
-		padding: 2em;
+		/* Demo customizer sets padding-top 117px so overflowing menus
+		   start below the fixed header (the layer stays centered when
+		   content fits) */
+		padding: 117px 2em 2em;
 		background: var(--color-submenu-bg);
 		color: #ffffff;
 		opacity: 0;
@@ -243,14 +300,39 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		pointer-events: auto;
 	}
 
-	/* Demo side menu: a 400px LEFT-aligned column centered on the
-	   layer; toggles all align at the column's right edge */
+	/* Demo side menu (.side-section/.side-menu): a left-aligned column
+	   centered on the layer — 400px minimum, growing to 35vw on wide
+	   screens. It flexes between the top padding and the bottom-pinned
+	   socials, scrolling internally (hidden scrollbars) when the menu
+	   is taller than the space, so every item stays reachable. The
+	   menu and socials centre together as one group (demo layout);
+	   the socials only sit near the page bottom when a long menu
+	   pushes them there. */
 	#mobile-nav {
-		width: min(400px, 86vw);
+		min-width: 400px;
+		max-width: 35vw;
+		flex: 0 1 auto;
+		min-height: 0;
+		overflow-y: auto;
+		overflow-x: hidden;
+		scrollbar-width: none;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 		text-align: left;
+	}
+
+	#mobile-nav::-webkit-scrollbar {
+		width: 0;
+		background: transparent;
+	}
+
+	@media (max-width: 480px) {
+		#mobile-nav {
+			min-width: 0;
+			max-width: 400px;
+			width: 100%;
+		}
 	}
 
 	#mobile-nav > li {
@@ -289,10 +371,10 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 
 	#mobile-nav .dropdown-toggle {
 		position: absolute;
-		top: 0.45em;
+		top: 0;
 		right: 2px;
 		border: 0;
-		padding: 0.25em;
+		padding: 0.5em 1em;
 		background: transparent;
 		color: #ffffff;
 		cursor: pointer;
@@ -313,7 +395,9 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	   would kill the transition — and gate focus with visibility. */
 	.mobile-sub-menu {
 		max-height: 0;
-		margin: 1em 0 0.5em;
+		/* No margins while collapsed — a closed submenu must take no
+		   space at all (the demo hides closed subs entirely) */
+		margin: 0;
 		padding: 0;
 		list-style: none;
 		overflow: hidden;
@@ -321,16 +405,22 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		visibility: hidden;
 		transition:
 			0.5s max-height ease-in-out,
+			0.3s margin ease-in-out,
 			0.3s opacity ease-in-out,
 			0.3s visibility ease-in-out;
 	}
 
 	.mobile-sub-menu.toggled-on {
 		max-height: 1500px;
+		/* Top margin only: the parent item's own bottom margin already
+		   provides the rhythm below the group — anything more stacks
+		   into a visible hole after the last child */
+		margin: 1em 0 0;
 		opacity: 0.9;
 		visibility: visible;
 		transition:
 			0.5s max-height ease-in-out,
+			0.3s margin ease-in-out,
 			0.3s 0.2s opacity ease-in-out;
 	}
 
@@ -340,8 +430,12 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		margin-bottom: min(4vw, 1.75rem);
 	}
 
+	.mobile-sub-menu li:last-child {
+		margin-bottom: 0;
+	}
+
 	#mobile-nav .mobile-item .mobile-sub-menu a {
-		font-size: clamp(1.15rem, 4vw, 2rem);
+		font-size: clamp(1.1rem, 4vw, 2rem);
 	}
 
 	/* Burger-menu search (demo #mobile-nav .searchform): a giant
@@ -353,6 +447,10 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		position: relative;
 		z-index: 10;
 		width: 100%;
+		/* The input's intrinsic width must not inflate the menu column
+		   past the demo's 400px (fit-content counts an input's
+		   character-based size even when width is 100%) */
+		contain: inline-size;
 	}
 
 	.mobile-search-shell {
@@ -361,13 +459,49 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		width: 100%;
 	}
 
-	.mobile-search-glyph {
+	/* Demo .searchsubmit: a real search button (2em box, 1.4em wide)
+	   anchored at the input's bottom-left; its glyph centres in the box,
+	   floating above the underline and spanning baseline to cap height
+	   of the 2.5em placeholder. Two stacked icons swap on form hover —
+	   the visible one drops away, the double scales in (.4s). */
+	.mobile-search-submit {
 		position: absolute;
 		left: 0;
-		bottom: 0.55em;
+		bottom: 0;
 		z-index: 9;
+		height: 64px;
+		width: 45px;
+		border: 0;
+		padding: 0;
+		background: transparent;
 		color: inherit;
-		pointer-events: none;
+		cursor: pointer;
+	}
+
+	.msi {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 18px;
+		display: flex;
+		justify-content: center;
+		transition: 0.4s all;
+	}
+
+	.msi-b {
+		z-index: 1;
+		opacity: 0;
+		transform: translateY(-20px) scale(0.25);
+	}
+
+	.mobile-search-shell:hover .msi-a {
+		opacity: 0;
+		transform: translateY(20px) scale(0.25);
+	}
+
+	.mobile-search-shell:hover .msi-b {
+		opacity: 1;
+		transform: translateY(0) scale(1);
 	}
 
 	.mobile-search-shell :global(.mobile-live-search) {
@@ -382,12 +516,19 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		border: 0 !important;
 		border-bottom: 2px solid !important;
 		border-radius: 0 !important;
-		/* Clear the 26px glyph even when clamp() shrinks the font,
-		   so the placeholder never crowds the magnifier */
-		padding: 0 0 0.2em calc(26px + 0.55em) !important;
+		/* Demo input metrics: fixed 2.5em Playfair with 1.2em left
+		   padding clearing the 2em magnifier */
+		padding: 0 0 0.4em 1.2em !important;
 		background: transparent !important;
 		font-family: var(--font-heading) !important;
-		font-size: clamp(1.3rem, 5vw, 2.5em) !important;
+		font-size: 2.5em !important;
+		/* Demo input box: 1.2em tall — without this the input auto-sizes
+		   taller and the text floats up from the underline */
+		height: 1.2em !important;
+		/* Demo input is Playfair regular — the 400 face is loaded
+		   explicitly in astro.config.mjs; without it the browser
+		   substitutes 500 and the placeholder renders fatter */
+		font-weight: 400 !important;
 		line-height: 1.2;
 		color: inherit !important;
 	}
@@ -441,22 +582,33 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		font-weight: 400;
 	}
 
-	/* Demo: gold social glyphs centered at the foot of the menu
-	   (driven by the admin-editable "social" menu) */
+	/* Demo: gold social glyphs in their own block (source .side-socials
+	   sits outside the menu list), directly below the menu — the group
+	   centres together on the layer. The row itself sits still; each
+	   icon slides in from the left with its own stagger slot,
+	   continuing the menu items' sequence. */
 	.mobile-socials {
+		flex-shrink: 0;
 		display: flex;
 		justify-content: center;
 		gap: 2.2em;
-		margin-top: 2.5em;
+		margin-top: 1em;
 	}
 
-	#mobile-nav .mobile-socials a {
+	.mobile-socials a {
 		display: inline-flex;
 		color: var(--color-gold);
-		transition: 0.2s ease-out color;
+		opacity: 0;
+		transform: translateX(-30px);
+		transition: 0.2s ease-out all;
 	}
 
-	#mobile-nav .mobile-socials a:hover {
+	.mobile-socials a:hover {
 		color: #ffffff;
+	}
+
+	:global(body.burgermenu-active) .mobile-socials a {
+		opacity: 1;
+		transform: translateX(0);
 	}
 </style>

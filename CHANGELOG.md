@@ -6,14 +6,19 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Burger menu fidelity pass against the original Bravada theme:
+  layout, spacing, and animations now match the source, the search bar
+  uses the original's own magnifier icon and type metrics, and the
+  header hides on scroll and slides back on mobile like the original.
+  One deliberate improvement: parent menu items without a link toggle
+  their submenu instead of doing nothing.
+
 ### Fixed
 
-- Section library: the `icon-blocks` and `portfolio-grid` seed sections
-  linked to `/posts/coffee-at-the-office`, a demo post renamed before
-  0.1.0 (the home page's inline copies were fixed at the time; the
-  library rows were missed). Icon block now links to
-  `/posts/printing-your-dreams`, the portfolio card to
-  `/portfolio/flyer-presentation`, matching the home page.
+- Two section-library entries linked to a demo post that no longer
+  exists; they now point at live content, matching the home page.
 
 ## [0.3.0] - 2026-07-15
 
