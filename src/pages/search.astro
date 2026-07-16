@@ -3,9 +3,8 @@ export const prerender = false;
 
 import {
 	search,
-	getEmDashEntry,
 	getEmDashCollection,
-	getTermsForEntries,
+	getAllTermsForEntries,
 	getTaxonomyTerms,
 	getCollectionInfo,
 	getComments,
@@ -29,18 +28,28 @@ const { items: results } = query
 
 // The theme renders search hits as the same masonry article cards the
 // blog uses, so hydrate the ranked FTS hits into full entries (image,
-// excerpt, bylines) and fetch their category/tag strips in two bulk
-// queries, like the archives do.
-const entries = (
-	await Promise.all(
-		results.map((r) => getEmDashEntry("posts", r.slug ?? r.id)),
-	)
-).flatMap((r) => (r.entry ? [r.entry] : []));
+// excerpt, bylines) with one bulk query — a slug[] where-filter ORs the
+// column — then restore the FTS ranking, and fetch every taxonomy's
+// terms for the whole set in one more query.
+const slugs = results.map((r) => r.slug ?? r.id);
+const { entries: hydrated, cacheHint } = slugs.length
+	? await getEmDashCollection("posts", {
+			where: { slug: slugs },
+			limit: slugs.length,
+		})
+	: { entries: [], cacheHint: undefined };
+if (cacheHint && Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
-const [categoriesByEntry, tagsByEntry] = await Promise.all([
-	getTermsForEntries("posts", entries.map((p) => p.data.id), "category"),
-	getTermsForEntries("posts", entries.map((p) => p.data.id), "tag"),
-]);
+const bySlug = new Map(hydrated.map((e) => [e.id, e]));
+const entries = slugs.flatMap((slug) => {
+	const e = bySlug.get(slug);
+	return e ? [e] : [];
+});
+
+const termsByEntry = await getAllTermsForEntries(
+	"posts",
+	entries.map((p) => p.data.id),
+);
 
 // Theme nothing-found fallback (content-empty-page): three widget
 // columns below the message — Recent Posts / Recent Comments /
@@ -58,9 +67,7 @@ const [recent, categoryTerms, tagTerms, collectionInfo] = noResults
 			getCollectionInfo("posts"),
 		])
 	: [null, [], [], null];
-const commentsEnabled = noResults
-	? (collectionInfo?.commentsEnabled ?? false)
-	: false;
+const commentsEnabled = collectionInfo?.commentsEnabled ?? false;
 
 // There is no site-wide recent-comments query, so gather the latest
 // approved comments across the recent posts (plenty for a fallback
@@ -93,14 +100,8 @@ const showComments = commentsEnabled && recentComments.length > 0;
 
 const cards = entries.map((post) => ({
 	post,
-	categories: (categoriesByEntry.get(post.data.id) ?? []).map((t) => ({
-		slug: t.slug,
-		label: t.label,
-	})),
-	tags: (tagsByEntry.get(post.data.id) ?? []).map((t) => ({
-		slug: t.slug,
-		label: t.label,
-	})),
+	categories: termsByEntry.get(post.data.id)?.category ?? [],
+	tags: termsByEntry.get(post.data.id)?.tag ?? [],
 	bylines: post.data.bylines ?? [],
 }));
 ---
@@ -261,9 +262,6 @@ const cards = entries.map((post) => ({
 		animation: 0.5s 0.5s search-count-in ease-out forwards;
 	}
 
-	.search-count em {
-		font-style: italic;
-	}
 
 	@keyframes search-count-in {
 		to {
@@ -297,11 +295,6 @@ const cards = entries.map((post) => ({
 		font-style: italic;
 	}
 
-	.searchform-content {
-		width: 100%;
-		margin: 1.5em 0 0;
-		transform: none;
-	}
 
 	/* Theme content-empty-page: widget columns under the message,
 	   titled with the sidebar's gold-highlight motif */
@@ -395,17 +388,4 @@ const cards = entries.map((post) => ({
 		color: var(--color-muted);
 	}
 
-	/* Same two-up card grid as the term archives */
-	.archive-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 2em;
-		align-items: start;
-	}
-
-	@media (max-width: 640px) {
-		.archive-grid {
-			grid-template-columns: 1fr;
-		}
-	}
 </style>

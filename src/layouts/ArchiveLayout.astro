@@ -31,6 +31,21 @@ import SidebarWidgets from "../components/SidebarWidgets.astro";
 		min-width: 0;
 	}
 
+	/* The two-up card grid every archive consumer renders in the main
+	   slot (blog index, term archives, search results) */
+	.archive-main :global(.archive-grid) {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2em;
+		align-items: start;
+	}
+
+	@media (max-width: 640px) {
+		.archive-main :global(.archive-grid) {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	@media (max-width: 960px) {
 		.archive-shell {
 			grid-template-columns: 1fr;

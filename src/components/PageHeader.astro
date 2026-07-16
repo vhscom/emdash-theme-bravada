@@ -1,5 +1,6 @@
 ---
 import { getSiteSettings } from "emdash";
+import MetaArrow from "./MetaArrow.astro";
 /**
  * Bravada inner-page header (#header-image-main, fullscreen): every
  * non-landing page opens on a full-viewport image under the demo's
@@ -96,11 +97,8 @@ const heroWebp = headerImage.startsWith("/images/")
 		</div>
 	</div>
 	{/* Theme meta-arrow: the bouncing chevron on every header-image
-	    page (a.meta-arrow > i.icon-arrow, href #main) that scrolls the
-	    reader down to the content */}
-	<a href="#after-page-hero" class="meta-arrow" aria-label="Scroll to content">
-		<svg width="21.5" height="12" viewBox="82 217 860 478" aria-hidden="true"><path fill="currentColor" transform="translate(0,912) scale(1,-1)" d="M891.802 681.351c13.926 13.722 36.301 13.722 50.125 0s13.875-35.891 0-49.613l-404.89-400.896c-13.824-13.722-36.198-13.722-50.125 0l-404.89 400.896c-13.824 13.722-13.824 35.891 0 49.613 13.875 13.722 36.301 13.722 50.125 0l379.853-365.619 379.802 365.619z"></path></svg>
-	</a>
+	    page, scrolling the reader down to the content */}
+	<MetaArrow targetId="after-page-hero" />
 	{
 		crumbs.length > 0 && (
 			<nav class="page-hero-crumbs" aria-label="Breadcrumb">
@@ -141,18 +139,6 @@ const heroWebp = headerImage.startsWith("/images/")
 
 	initTitleBreakup(".page-hero-title");
 
-	// Chevron scrolls smoothly to whatever follows the hero
-	for (const arrow of document.querySelectorAll<HTMLAnchorElement>(
-		".page-hero .meta-arrow"
-	)) {
-		arrow.addEventListener("click", (e) => {
-			const next = arrow.closest(".page-hero")?.nextElementSibling;
-			if (next) {
-				e.preventDefault();
-				next.scrollIntoView({ behavior: "smooth" });
-			}
-		});
-	}
 
 	// cryoutHeaderParallax: as the page scrolls, the scrim deepens
 	// toward black, the caption fades away, and the image crop drifts
@@ -191,10 +177,6 @@ const heroWebp = headerImage.startsWith("/images/")
 </script>
 
 <style>
-	.after-hero-anchor {
-		scroll-margin-top: var(--nav-height);
-	}
-
 	.page-hero {
 		position: relative;
 		overflow: hidden;
@@ -296,55 +278,6 @@ const heroWebp = headerImage.startsWith("/images/")
 	   (demo: rgba(255,255,255,.2) plates at 50% element opacity, 6px
 	   apart). We sit slightly above the demo's opacity for legibility
 	   and restore full strength on hover/keyboard focus. */
-	/* Theme .meta-arrow: the thin chevron drifting down and fading in a
-	   2.2s loop (fade-out by 60%, resting invisible for the remainder),
-	   centred in a 100x65 box 80px above the hero's bottom edge (50px
-	   under 1200px) */
-	.meta-arrow {
-		position: absolute;
-		z-index: 15;
-		left: 0;
-		right: 0;
-		bottom: 80px;
-		width: 100px;
-		height: 65px;
-		margin: 0 auto;
-		display: flex;
-		align-items: flex-start;
-		justify-content: center;
-		/* Theme seats the glyph's centre 23px into the 65px box —
-		   above centre, well clear of the breadcrumbs */
-		padding-top: 17px;
-		/* Theme: color inherits the body grey (#707070), so the glyph
-		   never reads fully opaque over the dark scrim — and hover
-		   keeps the same color */
-		color: rgb(112 112 112);
-	}
-
-	.meta-arrow svg {
-		animation: meta-arrow 2.2s ease-out infinite;
-	}
-
-	@keyframes meta-arrow {
-		60%,
-		100% {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-	}
-
-	@media (max-width: 1200px) {
-		.meta-arrow {
-			bottom: 50px;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.meta-arrow svg {
-			animation: none;
-		}
-	}
-
 	.page-hero-crumbs {
 		position: absolute;
 		z-index: 4;

@@ -21,18 +21,21 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - The burger-menu search is a plain search form again, submitting to
   the results page — the live-suggestions dropdown didn't suit the
   fullscreen menu.
-- The search results page matches the original theme: the title reads
-  "Search Results for: …", the breadcrumb names the query, the form is
-  the theme's white square input with a gold square submit button, and
-  results display as the same article cards the blog uses — on phones
-  and desktop.
-- Every inner-page header gains the theme's bouncing chevron that
-  scrolls readers down to the content (previously only the homepage
-  hero had it).
-- The no-results page offers recent comments in its middle column like
-  the theme when comments are on (the tag cloud stands in otherwise),
-  and archive pages now share the same sidebar as single posts instead
-  of carrying their own variant.
+- The search results page now matches the original theme: the title
+  reads "Search Results for: …", the breadcrumb names the query, the
+  form is the theme's white square input with a gold square submit
+  button, and results display as the same article cards the blog uses
+  — on phones and desktop. A fruitless search gets the theme's Nothing
+  Found page: the message, a search form, and fallback columns of
+  recent posts, recent comments (a tag cloud when comments are off or
+  silent), and categories.
+- Inner-page headers now show the theme's bouncing chevron that
+  scrolls readers down to the content; the homepage chevron adopts the
+  theme's exact glyph and placement too.
+- The fixed navigation bar slides in from above once you scroll past
+  the header, at the theme's own scroll threshold.
+- Archive pages share the same sidebar as single posts instead of
+  carrying their own variant.
 
 ### Fixed
 
