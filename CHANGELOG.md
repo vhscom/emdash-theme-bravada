@@ -4,6 +4,33 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.4] - 2026-07-19
+
+### Fixed
+
+- Footer light/dark toggle had no effect (reported on Safari iOS, but
+  reproduced independent of browser engine): clicking a theme button
+  correctly set the `theme` cookie, added `.light`/`.dark` to `<html>`,
+  and even updated the computed `color-scheme` on `:root` — but the
+  actual background/text colors never changed, still following the OS
+  scheme. Root cause: `light-dark()` defined inside a CSS custom
+  property (`--color-bg: light-dark(#f3f7f6, #101817)`) and consumed
+  elsewhere via `var()` does not reliably re-resolve when
+  `color-scheme` changes dynamically on `:root` — confirmed with an
+  isolated repro. `color-scheme: light dark` + `light-dark()` alone is
+  only reliable for the OS-follows case; it can't be reactively
+  overridden by toggling a class.
+  Fixed by giving `:root.light`/`:root.dark` plain, non-`light-dark()`
+  overrides for every Bravada palette token theme.css defines with
+  `light-dark()` (colors + landing-band tints), bypassing the
+  resolution issue entirely. The "system" state (no class) is
+  unaffected and still follows the OS via `light-dark()` as before.
+  Verified: OS dark + click light → light background immediately; OS
+  light + click dark → dark background immediately; click system →
+  reverts to following the OS and clears the cookie; persisted choice
+  survives reload with no flash (still applied by the existing
+  pre-paint inline script) at 390px in both OS states.
+
 ## [0.4.3] - 2026-07-19
 
 ### Fixed

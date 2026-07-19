@@ -98,6 +98,59 @@
 	}
 }
 
+/* Footer theme switcher (light/dark/system): plain overrides, NOT
+   light-dark(). light-dark() wrapped in a custom property and read via
+   var() elsewhere does not reliably re-resolve when color-scheme
+   changes dynamically on :root (reproduced in both Safari and Chromium
+   engines) -- toggling the .light/.dark class alone left every token
+   frozen on whatever the OS scheme was at first paint. These pin each
+   token to a concrete value instead, sidestepping that entirely. The
+   "system" state (no class) is unaffected and keeps following the OS
+   via light-dark() as before. */
+:root.light {
+	--color-bg: #f3f7f6;
+	--color-bg-subtle: #f9f7f5;
+	--color-text: #707070;
+	--color-text-secondary: #707070;
+	--color-muted: #a7a7a7;
+	--color-border: #ebebeb;
+	--color-border-subtle: #f0f0f0;
+	--color-surface: #ffffff;
+	--color-brand-hover: #0f8b8d;
+	--color-teal: #0f8b8d;
+	--color-heading: #162521;
+	--color-menu-link: #444444;
+	--color-ribbon: #0f8b8d;
+	--tint-slider: #f9f7f5;
+	--tint-blocks1: #f9f7f5;
+	--tint-boxes: #f8f8f8;
+	--tint-boxes-alt: #f6f3f6;
+	--tint-warm: #eeebe9;
+	--tint-cool: #eeeeee;
+}
+
+:root.dark {
+	--color-bg: #101817;
+	--color-bg-subtle: #15201f;
+	--color-text: #b9c3c1;
+	--color-text-secondary: #a3b0ad;
+	--color-muted: #74827f;
+	--color-border: #29403e;
+	--color-border-subtle: #1d2f2e;
+	--color-surface: #162423;
+	--color-brand-hover: #3db9bb;
+	--color-teal: #3db9bb;
+	--color-heading: #eef4f3;
+	--color-menu-link: #d6dedc;
+	--color-ribbon: #066664;
+	--tint-slider: #15201f;
+	--tint-blocks1: #15201f;
+	--tint-boxes: #131c1b;
+	--tint-boxes-alt: #171f21;
+	--tint-warm: #1a1f1d;
+	--tint-cool: #141a19;
+}
+
 /* Headings: Playfair Display 700, Bravada's near-black */
 h1,
 h2,
