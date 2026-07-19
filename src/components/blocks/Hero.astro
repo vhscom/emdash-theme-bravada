@@ -274,13 +274,16 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 		.staticslider-caption-buttons {
 			margin: 2em auto;
 		}
+	}
 
-		/* Demo mobile: caption buttons stack and stretch nearly full width */
+	/* Demo: buttons only stack and stretch full-width below 480px
+	   (a.staticslider-button { width: 100% } at max-width: 480px);
+	   above that they stay side-by-side at their intrinsic width. */
+	@media (max-width: 480px) {
 		.staticslider-caption-buttons {
 			flex-direction: column;
 			align-items: stretch;
 			align-self: stretch;
 		}
-
 	}
 </style>
