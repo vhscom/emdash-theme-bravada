@@ -4,6 +4,22 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.2] - 2026-07-19
+
+### Fixed
+
+- Hero button stacking breakpoint: `.staticslider-caption-buttons`
+  switched to stacked, full-width buttons at `max-width: 800px`, but
+  the demo only does this below `480px` (`a.staticslider-button {
+  width: 100% }` at `max-width: 480px`) — above that its buttons stay
+  side-by-side at their intrinsic (label-hugging) width. Between
+  ~480–800px the port was stacking/stretching buttons the demo keeps
+  compact and inline. Moved the stacking rule to its own `480px`
+  media query. At 390px the buttons genuinely are near full-width and
+  stacked on the demo too (344px / 88% of viewport there) — that part
+  was already correct and is unchanged; verified 390px, 480px, 600px,
+  and 800px against the demo's computed button widths after the fix.
+
 ## [0.4.1] - 2026-07-19
 
 ### Fixed
