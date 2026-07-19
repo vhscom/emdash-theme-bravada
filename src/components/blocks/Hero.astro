@@ -278,12 +278,18 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 
 	/* Demo: buttons only stack and stretch full-width below 480px
 	   (a.staticslider-button { width: 100% } at max-width: 480px);
-	   above that they stay side-by-side at their intrinsic width. */
+	   above that they stay side-by-side at their intrinsic width. The
+	   demo's stacked buttons aren't edge-to-edge either — its
+	   display: table wrapper (no explicit width rule) resolves to
+	   ~80% of .staticslider-caption-inside, same measure as the lede.
+	   Cap the wrapper here rather than the flex default of filling it. */
 	@media (max-width: 480px) {
 		.staticslider-caption-buttons {
 			flex-direction: column;
 			align-items: stretch;
-			align-self: stretch;
+			max-width: 80%;
+			margin-left: auto;
+			margin-right: auto;
 		}
 	}
 </style>
