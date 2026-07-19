@@ -4,6 +4,21 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.1] - 2026-07-19
+
+### Fixed
+
+- Hero lede width: `.staticslider-caption-inside` was pinned at a flat
+  `max-width: 85%` on every viewport, which compounded with the lede's
+  own `80%` to squeeze the paragraph to ~57% of the caption instead of
+  the demo's proportions. Matched the demo's actual breakpoints:
+  `.staticslider-caption-inside` is `90%` above 900px and `100%` at or
+  below it; `.staticslider-caption` itself caps at `85%` above 1024px
+  (previously unbounded, making the desktop hero column wider than the
+  original) and its side padding tapers at 1152px/640px. Verified
+  against computed widths on the demo at 390px and 1440px — the port's
+  lede now matches the source to the pixel at both.
+
 ## [0.4.0] - 2026-07-16
 
 ### Changed
