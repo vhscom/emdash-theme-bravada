@@ -173,10 +173,41 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 		color: #ffffff;
 	}
 
+	/* Demo: the caption itself caps at 85% above 1024px (was unbounded
+	   here, making the desktop hero column wider than the original). */
+	@media (min-width: 1025px) {
+		.staticslider-caption {
+			max-width: 85%;
+		}
+	}
+
+	/* Demo breakpoints: padding tapers at 1152px/640px so the caption
+	   keeps proportionally more width as the viewport narrows. */
+	@media (max-width: 1152px) {
+		.staticslider-caption {
+			padding: 0 2em;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.staticslider-caption {
+			padding: 0 1em;
+		}
+	}
+
 	.staticslider-caption-inside {
-		max-width: 85%;
+		/* Demo: 90% down to 900px, then 100% (no side inset) below
+		   that — was flat 85% here, which double-narrowed the lede
+		   together with .staticslider-caption-text's own 80%. */
+		max-width: 90%;
 		margin: 0 auto;
 		text-align: center;
+	}
+
+	@media (max-width: 900px) {
+		.staticslider-caption-inside {
+			max-width: 100%;
+		}
 	}
 
 	.staticslider-caption-title {
