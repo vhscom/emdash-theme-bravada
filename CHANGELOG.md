@@ -4,6 +4,27 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.3] - 2026-07-19
+
+### Fixed
+
+- Stacked hero buttons rendered edge-to-edge (93% of viewport at
+  390px) instead of hugging the lede's measure. The demo's stacked
+  buttons aren't edge-to-edge either: its `.staticslider-caption-buttons`
+  has no explicit width rule at all (`display: table; margin: ... auto`)
+  — the ~80%-of-container result comes from table auto-layout sizing a
+  `width: 100%` child within a shrink-wrapped table, an emergent effect
+  of the display: table mechanism, not a width rule to copy literally.
+  Confirmed via a clean, popup-free, cache-busted re-measurement of the
+  demo (292.1px / 74.9% of viewport / 80.2% of `.staticslider-caption-inside`
+  at 390px, stable across reloads) — the port's flex-based stacking
+  instead defaulted to filling 100% of its container, which is why it
+  read as edge-to-edge. Capped `.staticslider-caption-buttons` at
+  `max-width: 80%` (centered) in the stacked breakpoint, matching the
+  demo's measured proportions and the lede's own 80% cap for a
+  consistent column. Side-by-side buttons above 480px are unaffected
+  (unchanged, still intrinsic width — verified at 600px).
+
 ## [0.4.2] - 2026-07-19
 
 ### Fixed
