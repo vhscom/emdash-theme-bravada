@@ -101,6 +101,23 @@ const paras = paragraphs ?? (text ? [text] : []);
 		padding: 0 2.5em;
 	}
 
+	/* Demo: side padding tapers 2.5em -> 2em (<=1152px) -> 1em (<=640px),
+	   same schedule as the hero caption. Was flat at 2.5em here, which
+	   compounded with .lp-text-background's own padding to squeeze the
+	   card content to ~63% of viewport at mobile instead of the demo's
+	   ~78%. */
+	@media (max-width: 1152px) {
+		.lp-text-inside {
+			padding: 0 2em;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.lp-text-inside {
+			padding: 0 1em;
+		}
+	}
+
 	.lp-text-background {
 		display: flex;
 		align-items: center;
@@ -175,6 +192,22 @@ const paras = paragraphs ?? (text ? [text] : []);
 	}
 
 	@media (max-width: 900px) {
+		/* The demo scales down a root font-size at this breakpoint,
+		   which shrinks the -5em image pull and the surrounding em-based
+		   spacing together, keeping the pull mostly absorbed. This
+		   template doesn't apply that global scale, so at the same flat
+		   3em .lp-text-inside margin the full-size -80px pull escapes
+		   the section top by ~50px instead of the demo's ~14px. Where
+		   the preceding section has its own visible tint (e.g. a boxes
+		   band), that shortfall reads as the image landing hard against
+		   the seam instead of a small, controlled overlap. Widening the
+		   margin here (rather than shrinking the pull, which is correct
+		   and already matches source everywhere else) absorbs it back
+		   down to a comparable few px. */
+		.lp-text-inside {
+			margin: 5em auto;
+		}
+
 		.lp-text-background {
 			flex-flow: column;
 			padding: 2em;
