@@ -8,110 +8,45 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
-- Ghost-header (watermark title + description) reveal geometry: both
-  `.ghost-title` and `.ghost-sub` were pinned at `max-width: 90%` on
-  every viewport; the demo goes full-width below 960px. The
-  description wrapped a line tighter than source, reading as more
-  cramped against the title than intended. Also aligned the reveal's
-  transition to `transform` only (was `all`), matching the demo's
-  opacity-snap/transform-fade split instead of fading opacity smoothly.
-  The overlap-by-design itself is unchanged and intentional.
-- TextBand (`bravada.text`) image overhang escaping too far past the
-  section boundary on mobile: `.lp-text-inside`'s margin-top stayed
-  flat at `3em` at every width, while the demo effectively gets more
-  headroom from a broader small-viewport scale this template doesn't
-  apply. Net effect: the pulled-up image escaped ~50px past the
-  section top instead of the demo's ~14px, most visible where the
-  preceding section has its own tint (the boxes → "Checking it out"
-  seam) — the image read as landing hard against the boundary instead
-  of a small, controlled overlap. Widened the margin at ≤900px to
-  absorb it back down to a comparable few px.
-- TextBand card content gutter: `.lp-text-inside`'s side padding was
-  flat at `2.5em` on every viewport (same combined selector as the
-  hero caption, which already tapers `2.5em → 2em (≤1152px) → 1em
-  (≤640px)` — this component was missing that taper entirely).
-  Compounded with the card's own inner padding, the paragraph column
-  was squeezed to ~63% of viewport instead of the demo's ~78%. Added
-  the missing breakpoints.
+- The large translucent section headings (e.g. "A glorious title") now
+  wrap and space themselves against their description the way the
+  original theme does on mobile, and reveal with the same subtle
+  animation on scroll.
+- Photos that overlap the card above them no longer crowd the section
+  edge — restored the breathing room the original theme gives them.
+- Text inside image/text cards no longer runs narrower than the
+  original theme on mobile.
 
 ## [0.4.4] - 2026-07-19
 
 ### Fixed
 
-- Footer light/dark toggle had no effect (reported on Safari iOS, but
-  reproduced independent of browser engine): clicking a theme button
-  correctly set the `theme` cookie, added `.light`/`.dark` to `<html>`,
-  and even updated the computed `color-scheme` on `:root` — but the
-  actual background/text colors never changed, still following the OS
-  scheme. Root cause: `light-dark()` defined inside a CSS custom
-  property (`--color-bg: light-dark(#f3f7f6, #101817)`) and consumed
-  elsewhere via `var()` does not reliably re-resolve when
-  `color-scheme` changes dynamically on `:root` — confirmed with an
-  isolated repro. `color-scheme: light dark` + `light-dark()` alone is
-  only reliable for the OS-follows case; it can't be reactively
-  overridden by toggling a class.
-  Fixed by giving `:root.light`/`:root.dark` plain, non-`light-dark()`
-  overrides for every Bravada palette token theme.css defines with
-  `light-dark()` (colors + landing-band tints), bypassing the
-  resolution issue entirely. The "system" state (no class) is
-  unaffected and still follows the OS via `light-dark()` as before.
-  Verified: OS dark + click light → light background immediately; OS
-  light + click dark → dark background immediately; click system →
-  reverts to following the OS and clears the cookie; persisted choice
-  survives reload with no flash (still applied by the existing
-  pre-paint inline script) at 390px in both OS states.
+- The light/dark mode toggle in the footer now actually switches the
+  site's colors instead of silently doing nothing and leaving it on
+  whatever the system preference was.
 
 ## [0.4.3] - 2026-07-19
 
 ### Fixed
 
-- Stacked hero buttons rendered edge-to-edge (93% of viewport at
-  390px) instead of hugging the lede's measure. The demo's stacked
-  buttons aren't edge-to-edge either: its `.staticslider-caption-buttons`
-  has no explicit width rule at all (`display: table; margin: ... auto`)
-  — the ~80%-of-container result comes from table auto-layout sizing a
-  `width: 100%` child within a shrink-wrapped table, an emergent effect
-  of the display: table mechanism, not a width rule to copy literally.
-  Confirmed via a clean, popup-free, cache-busted re-measurement of the
-  demo (292.1px / 74.9% of viewport / 80.2% of `.staticslider-caption-inside`
-  at 390px, stable across reloads) — the port's flex-based stacking
-  instead defaulted to filling 100% of its container, which is why it
-  read as edge-to-edge. Capped `.staticslider-caption-buttons` at
-  `max-width: 80%` (centered) in the stacked breakpoint, matching the
-  demo's measured proportions and the lede's own 80% cap for a
-  consistent column. Side-by-side buttons above 480px are unaffected
-  (unchanged, still intrinsic width — verified at 600px).
+- Stacked hero buttons on mobile no longer stretch edge-to-edge;
+  they match the original theme's proportions.
 
 ## [0.4.2] - 2026-07-19
 
 ### Fixed
 
-- Hero button stacking breakpoint: `.staticslider-caption-buttons`
-  switched to stacked, full-width buttons at `max-width: 800px`, but
-  the demo only does this below `480px` (`a.staticslider-button {
-  width: 100% }` at `max-width: 480px`) — above that its buttons stay
-  side-by-side at their intrinsic (label-hugging) width. Between
-  ~480–800px the port was stacking/stretching buttons the demo keeps
-  compact and inline. Moved the stacking rule to its own `480px`
-  media query. At 390px the buttons genuinely are near full-width and
-  stacked on the demo too (344px / 88% of viewport there) — that part
-  was already correct and is unchanged; verified 390px, 480px, 600px,
-  and 800px against the demo's computed button widths after the fix.
+- Hero buttons now stay side-by-side at their natural size until the
+  screen is narrow enough to stack, matching the original theme
+  instead of stacking too early.
 
 ## [0.4.1] - 2026-07-19
 
 ### Fixed
 
-- Hero lede width: `.staticslider-caption-inside` was pinned at a flat
-  `max-width: 85%` on every viewport, which compounded with the lede's
-  own `80%` to squeeze the paragraph to ~57% of the caption instead of
-  the demo's proportions. Matched the demo's actual breakpoints:
-  `.staticslider-caption-inside` is `90%` above 900px and `100%` at or
-  below it; `.staticslider-caption` itself caps at `85%` above 1024px
-  (previously unbounded, making the desktop hero column wider than the
-  original) and its side padding tapers at 1152px/640px. Verified
-  against computed widths on the demo at 390px and 1440px — the port's
-  lede now matches the source to the pixel at both.
+- Hero text now matches the original theme's width and proportions on
+  mobile and desktop — it was running noticeably narrower than
+  intended.
 
 ## [0.4.0] - 2026-07-16
 
