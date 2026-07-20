@@ -4,6 +4,36 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.5] - 2026-07-20
+
+### Fixed
+
+- Ghost-header (watermark title + description) reveal geometry: both
+  `.ghost-title` and `.ghost-sub` were pinned at `max-width: 90%` on
+  every viewport; the demo goes full-width below 960px. The
+  description wrapped a line tighter than source, reading as more
+  cramped against the title than intended. Also aligned the reveal's
+  transition to `transform` only (was `all`), matching the demo's
+  opacity-snap/transform-fade split instead of fading opacity smoothly.
+  The overlap-by-design itself is unchanged and intentional.
+- TextBand (`bravada.text`) image overhang escaping too far past the
+  section boundary on mobile: `.lp-text-inside`'s margin-top stayed
+  flat at `3em` at every width, while the demo effectively gets more
+  headroom from a broader small-viewport scale this template doesn't
+  apply. Net effect: the pulled-up image escaped ~50px past the
+  section top instead of the demo's ~14px, most visible where the
+  preceding section has its own tint (the boxes → "Checking it out"
+  seam) — the image read as landing hard against the boundary instead
+  of a small, controlled overlap. Widened the margin at ≤900px to
+  absorb it back down to a comparable few px.
+- TextBand card content gutter: `.lp-text-inside`'s side padding was
+  flat at `2.5em` on every viewport (same combined selector as the
+  hero caption, which already tapers `2.5em → 2em (≤1152px) → 1em
+  (≤640px)` — this component was missing that taper entirely).
+  Compounded with the card's own inner padding, the paragraph column
+  was squeezed to ~63% of viewport instead of the demo's ~78%. Added
+  the missing breakpoints.
+
 ## [0.4.4] - 2026-07-19
 
 ### Fixed

@@ -496,6 +496,17 @@ body {
 	color: var(--color-text);
 }
 
+@media (max-width: 960px) {
+	/* Demo: both the ghost title and description go full-width below
+	   960px (from 90%/45%) — was flat here, so the description wrapped
+	   a line tighter than source and read as more cramped against the
+	   title than intended. */
+	.ghost-header .ghost-title,
+	.ghost-header .ghost-sub {
+		max-width: 100%;
+	}
+}
+
 /* The overlap pull only makes sense when there IS a ghost title to
    overlap — a description-only header would get hoisted out of the
    section entirely. */
@@ -507,10 +518,6 @@ body {
 	/* The ghost title shrinks with the viewport but the -1.4em pull-up
 	   doesn't: short single-line titles get overshot and the description
 	   escapes the section top. Ease the overlap as the title scales. */
-	.ghost-header .ghost-sub {
-		max-width: 90%;
-	}
-
 	.ghost-header .ghost-title ~ .ghost-sub {
 		margin-top: -0.7em;
 	}
@@ -689,10 +696,12 @@ html.js .aos.aos-fade {
    transition below plays. Timings/offsets match the shipped CSS. --- */
 
 /* Ghost section headers: the giant title rises while the Playfair
-   subtext drifts DOWN over it */
+   subtext drifts DOWN over it. Demo only transitions transform —
+   opacity snaps instantly rather than fading; matched here (was `all`,
+   which faded opacity smoothly and read as softer than source). */
 .ghost-title,
 .ghost-sub {
-	transition: 0.4s 0.2s ease-out all;
+	transition: 0.4s 0.2s ease-out transform;
 }
 
 html.js .ghost-title.aos {
