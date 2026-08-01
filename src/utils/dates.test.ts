@@ -29,6 +29,22 @@ describe("dates", () => {
 		expect(heroDate(new Date("2026-05-23T12:00:00Z"))).toBe("23rd May 2026");
 	});
 
+	// Publish times near the UTC day boundary: formatted in the server's
+	// local zone these slide to the adjacent day (02:00Z backwards west of
+	// Greenwich, 22:00Z forwards east of it), so these two cases fail on
+	// most hosts if the formatters stop pinning UTC.
+	it("formats on the UTC calendar day regardless of server timezone", () => {
+		const earlyUtc = new Date("2026-05-10T02:00:00Z");
+		expect(longDate(earlyUtc)).toBe("May 10, 2026");
+		expect(monthDay(earlyUtc)).toBe("May 10");
+		expect(widgetDate(earlyUtc)).toBe("10 May");
+		expect(heroDate(earlyUtc)).toBe("10th May 2026");
+
+		const lateUtc = new Date("2026-05-10T22:00:00Z");
+		expect(longDate(lateUtc)).toBe("May 10, 2026");
+		expect(heroDate(lateUtc)).toBe("10th May 2026");
+	});
+
 	it("all formatters return null for missing dates", () => {
 		expect(longDate(null)).toBeNull();
 		expect(longDate(undefined)).toBeNull();
