@@ -119,6 +119,10 @@ const pageCtx = createPublicPageContext({
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />
+		<!-- First tab stop on every page: without it, reaching the article
+		     means tabbing the whole header and menu every time. Visually
+		     hidden until focused (see .skip-link below). -->
+		<a href="#main-content" class="skip-link">Skip to content</a>
 		<!-- Bravada preloader: two pulsing dots (gold + teal) on a solid
 		     sheet; fades out on window load, CSS animation as a fallback -->
 		<div class="cryout-preloader" aria-hidden="true">
@@ -170,7 +174,9 @@ const pageCtx = createPublicPageContext({
 			</div>
 		</div>
 
-		<main>
+		<!-- tabindex="-1" so the skip link can move focus here, not just
+		     scroll — without it the next Tab returns to the header. -->
+		<main id="main-content" tabindex="-1">
 			<slot />
 		</main>
 
@@ -233,6 +239,35 @@ const pageCtx = createPublicPageContext({
 
 				html {
 					scroll-behavior: smooth;
+				}
+
+				/* Skip link: off-screen until focused, then a gold chip in the
+				   top-left over everything (the header is position: fixed). */
+				.skip-link {
+					position: fixed;
+					top: 0;
+					left: 0;
+					z-index: 10000;
+					padding: 0.75em 1.25em;
+					background: var(--color-brand);
+					color: var(--color-on-brand);
+					font-family: var(--font-body);
+					font-weight: 700;
+					text-decoration: none;
+					transform: translateY(-150%);
+					transition: transform var(--transition-fast);
+				}
+
+				.skip-link:focus-visible {
+					transform: translateY(0);
+					outline: 2px solid var(--color-text);
+					outline-offset: -4px;
+				}
+
+				/* The skip target should not draw a focus ring when it receives
+				   programmatic focus — it is a landmark, not a control. */
+				main:focus {
+					outline: none;
 				}
 
 				body {
@@ -564,6 +599,37 @@ const pageCtx = createPublicPageContext({
 				aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg
 			>
 		</button>
+
+		<script>
+			// Skip link. <main> is the right landmark to focus, but on hero
+			// pages it starts at y=0 — the header is fixed, so the hero is
+			// the first thing inside it. The default fragment jump therefore
+			// scrolls to where the user already is: the URL gains the hash
+			// and nothing moves. Focus still lands correctly (that is the
+			// part AT depends on, and it works with no JS), so this only
+			// adds the missing visual half: scroll to where readable content
+			// actually begins, below the fixed header.
+			const skipLink = document.querySelector<HTMLAnchorElement>(".skip-link");
+			const skipTarget = document.getElementById("main-content");
+
+			skipLink?.addEventListener("click", (event) => {
+				if (!skipTarget) return;
+				event.preventDefault();
+				history.replaceState(null, "", "#main-content");
+				skipTarget.focus();
+
+				// Reuse the anchor PageHeader/Hero already render right after
+				// the hero for the chevron (.after-hero-anchor, whose
+				// scroll-margin-top in theme.css supplies the fixed header's
+				// offset) — the same target MetaArrow scrolls to. Pages with
+				// no hero have no anchor and need no scroll: content is
+				// already at the top.
+				const afterHero = skipTarget.querySelector(".after-hero-anchor");
+				if (!afterHero) return;
+
+				afterHero.scrollIntoView({ behavior: "smooth", block: "start" });
+			});
+		</script>
 
 		<script>
 			// Back-to-top button owns its own scroll visibility and click.
