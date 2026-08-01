@@ -37,16 +37,16 @@ const footerWidgets = await getWidgetArea("footer");
 		<div class="footer-widgets-section">
 			<div class="widget-area">
 				{
-					footerWidgets?.widgets.map((widget) => (
-						<section class="widget">
-							{widget.title && <h2 class="widget__title">{widget.title}</h2>}
-							{widget.type === "content" && widget.content && (
+					footerWidgets?.widgets
+						.filter((widget) => widget.type === "content" && widget.content)
+						.map((widget) => (
+							<section class="widget">
+								{widget.title && <h2 class="widget__title">{widget.title}</h2>}
 								<div class="widget__content">
 									<RichText value={widget.content} />
 								</div>
-							)}
-						</section>
-					))
+							</section>
+						))
 				}
 			</div>
 		</div>

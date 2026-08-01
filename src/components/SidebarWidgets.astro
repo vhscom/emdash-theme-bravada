@@ -20,16 +20,16 @@ const area = await getWidgetArea(name);
 
 <aside class="bravada-sidebar">
 	{
-		area?.widgets.map((widget) => (
-			<section class="widget">
-				{widget.title && <h2 class="widget__title">{widget.title}</h2>}
-				{widget.type === "content" && widget.content && (
+		area?.widgets
+			.filter((widget) => widget.type === "content" && widget.content)
+			.map((widget) => (
+				<section class="widget">
+					{widget.title && <h2 class="widget__title">{widget.title}</h2>}
 					<div class="widget__content">
 						<RichText value={widget.content} />
 					</div>
-				)}
-			</section>
-		))
+				</section>
+			))
 	}
 </aside>
 
