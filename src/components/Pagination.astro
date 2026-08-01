@@ -1,0 +1,87 @@
+---
+/**
+ * The demo's .pagination row: 2.5em squares in a centred row, 15px
+ * apart, gold page links and arrows, teal current page. Shared by the
+ * blog archive and the search results page so the two can't drift.
+ *
+ * Renders nothing for a single page — callers don't need to guard.
+ */
+interface Props {
+	/** Current page, 1-based. */
+	page: number;
+	totalPages: number;
+	/** Builds the href for page n. */
+	pageUrl: (n: number) => string;
+	/** Names the nav for screen readers, e.g. "Blog pages". */
+	label: string;
+}
+
+const { page, totalPages, pageUrl, label } = Astro.props;
+---
+
+{
+	totalPages > 1 && (
+		<nav class="pagination" aria-label={label}>
+			{page > 1 && (
+				<a class="page-numbers prev" href={pageUrl(page - 1)} aria-label="Previous page">
+					<svg viewBox="0 0 400 800" aria-hidden="true"><path fill="currentColor" transform="translate(0,780) scale(1,-1)" d="M359.101 636.078q0-7.182-6.156-12.312l-224.694-225.72 224.694-224.694q6.156-6.156 6.156-13.338t-6.156-13.338l-28.728-28.728q-5.13-5.13-12.312-5.13t-13.338 5.13l-266.761 266.761q-6.156 6.156-6.156 13.338t6.156 13.338l266.761 266.761q5.13 6.156 13.338 6.156t12.312-6.156l28.728-28.728q6.156-5.13 6.156-13.338z" /></svg>
+				</a>
+			)}
+			{Array.from({ length: totalPages }, (_, i) => i + 1).map((n) =>
+				n === page ? (
+					<span class="page-numbers current" aria-current="page">
+						{n}
+					</span>
+				) : (
+					<a class="page-numbers" href={pageUrl(n)}>
+						{n}
+					</a>
+				),
+			)}
+			{page < totalPages && (
+				<a class="page-numbers next" href={pageUrl(page + 1)} aria-label="Next page">
+					<svg viewBox="0 0 400 800" aria-hidden="true"><path fill="currentColor" transform="translate(0,780) scale(1,-1)" d="M340.633 398.045q0-7.182-6.156-13.338l-266.761-266.761q-5.13-5.13-12.312-5.13t-13.338 5.13l-28.728 28.728q-6.156 6.156-6.156 13.338t6.156 13.338l224.694 224.694-224.694 225.72q-6.156 5.13-6.156 12.312t6.156 13.338l28.728 28.728q5.13 6.156 13.338 6.156t12.312-6.156l266.761-266.761q6.156-5.13 6.156-13.338z" /></svg>
+				</a>
+			)}
+		</nav>
+	)
+}
+
+<style>
+	/* Demo .pagination: 2.5em squares in a centred row, 15px apart,
+	   gold page links and arrows, teal current page */
+	.pagination {
+		display: flex;
+		justify-content: center;
+		gap: 15px;
+		margin: 2.5em auto 0;
+		padding: 0.25em 1em;
+	}
+
+	.pagination .page-numbers {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 2.5em;
+		width: 2.5em;
+		font-size: 1em;
+		text-align: center;
+		text-decoration: none;
+		color: var(--color-brand);
+		transition: all 0.3s ease-in-out;
+	}
+
+	.pagination .page-numbers.current {
+		color: var(--color-teal-solid);
+		cursor: default;
+	}
+
+	.pagination a.page-numbers:hover {
+		color: var(--color-brand-hover);
+	}
+
+	.pagination .page-numbers svg {
+		width: 0.55em;
+		height: 1.1em;
+	}
+</style>

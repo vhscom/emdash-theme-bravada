@@ -14,6 +14,7 @@ import PageHeader from "../components/PageHeader.astro";
 import ArchiveLayout from "../layouts/ArchiveLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import SearchForm from "../components/SearchForm.astro";
+import Pagination from "../components/Pagination.astro";
 import { getReadingTime } from "../utils/reading-time";
 
 const query = Astro.url.searchParams.get("q")?.trim() || "";
@@ -233,33 +234,12 @@ const cards = entries.map((post) => ({
 			)
 		}
 
-		{
-			totalPages > 1 && (
-				<nav class="pagination" aria-label="Search results pages">
-					{page > 1 && (
-						<a class="page-numbers prev" href={pageUrl(page - 1)} aria-label="Previous page">
-							<svg viewBox="0 0 400 800" aria-hidden="true"><path fill="currentColor" transform="translate(0,780) scale(1,-1)" d="M359.101 636.078q0-7.182-6.156-12.312l-224.694-225.72 224.694-224.694q6.156-6.156 6.156-13.338t-6.156-13.338l-28.728-28.728q-5.13-5.13-12.312-5.13t-13.338 5.13l-266.761 266.761q-6.156 6.156-6.156 13.338t6.156 13.338l266.761 266.761q5.13 6.156 13.338 6.156t12.312-6.156l28.728-28.728q6.156-5.13 6.156-13.338z"></path></svg>
-						</a>
-					)}
-					{Array.from({ length: totalPages }, (_, i) => i + 1).map((n) =>
-						n === page ? (
-							<span class="page-numbers current" aria-current="page">
-								{n}
-							</span>
-						) : (
-							<a class="page-numbers" href={pageUrl(n)}>
-								{n}
-							</a>
-						),
-					)}
-					{page < totalPages && (
-						<a class="page-numbers next" href={pageUrl(page + 1)} aria-label="Next page">
-							<svg viewBox="0 0 400 800" aria-hidden="true"><path fill="currentColor" transform="translate(0,780) scale(1,-1)" d="M340.633 398.045q0-7.182-6.156-13.338l-266.761-266.761q-5.13-5.13-12.312-5.13t-13.338 5.13l-28.728 28.728q-6.156 6.156-6.156 13.338t6.156 13.338l224.694 224.694-224.694 225.72q-6.156 5.13-6.156 12.312t6.156 13.338l28.728 28.728q5.13 6.156 13.338 6.156t12.312-6.156l266.761-266.761q6.156-5.13 6.156-13.338z"></path></svg>
-						</a>
-					)}
-				</nav>
-			)
-		}
+		<Pagination
+			page={page}
+			totalPages={totalPages}
+			pageUrl={pageUrl}
+			label="Search results pages"
+		/>
 
 		{!query && <p class="search-hint">Enter a search term to find posts.</p>}
 	</ArchiveLayout>
@@ -404,42 +384,7 @@ const cards = entries.map((post) => ({
 		font-size: var(--font-size-xs);
 	}
 
-	/* Theme .pagination: 2.5em squares in a centred row, 15px apart,
-	   gold page links and arrows, teal current page */
-	.pagination {
-		display: flex;
-		justify-content: center;
-		gap: 15px;
-		margin: 2.5em auto 0;
-		padding: 0.25em 1em;
-	}
-
-	.pagination .page-numbers {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 2.5em;
-		width: 2.5em;
-		font-size: 1em;
-		text-align: center;
-		text-decoration: none;
-		color: var(--color-brand);
-		transition: all 0.3s ease-in-out;
-	}
-
-	.pagination .page-numbers.current {
-		color: var(--color-teal-solid);
-		cursor: default;
-	}
-
-	.pagination a.page-numbers:hover {
-		color: var(--color-brand-hover);
-	}
-
-	.pagination .page-numbers svg {
-		width: 0.55em;
-		height: 1.1em;
-	}
+	/* .pagination now lives in Pagination.astro, shared with the blog */
 
 	.search-hint {
 		color: var(--color-muted);

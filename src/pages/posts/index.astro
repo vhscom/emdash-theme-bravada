@@ -4,18 +4,37 @@ import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
 import PostCard from "../../components/PostCard.astro";
+import Pagination from "../../components/Pagination.astro";
 import { getReadingTime } from "../../utils/reading-time";
+
+// Theme pagination: 10 posts per page with numeric page links, matching
+// the search page. EmDash exposes offset paging and `hasMore` but no
+// collection count, and the demo's pager needs a total to number the
+// links — so fetch one capped batch (200, beyond any plausible demo
+// corpus) and window it, the same trade the search page makes.
+const PER_PAGE = 10;
+const MAX_POSTS = 200;
 
 // Sort in the database rather than in JS — lets the DB use its index on
 // published_at and avoids a full-table scan on the client.
-const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
+const { entries: allPosts, cacheHint } = await getEmDashCollection("posts", {
 	orderBy: { published_at: "desc" },
+	limit: MAX_POSTS,
 });
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
-// Batched category + tag lookups across all posts (avoids N+1 queries);
-// bylines are already hydrated on entry.data.bylines.
+const totalPages = Math.max(1, Math.ceil(allPosts.length / PER_PAGE));
+const page = Math.min(
+	totalPages,
+	Math.max(1, Number.parseInt(Astro.url.searchParams.get("page") ?? "1") || 1),
+);
+const posts = allPosts.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+const pageUrl = (n: number) => (n > 1 ? `/posts?page=${n}` : "/posts");
+
+// Batched category + tag lookups for the current page only (avoids N+1
+// queries); bylines are already hydrated on entry.data.bylines.
 const entryIds = posts.map((p) => p.data.id);
 const [catsByEntry, tagsByEntry] = await Promise.all([
 	getTermsForEntries("posts", entryIds, "category"),
@@ -39,7 +58,7 @@ const cards = posts.map((post) => ({
 <Base title="Blog" description="Browse all blog posts" overHero>
 	<PageHeader
 		title="Blog"
-		subtitle={`${posts.length} ${posts.length === 1 ? "article" : "articles"}`}
+		subtitle={`${allPosts.length} ${allPosts.length === 1 ? "article" : "articles"}`}
 		crumbs={[{ label: "Blog" }]}
 	/>
 
@@ -65,6 +84,13 @@ const cards = posts.map((post) => ({
 				</div>
 			)
 		}
+
+		<Pagination
+			page={page}
+			totalPages={totalPages}
+			pageUrl={pageUrl}
+			label="Blog pages"
+		/>
 	</ArchiveLayout>
 </Base>
 
