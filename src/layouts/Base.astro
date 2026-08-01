@@ -741,15 +741,23 @@ const pageCtx = createPublicPageContext({
 			// dark layer; the pill input slides up once it's visible.
 			// Esc, ✕, or a click on the backdrop closes it. ⌘K/Ctrl+K opens
 			// it too.
+			import { inertOutside } from "../utils/inert-background";
+
 			const overlay = document.getElementById("menu-search-overlay");
 			const toggle = document.querySelector<HTMLButtonElement>(".search-toggle");
 			const cancel = overlay?.querySelector<HTMLButtonElement>(".search-cancel");
 			const input = overlay?.querySelector<HTMLInputElement>(".site-search-input");
 
+			// Releases the background inerting applied while the layer is open.
+			let releaseBackground: (() => void) | null = null;
+
 			function openSearch() {
 				if (!overlay) return;
 				overlay.hidden = false;
 				toggle?.setAttribute("aria-expanded", "true");
+				// aria-modal only describes the layer; inerting the rest of the
+				// page is what actually keeps Tab inside it.
+				releaseBackground = inertOutside([overlay]);
 				// Two frames so the unhide commits before the slide-up plays
 				requestAnimationFrame(() =>
 					requestAnimationFrame(() => {
@@ -763,6 +771,10 @@ const pageCtx = createPublicPageContext({
 				if (!overlay || overlay.hidden) return;
 				overlay.classList.remove("is-active");
 				toggle?.setAttribute("aria-expanded", "false");
+				// Release before restoring focus — the toggle is in the
+				// inerted region and an inert element cannot take focus.
+				releaseBackground?.();
+				releaseBackground = null;
 				setTimeout(() => {
 					overlay.hidden = true;
 				}, 250);

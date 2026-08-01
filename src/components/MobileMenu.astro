@@ -156,8 +156,13 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	// to ask for a change, and we broadcast "nav:change" so the header can
 	// mirror aria-expanded. The body.burgermenu-active class stays the CSS
 	// contract both components style against.
+	import { inertOutside } from "../utils/inert-background";
+
 	const mobileMenu = document.getElementById("mobile-menu");
 	let isOpen = false;
+
+	// Releases the background inerting applied while the menu is open.
+	let releaseBackground: (() => void) | null = null;
 
 	// Staggered entrance (theme: transition-delay = 0.03s * index, with
 	// the social icons continuing the sequence as individual entries)
@@ -172,6 +177,14 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 		isOpen = open;
 		if (open) {
 			mobileMenu.hidden = false;
+			// Contain focus in the layer. The hamburger is kept alive: it is
+			// the menu's only close control and the last stop in the theme's
+			// tab loop, so inerting the whole header would strand keyboard
+			// users inside the menu.
+			const hamburger = document.querySelector(".hamburger");
+			releaseBackground = inertOutside(
+				hamburger ? [mobileMenu, hamburger] : [mobileMenu],
+			);
 			requestAnimationFrame(() =>
 				requestAnimationFrame(() => {
 					document.body.classList.add("burgermenu-active", "noscroll");
@@ -183,6 +196,9 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 			);
 		} else {
 			document.body.classList.remove("burgermenu-active", "noscroll");
+			// Release before the caller restores focus to the hamburger.
+			releaseBackground?.();
+			releaseBackground = null;
 			setTimeout(() => {
 				if (!isOpen) mobileMenu.hidden = true;
 			}, 500);
