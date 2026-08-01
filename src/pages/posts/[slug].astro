@@ -115,6 +115,9 @@ let heroImg: string | undefined;
 if (!olderPost || !newerPost) {
 	const home = await getEmDashEntry("pages", "home");
 	heroImg = heroSlideImage(home?.entry?.data.content);
+	// This post's cache now depends on the home page too — editing the
+	// hero image has to invalidate the filler panel here.
+	if (home?.cacheHint && Astro.cache?.enabled) Astro.cache.set(home.cacheHint);
 }
 
 const commentsEnabled = collectionInfo?.commentsEnabled ?? true;

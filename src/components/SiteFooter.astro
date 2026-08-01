@@ -20,7 +20,11 @@ const socialMenu = await getMenu("social");
 
 // Pages feed the footer's mini nav (it shows at most two beyond Home,
 // so bound the fetch instead of hydrating the whole collection).
-const { entries: pages } = await getEmDashCollection("pages", { limit: 10 });
+// The footer renders on every page, so its hint has to reach the page
+// cache or a renamed page leaves stale nav sitewide.
+const { entries: pages, cacheHint } = await getEmDashCollection("pages", { limit: 10 });
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 // Footer widgets are rendered manually (not via <WidgetArea>) so that
 // content widgets can carry the theme's custom Portable Text blocks —

@@ -16,13 +16,17 @@ interface TabsNode {
 const { node } = Astro.props as { node: TabsNode };
 const limit = node.limit ?? 4;
 
-const [{ entries: recent }, tags] = await Promise.all([
+const [{ entries: recent, cacheHint }, tags] = await Promise.all([
 	getEmDashCollection("posts", {
 		orderBy: { published_at: "desc" },
 		limit: limit * 2,
 	}),
 	getTaxonomyTerms("tag"),
 ]);
+
+// Without this, publishing a post leaves stale panels on every cached
+// page that embeds the widget.
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 const catsByEntry = await getTermsForEntries(
 	"posts",

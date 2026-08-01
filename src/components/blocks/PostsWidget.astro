@@ -17,10 +17,14 @@ interface PostsWidgetNode {
 const { node } = Astro.props as { node: PostsWidgetNode };
 const limit = node.limit ?? 5;
 
-const { entries: posts } = await getEmDashCollection("posts", {
+// The hint has to reach the page cache or publishing a post leaves a
+// stale "Recent Posts" list on every page embedding this widget.
+const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
 	orderBy: { published_at: "desc" },
 	limit,
 });
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 const catsByEntry = await getTermsForEntries(
 	"posts",
