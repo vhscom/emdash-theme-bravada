@@ -267,7 +267,14 @@ const pageCtx = createPublicPageContext({
 					}
 				}
 
-				.skip-link:focus-visible {
+				/* :focus, not :focus-visible. The link is reachable only by
+				   keyboard or AT, so there is no mouse-focus ring to
+				   suppress — and :focus-visible is a heuristic that withholds
+				   the match for focus the browser does not classify as
+				   keyboard-driven, which leaves the link parked off-screen
+				   exactly when someone needs it. Confirmed in a real browser:
+				   :focus-visible never revealed it. */
+				.skip-link:focus {
 					transform: translateY(0);
 					outline: 2px solid var(--color-text);
 					outline-offset: -4px;
