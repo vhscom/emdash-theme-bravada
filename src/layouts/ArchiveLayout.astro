@@ -9,9 +9,11 @@ import SidebarWidgets from "../components/SidebarWidgets.astro";
 ---
 
 <div class="archive-shell">
-	<main class="archive-main">
+	<!-- A div, not <main>: Base already renders the page's single <main>
+	     landmark, and nesting a second one inside it is invalid. -->
+	<div class="archive-main">
 		<slot />
-	</main>
+	</div>
 	<aside class="archive-sidebar">
 		<SidebarWidgets name="sidebar-b" />
 	</aside>
