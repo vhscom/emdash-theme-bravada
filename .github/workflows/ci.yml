@@ -14,9 +14,7 @@ jobs:
 
       - uses: pnpm/action-setup@v6
 
-      # Node 22, not the ">=20" floor in engines: the pinned pnpm in
-      # packageManager requires >=22.13, and setup-node runs pnpm to
-      # resolve the cache directory, so Node 20 cannot even install here.
+      # Matches the floor in package.json engines — test what we promise.
       - uses: actions/setup-node@v7
         with:
           node-version: 22

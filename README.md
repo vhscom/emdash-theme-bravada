@@ -100,7 +100,7 @@ Start from a clean copy — either click **Use this template** on GitHub, or:
 npm create astro@latest -- --template vhscom/emdash-theme-bravada
 ```
 
-Requires **Node 20+** and **pnpm** (fonts are fetched from Google at build
+Requires **Node 22+** and **pnpm** (fonts are fetched from Google at build
 time, so the first build needs network access).
 
 ```bash

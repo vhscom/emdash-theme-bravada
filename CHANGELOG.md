@@ -6,6 +6,12 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The theme now requires Node 22 or newer. The pinned pnpm version
+  already refused to run on Node 20, so the previous "Node 20+" claim
+  could not be honoured.
+
 ### Added
 
 - A "Skip to content" link, the first stop when you tab into any page,
