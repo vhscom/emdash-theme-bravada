@@ -14,6 +14,7 @@ import Price from "../../components/Price.astro";
 import { getMediaUrl } from "../../utils/media-url";
 import { metaDescription } from "../../utils/reading-time";
 import { resolveSiteOrigin } from "../../utils/site-identity";
+import { parseGallery, parseReviews, parseVariants } from "../../utils/product-fields";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -45,11 +46,13 @@ const related = cats.length
 	: [];
 
 const d = product.data;
-const gallery: string[] = (d.gallery as string[]) ?? [];
+// gallery/variants/reviews are admin-editable JSON typed as `unknown` —
+// parsed rather than cast so a malformed entry drops out instead of
+// throwing a 500 on the product page.
+const gallery = parseGallery(d.gallery);
 const mainImage = gallery[0] ?? getMediaUrl(d.featured_image);
-const variants = (d.variants as { label: string; options: string[] }[]) ?? [];
-const reviews =
-	(d.reviews as { author: string; rating?: number; date?: string; text: string }[]) ?? [];
+const variants = parseVariants(d.variants);
+const reviews = parseReviews(d.reviews);
 
 // Meta description: the excerpt when present, else a snippet of the
 // long description — products otherwise ship no description at all.
@@ -184,11 +187,9 @@ const productLd = {
 													<td class="variant-value">
 														<select aria-label={v.label}>
 															<option value="">Choose an option</option>
-															{v.options
-																.filter((o) => o !== "Choose an option")
-																.map((o) => (
-																	<option>{o}</option>
-																))}
+															{v.options.map((o) => (
+																<option>{o}</option>
+															))}
 														</select>
 													</td>
 												</tr>
