@@ -4,6 +4,44 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- A "Skip to content" link, the first stop when you tab into any page,
+  so reaching the article no longer means tabbing through the whole
+  header and menu.
+- The blog now shows ten posts per page with the theme's numbered
+  pager, the same one the search results use. Previously every post on
+  the site was rendered on one page.
+
+### Fixed
+
+- The fullscreen search overlay and the burger menu now keep the
+  keyboard inside them while open. Tabbing off the end used to walk
+  invisibly into the page behind the layer.
+- The sidebar tabs widget and the product page's tabs now respond to
+  the arrow, Home and End keys, and the tab strip is a single stop
+  instead of one per tab. Screen readers are told which tab belongs to
+  which panel.
+- The footer's light/dark/system buttons now announce which one is
+  active. They previously sounded like three identical buttons.
+- Turning on the system's "reduce motion" setting now also calms
+  in-page scrolling, the back-to-top jump, the header's slide-down and
+  the burger menu's item-by-item entrance.
+- Post dates no longer shift by a day depending on where the site is
+  hosted.
+- Editing a page, or publishing a post, now refreshes the footer
+  navigation and the recent-posts widgets instead of leaving stale
+  copies on cached pages.
+- Products whose options or reviews were saved in an unexpected shape
+  no longer take the whole product page down.
+- Archive pages no longer nest one main region inside another, and
+  widget areas no longer render a stray heading for widget types the
+  theme does not handle.
+- Restored the intended hover colour on portfolio meta links in dark
+  mode.
+
 ## [0.4.5] - 2026-07-20
 
 ### Fixed
