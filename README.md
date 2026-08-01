@@ -67,7 +67,7 @@ external one.
 | Page | Route |
 |---|---|
 | Homepage (landing + latest) | `/` |
-| All posts | `/posts` |
+| All posts | `/posts` (ten per page, `?page=N`) |
 | Single post | `/posts/:slug` |
 | Category / tag archive | `/category/:slug`, `/tag/:slug` |
 | Portfolio project | `/portfolio/:slug` |
@@ -144,6 +144,21 @@ blog template.
 - **Colours and fonts**: override tokens in `src/styles/theme.css` (see the
   notes at the top of that file); webfonts are configured in
   `astro.config.mjs`. Don't edit `src/styles/tokens.css`.
+
+  Every colour is declared with `light-dark(<light>, <dark>)`, so each token
+  carries both modes and there is no separate dark palette to maintain —
+  overriding with a plain colour changes both at once. The tokens worth
+  knowing: `--color-brand` / `--color-brand-hover` / `--color-on-brand`,
+  `--color-bg` / `--color-surface` / `--color-text` / `--color-border`,
+  `--font-body` / `--font-heading` / `--font-display` / `--font-mono`,
+  `--content-width` (680px article column), `--wide-width` (1200px), and
+  `--sidebar-width` (320px).
+
+  > **A note before you "fix" the contrast:** the palette deliberately
+  > reproduces the original Bravada demo — gold `#E9B44C` and teal `#0F8B8D`
+  > — rather than meeting WCAG AA contrast. That's a fidelity decision, not
+  > an oversight. Everything else in the theme (focus order, landmarks,
+  > keyboard operation, reduced motion) does target AA.
 - **Post-page furniture**: admin → Plugins → Bravada Theme toggles the
   post author attribution and the docked prev/next buttons (see Theme
   settings below).
@@ -167,7 +182,24 @@ Production checklist:
 3. **Persist `data.db*` and `uploads/`** — both live on disk; put them on a
    volume that survives restarts and back them up together.
 
-For other targets (Cloudflare, Postgres, S3 storage) see the
+### Cloudflare Workers
+
+The live demo runs from the `deploy/cloudflare` branch, which swaps the Node
+adapter for `@astrojs/cloudflare` and backs the site with D1, KV, and R2
+(`wrangler.jsonc`). Keep `emdash` and `@emdash-cms/cloudflare` on the same
+version — a mismatch surfaces at runtime, not at build time.
+
+That branch pins `vite` and `rolldown` via `overrides` in
+`pnpm-workspace.yaml`. Newer rolldown emits a bare `require("path")` shim for
+CJS dependencies that throws at module init under workerd, which a successful
+`astro build` will not catch. Smoke-test the built Worker before deploying:
+
+```bash
+npx wrangler dev        # runs the real Workers runtime locally
+npx wrangler deploy
+```
+
+For other targets (Postgres, S3 storage) see the
 [EmDash deployment docs](https://docs.emdashcms.com).
 
 ## Theme settings

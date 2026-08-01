@@ -4,13 +4,15 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.5.0] - 2026-08-01
 
 ### Changed
 
 - The theme now requires Node 22 or newer. The pinned pnpm version
   already refused to run on Node 20, so the previous "Node 20+" claim
   could not be honoured.
+- emdash 0.29.0 → 0.31.1, and the Cloudflare adapter alongside it on the
+  `deploy/cloudflare` branch. No template changes were needed.
 
 ### Added
 
@@ -47,6 +49,22 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   theme does not handle.
 - Restored the intended hover colour on portfolio meta links in dark
   mode.
+- The skip link now appears whenever it receives focus. It was gated on
+  `:focus-visible`, a browser heuristic that withheld it in Safari, so
+  the link stayed off-screen for the people who needed it. Note that
+  Safari only tabs to links at all once "Press Tab to highlight each
+  item on a webpage" is enabled in its Advanced settings; without it,
+  Option+Tab reaches them.
+
+### Documentation
+
+- The README now carries the design-token cheat sheet and the note that
+  the palette deliberately reproduces the original demo rather than
+  meeting WCAG contrast — previously only in the agent-facing
+  `AGENTS.md`.
+- Documented the Cloudflare Workers deployment path and the bundler pin
+  it depends on.
+- Added EmDash version, supported Node, CI, and licence badges.
 
 ## [0.4.5] - 2026-07-20
 
