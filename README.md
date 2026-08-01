@@ -1,9 +1,9 @@
 # Bravada for Astro
 
-[![EmDash](https://img.shields.io/github/package-json/dependency-version/vhscom/emdash-theme-bravada/emdash?style=flat&label=EmDash&color=0f8b8d)](https://emdashcms.com)
-[![node](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fvhscom%2Femdash-theme-bravada%2Fmain%2Fpackage.json&query=%24.engines.node&label=node&style=flat&color=339933)](https://nodejs.org)
-[![CI](https://img.shields.io/github/actions/workflow/status/vhscom/emdash-theme-bravada/ci.yml?style=flat&label=CI&branch=main)](https://github.com/vhscom/emdash-theme-bravada/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/License-GPL--3.0--or--later-blue?style=flat)](./LICENSE)
+[![EmDash](https://img.shields.io/github/package-json/dependency-version/vhscom/emdash-theme-bravada/emdash?style=for-the-badge&label=EmDash&color=0f8b8d)](https://emdashcms.com)
+[![node](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fvhscom%2Femdash-theme-bravada%2Fmain%2Fpackage.json&query=%24.engines.node&label=node&style=for-the-badge&color=339933)](https://nodejs.org)
+[![CI](https://img.shields.io/github/actions/workflow/status/vhscom/emdash-theme-bravada/ci.yml?style=for-the-badge&label=CI&branch=main)](https://github.com/vhscom/emdash-theme-bravada/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/License-GPL--3.0--or--later-blue?style=for-the-badge)](./LICENSE)
 
 ![The Bravada for Astro landing page: a teal hero with gold animated letters](.github/screenshot.png)
 
