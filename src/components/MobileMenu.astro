@@ -165,12 +165,17 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	let releaseBackground: (() => void) | null = null;
 
 	// Staggered entrance (theme: transition-delay = 0.03s * index, with
-	// the social icons continuing the sequence as individual entries)
-	mobileMenu
-		?.querySelectorAll<HTMLElement>("#mobile-nav > li, .mobile-socials a")
-		.forEach((el, i) => {
-			el.style.transitionDelay = `${0.03 * i}s`;
-		});
+	// the social icons continuing the sequence as individual entries).
+	// Skipped under reduced motion: a fullscreen layer whose items drop in
+	// one by one is the most vestibular-hostile thing the theme does.
+	const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+	if (!prefersReducedMotion.matches) {
+		mobileMenu
+			?.querySelectorAll<HTMLElement>("#mobile-nav > li, .mobile-socials a")
+			.forEach((el, i) => {
+				el.style.transitionDelay = `${0.03 * i}s`;
+			});
+	}
 
 	function setOpen(open: boolean, restoreFocus = false) {
 		if (!mobileMenu || open === isOpen) return;
@@ -356,6 +361,25 @@ const mobileItems = annotateMenu(mobileMenu?.items ?? [], inSection);
 	:global(body.burgermenu-active) #mobile-nav > li {
 		opacity: 1;
 		transform: translateY(0);
+	}
+
+	/* The layer still fades, but items appear in place rather than flying
+	   in from off-screen (the JS also drops the stagger delays). */
+	@media (prefers-reduced-motion: reduce) {
+		#mobile-nav > li,
+		.mobile-socials a {
+			transform: none;
+			transition-property: opacity;
+		}
+
+		.mobile-sub-menu,
+		.mobile-sub-menu.toggled-on {
+			transition: none;
+		}
+
+		#mobile-nav .dropdown-toggle {
+			transition: none;
+		}
 	}
 
 	#mobile-nav .mobile-item a {

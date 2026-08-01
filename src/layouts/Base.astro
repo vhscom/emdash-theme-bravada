@@ -237,8 +237,12 @@ const pageCtx = createPublicPageContext({
 					}
 				}
 
-				html {
-					scroll-behavior: smooth;
+				/* Smooth scrolling is a motion effect: honour the OS setting
+				   rather than animating every in-page jump regardless. */
+				@media (prefers-reduced-motion: no-preference) {
+					html {
+						scroll-behavior: smooth;
+					}
 				}
 
 				/* Skip link: off-screen until focused, then a gold chip in the
@@ -255,7 +259,12 @@ const pageCtx = createPublicPageContext({
 					font-weight: 700;
 					text-decoration: none;
 					transform: translateY(-150%);
-					transition: transform var(--transition-fast);
+				}
+
+				@media (prefers-reduced-motion: no-preference) {
+					.skip-link {
+						transition: transform var(--transition-fast);
+					}
 				}
 
 				.skip-link:focus-visible {
@@ -627,7 +636,11 @@ const pageCtx = createPublicPageContext({
 				const afterHero = skipTarget.querySelector(".after-hero-anchor");
 				if (!afterHero) return;
 
-				afterHero.scrollIntoView({ behavior: "smooth", block: "start" });
+				const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+				afterHero.scrollIntoView({
+					behavior: reduced ? "auto" : "smooth",
+					block: "start",
+				});
 			});
 		</script>
 
@@ -642,7 +655,10 @@ const pageCtx = createPublicPageContext({
 			window.addEventListener("scroll", onScroll, { passive: true });
 
 			toTop?.addEventListener("click", () => {
-				window.scrollTo({ top: 0, behavior: "smooth" });
+				// A full-page scroll animation is exactly what reduced-motion
+				// users are asking not to see; jump instead.
+				const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+				window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
 			});
 		</script>
 
