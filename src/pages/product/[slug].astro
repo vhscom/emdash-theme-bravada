@@ -443,17 +443,37 @@ const productLd = {
 
 	// Tabs
 	for (const tabs of document.querySelectorAll<HTMLElement>(".product-tabs")) {
-		const links = tabs.querySelectorAll<HTMLButtonElement>(".tab-link");
+		const links = [...tabs.querySelectorAll<HTMLButtonElement>(".tab-link")];
 		const panels = tabs.querySelectorAll<HTMLElement>(".tab-panel");
-		const activate = (name: string) => {
+		const activate = (name: string, focus = false) => {
 			links.forEach((l) => {
 				const on = l.dataset.tab === name;
 				l.classList.toggle("active", on);
 				l.setAttribute("aria-selected", String(on));
+				// Roving tabindex, per the APG tabs pattern.
+				l.tabIndex = on ? 0 : -1;
+				if (on && focus) l.focus();
 			});
 			panels.forEach((p) => p.classList.toggle("active", p.dataset.panel === name));
 		};
-		links.forEach((l) => l.addEventListener("click", () => activate(l.dataset.tab!)));
+		links.forEach((l, i) => {
+			l.addEventListener("click", () => activate(l.dataset.tab!));
+			l.addEventListener("keydown", (event) => {
+				const key = event.key;
+				let next: HTMLButtonElement | undefined;
+				if (key === "ArrowRight") next = links[(i + 1) % links.length];
+				else if (key === "ArrowLeft") next = links[(i - 1 + links.length) % links.length];
+				else if (key === "Home") next = links[0];
+				else if (key === "End") next = links[links.length - 1];
+				if (!next) return;
+				event.preventDefault();
+				activate(next.dataset.tab!, true);
+			});
+		});
+		// Non-active tabs start outside the tab order.
+		links.forEach((l) => {
+			l.tabIndex = l.classList.contains("active") ? 0 : -1;
+		});
 		// "(N customer reviews)" deep link
 		document.querySelector(".review-count")?.addEventListener("click", () => activate("reviews"));
 	}

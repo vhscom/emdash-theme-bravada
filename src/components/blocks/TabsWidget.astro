@@ -51,47 +51,66 @@ const popularItems = [...recent]
 	.map(toItem);
 const commentedItems = [...recent].reverse().slice(0, limit).map(toItem);
 
+// Ids only have to be unique within one document, so a per-render token
+// is enough — nothing here is hydrated, so the markup is self-consistent.
 const uid = `wtabs-${Math.random().toString(36).slice(2, 8)}`;
+const tabId = (id: string) => `${uid}-tab-${id}`;
+const panelId = (id: string) => `${uid}-panel-${id}`;
+
 const panels = [
 	{ id: "recent", label: "Recent Posts", items: recentItems },
 	{ id: "popular", label: "Popular Posts", items: popularItems },
 	{ id: "comments", label: "Recent Comments", items: commentedItems },
 ];
+
+// Icon inner-markup per tab, so the nav can be mapped instead of
+// hand-repeated — the ARIA wiring then can't drift between tabs.
+const tabs = [
+	{
+		id: "recent",
+		label: "Recent Posts",
+		icon: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>',
+	},
+	{
+		id: "popular",
+		label: "Popular Posts",
+		icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>',
+	},
+	{
+		id: "comments",
+		label: "Recent Comments",
+		icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>',
+	},
+	{
+		id: "tags",
+		label: "Tags",
+		icon: '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>',
+	},
+];
 ---
 
 <div class="bravada-wtabs" id={uid}>
-	<ul class="wtabs-nav" role="tablist">
-		<li>
-			<button
-				type="button"
-				class="active"
-				data-tab="recent"
-				role="tab"
-				aria-selected="true"
-				title="Recent Posts"
-			>
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-				<span class="sr-only">Recent Posts</span>
-			</button>
-		</li>
-		<li>
-			<button type="button" data-tab="popular" role="tab" aria-selected="false" title="Popular Posts">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-				<span class="sr-only">Popular Posts</span>
-			</button>
-		</li>
-		<li>
-			<button type="button" data-tab="comments" role="tab" aria-selected="false" title="Recent Comments">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-				<span class="sr-only">Recent Comments</span>
-			</button>
-		</li>
-		<li>
-			<button type="button" data-tab="tags" role="tab" aria-selected="false" title="Tags">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-				<span class="sr-only">Tags</span>
-			</button>
-		</li>
+	<ul class="wtabs-nav" role="tablist" aria-label="Post lists">
+		{
+			tabs.map((tab, i) => (
+				<li role="presentation">
+					<button
+						type="button"
+						class:list={[{ active: i === 0 }]}
+						data-tab={tab.id}
+						role="tab"
+						id={tabId(tab.id)}
+						aria-controls={panelId(tab.id)}
+						aria-selected={i === 0 ? "true" : "false"}
+						tabindex={i === 0 ? 0 : -1}
+						title={tab.label}
+					>
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={tab.icon} />
+						<span class="sr-only">{tab.label}</span>
+					</button>
+				</li>
+			))
+		}
 	</ul>
 	<div class="wtabs-panels">
 		{
@@ -100,6 +119,9 @@ const panels = [
 					class:list={["wtab-panel", { active: pi === 0 }]}
 					data-panel={panel.id}
 					role="tabpanel"
+					id={panelId(panel.id)}
+					aria-labelledby={tabId(panel.id)}
+					tabindex="0"
 				>
 					{panel.items.map((item) => (
 						<li>
@@ -129,7 +151,14 @@ const panels = [
 				</ul>
 			))
 		}
-		<div class="wtab-panel wtab-tags" data-panel="tags" role="tabpanel">
+		<div
+			class="wtab-panel wtab-tags"
+			data-panel="tags"
+			role="tabpanel"
+			id={panelId("tags")}
+			aria-labelledby={tabId("tags")}
+			tabindex="0"
+		>
 			{
 				tags.map((t) => (
 					<a href={`/tag/${t.slug}`} class="wtab-tag">
@@ -145,17 +174,38 @@ const panels = [
 	for (const root of document.querySelectorAll<HTMLElement>(".bravada-wtabs")) {
 		if (root.dataset.init) continue;
 		root.dataset.init = "1";
-		const buttons = root.querySelectorAll<HTMLButtonElement>("[data-tab]");
+		const buttons = [...root.querySelectorAll<HTMLButtonElement>("[data-tab]")];
 		const panels = root.querySelectorAll<HTMLElement>("[data-panel]");
-		buttons.forEach((btn) => {
-			btn.addEventListener("click", () => {
-				buttons.forEach((b) => {
-					b.classList.toggle("active", b === btn);
-					b.setAttribute("aria-selected", b === btn ? "true" : "false");
-				});
-				panels.forEach((p) => {
-					p.classList.toggle("active", p.dataset.panel === btn.dataset.tab);
-				});
+
+		// Roving tabindex: the tablist is one tab stop, arrows move within
+		// it (APG tabs pattern). Without this the four icon tabs are four
+		// separate stops and none of them respond to arrow keys.
+		const select = (btn: HTMLButtonElement, focus = false) => {
+			buttons.forEach((b) => {
+				const on = b === btn;
+				b.classList.toggle("active", on);
+				b.setAttribute("aria-selected", String(on));
+				b.tabIndex = on ? 0 : -1;
+			});
+			panels.forEach((p) => {
+				p.classList.toggle("active", p.dataset.panel === btn.dataset.tab);
+			});
+			if (focus) btn.focus();
+		};
+
+		buttons.forEach((btn, i) => {
+			btn.addEventListener("click", () => select(btn));
+			btn.addEventListener("keydown", (event) => {
+				const key = event.key;
+				let next: HTMLButtonElement | undefined;
+				if (key === "ArrowRight") next = buttons[(i + 1) % buttons.length];
+				else if (key === "ArrowLeft")
+					next = buttons[(i - 1 + buttons.length) % buttons.length];
+				else if (key === "Home") next = buttons[0];
+				else if (key === "End") next = buttons[buttons.length - 1];
+				if (!next) return;
+				event.preventDefault();
+				select(next, true);
 			});
 		});
 	}
