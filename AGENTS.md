@@ -41,6 +41,17 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 - **Wrap around 72 characters**, continuation lines indented two spaces under the bullet.
 - **Say "the theme"**, not "the demo", when referring to the Bravada source being ported.
 
+## Releases
+
+Releases are cut from `main` and tagged `vX.Y.Z`.
+
+- **Three version strings move together**, because this theme ships a plugin: `package.json`, the plugin entry's `version` in `astro.config.mjs`, and `version` in `src/plugins/bravada-theme/index.ts`. Missing one has shipped before -- v0.5.0 had to correct a plugin declaring `0.4.0` against a `0.4.5` package.
+- `CHANGELOG.md`: `## [Unreleased]` becomes `## [X.Y.Z] - YYYY-MM-DD`.
+- Commit as `Release X.Y.Z`, tag `vX.Y.Z`, push both.
+- **Cut the GitHub release only after CI is green and the demo has been redeployed and smoke tested**, in that order. The demo deploys from the `deploy/cloudflare` branch, which merges `main`.
+- **The release title takes an en dash, never an em dash**, with lowercase comma-separated themes after it: `v0.6.0 – SEO audit pass, canonical redirects, EmDash 0.33.0`.
+- Release body: a one-line intro, `### Heads up` for breaking changes and manual steps, then `### Added` / `### Fixed` / `### Changed` / `### Documentation` with each bullet leading in **bold**, closing with `**Full changelog:** <compare link>`. Keep em dashes to a minimum here, unlike the changelog.
+
 ## This Template
 
 A blog with posts, pages, categories, tags, full-text search, and RSS, restyled as a port of the Bravada WordPress theme (Cryout Creations): magazine-style landing sections and a real article structure with bylines and reading time.
