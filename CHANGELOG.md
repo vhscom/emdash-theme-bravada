@@ -4,6 +4,35 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Blog posts can now show a large preview image in search results.
+  Posts were the only pages on the site missing the line that permits
+  it, so the one page type built around a photograph was the one
+  shown with a small thumbnail.
+- The landing page now carries a top-level heading — the site title,
+  where the original theme puts it. Its headings previously started
+  one level down, leaving the site's most important page without one.
+- The landing page is no longer served at a second address. `/home`
+  now sends visitors to the site root instead of answering with the
+  same page again, so the two can't compete with each other.
+- Posts now name their author in the information search engines read.
+  The byline was on the page but missing from the data behind it.
+  Sites that turn author attribution off stay anonymous there too.
+- Addresses written with a trailing slash (`/about/` rather than
+  `/about`) now redirect to the one correct address instead of
+  serving a second copy of the page. Links from an old WordPress site,
+  where that trailing slash was the norm, keep working.
+- The SEO panel in the admin now takes effect on pages, projects and
+  products, not just posts. A custom title, description, social image
+  or canonical set there was ignored. "Hide from search engines" was
+  worse than ignored: it dropped the page from the sitemap while the
+  page itself kept inviting search engines in.
+- Later pages of the blog archive no longer describe themselves as
+  copies of page one, and their titles say which page you are on.
+
 ## [0.5.0] - 2026-08-01
 
 ### Changed
