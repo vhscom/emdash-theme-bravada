@@ -12,6 +12,16 @@ if (!slug) {
 	return Astro.rewrite("/404");
 }
 
+// The landing page is served at "/" (see index.astro), so its own slug
+// is not a second address for it. WordPress redirects a static front
+// page's slug to the site root (redirect_canonical); without the same
+// redirect, /home answered 200 with the whole landing page, pointed its
+// canonical at itself, and appeared in the sitemap — a duplicate of the
+// site's most important URL.
+if (slug === "home") {
+	return Astro.redirect("/", 301);
+}
+
 const { entry: page, cacheHint } = await getEmDashEntry("pages", slug);
 
 if (!page) {
