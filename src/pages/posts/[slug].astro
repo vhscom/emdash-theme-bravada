@@ -171,6 +171,13 @@ const [showAuthorSetting, showPostNavSetting] = await Promise.all([
 const showAuthor = showAuthorSetting !== false;
 const showPostNav = showPostNavSetting !== false;
 
+// The theme marks the post author up as a schema.org Person
+// (cryout_schema_microdata('author')); the port's BlogPosting JSON-LD
+// named only the publisher, so the byline the page shows was missing
+// from the structured data and from article:author. Sites that have
+// turned author attribution off stay anonymous in the metadata too.
+const metaAuthor = showAuthor ? (bylines[0]?.byline.displayName ?? null) : null;
+
 // Categories for the hero's pretitle row (demo: icon + linked list
 // above the title).
 const categories = (post.data.terms?.category ?? []) as { slug: string; label: string }[];
@@ -198,6 +205,7 @@ const postHeroDate = heroDate(post.data.publishedAt);
 	canonical={seo.canonical}
 	robots={robots}
 	type="article"
+	author={metaAuthor}
 	publishedTime={post.data.publishedAt?.toISOString() ?? null}
 	modifiedTime={post.data.updatedAt.toISOString()}
 	content={{ collection: "posts", id: post.data.id, slug }}
