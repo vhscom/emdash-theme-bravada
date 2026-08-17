@@ -30,6 +30,8 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 - `entry.id` is the slug (for URLs). `entry.data.id` is the database ULID (for API calls like `getEntryTerms`).
 - Always call `Astro.cache.set(cacheHint)` on pages that query content.
 - Taxonomy names in queries must match the seed's `"name"` field exactly (e.g., `"category"` not `"categories"`).
+- Content routes resolve head metadata through `getSeoMeta`, so the admin's SEO panel (title, description, social image, canonical, noindex) reaches the page. Pass `robots={seo.robots ?? undefined}` -- it returns `null` for an entry that isn't noindexed, and `null` skips `Base.astro`'s default, which silently drops the tag.
+- URL canonicalisation lives in `src/middleware.ts`. Leave `trailingSlash` unset in `astro.config.mjs`: `"never"` deduplicates the same URLs but answers 404, and Astro applies it before middleware, so the 301 never gets a chance to run.
 
 ## Changelog
 
