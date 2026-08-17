@@ -6,6 +6,16 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- EmDash 0.31.1 to 0.33.0. Two database migrations run the first time
+  you start the site after updating. Taxonomy terms keep the order they
+  appear in today, now stored explicitly, so you can rearrange them
+  from the Taxonomies screen instead of renaming things to sort them.
+- Start the dev server with `pnpm dev`. The `npx emdash dev` form the
+  setup instructions used is deprecated in EmDash 0.33.0; it still
+  runs, but warns.
+
 ### Fixed
 
 - Blog posts can now show a large preview image in search results.
