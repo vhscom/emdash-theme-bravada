@@ -31,6 +31,16 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 - Always call `Astro.cache.set(cacheHint)` on pages that query content.
 - Taxonomy names in queries must match the seed's `"name"` field exactly (e.g., `"category"` not `"categories"`).
 
+## Changelog
+
+`CHANGELOG.md` follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and SemVer. New work goes under `## [Unreleased]` in an `### Added` / `### Changed` / `### Fixed` / `### Documentation` subsection -- one of each per section, never a second heading of the same name.
+
+- **Write it for humans, not for the diff.** Each entry says what changed for someone using the site and, where it isn't obvious, why it matters. No file paths, function names, table names, SQL, or how it was investigated -- that detail belongs in the commit message body, which is where the reasoning and the measurements go.
+- **Only the most recent section is editable.** Released sections are a record. Don't reword, re-punctuate, or "fix" them; a change in style applies from the top section onward, otherwise the file looks inconsistent.
+- **Match the punctuation already there.** Em dashes are fine and the file uses them -- roughly one per section, as a single dash setting off a consequence or an aside. Don't bracket a phrase with a pair of them; use parentheses. Don't stack several into one section.
+- **Wrap around 72 characters**, continuation lines indented two spaces under the bullet.
+- **Say "the theme"**, not "the demo", when referring to the Bravada source being ported.
+
 ## This Template
 
 A blog with posts, pages, categories, tags, full-text search, and RSS, restyled as a port of the Bravada WordPress theme (Cryout Creations): magazine-style landing sections and a real article structure with bylines and reading time.
