@@ -60,6 +60,13 @@ const seo = getSeoMeta(post, {
 	titleSeparator: resolveTitleSeparator(siteSettings),
 });
 
+// getSeoMeta returns null — not undefined — for a post that isn't marked
+// noindex, and a null prop skips Base's default parameter. Passing it
+// straight through left single posts as the only page type with no robots
+// meta at all, and so the only one missing max-image-preview:large, on the
+// pages where a large search thumbnail matters most.
+const robots = seo.robots ?? undefined;
+
 // Bylines are already hydrated by getEmDashEntry
 const bylines = post.data.bylines ?? [];
 
@@ -189,7 +196,7 @@ const postHeroDate = heroDate(post.data.publishedAt);
 	description={seo.description}
 	image={seo.ogImage}
 	canonical={seo.canonical}
-	robots={seo.robots}
+	robots={robots}
 	type="article"
 	publishedTime={post.data.publishedAt?.toISOString() ?? null}
 	modifiedTime={post.data.updatedAt.toISOString()}
