@@ -79,6 +79,16 @@ external one.
 RSS lives at `/rss.xml`; `sitemap.xml` and `robots.txt` are served by the
 EmDash integration.
 
+One thing to do once, after seeding: open the **Home** page in the admin and
+tick **hide from search engines** in its SEO panel. The landing page is a
+real page entry, so it also has a slug — `/home` — which this theme redirects
+to `/` the way WordPress redirects a static front page. The sitemap is built
+from content rather than routes, though, so without that flag it lists
+`/home` and search engines are handed a URL that only redirects. The flag
+removes it from the sitemap and leaves `/` untouched, because the home route
+doesn't read per-entry SEO. There is no seed field for it, which is why it
+can't ship pre-set.
+
 ## Architecture
 
 Everything is server-rendered (`output: "server"`): content lives in SQLite
