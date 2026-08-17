@@ -1,10 +1,15 @@
 ---
-import { getEmDashEntry, decodeSlug } from "emdash";
+import { getEmDashEntry, getSeoMeta, getSiteSettings, decodeSlug } from "emdash";
 import RichText from "../components/RichText.astro";
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 import PageLayout from "../layouts/PageLayout.astro";
 import { metaDescription } from "../utils/reading-time";
+import {
+	resolveBlogSiteIdentity,
+	resolveSiteOrigin,
+	resolveTitleSeparator,
+} from "../utils/site-identity";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -52,12 +57,33 @@ const headerImage = page.data.header_image as { src?: string; alt?: string } | u
 // is_singular(('post','page')) && has_excerpt()); it doubles as the
 // page's search description. Rendered only when set, like the demo.
 const excerpt = (page.data.excerpt as string | undefined) || null;
+
+// Everything an editor sets in the admin's SEO panel — title,
+// description, social image, canonical, noindex — reaches the page
+// through getSeoMeta, the same way single posts read it. Without this
+// the panel was decorative on pages: a page marked noindex still served
+// "index, follow" while quietly dropping out of the sitemap, which
+// honours the flag.
+const siteSettings = await getSiteSettings();
+const { siteTitle } = resolveBlogSiteIdentity(siteSettings);
+const siteOrigin = resolveSiteOrigin(siteSettings, Astro.url.origin);
+const seo = getSeoMeta(page, {
+	siteTitle,
+	siteUrl: siteOrigin,
+	path: `/${slug}`,
+	defaultOgImage: ogImage,
+	defaultDescription: excerpt ?? metaDescription(page.data.content) ?? page.data.title,
+	titleSeparator: resolveTitleSeparator(siteSettings),
+});
 ---
 
 <Base
-	title={page.data.title}
-	description={excerpt ?? metaDescription(page.data.content) ?? page.data.title}
-	image={ogImage}
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots ?? undefined}
 	content={{ collection: "pages", id: page.data.id, slug }}
 	overHero
 >

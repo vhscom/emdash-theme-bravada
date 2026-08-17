@@ -3,6 +3,7 @@ import {
 	getEmDashEntry,
 	getEmDashCollection,
 	getEntryTerms,
+	getSeoMeta,
 	decodeSlug,
 	getSiteSettings,
 } from "emdash";
@@ -13,7 +14,11 @@ import StarRating from "../../components/StarRating.astro";
 import Price from "../../components/Price.astro";
 import { getMediaUrl } from "../../utils/media-url";
 import { metaDescription } from "../../utils/reading-time";
-import { resolveSiteOrigin } from "../../utils/site-identity";
+import {
+	resolveBlogSiteIdentity,
+	resolveSiteOrigin,
+	resolveTitleSeparator,
+} from "../../utils/site-identity";
 import { parseGallery, parseReviews, parseVariants } from "../../utils/product-fields";
 
 const slug = decodeSlug(Astro.params.slug);
@@ -60,7 +65,9 @@ const description = (d.excerpt as string) || metaDescription(d.content) || undef
 
 // schema.org/Product JSON-LD. Prices are stored as display strings
 // ("£13.00"); the offer is only emitted when one parses cleanly.
-const siteOrigin = resolveSiteOrigin(await getSiteSettings(), Astro.url.origin);
+const siteSettings = await getSiteSettings();
+const { siteTitle } = resolveBlogSiteIdentity(siteSettings);
+const siteOrigin = resolveSiteOrigin(siteSettings, Astro.url.origin);
 const absoluteUrl = (path: string | undefined) =>
 	path ? (path.startsWith("http") ? path : `${siteOrigin}${path}`) : undefined;
 const priceMatch = typeof d.price === "string" ? d.price.match(/([£$€])\s*([\d.,]+)/) : null;
@@ -93,12 +100,27 @@ const productLd = {
 			},
 		}),
 };
+
+// The admin's SEO panel drives the head here as it does on posts —
+// otherwise a product marked noindex still advertised itself as
+// indexable while dropping out of the sitemap.
+const seo = getSeoMeta(product, {
+	siteTitle,
+	siteUrl: siteOrigin,
+	path: `/product/${slug}`,
+	defaultOgImage: mainImage,
+	defaultDescription: description,
+	titleSeparator: resolveTitleSeparator(siteSettings),
+});
 ---
 
 <Base
-	title={d.title}
-	description={description}
-	image={mainImage}
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	image={seo.ogImage}
+	canonical={seo.canonical}
+	robots={seo.robots ?? undefined}
 	content={{ collection: "products", id: d.id, slug }}
 	overHero
 >
