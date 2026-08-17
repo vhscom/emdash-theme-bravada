@@ -110,7 +110,7 @@ time, so the first build needs network access).
 
 ```bash
 pnpm install
-npx emdash dev                    # localhost:4321 — migrations run, but the site starts EMPTY
+pnpm dev                          # localhost:4321 — migrations run, but the site starts EMPTY
 ```
 
 Then visit `http://localhost:4321/_emdash/admin` — the setup wizard creates
@@ -129,7 +129,7 @@ npx emdash seed seed/seed.minimal.json
 ```
 
 To start over at any point: stop the dev server, `rm data.db*`, and run
-`npx emdash dev` again.
+`pnpm dev` again.
 
 Full-text search, RSS, sitemap/robots, SEO/JSON-LD, comments-ready routes,
 dark/light mode and the audit-log plugin come from EmDash and the underlying
