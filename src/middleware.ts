@@ -3,13 +3,14 @@ import { defineMiddleware } from "astro:middleware";
 /**
  * Canonical URL form: no trailing slash.
  *
- * `trailingSlash: "never"` in astro.config.mjs states the rule — it stops
- * /posts/ and /posts from both answering 200 with the same page under two
- * self-canonical URLs — but Astro enforces it with a 404, which would
- * break every inbound link written the WordPress way (WordPress's default
- * permalinks end in a slash). WordPress redirects those instead
- * (redirect_canonical), so we do too: one 301 to the slashless URL, query
- * string intact.
+ * Without this, /posts/ and /posts both answer 200 with the same page,
+ * each pointing its canonical at itself. Astro's `trailingSlash: "never"`
+ * dedupes them too, but it answers 404 and it runs before middleware, so
+ * nothing can soften it — and that would break every inbound link written
+ * the WordPress way, since WordPress permalinks end in a slash by default.
+ * WordPress redirects those instead (redirect_canonical), so we do the
+ * same: one 301 to the slashless URL, query string intact. The config
+ * option is deliberately left unset.
  *
  * EmDash's own routes are left alone; the admin owns its URL shapes.
  */
