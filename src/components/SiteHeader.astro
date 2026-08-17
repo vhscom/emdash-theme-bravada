@@ -28,16 +28,25 @@ const inSection = createInSection(Astro.url.pathname);
 const relFor = (target?: string) =>
 	target === "_blank" ? "noopener noreferrer" : undefined;
 const isLoggedIn = !!Astro.locals.user;
+
+// The theme wraps #site-title in an h1 on the front page and the blog
+// index, a div everywhere else (includes/core.php). Here only the front
+// page needs it: every other route already gives its own page title the
+// h1 — including /posts, where the theme instead renders the archive
+// title as a plain div. Without this the landing page had no h1 at all.
+const TitleTag = Astro.url.pathname === "/" ? "h1" : "div";
 ---
 
 <header class:list={["site-header", { "over-hero": overHero }]}>
 	<nav class="nav">
-		<a href="/" class="site-title">
-			{siteLogo
-				? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="site-logo-img" />
-				: siteTitle
-			}
-		</a>
+		<TitleTag class="site-title-wrap">
+			<a href="/" class="site-title">
+				{siteLogo
+					? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="site-logo-img" />
+					: siteTitle
+				}
+			</a>
+		</TitleTag>
 		<div class="nav-right">
 			<ul class="nav-links">
 				{
@@ -173,6 +182,22 @@ const isLoggedIn = !!Astro.locals.user;
 		margin: 0 auto;
 		padding: var(--spacing-4) var(--spacing-6);
 		height: var(--nav-height);
+	}
+
+	/* The wordmark's element changes with the route (h1 on the front
+	   page), so the wrapper has to be typographically invisible: it
+	   inherits the nav's font and carries no margin. It also stays a
+	   flex container, because the link was a flex item of .nav before
+	   the wrapper existed — as a plain inline box its height collapses
+	   from the 32.23px line box to 28px, taking 4px off the ribbon
+	   behind the wordmark (measured). All wordmark styling stays on
+	   the link. */
+	.site-title-wrap {
+		display: flex;
+		align-items: center;
+		margin: 0;
+		font: inherit;
+		letter-spacing: inherit;
 	}
 
 	.site-title {
