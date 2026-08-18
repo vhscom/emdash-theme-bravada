@@ -6,6 +6,14 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Category, tag, project-type and project-tag archives now ask search
+  engines to index the posts they list rather than the list itself.
+  These pages repeat titles and excerpts that already appear on the
+  posts, so leaving them out of the index keeps the real pages from
+  competing with thin copies. Links on them are still followed.
+
 ### Documentation
 
 - The README explains how to keep uploaded images visible to search

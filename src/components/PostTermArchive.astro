@@ -53,7 +53,12 @@ const emptyText = isCategory
 	: "No posts with this tag yet.";
 ---
 
-<Base title={title} description={description} overHero>
+<Base
+	title={title}
+	description={description}
+	robots="noindex, follow"
+	overHero
+>
 	<PageHeader
 		title={term.label}
 		excerpt={term.description}

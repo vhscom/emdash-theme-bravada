@@ -37,7 +37,12 @@ const description =
 		: `Portfolio projects tagged ${term.label}.`;
 ---
 
-<Base title={`${term.label} projects`} description={description} overHero>
+<Base
+	title={`${term.label} projects`}
+	description={description}
+	robots="noindex, follow"
+	overHero
+>
 	<PageHeader
 		title={term.label}
 		excerpt={term.description}
