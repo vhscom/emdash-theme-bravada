@@ -89,6 +89,40 @@ removes it from the sitemap and leaves `/` untouched, because the home route
 doesn't read per-entry SEO. There is no seed field for it, which is why it
 can't ship pre-set.
 
+### Let crawlers reach your images
+
+The default `robots.txt` disallows `/_emdash/`, which is where EmDash's
+media proxy serves uploads from (`/_emdash/api/media/file/…`). Social
+preview images always come from there — `getMediaUrl` in
+`src/utils/media-url.ts` builds them that way — so on a stock install
+every `og:image` sits behind that Disallow.
+
+Whether your on-page images are blocked too depends on how they are
+served. Astro's image endpoint, an external provider such as Cloudflare
+Images, and a public R2 or CDN origin all sit outside `/_emdash/` and
+are unaffected by the rule. Check what your pages actually emit before
+assuming one way or the other.
+
+Either way, the fix goes in the site settings SEO panel (the
+`seo.robotsTxt` field), which EmDash serves verbatim in place of its
+default:
+
+```
+User-agent: *
+Allow: /
+
+# Uploaded images sit under the admin prefix — keep them crawlable.
+Allow: /_emdash/api/media/file/
+
+# Admin UI, content API and auth routes stay out of the index.
+Disallow: /_emdash/
+```
+
+Google resolves a conflict between `Allow` and `Disallow` by the longest
+matching path, so the media rule wins while everything else under
+`/_emdash/` stays blocked. You don't need a `Sitemap:` line — EmDash
+appends one when your text doesn't already name it.
+
 ## Architecture
 
 Everything is server-rendered (`output: "server"`): content lives in SQLite

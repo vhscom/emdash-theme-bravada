@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Documentation
+
+- The README explains how to keep uploaded images visible to search
+  engines. EmDash's stock robots.txt blocks the path its media proxy
+  serves uploads from, which is where social preview images always
+  come from — so link previews are hidden from crawlers until you
+  replace that file. The README gives you the text to paste and notes
+  when on-page images are affected too; the Bravada Theme settings
+  page points at it.
+
 ## [0.7.0] - 2026-08-18
 
 ### Fixed

@@ -56,6 +56,12 @@ async function settingsBlocks(ctx: RouteContext<unknown>) {
 			fields,
 			submit: { label: "Save", action_id: "save" },
 		},
+		{ type: "divider" },
+		{ type: "header", text: "Search engines" },
+		{
+			type: "text",
+			text: "EmDash's default robots.txt disallows /_emdash/, where the media proxy serves uploads from. Social preview images are always built from that path, so on a stock install every og:image is blocked from crawlers; on-page images may or may not be, depending on whether they go through an image transform or CDN. The fix is a robots.txt in the site settings SEO panel that allows the media path above the disallow — the theme README has the text, under \"Let crawlers reach your images\". Nothing here rewrites that setting, so your own wording survives an update.",
+		},
 	];
 }
 
