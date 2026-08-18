@@ -4,6 +4,23 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- The sidebar under a post now lines up with the article above it. On
+  screens narrow enough for it to drop below the white card, its
+  search box and recent-post thumbnails sat flush against the right
+  edge — they now keep the same margin the article has.
+- Posts use the full width of a phone screen, the way the theme does.
+  The article sat inside a margin and then indented its text again,
+  so the words ran in a column about three quarters as wide as the
+  theme gives them.
+- The portfolio and testimonial sections of the landing page kept
+  their desktop indent on a phone, leaving both noticeably narrower
+  than the sections above and below. They now step their margins down
+  on smaller screens like the rest of the page.
+
 ## [0.6.0] - 2026-08-17
 
 ### Changed

@@ -69,6 +69,23 @@ const { title, description, items = [] } = node;
 		padding: 3em 2.5em;
 	}
 
+	/* Same 2.5em -> 2em -> 1em taper as the other landing sections
+	   (style.css lists .lp-testimonials-inside alongside them); this
+	   one was flat at 2.5em too. */
+	@media (max-width: 1152px) {
+		.lp-testimonials-inside {
+			padding-left: 2em;
+			padding-right: 2em;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.lp-testimonials-inside {
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+	}
+
 	.lp-tt-text-inside {
 		position: relative;
 		top: 0;

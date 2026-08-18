@@ -217,6 +217,25 @@ function modernSources(src?: string) {
 		padding: 3em 2.5em;
 	}
 
+	/* Theme: side padding tapers 2.5em -> 2em (<=1152px) -> 1em
+	   (<=640px), the same schedule every landing section runs
+	   (style.css lists .lp-portfolio-inside in all three rules). This
+	   band was left flat at 2.5em, so at 390pt the filter bar and the
+	   grid sat at 40 against the theme's 14. */
+	@media (max-width: 1152px) {
+		.lp-portfolio-inside {
+			padding-left: 2em;
+			padding-right: 2em;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.lp-portfolio-inside {
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+	}
+
 	/* Filter bar (demo #portfolio-filter): transparent with a 2px grey
 	   outline, bold uppercase links, gold active item */
 	.lp-port-filter {

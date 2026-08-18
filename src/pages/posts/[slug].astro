@@ -1041,6 +1041,20 @@ const postHeroDate = heroDate(post.data.publishedAt);
 			grid-template-columns: 1fr;
 			max-width: 860px;
 		}
+
+		/* Desktop insets the sidebar from the left only (0 on the right,
+		   which is fine sitting beside the card inside the grid's own
+		   edge). Stacked full-width, that 0 lands flush against the
+		   card's right edge while .post-main keeps its margin on both
+		   sides. The theme stacks .main and the sidebar as siblings on
+		   one gutter (style.css: both take 2em at <=1024, 1em at <=640,
+		   with .sidey .widget-container zeroed), so widgets line up
+		   with the article text — not with the card's outer edge.
+		   In rem, not em: the sidebar sets font-size 14px, so the same
+		   em clamp resolves 3.5px shallower than it does on the card. */
+		.post-grid > :global(.bravada-sidebar) {
+			padding: clamp(1.75rem, 4vw, 3.5rem);
+		}
 	}
 
 	@media (max-width: 900px) {
@@ -1055,6 +1069,28 @@ const postHeroDate = heroDate(post.data.publishedAt);
 
 		.related-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	/* Phone: the theme drops the card to full-bleed and runs a single
+	   1em gutter for both columns (style.css @media max-width:640 --
+	   .main and #secondary each take padding 1em, and .sidey
+	   .widget-container is zeroed so widgets sit flush inside it).
+	   Measured on the theme at 390pt: #main is 0->390 with no radius,
+	   and the article text and the widgets both run 14->376. Ours put
+	   a 16px inset on .post-grid *and* 28px on the card, landing the
+	   content at 44 -- three times the theme's gutter. The hero above
+	   (.page-hero-image) is already full-bleed, so the card now meets
+	   it instead of sitting inset from it. */
+	@media (max-width: 640px) {
+		.post-grid {
+			padding: 0;
+		}
+
+		.post-main,
+		.post-grid > :global(.bravada-sidebar) {
+			padding-left: 1rem;
+			padding-right: 1rem;
 		}
 	}
 
