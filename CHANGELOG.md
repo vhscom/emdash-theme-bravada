@@ -20,6 +20,10 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   their desktop indent on a phone, leaving both noticeably narrower
   than the sections above and below. They now step their margins down
   on smaller screens like the rest of the page.
+- Section headings on the landing page sit over their large faded
+  title again on smaller screens. The two had been drifting apart as
+  the screen narrowed until the heading cleared the faded title
+  almost entirely, losing the overlap the pairing is built on.
 
 ## [0.6.0] - 2026-08-17
 

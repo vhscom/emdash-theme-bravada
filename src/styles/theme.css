@@ -514,20 +514,14 @@ body {
 	margin-top: -1.4em;
 }
 
-@media (max-width: 800px) {
-	/* The ghost title shrinks with the viewport but the -1.4em pull-up
-	   doesn't: short single-line titles get overshot and the description
-	   escapes the section top. Ease the overlap as the title scales. */
-	.ghost-header .ghost-title ~ .ghost-sub {
-		margin-top: -0.7em;
-	}
-}
-
-@media (max-width: 480px) {
-	.ghost-header .ghost-title ~ .ghost-sub {
-		margin-top: -0.35em;
-	}
-}
+/* The theme holds this pull-up flat at every width -- measured on it,
+   .lp-section-desc is -1.4em at 390pt and at 760pt alike, overlapping
+   72% and 39% of the title as the title scales. Easing it to -0.7em
+   under 800px and -0.35em under 480px left the description sitting
+   almost clear of the ghost title on a phone (20% against the theme's
+   72%). The overshoot that easing guarded against doesn't happen: at
+   390, 480 and 760 the description still starts below the header's own
+   top edge. */
 
 /* ============================================================
    Gold highlighter strips (widget titles, text-band titles,
