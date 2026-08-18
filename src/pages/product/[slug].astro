@@ -7,6 +7,7 @@ import {
 	decodeSlug,
 	getSiteSettings,
 } from "emdash";
+import { safeJsonLdSerialize } from "emdash/page";
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import RichText from "../../components/RichText.astro";
@@ -330,7 +331,8 @@ const seo = getSeoMeta(product, {
 			}
 		</article>
 	</div>
-	<script type="application/ld+json" is:inline set:html={JSON.stringify(productLd)} />
+	{/* is:inline explicit — see the note in portfolio/[slug].astro */}
+	<script type="application/ld+json" is:inline set:html={safeJsonLdSerialize(productLd)} />
 </Base>
 
 <div class="gallery-lightbox" hidden role="dialog" aria-modal="true" aria-label="Full size image" tabindex="-1">

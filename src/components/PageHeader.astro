@@ -1,6 +1,9 @@
 ---
 import { getSiteSettings } from "emdash";
 import MetaArrow from "./MetaArrow.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import type { Crumb } from "./Breadcrumbs.astro";
+import { resolveSiteOrigin } from "../utils/site-identity";
 /**
  * Bravada inner-page header (#header-image-main, fullscreen): every
  * non-landing page opens on a full-viewport image under the demo's
@@ -9,11 +12,6 @@ import MetaArrow from "./MetaArrow.astro";
  * an optional meta line, and breadcrumbs pinned to the bottom edge.
  * Pages using it pass overHero to Base so the menu floats on top.
  */
-interface Crumb {
-	label: string;
-	href?: string;
-}
-
 interface Props {
 	title: string;
 	/** Small line under the title (entry meta, result counts, …) */
@@ -31,6 +29,11 @@ interface Props {
 	image?: string;
 	imageAlt?: string;
 	crumbs?: Crumb[];
+	/**
+	 * Emit BreadcrumbList JSON-LD alongside the chips. See Breadcrumbs
+	 * — off on pages that aren't a real position in the hierarchy.
+	 */
+	crumbSchema?: boolean;
 	/** Visual-editing attributes spread onto the title */
 	titleAttrs?: Record<string, string>;
 }
@@ -45,6 +48,7 @@ const {
 	image,
 	imageAlt = "",
 	crumbs = [],
+	crumbSchema = true,
 	titleAttrs = {},
 } = Astro.props;
 
@@ -53,6 +57,8 @@ const {
 // fallback when neither a per-page image nor a site default is set.
 const settings = await getSiteSettings();
 const headerImage = image ?? settings?.seo?.defaultOgImage?.url ?? DEFAULT_IMAGE;
+// Resolved here rather than in Breadcrumbs so the settings load once.
+const siteOrigin = resolveSiteOrigin(settings, Astro.url.origin);
 
 // Local /images/demo/*.jpg assets ship pre-built AVIF/WebP siblings
 // (same basename) so the LCP header image can serve a modern format
@@ -101,31 +107,7 @@ const heroWebp = headerImage.startsWith("/images/")
 	<MetaArrow targetId="after-page-hero" />
 	{
 		crumbs.length > 0 && (
-			<nav class="page-hero-crumbs" aria-label="Breadcrumb">
-				<a href="/" class="crumb-chip" aria-label="Home">
-					<svg
-						width="13"
-						height="13"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						aria-hidden="true"
-						><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
-					>
-				</a>
-				{crumbs.map((crumb) =>
-					crumb.href ? (
-						<a href={crumb.href} class="crumb-chip">
-							{crumb.label}
-						</a>
-					) : (
-						<span class="crumb-chip crumb-current">{crumb.label}</span>
-					),
-				)}
-			</nav>
+			<Breadcrumbs crumbs={crumbs} schema={crumbSchema} siteOrigin={siteOrigin} />
 		)
 	}
 </section>
@@ -276,47 +258,6 @@ const heroWebp = headerImage.startsWith("/images/")
 			opacity: 1;
 			transform: translateX(0);
 		}
-	}
-
-	/* Breadcrumbs pinned bottom-center: muted translucent chips
-	   (demo: rgba(255,255,255,.2) plates at 50% element opacity, 6px
-	   apart). We sit slightly above the demo's opacity for legibility
-	   and restore full strength on hover/keyboard focus. */
-	.page-hero-crumbs {
-		position: absolute;
-		z-index: 4;
-		left: 0;
-		right: 0;
-		bottom: 1.2em;
-		display: flex;
-		align-items: stretch;
-		justify-content: center;
-		gap: 6px;
-		font-size: 0.81em;
-		color: #ffffff;
-	}
-
-	.crumb-chip {
-		display: inline-flex;
-		align-items: center;
-		padding: 5px 10px;
-		background: rgba(255, 255, 255, 0.2);
-		color: #ffffff;
-		text-decoration: none;
-		line-height: 1.4;
-		opacity: 0.6;
-		transition: 0.2s ease-out opacity;
-	}
-
-	a.crumb-chip:hover,
-	a.crumb-chip:focus-visible {
-		opacity: 1;
-		color: #ffffff;
-	}
-
-	a.crumb-chip:focus-visible {
-		outline: 2px solid rgba(255, 255, 255, 0.8);
-		outline-offset: 1px;
 	}
 
 	@media (prefers-reduced-motion: reduce) {

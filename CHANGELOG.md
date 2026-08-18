@@ -24,6 +24,16 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   title again on smaller screens. The two had been drifting apart as
   the screen narrowed until the heading cleared the faded title
   almost entirely, losing the overlap the pairing is built on.
+- Content with a stray `</script>` in it can no longer break the
+  structured data on project and product pages. The data search
+  engines read is now escaped on its way into the page, so an
+  unlucky character in a description can't cut the block short.
+
+### Added
+
+- Search engines now get the trail of links above a page title as
+  structured data, so results can show where the page sits in the
+  site rather than just its address.
 
 ## [0.6.0] - 2026-08-17
 

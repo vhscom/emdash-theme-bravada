@@ -135,6 +135,7 @@ const cards = entries.map((post) => ({
 		crumbs={[
 			{ label: query ? `Search results for "${query}"` : "Search" },
 		]}
+		crumbSchema={false}
 	>
 		{/* The theme renders get_search_form() in the hero byline slot on
 		    the search page: markup and class names below mirror the

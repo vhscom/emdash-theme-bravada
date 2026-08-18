@@ -1,0 +1,131 @@
+---
+import { safeJsonLdSerialize } from "emdash/page";
+/**
+ * Bravada hero breadcrumbs: the muted translucent chips pinned to the
+ * bottom edge of the inner-page header, plus the schema.org
+ * BreadcrumbList that describes the same trail for search engines.
+ *
+ * Rendered by PageHeader, so every template that passes `crumbs` gets
+ * both the chips and the structured data — there is no second place to
+ * keep in sync.
+ */
+export interface Crumb {
+	label: string;
+	href?: string;
+}
+
+interface Props {
+	crumbs: Crumb[];
+	/**
+	 * Emit the BreadcrumbList JSON-LD. Off for pages that aren't a real
+	 * position in the site hierarchy (404, search results), where the
+	 * trail is navigation furniture rather than a describable path.
+	 */
+	schema?: boolean;
+	/**
+	 * Canonical origin for the BreadcrumbList item URLs. Passed in by
+	 * PageHeader, which has already loaded site settings for the header
+	 * image -- resolving it here too would re-fetch them per render.
+	 */
+	siteOrigin: string;
+}
+
+const { crumbs, schema = true, siteOrigin } = Astro.props;
+
+// Absolute URLs: BreadcrumbList item @ids must be canonical, so they
+// resolve against the configured public origin like every other URL
+// the theme emits.
+const absolute = (href: string) =>
+	href.startsWith("http") ? href : `${siteOrigin}${href}`;
+
+// The home chip is position 1; the passed crumbs follow. The trailing
+// crumb is the current page and carries no href — schema.org allows the
+// last item to omit `item`, so it is left off rather than pointed at
+// itself.
+const breadcrumbLd = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [{ label: "Home", href: "/" }, ...crumbs].map((crumb, i) => ({
+		"@type": "ListItem",
+		position: i + 1,
+		name: crumb.label,
+		...(crumb.href && { item: absolute(crumb.href) }),
+	})),
+};
+---
+
+<nav class="page-hero-crumbs" aria-label="Breadcrumb">
+	<a href="/" class="crumb-chip" aria-label="Home">
+		<svg
+			width="13"
+			height="13"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg
+		>
+	</a>
+	{
+		crumbs.map((crumb) =>
+			crumb.href ? (
+				<a href={crumb.href} class="crumb-chip">
+					{crumb.label}
+				</a>
+			) : (
+				<span class="crumb-chip crumb-current">{crumb.label}</span>
+			),
+		)
+	}
+</nav>
+{/* is:inline explicit — see the note in portfolio/[slug].astro */}
+{
+	schema && (
+		<script type="application/ld+json" is:inline set:html={safeJsonLdSerialize(breadcrumbLd)} />
+	)
+}
+
+<style>
+	/* Breadcrumbs pinned bottom-center: muted translucent chips
+	   (demo: rgba(255,255,255,.2) plates at 50% element opacity, 6px
+	   apart). We sit slightly above the demo's opacity for legibility
+	   and restore full strength on hover/keyboard focus. */
+	.page-hero-crumbs {
+		position: absolute;
+		z-index: 4;
+		left: 0;
+		right: 0;
+		bottom: 1.2em;
+		display: flex;
+		align-items: stretch;
+		justify-content: center;
+		gap: 6px;
+		font-size: 0.81em;
+		color: #ffffff;
+	}
+
+	.crumb-chip {
+		display: inline-flex;
+		align-items: center;
+		padding: 5px 10px;
+		background: rgba(255, 255, 255, 0.2);
+		color: #ffffff;
+		text-decoration: none;
+		line-height: 1.4;
+		opacity: 0.6;
+		transition: 0.2s ease-out opacity;
+	}
+
+	a.crumb-chip:hover,
+	a.crumb-chip:focus-visible {
+		opacity: 1;
+		color: #ffffff;
+	}
+
+	a.crumb-chip:focus-visible {
+		outline: 2px solid rgba(255, 255, 255, 0.8);
+		outline-offset: 1px;
+	}
+</style>

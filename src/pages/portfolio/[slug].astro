@@ -6,6 +6,7 @@ import {
 	decodeSlug,
 	getSiteSettings,
 } from "emdash";
+import { safeJsonLdSerialize } from "emdash/page";
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ProjectShell from "../../layouts/ProjectShell.astro";
@@ -103,5 +104,11 @@ const workLd = {
 		/>
 		<RichText value={project.data.content} />
 	</ProjectShell>
-	<script type="application/ld+json" is:inline set:html={JSON.stringify(workLd)} />
+	{/* is:inline is explicit, not incidental: Astro treats any script
+	    carrying a `type` attribute as inline regardless, and its CSP
+	    hashing only covers bundled/injected scripts — never template
+	    JSON-LD. Dropping the directive would add a build hint and
+	    change nothing. safeJsonLdSerialize is what makes this safe:
+	    it escapes </script> and U+2028/9 out of editor-authored copy. */}
+	<script type="application/ld+json" is:inline set:html={safeJsonLdSerialize(workLd)} />
 </Base>
