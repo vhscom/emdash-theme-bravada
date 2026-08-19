@@ -265,7 +265,33 @@
         {
           "slug": "reviews",
           "label": "Reviews",
-          "type": "json"
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "author",
+                "label": "Author",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "rating",
+                "label": "Rating (1-5)",
+                "type": "number"
+              },
+              {
+                "slug": "date",
+                "label": "Date",
+                "type": "datetime"
+              },
+              {
+                "slug": "text",
+                "label": "Review",
+                "type": "text",
+                "required": true
+              }
+            ]
+          }
         },
         {
           "slug": "oos",

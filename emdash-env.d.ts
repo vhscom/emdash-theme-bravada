@@ -68,8 +68,8 @@ export interface Product {
   sku?: string;
   gallery?: unknown;
   variants?: unknown;
-  reviews?: unknown;
   oos?: boolean;
+  reviews?: { "author": string; "rating"?: number | null; "date"?: string | null; "text": string }[];
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;

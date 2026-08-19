@@ -99,6 +99,17 @@ describe("parseReviews", () => {
 		expect(parseReviews([{ text: "x", date: "2026-13-45" }])[0].date).toBeUndefined();
 	});
 
+	it("drops the blank row the repeater editor adds before it is filled in", () => {
+		// "Add Item" seeds strings with "" and numbers with null.
+		expect(parseReviews([{ author: "", rating: null, date: "", text: "" }])).toEqual([]);
+	});
+
+	it("keeps a partly filled repeater row that has body text", () => {
+		expect(parseReviews([{ author: "", rating: null, date: "", text: "Great." }])).toEqual([
+			{ author: "Anonymous", text: "Great." },
+		]);
+	});
+
 	it("skips non-object entries and non-array input", () => {
 		expect(parseReviews(["Great.", null])).toEqual([]);
 		expect(parseReviews(undefined)).toEqual([]);

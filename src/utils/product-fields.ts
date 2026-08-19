@@ -1,12 +1,18 @@
 /**
- * Runtime parsers for the products collection's free-form JSON fields.
+ * Runtime parsers for the products collection's JSON-backed fields.
  *
- * EmDash types `gallery`, `variants`, and `reviews` as `unknown` because
- * they are admin-editable JSON with no schema behind them. Casting them
- * straight to a shape is a server-side crash waiting to happen: a variant
- * saved without `options` takes down the whole product page with a 500.
- * These parsers coerce whatever is stored into the shape the template
- * renders, dropping entries that can't be rendered rather than throwing.
+ * EmDash types `gallery` and `variants` as `unknown` because they are raw
+ * JSON with no schema behind them. Casting them straight to a shape is a
+ * server-side crash waiting to happen: a variant saved without `options`
+ * takes down the whole product page with a 500. These parsers coerce
+ * whatever is stored into the shape the template renders, dropping
+ * entries that can't be rendered rather than throwing.
+ *
+ * `reviews` is a repeater, so it arrives typed — but the type describes
+ * the schema, not what is in the column. Rows written before the field
+ * became a repeater, and rows the editor added but left half-filled
+ * (empty strings, null ratings), both still reach us, so parseReviews
+ * stays as defensive as the other two.
  */
 
 export interface ProductVariant {

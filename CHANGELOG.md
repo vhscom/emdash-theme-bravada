@@ -25,6 +25,12 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - Every product now has its own SKU. Six had none and three shared
   placeholders ("N/A", "SKU-1"), which search engines read as one
   product listed several times.
+- Product reviews are edited as a proper list now, rather than by
+  hand-writing JSON. Each review is a row with its own author, rating,
+  date and body, and rows can be dragged into a new order. If your
+  site already has reviews, save a copy before updating: EmDash
+  refuses to change a field's type while content sits in it, so the
+  field has to be removed and recreated, which clears what was there.
 - Customer reviews on product pages now carry a real date. They all
   read "7th June" before, with no year, so search engines got no
   review date at all; each review now shows the day it was written
