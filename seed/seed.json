@@ -140,7 +140,12 @@
           "label": "Excerpt",
           "type": "text"
         }
-      ]
+      ],
+      "admin": {
+        "listColumns": [
+          "layout"
+        ]
+      }
     },
     {
       "slug": "portfolio",
@@ -266,7 +271,14 @@
           "label": "Out of stock",
           "type": "boolean"
         }
-      ]
+      ],
+      "admin": {
+        "listColumns": [
+          "price",
+          "sku",
+          "oos"
+        ]
+      }
     }
   ],
   "taxonomies": [

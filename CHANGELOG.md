@@ -6,6 +6,11 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- The content lists in the admin show more at a glance — pages carry
+  their layout, and products their price, SKU and stock state.
+
 ### Changed
 
 - EmDash 0.33.0 to 0.34.0. Database migrations run the first time you
