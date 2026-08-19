@@ -12,6 +12,13 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   bites when you do: a content update writes a draft rather than
   publishing, and the CLI can delete a repeater or select field it has
   no way to recreate.
+- The README's description of the landing page matches the theme again.
+  It documented four block types when there are eighteen, omitting two
+  the demo home page itself uses, and described the page as built from
+  reusable sections when it holds its own inline copies — so editing a
+  section to change the homepage would not have worked. Blocks and
+  sections are now explained as the separate things they are, and the
+  seed inventory names the right collections and counts.
 
 ## [0.8.0] - 2026-08-19
 
