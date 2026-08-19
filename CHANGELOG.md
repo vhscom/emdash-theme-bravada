@@ -8,6 +8,8 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- EmDash 0.33.0 to 0.34.0. Database migrations run the first time you
+  start the site after updating.
 - Category, tag, project-type and project-tag archives now ask search
   engines to index the posts they list rather than the list itself.
   These pages repeat titles and excerpts that already appear on the
