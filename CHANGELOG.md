@@ -21,6 +21,11 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   seed inventory names the right collections and counts.
 - The README shows the admin alongside the front end, so you can see
   what editing the site actually looks like before installing it.
+- The robots.txt advice for uploaded images allows them by file
+  extension instead of opening the whole media path, which would have
+  exposed PDFs and every other upload alongside them. It also says
+  plainly when the fix is unnecessary — images served from `public/`
+  or through a transform are never affected.
 
 ## [0.8.0] - 2026-08-19
 

@@ -150,18 +150,24 @@ can't ship pre-set.
 ### Let crawlers reach your images
 
 The default `robots.txt` disallows `/_emdash/`, which is where EmDash's
-media proxy serves uploads from (`/_emdash/api/media/file/…`). Social
-preview images always come from there — `getMediaUrl` in
-`src/utils/media-url.ts` builds them that way — so on a stock install
-every `og:image` sits behind that Disallow.
+media proxy serves uploads from (`/_emdash/api/media/file/…`). Anything
+you upload through the admin is served from that path — `getMediaUrl` in
+`src/utils/media-url.ts` builds those URLs — so it sits behind the
+Disallow.
 
-Whether your on-page images are blocked too depends on how they are
-served. Astro's image endpoint, an external provider such as Cloudflare
-Images, and a public R2 or CDN origin all sit outside `/_emdash/` and
-are unaffected by the rule. Check what your pages actually emit before
-assuming one way or the other.
+**This may not affect you at all.** Images shipped in `public/`, as this
+theme's demo images are, come from the site root and the rule never
+touches them. On-page images going through Astro's image endpoint, an
+external provider such as Cloudflare Images, or a public R2 or CDN origin
+are outside `/_emdash/` too. Check what your pages actually emit before
+changing anything.
 
-Either way, the fix goes in the site settings SEO panel (the
+The exception is social previews. This theme builds `og:image` from the
+stored path made absolute, with no transform, so a media-library upload
+used as a preview image is still served from `/_emdash/api/media/file/…`
+even on a site whose on-page images are all transformed.
+
+If you do need the fix, it goes in the site settings SEO panel (the
 `seo.robotsTxt` field), which EmDash serves verbatim in place of its
 default:
 
@@ -169,17 +175,32 @@ default:
 User-agent: *
 Allow: /
 
-# Uploaded images sit under the admin prefix — keep them crawlable.
-Allow: /_emdash/api/media/file/
+# Uploaded images sit under the admin prefix. Allow them by extension, so
+# nothing else served from that path becomes crawlable with them.
+Allow: /_emdash/api/media/file/*.avif$
+Allow: /_emdash/api/media/file/*.gif$
+Allow: /_emdash/api/media/file/*.jpeg$
+Allow: /_emdash/api/media/file/*.jpg$
+Allow: /_emdash/api/media/file/*.png$
+Allow: /_emdash/api/media/file/*.svg$
+Allow: /_emdash/api/media/file/*.webp$
 
 # Admin UI, content API and auth routes stay out of the index.
 Disallow: /_emdash/
 ```
 
+Listing extensions rather than allowing the whole media path matters
+because the proxy serves *every* uploaded file type from that prefix —
+a blanket `Allow` would put PDFs and any other upload into the index
+alongside the images.
+
 Google resolves a conflict between `Allow` and `Disallow` by the longest
-matching path, so the media rule wins while everything else under
-`/_emdash/` stays blocked. You don't need a `Sitemap:` line — EmDash
-appends one when your text doesn't already name it.
+matching path, so these rules win while everything else under `/_emdash/`
+stays blocked. `*` and `$` are widely supported but not universal; a
+crawler that ignores them simply falls back to the Disallow, which is the
+behaviour you have today. Media URLs carry no query string, so the `$`
+anchor matches. You don't need a `Sitemap:` line — EmDash appends one when
+your text doesn't already name it.
 
 ## Architecture
 
