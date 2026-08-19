@@ -19,21 +19,24 @@ The port carries Bravada's visual language — Playfair Display headings over
 Mulish body text, the teal/gold palette, the gold-ribbon wordmark, highlighter
 title sweeps, ghost section headers, the slow zoom-under-teal image hover, the
 dark footer — and rebuilds its **landing page as Portable Text blocks**:
-bands an editor can reorder, edit or delete like any other content, with
-reusable groups of them saved as EmDash sections.
+bands an editor can reorder or remove without touching code, with reusable
+groups of them saved as EmDash sections.
 
-Every demo image — heroes, headers, shop and portfolio photography — is real
-CC0/CC BY photography rather than placeholder art; see
-[CREDITS.md](./CREDITS.md) for the full attribution table. Local images ship
-with pre-built AVIF/WebP siblings served through `<picture>` for the hero,
-page headers, portfolio, and project-grid images.
+Most of the demo imagery — heroes, headers, shop and portfolio photography —
+is real CC0/CC BY photography rather than placeholder art, with some
+generated CC0 artwork remaining; see [CREDITS.md](./CREDITS.md) for the full
+attribution table. Local images ship with pre-built AVIF/WebP siblings
+served through `<picture>` for the hero, page headers, portfolio, and
+project-grid images.
 
 ![The EmDash admin editing the home page: bravada.* blocks stacked in the Portable Text editor, each showing a preview of its content](.github/admin.png)
 
-The landing page is content, not code. Its bands are `bravada.*` blocks in
-the admin's editor — reorder them by dragging, edit one in place, or add
-another to any page. Posts, portfolio, products, menus, widgets and media
-live in the same admin at `/_emdash/admin`.
+The landing page's composition is content, not code. Its bands are
+`bravada.*` blocks in the admin's editor: drag to reorder them, delete the
+ones you don't want, or drop a saved section into any page. Their settings
+are not editable there yet — see [Blocks](#blocks). Posts, portfolio,
+products, menus, widgets and media all live in the same admin at
+`/_emdash/admin`.
 
 ## Blocks
 
@@ -73,6 +76,15 @@ The rest, with where the demo puts them:
 Image fields on the hero and boxes blocks take a plain URL string — a
 media-library file URL or an external one — not the `{ src, alt }` object
 that entry image fields use.
+
+A block's own settings — a boxes band's `variant`, `columns`, `accent` and
+`tint`, a hero's `effect` — are edited in the seed or the page's stored
+content, not through a form in the admin. The types are not registered with
+the editor, so it can reorder and delete bands but has no field UI for them.
+Registering them is deliberately on hold: the upstream
+[blocks field type](https://github.com/emdash-cms/emdash/discussions/337)
+would supersede the plugin route, and the Block Kit element surface has
+moved twice recently.
 
 ### Blocks vs sections
 
