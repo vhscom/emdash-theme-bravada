@@ -28,6 +28,13 @@ CC0/CC BY photography rather than placeholder art; see
 with pre-built AVIF/WebP siblings served through `<picture>` for the hero,
 page headers, portfolio, and project-grid images.
 
+![The EmDash admin editing the home page: bravada.* blocks stacked in the Portable Text editor, each showing a preview of its content](.github/admin.png)
+
+The landing page is content, not code. Its bands are `bravada.*` blocks in
+the admin's editor — reorder them by dragging, edit one in place, or add
+another to any page. Posts, portfolio, products, menus, widgets and media
+live in the same admin at `/_emdash/admin`.
+
 ## Blocks
 
 Bravada's page furniture is rebuilt as custom Portable Text block types.

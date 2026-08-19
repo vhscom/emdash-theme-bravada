@@ -19,6 +19,8 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   section to change the homepage would not have worked. Blocks and
   sections are now explained as the separate things they are, and the
   seed inventory names the right collections and counts.
+- The README shows the admin alongside the front end, so you can see
+  what editing the site actually looks like before installing it.
 
 ## [0.8.0] - 2026-08-19
 
