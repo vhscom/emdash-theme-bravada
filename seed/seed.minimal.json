@@ -216,8 +216,14 @@
         {
           "slug": "button",
           "label": "Button label",
-          "type": "string",
-          "default": "Add to basket"
+          "type": "select",
+          "defaultValue": "Add to basket",
+          "validation": {
+            "options": [
+              "Add to basket",
+              "Select options"
+            ]
+          }
         },
         {
           "slug": "stock",

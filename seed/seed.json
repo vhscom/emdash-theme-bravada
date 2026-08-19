@@ -222,8 +222,14 @@
         {
           "slug": "button",
           "label": "Button label",
-          "type": "string",
-          "default": "Add to basket"
+          "type": "select",
+          "defaultValue": "Add to basket",
+          "validation": {
+            "options": [
+              "Add to basket",
+              "Select options"
+            ]
+          }
         },
         {
           "slug": "stock",
@@ -7689,8 +7695,8 @@
         "status": "published",
         "data": {
           "title": "Ship Your Idea",
-          "button": "Select options",
-          "stock": "This product is currently out of stock and unavailable.",
+          "price": "£35.00",
+          "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/hoodie_5_front-600x600.jpg",
@@ -7787,8 +7793,9 @@
         "status": "published",
         "data": {
           "title": "Ship Your Idea",
-          "button": "Select options",
-          "stock": "This product is currently out of stock and unavailable.",
+          "price": "£20.00",
+          "button": "Add to basket",
+          "stock": "Out of stock while the next print run finishes \u2014 back in early September.",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/T_4_front-600x600.jpg",

@@ -30,6 +30,9 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   review in the new editor would have done exactly that: the stars,
   the review count and the rating search engines read now all come
   from the same place. Every product shows the rating it showed
+- The product button label is chosen from a list rather than typed, so
+  a typo can't put wording on a product that appears nowhere else. Its
+  default now applies to new products, which it never did.
   before. If your site already has products, the Rating field is
   removed and its value is no longer read.
 - Product reviews are edited as a proper list now, rather than by
@@ -53,6 +56,12 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - The README explains how to keep uploaded images visible to search
   engines. EmDash's stock robots.txt blocks the path its media proxy
   serves uploads from, which is where social preview images always
+### Fixed
+
+- The two out-of-stock demo products now show a price. Both were
+  seeded without one, so their pages had no price at all and search
+  engines were told nothing about what they cost.
+
   come from — so link previews are hidden from crawlers until you
   replace that file. The README gives you the text to paste and notes
   when on-page images are affected too; the Bravada Theme settings
