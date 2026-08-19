@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { heroDate, longDate, monthDay, widgetDate } from "./dates";
+import { heroDate, longDate, monthDay, projectDate, widgetDate } from "./dates";
 
 const d = new Date("2026-05-09T12:00:00Z");
 
@@ -14,6 +14,10 @@ describe("dates", () => {
 
 	it("widgetDate renders day-first", () => {
 		expect(widgetDate(d)).toBe("9 May");
+	});
+
+	it("projectDate renders month precision for portfolio entries", () => {
+		expect(projectDate(new Date("2018-04-01"))).toBe("April 2018");
 	});
 
 	it("heroDate renders the demo's ordinal format", () => {

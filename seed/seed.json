@@ -174,7 +174,7 @@
         {
           "slug": "date",
           "label": "Project date",
-          "type": "string"
+          "type": "datetime"
         },
         {
           "slug": "content",
@@ -182,7 +182,8 @@
           "type": "portableText",
           "searchable": true
         }
-      ]
+      ],
+      "dateField": "date"
     },
     {
       "slug": "products",
@@ -6316,7 +6317,7 @@
         "status": "published",
         "data": {
           "title": "New York vol. 27",
-          "date": "April 2018",
+          "date": "2018-04-01",
           "featured_image": {
             "src": "/images/demo/portfolio-01.jpg",
             "alt": "New York vol. 27"
@@ -6384,7 +6385,7 @@
         "status": "published",
         "data": {
           "title": "Presentation Paper",
-          "date": "April 2018",
+          "date": "2018-04-01",
           "featured_image": {
             "src": "/images/demo/portfolio-02.jpg",
             "alt": "Presentation Paper"
@@ -6438,7 +6439,7 @@
         "status": "published",
         "data": {
           "title": "Empty Cards",
-          "date": "March 2018",
+          "date": "2018-03-01",
           "featured_image": {
             "src": "/images/demo/portfolio-03.jpg",
             "alt": "Empty Cards"
@@ -6491,7 +6492,7 @@
         "status": "published",
         "data": {
           "title": "Notebook",
-          "date": "March 2018",
+          "date": "2018-03-01",
           "featured_image": {
             "src": "/images/demo/portfolio-04.jpg",
             "alt": "Notebook"
@@ -6572,7 +6573,7 @@
         "status": "published",
         "data": {
           "title": "Disk cover",
-          "date": "February 2018",
+          "date": "2018-02-01",
           "featured_image": {
             "src": "/images/demo/portfolio-05.jpg",
             "alt": "Disk cover"
@@ -6653,7 +6654,7 @@
         "status": "published",
         "data": {
           "title": "Pen & Paper",
-          "date": "February 2018",
+          "date": "2018-02-01",
           "featured_image": {
             "src": "/images/demo/portfolio-06.jpg",
             "alt": "Pen & Paper"
@@ -6735,7 +6736,7 @@
         "status": "published",
         "data": {
           "title": "Flyer Presentation",
-          "date": "January 2018",
+          "date": "2018-01-01",
           "featured_image": {
             "src": "/images/demo/portfolio-07.jpg",
             "alt": "Flyer Presentation"
@@ -6817,7 +6818,7 @@
         "status": "published",
         "data": {
           "title": "Brand Sketch",
-          "date": "January 2018",
+          "date": "2018-01-01",
           "featured_image": {
             "src": "/images/demo/portfolio-08.jpg",
             "alt": "Brand Sketch"
@@ -6884,7 +6885,7 @@
         "status": "published",
         "data": {
           "title": "Business cards",
-          "date": "January 2018",
+          "date": "2018-01-01",
           "featured_image": {
             "src": "/images/demo/portfolio-09.jpg",
             "alt": "Business cards"
@@ -6951,7 +6952,7 @@
         "status": "published",
         "data": {
           "title": "Yellow Frame",
-          "date": "December 2017",
+          "date": "2017-12-01",
           "featured_image": {
             "src": "/images/demo/portfolio-10.jpg",
             "alt": "Yellow Frame"
@@ -7019,7 +7020,7 @@
         "status": "published",
         "data": {
           "title": "B-Sides",
-          "date": "December 2017",
+          "date": "2017-12-01",
           "featured_image": {
             "src": "/images/demo/portfolio-11.jpg",
             "alt": "B-Sides"
@@ -7099,7 +7100,7 @@
         "status": "published",
         "data": {
           "title": "Card-in-a-box",
-          "date": "November 2017",
+          "date": "2017-11-01",
           "featured_image": {
             "src": "/images/demo/portfolio-12.jpg",
             "alt": "Card-in-a-box"

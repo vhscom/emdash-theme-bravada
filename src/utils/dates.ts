@@ -30,6 +30,11 @@ export const widgetDate = (d?: Date | null) =>
 	d?.toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: UTC }) ??
 	null;
 
+/** "April 2018" — the portfolio project's own date, month precision. */
+export const projectDate = (d?: Date | null) =>
+	d?.toLocaleDateString("en-US", { year: "numeric", month: "long", timeZone: UTC }) ??
+	null;
+
 const ordinal = (n: number) =>
 	n +
 	(["th", "st", "nd", "rd"][n % 100 > 10 && n % 100 < 14 ? 0 : Math.min(n % 10, 4)] ??

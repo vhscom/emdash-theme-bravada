@@ -169,7 +169,7 @@
         {
           "slug": "date",
           "label": "Project date",
-          "type": "string"
+          "type": "datetime"
         },
         {
           "slug": "content",
@@ -177,7 +177,8 @@
           "type": "portableText",
           "searchable": true
         }
-      ]
+      ],
+      "dateField": "date"
     },
     {
       "slug": "products",

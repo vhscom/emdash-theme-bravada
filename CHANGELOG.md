@@ -15,6 +15,9 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 - EmDash 0.33.0 to 0.34.0. Database migrations run the first time you
   start the site after updating.
+- Portfolio project dates are real dates now, picked from a calendar
+  instead of typed as free text. They read the same on the site as
+  before, but the admin can sort and filter projects by them.
 - Category, tag, project-type and project-tag archives now ask search
   engines to index the posts they list rather than the list itself.
   These pages repeat titles and excerpts that already appear on the
