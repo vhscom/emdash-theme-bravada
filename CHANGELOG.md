@@ -33,23 +33,27 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - The product button label is chosen from a list rather than typed, so
   a typo can't put wording on a product that appears nowhere else. Its
   default now applies to new products, which it never did. Changing a
-  field's type is a manual step on an existing site: run `emdash
-  schema remove-field products button` before applying the new seed.
+  field's type is a manual step on an existing site -- see the note
+  under the reviews entry below.
 - A product's star rating is worked out from its reviews instead of
   being typed in separately. The two could drift apart, and adding a
   review in the new editor would have done exactly that: the stars,
   the review count and the rating search engines read now all come
   from the same place. Every product shows the rating it showed
-  before. On a site that already has products, drop the Rating field
-  with `emdash schema remove-field products rating` before applying
-  the new seed; EmDash will not remove it for you.
+  before. On a site that already has products the Rating field has to
+  be deleted by hand; EmDash will not remove it for you.
 - Product reviews are edited as a proper list now, rather than by
   hand-writing JSON. Each review is a row with its own author, rating,
   date and body, and rows can be dragged into a new order. If your
-  site already has reviews, save a copy first: EmDash refuses to
-  change a field's type while content sits in it, so `emdash schema
-  remove-field products reviews` has to run before the new seed, and
-  that clears what was there.
+  site already has products, three fields need changing by hand,
+  because EmDash will not alter a field's type in place: Reviews and
+  Button have to be deleted and added back under the new type, and
+  Rating deleted outright. Do it from Content Types in the admin --
+  the CLI can delete a field but cannot recreate one with a
+  repeater's sub-fields or a select's options, so a site migrated
+  with `schema remove-field` alone is left with no way to rebuild
+  them. Stored values survived the delete-and-recreate when the
+  field slug stayed the same, but take a backup first.
 - Customer reviews on product pages now carry a real date. They all
   read "7th June" before, with no year, so search engines got no
   review date at all; each review now shows the day it was written
