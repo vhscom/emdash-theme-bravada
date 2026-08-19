@@ -3,8 +3,8 @@
 	"configurations": [
 		{
 			"name": "bravada-dev",
-			"runtimeExecutable": "npx",
-			"runtimeArgs": ["emdash", "dev"],
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["dev"],
 			"port": 4321,
 			"autoPort": true
 		}
