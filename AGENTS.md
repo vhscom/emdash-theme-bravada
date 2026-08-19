@@ -113,3 +113,4 @@ CSS variables worth knowing (see `tokens.css` for the full list):
   - Block Kit gained `repeater` (PR #679) and `media_picker`; the skill's `references/portable-text-blocks.md` predates both and lists neither. Check the admin bundle's element dispatcher, not the doc.
   - Still missing: repeater **sub**-fields render text/number/toggle only -- no `select`, no `media_picker` ([#1656](https://github.com/emdash-cms/emdash/discussions/1656)). So `items[].image` would be a hand-typed URL, and `portfolio.items[].tags` (nested array) doesn't fit at all.
   - Rendering is not the problem and needs no change: mapping `_type` to an Astro component already works, confirmed by other production sites on #337.
+  - The pencil on an unregistered block opens an `id`-only dialog (the no-fields fallback) -- confusing to an editor, but it leaves the block's other keys intact. Verified by vhs in the admin; don't re-open this as a data-loss question.
