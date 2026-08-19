@@ -20,7 +20,12 @@ import {
 	resolveSiteOrigin,
 	resolveTitleSeparator,
 } from "../../utils/site-identity";
-import { parseGallery, parseReviews, parseVariants } from "../../utils/product-fields";
+import {
+	averageRating,
+	parseGallery,
+	parseReviews,
+	parseVariants,
+} from "../../utils/product-fields";
 import { heroDate } from "../../utils/dates";
 
 const slug = decodeSlug(Astro.params.slug);
@@ -52,14 +57,23 @@ const related = cats.length
 			.slice(0, 4)
 	: [];
 
+// Related cards derive their stars the same way the product page does, so
+// a card and the page it links to can never show different ratings.
+const relatedRatings = new Map(
+	related.map((p) => [p.id, averageRating(parseReviews(p.data.reviews))]),
+);
+
 const d = product.data;
-// gallery/variants/reviews are admin-editable JSON typed as `unknown` —
-// parsed rather than cast so a malformed entry drops out instead of
-// throwing a 500 on the product page.
+// gallery/variants are raw JSON typed as `unknown`, and reviews arrives
+// typed but can still hold half-filled rows — all three are parsed rather
+// than cast so a malformed entry drops out instead of throwing a 500.
 const gallery = parseGallery(d.gallery);
 const mainImage = gallery[0] ?? getMediaUrl(d.featured_image);
 const variants = parseVariants(d.variants);
 const reviews = parseReviews(d.reviews);
+// Averaged from the reviews rather than stored, so the stars and the
+// aggregateRating can never contradict the list of reviews below them.
+const rating = averageRating(reviews);
 
 // Meta description: the excerpt when present, else a snippet of the
 // long description — products otherwise ship no description at all.
@@ -93,16 +107,15 @@ const productLd = {
 			url: `${siteOrigin}/product/${slug}`,
 		},
 	}),
-	...(typeof d.rating === "number" &&
-		reviews.length > 0 && {
-			aggregateRating: {
-				"@type": "AggregateRating",
-				ratingValue: d.rating,
-				reviewCount: reviews.length,
-				bestRating: 5,
-				worstRating: 1,
-			},
-		}),
+	...(rating !== undefined && {
+		aggregateRating: {
+			"@type": "AggregateRating",
+			ratingValue: rating,
+			reviewCount: reviews.length,
+			bestRating: 5,
+			worstRating: 1,
+		},
+	}),
 	// Google reports `review` as a missing recommended field on Product
 	// when only the aggregate is present. `datePublished` is date-only
 	// (schema.org takes a Date there) and omitted when a review carries
@@ -198,9 +211,9 @@ const seo = getSeoMeta(product, {
 				<div class="product-summary">
 					<h2 class="product-name">{d.title}</h2>
 					{
-						typeof d.rating === "number" && (
+						rating !== undefined && (
 							<p class="product-rating-row">
-								<StarRating value={d.rating} size="0.9em" />
+								<StarRating value={rating} size="0.9em" />
 								{reviews.length > 0 && (
 									<a href="#tab-reviews" class="review-count">
 										({reviews.length} customer {reviews.length === 1 ? "review" : "reviews"})
@@ -339,7 +352,9 @@ const seo = getSeoMeta(product, {
 					<section class="product-related">
 						<h3 class="related-title-heading"><span>Related products</span></h3>
 						<ul class="related-grid">
-							{related.map((p) => (
+							{related.map((p) => {
+								const relatedRating = relatedRatings.get(p.id);
+								return (
 								<li class="related-item">
 									<a href={`/product/${p.id}`} class="related-thumb" tabindex="-1">
 										{p.data.price_old && <span class="shop-sale">Sale!</span>}
@@ -349,12 +364,13 @@ const seo = getSeoMeta(product, {
 									<a href={`/product/${p.id}`} class="related-title">
 										{p.data.title}
 									</a>
-									{typeof p.data.rating === "number" && (
-										<StarRating value={p.data.rating} size="0.9em" />
+									{relatedRating !== undefined && (
+										<StarRating value={relatedRating} size="0.9em" />
 									)}
 									<Price now={p.data.price as string} was={p.data.price_old as string} />
 								</li>
-							))}
+								);
+							})}
 						</ul>
 					</section>
 				)

@@ -25,6 +25,13 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - Every product now has its own SKU. Six had none and three shared
   placeholders ("N/A", "SKU-1"), which search engines read as one
   product listed several times.
+- A product's star rating is worked out from its reviews instead of
+  being typed in separately. The two could drift apart, and adding a
+  review in the new editor would have done exactly that: the stars,
+  the review count and the rating search engines read now all come
+  from the same place. Every product shows the rating it showed
+  before. If your site already has products, the Rating field is
+  removed and its value is no longer read.
 - Product reviews are edited as a proper list now, rather than by
   hand-writing JSON. Each review is a row with its own author, rating,
   date and body, and rows can be dragged into a new order. If your

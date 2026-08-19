@@ -33,6 +33,27 @@ const isRecord = (v: unknown): v is Record<string, unknown> =>
 const strings = (v: unknown): string[] =>
 	Array.isArray(v) ? v.filter((o): o is string => typeof o === "string") : [];
 
+/**
+ * The product's star rating, averaged from the reviews that carry one.
+ *
+ * This used to be a `rating` field the editor typed by hand, which only
+ * stayed truthful as long as whoever added a review remembered to
+ * recompute it. Deriving it means the stars, the "(N customer reviews)"
+ * link and the aggregateRating in the page's structured data cannot
+ * disagree with the reviews listed underneath them.
+ *
+ * Rounded to two decimals: the demo's own values (4.67, 4.33, 4.75) are
+ * thirds and quarters, and an unrounded 4.666666666666667 would read as
+ * a bug in both the markup and the tooltip.
+ */
+export const averageRating = (reviews: ProductReview[]): number | undefined => {
+	const rated = reviews.filter((r): r is ProductReview & { rating: number } =>
+		typeof r.rating === "number",
+	);
+	if (rated.length === 0) return undefined;
+	return Math.round((rated.reduce((sum, r) => sum + r.rating, 0) / rated.length) * 100) / 100;
+};
+
 /** Date-only or full ISO 8601, the two shapes an EmDash datetime round-trips as. */
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}(?:[T ].*)?$/;
 

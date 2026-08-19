@@ -214,11 +214,6 @@
           "type": "string"
         },
         {
-          "slug": "rating",
-          "label": "Rating (0-5)",
-          "type": "number"
-        },
-        {
           "slug": "button",
           "label": "Button label",
           "type": "string",

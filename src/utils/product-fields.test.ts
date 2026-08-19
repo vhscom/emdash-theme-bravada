@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { parseGallery, parseReviews, parseVariants } from "./product-fields";
+import {
+	averageRating,
+	parseGallery,
+	parseReviews,
+	parseVariants,
+} from "./product-fields";
 
 describe("parseGallery", () => {
 	it("keeps string URLs and drops everything else", () => {
@@ -113,5 +118,29 @@ describe("parseReviews", () => {
 	it("skips non-object entries and non-array input", () => {
 		expect(parseReviews(["Great.", null])).toEqual([]);
 		expect(parseReviews(undefined)).toEqual([]);
+	});
+});
+
+describe("averageRating", () => {
+	const review = (rating?: number) => ({ author: "A", text: "x", ...(rating !== undefined && { rating }) });
+
+	it("averages the reviews that carry a rating", () => {
+		expect(averageRating([review(4), review(5), review(5)])).toBe(4.67);
+		expect(averageRating([review(4), review(5)])).toBe(4.5);
+		expect(averageRating([review(3)])).toBe(3);
+	});
+
+	it("reproduces the values the rating field used to store", () => {
+		expect(averageRating([review(4), review(3), review(5), review(4)])).toBe(4);
+		expect(averageRating([review(5), review(5), review(4), review(5)])).toBe(4.75);
+	});
+
+	it("ignores reviews with no rating rather than counting them as zero", () => {
+		expect(averageRating([review(5), review(), review(4)])).toBe(4.5);
+	});
+
+	it("is undefined when nothing is rated, so no stars render", () => {
+		expect(averageRating([])).toBeUndefined();
+		expect(averageRating([review(), review()])).toBeUndefined();
 	});
 });

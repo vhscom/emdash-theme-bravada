@@ -220,11 +220,6 @@
           "type": "string"
         },
         {
-          "slug": "rating",
-          "label": "Rating (0-5)",
-          "type": "number"
-        },
-        {
           "slug": "button",
           "label": "Button label",
           "type": "string",
@@ -7209,7 +7204,6 @@
         "data": {
           "title": "Flying Fox",
           "price": "\u00a313.00",
-          "rating": 4.0,
           "button": "Select options",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7298,7 +7292,6 @@
         "data": {
           "title": "Happy Fox",
           "price": "\u00a318.00",
-          "rating": 5.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7355,7 +7348,6 @@
         "data": {
           "title": "Happy Fox",
           "price": "\u00a335.00",
-          "rating": 3.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7412,7 +7404,6 @@
         "data": {
           "title": "Fox Silhouette",
           "price": "\u00a320.00",
-          "rating": 5.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7463,7 +7454,6 @@
         "data": {
           "title": "Fox Silhouette",
           "price": "\u00a335.00",
-          "rating": 4.75,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7532,7 +7522,6 @@
         "data": {
           "title": "Patient Fox",
           "price": "\u00a335.00",
-          "rating": 4.67,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7595,7 +7584,6 @@
         "data": {
           "title": "Premium Quality",
           "price": "\u00a320.00",
-          "rating": 4.5,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7653,7 +7641,6 @@
           "title": "Premium Quality",
           "price": "\u00a312.00",
           "price_old": "\u00a315.00",
-          "rating": 3.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7702,7 +7689,6 @@
         "status": "published",
         "data": {
           "title": "Ship Your Idea",
-          "rating": 4.5,
           "button": "Select options",
           "stock": "This product is currently out of stock and unavailable.",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
@@ -7801,7 +7787,6 @@
         "status": "published",
         "data": {
           "title": "Ship Your Idea",
-          "rating": 4.33,
           "button": "Select options",
           "stock": "This product is currently out of stock and unavailable.",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
@@ -7908,7 +7893,6 @@
         "data": {
           "title": "Spooky Fox Album #2",
           "price": "\u00a39.00",
-          "rating": 4.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -7959,7 +7943,6 @@
         "data": {
           "title": "Spooky Fox Album #3",
           "price": "\u00a39.00",
-          "rating": 3.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -8010,7 +7993,6 @@
         "data": {
           "title": "Spooky Fox Album #4",
           "price": "\u00a39.00",
-          "rating": 5.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -8068,7 +8050,6 @@
           "title": "Spooky Fox Logo",
           "price": "\u00a318.00",
           "price_old": "\u00a320.00",
-          "rating": 4.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -8121,7 +8102,6 @@
         "data": {
           "title": "Spooky Fox Logo",
           "price": "\u00a335.00",
-          "rating": 3.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -8296,7 +8276,6 @@
         "data": {
           "title": "Spooky Fox",
           "price": "\u00a335.00",
-          "rating": 5.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
@@ -8392,7 +8371,6 @@
           "title": "Spooky Fox Single #2",
           "price": "\u00a32.00",
           "price_old": "\u00a33.00",
-          "rating": 4.0,
           "button": "Add to basket",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
