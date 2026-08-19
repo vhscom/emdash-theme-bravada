@@ -246,6 +246,39 @@ npx wrangler deploy
 For other targets (Postgres, S3 storage) see the
 [EmDash deployment docs](https://docs.emdashcms.com).
 
+### Working against a deployed site
+
+The CLI can talk to a live site, not just a local one, which beats editing
+the database underneath it — writes go through the site's own API, so
+revisions and cache invalidation are handled for you. Sign in once:
+
+```bash
+npx emdash login --url https://your-site.example.com
+```
+
+It prints a code and a URL (`/_emdash/admin/device`); open that in a
+browser, enter the code, and authenticate as you normally would. The token
+is saved to `~/.config/emdash/auth.json`, so from then on any remote
+command just needs `--url`:
+
+```bash
+npx emdash content list posts --url https://your-site.example.com
+npx emdash schema get products --url https://your-site.example.com
+npx emdash types --url https://your-site.example.com
+```
+
+Two things to know before you rely on it:
+
+- **Updating content writes a draft, it does not publish.** The entry shows
+  as "published with pending changes" in the admin and the public page keeps
+  serving the previous version until you follow up with
+  `emdash content publish`. Easy to mistake for a caching problem.
+- **The CLI cannot create every field type.** `schema add-field` takes no
+  sub-fields and no select options, so a repeater or a select has to be built
+  from **Content Types** in the admin. It *can* delete such a field, which is
+  a good way to strand yourself — check you can rebuild a field before
+  removing it.
+
 ## Theme settings
 
 Post-page display toggles live in a template-local plugin

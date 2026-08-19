@@ -4,6 +4,15 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Documentation
+
+- The README explains how to point the CLI at a deployed site, and what
+  bites when you do: a content update writes a draft rather than
+  publishing, and the CLI can delete a repeater or select field it has
+  no way to recreate.
+
 ## [0.8.0] - 2026-08-19
 
 ### Added

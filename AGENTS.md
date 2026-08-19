@@ -54,6 +54,17 @@ Releases are cut from `main` and tagged `vX.Y.Z`.
 - **`deploy/cloudflare` is recreated on `main`, not merged into it.** It is a single CF commit on top of current `main`, carrying the Workers adapter and `src/worker.ts`, `wrangler.jsonc`, the pinned vite/rolldown versions, the route-cache opt-in in `src/middleware.ts`, `.claude/launch.json`, and the CF copies of `package.json`, `pnpm-lock.yaml` and `pnpm-workspace.yaml`. Rebuild with `git checkout -B deploy/cloudflare main`, then restore that file list from the previous head. Merging instead drags in commits that amends on `main` have replaced.
 - **Re-bump `package.json` and `astro.config.mjs` on the deploy branch after recreating it.** Both are in that CF file list, so restoring them from the previous head silently reverts the release bump and the demo ships a plugin declaring the old version -- the same drift as the v0.5.0 mistake, reached a different way. Confirm all three strings on the branch before `pnpm deploy`.
 - **Smoke test the plain URL, never a cache-busted one.** Public pages opt into the route cache at `maxAge 300, swr 3600`, so after `pnpm deploy` the plain URL keeps serving the previously cached HTML -- which references the old `/_astro/*.css` hash, making a shipped fix look unshipped. Fetch `?bust=<rand>` to learn the current build's asset hash, then check the plain URL against it; a `?cb=` URL is a separate cache key and will read green while visitors get the stale page. Client `Cache-Control: no-cache` is ignored inside the 300s window, and `CF_CACHE_PURGE_TOKEN`/`CF_ZONE_ID` exist only as worker secrets, so an instant flush means purging from the Cloudflare dashboard.
+- **Migrating a deployed site's schema goes through the admin, not the CLI.**
+  `emdash schema add-field` takes neither a repeater's sub-fields nor a
+  select's options, so it can delete a field it cannot rebuild. Sign in with
+  `emdash login --url https://bravada.comfus.io` for remote `content`/`schema`
+  reads and content writes; build new field types in **Content Types**.
+- **A remote content write lands as a draft.** `PUT /content/:collection/:id`
+  (and `emdash content update`) creates a draft revision and leaves the live
+  one alone, so the entry reads "published with pending changes" and the
+  public page keeps serving the old revision. Follow with
+  `emdash content publish` -- and don't mistake the stale page for D1 replica
+  lag, which is the wrong diagnosis it invites.
 - **The release title takes an en dash, never an em dash**, with lowercase comma-separated themes after it: `v0.6.0 – SEO audit pass, canonical redirects, EmDash 0.33.0`.
 - Release body: a one-line intro, `### Heads up` for breaking changes and manual steps, then `### Added` / `### Fixed` / `### Changed` / `### Documentation` with each bullet leading in **bold**, closing with `**Full changelog:** <compare link>`. Keep em dashes to a minimum here, unlike the changelog.
 
