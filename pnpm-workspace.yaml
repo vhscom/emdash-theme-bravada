@@ -14,3 +14,13 @@ minimumReleaseAgeExclude:
   - emdash
   - "@emdash-cms/*"
 blockExoticSubdeps: true
+
+# Pin the bundler to the combination the Workers runtime is known to
+# tolerate. vite 8.2.0 / rolldown 1.2.1 emit a bare `require("path")`
+# shim for CJS deps (postcss, via sanitize-html) that throws at module
+# init on Cloudflare -- the build succeeds and the Worker dies on the
+# first request. Revisit when a newer rolldown resolves CJS builtins to
+# node: specifiers under nodejs_compat.
+overrides:
+  vite: 8.1.3
+  rolldown: 1.1.5
