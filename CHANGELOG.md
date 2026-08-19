@@ -8,6 +8,10 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Product pages now describe each customer review to search engines
+  individually, not just the average score. Results can show a star
+  rating with the number of reviews behind it, which search engines
+  ask for before they will display either.
 - The content lists in the admin show more at a glance — pages carry
   their layout, and products their price, SKU and stock state.
 
@@ -18,6 +22,10 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - Portfolio project dates are real dates now, picked from a calendar
   instead of typed as free text. They read the same on the site as
   before, but the admin can sort and filter projects by them.
+- Customer reviews on product pages now carry a real date. They all
+  read "7th June" before, with no year, so search engines got no
+  review date at all; each review now shows the day it was written
+  and reports it alongside the rest of its details.
 - Category, tag, project-type and project-tag archives now ask search
   engines to index the posts they list rather than the list itself.
   These pages repeat titles and excerpts that already appear on the

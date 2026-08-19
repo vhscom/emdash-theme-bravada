@@ -21,6 +21,7 @@ import {
 	resolveTitleSeparator,
 } from "../../utils/site-identity";
 import { parseGallery, parseReviews, parseVariants } from "../../utils/product-fields";
+import { heroDate } from "../../utils/dates";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -98,8 +99,30 @@ const productLd = {
 				"@type": "AggregateRating",
 				ratingValue: d.rating,
 				reviewCount: reviews.length,
+				bestRating: 5,
+				worstRating: 1,
 			},
 		}),
+	// Google reports `review` as a missing recommended field on Product
+	// when only the aggregate is present. `datePublished` is date-only
+	// (schema.org takes a Date there) and omitted when a review carries
+	// no parseable date, rather than guessed at.
+	...(reviews.length > 0 && {
+		review: reviews.map((r) => ({
+			"@type": "Review",
+			author: { "@type": "Person", name: r.author },
+			reviewBody: r.text,
+			...(r.date && { datePublished: r.date.toISOString().slice(0, 10) }),
+			...(typeof r.rating === "number" && {
+				reviewRating: {
+					"@type": "Rating",
+					ratingValue: r.rating,
+					bestRating: 5,
+					worstRating: 1,
+				},
+			}),
+		})),
+	}),
 };
 
 // The admin's SEO panel drives the head here as it does on posts —
@@ -292,7 +315,14 @@ const seo = getSeoMeta(product, {
 											)}
 											<p class="review-meta">
 												<strong>{r.author}</strong>
-												{r.date && <span> – {r.date}</span>}
+												{r.date && (
+													<span>
+														{" – "}
+														<time datetime={r.date.toISOString().slice(0, 10)}>
+															{heroDate(r.date)}
+														</time>
+													</span>
+												)}
 											</p>
 											<p class="review-text">{r.text}</p>
 										</div>

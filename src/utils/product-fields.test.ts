@@ -54,7 +54,9 @@ describe("parseReviews", () => {
 	it("parses a full review", () => {
 		expect(
 			parseReviews([{ author: "Ada", rating: 4, date: "2026-05-09", text: "Great." }]),
-		).toEqual([{ author: "Ada", rating: 4, date: "2026-05-09", text: "Great." }]);
+		).toEqual([
+			{ author: "Ada", rating: 4, date: new Date("2026-05-09"), text: "Great." },
+		]);
 	});
 
 	it("drops a review with no body text", () => {
@@ -79,6 +81,22 @@ describe("parseReviews", () => {
 	it("omits a blank or non-string date", () => {
 		expect(parseReviews([{ text: "x", date: "  " }])[0].date).toBeUndefined();
 		expect(parseReviews([{ text: "x", date: 20260509 }])[0].date).toBeUndefined();
+	});
+
+	it("keeps the full ISO form a datetime field round-trips as", () => {
+		expect(parseReviews([{ text: "x", date: "2026-05-09T12:00:00.000Z" }])[0].date).toEqual(
+			new Date("2026-05-09T12:00:00.000Z"),
+		);
+	});
+
+	it("omits prose dates rather than letting Date guess a year", () => {
+		// The demo's own placeholder, and the shape `new Date()` misreads as 2001.
+		expect(parseReviews([{ text: "x", date: "7th June" }])[0].date).toBeUndefined();
+		expect(parseReviews([{ text: "x", date: "June 7" }])[0].date).toBeUndefined();
+	});
+
+	it("omits an ISO-shaped date that is not a real day", () => {
+		expect(parseReviews([{ text: "x", date: "2026-13-45" }])[0].date).toBeUndefined();
 	});
 
 	it("skips non-object entries and non-array input", () => {
