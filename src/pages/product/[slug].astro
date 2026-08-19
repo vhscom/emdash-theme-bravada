@@ -231,10 +231,11 @@ const seo = getSeoMeta(product, {
 					{
 						d.oos ? (
 							<p class="product-oos">
-								This product is currently out of stock and unavailable.
+								{d.stock || "This product is currently out of stock and unavailable."}
 							</p>
 						) : (
 							<>
+								{d.stock && <p class="product-availability">{d.stock}</p>}
 								{variants.length > 0 && (
 									<table class="product-variants">
 										<tbody>
@@ -758,6 +759,14 @@ const seo = getSeoMeta(product, {
 	.product-oos {
 		margin: 0 0 1.6em;
 		color: #c0392b;
+	}
+
+	/* Same slot as the out-of-stock notice, but this one accompanies a
+	   product you can still buy, so it reads as information rather than
+	   as a warning. */
+	.product-availability {
+		margin: 0 0 1.6em;
+		color: var(--color-text-secondary);
 	}
 
 	/* Variations: label column + select (demo .variations) */

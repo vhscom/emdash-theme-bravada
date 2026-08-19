@@ -233,7 +233,7 @@
         },
         {
           "slug": "stock",
-          "label": "Stock note",
+          "label": "Availability note",
           "type": "string"
         },
         {
@@ -7211,6 +7211,7 @@
           "title": "Flying Fox",
           "price": "\u00a313.00",
           "button": "Select options",
+          "stock": "Printed to order, so allow three working days before it ships.",
           "excerpt": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
           "featured_image": {
             "src": "/images/demo/poster_2_up-600x600.jpg",

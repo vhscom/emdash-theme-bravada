@@ -14,6 +14,11 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   ask for before they will display either.
 - The content lists in the admin show more at a glance — pages carry
   their layout, and products their price, SKU and stock state.
+- Products can carry an availability note. It replaces the generic
+  out-of-stock message when the product is unavailable, so you can
+  say when it is coming back, and sits above the buy button when the
+  product is in stock. The field was in the schema before, but
+  nothing on the site ever displayed it.
 
 ### Changed
 
@@ -25,14 +30,14 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - Every product now has its own SKU. Six had none and three shared
   placeholders ("N/A", "SKU-1"), which search engines read as one
   product listed several times.
+- The product button label is chosen from a list rather than typed, so
+  a typo can't put wording on a product that appears nowhere else. Its
+  default now applies to new products, which it never did.
 - A product's star rating is worked out from its reviews instead of
   being typed in separately. The two could drift apart, and adding a
   review in the new editor would have done exactly that: the stars,
   the review count and the rating search engines read now all come
   from the same place. Every product shows the rating it showed
-- The product button label is chosen from a list rather than typed, so
-  a typo can't put wording on a product that appears nowhere else. Its
-  default now applies to new products, which it never did.
   before. If your site already has products, the Rating field is
   removed and its value is no longer read.
 - Product reviews are edited as a proper list now, rather than by
@@ -51,17 +56,17 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   posts, so leaving them out of the index keeps the real pages from
   competing with thin copies. Links on them are still followed.
 
-### Documentation
-
-- The README explains how to keep uploaded images visible to search
-  engines. EmDash's stock robots.txt blocks the path its media proxy
-  serves uploads from, which is where social preview images always
 ### Fixed
 
 - The two out-of-stock demo products now show a price. Both were
   seeded without one, so their pages had no price at all and search
   engines were told nothing about what they cost.
 
+### Documentation
+
+- The README explains how to keep uploaded images visible to search
+  engines. EmDash's stock robots.txt blocks the path its media proxy
+  serves uploads from, which is where social preview images always
   come from — so link previews are hidden from crawlers until you
   replace that file. The README gives you the text to paste and notes
   when on-page images are affected too; the Bravada Theme settings

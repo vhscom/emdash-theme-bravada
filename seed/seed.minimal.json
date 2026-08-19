@@ -227,7 +227,7 @@
         },
         {
           "slug": "stock",
-          "label": "Stock note",
+          "label": "Availability note",
           "type": "string"
         },
         {
