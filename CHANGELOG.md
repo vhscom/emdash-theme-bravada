@@ -22,6 +22,9 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - Portfolio project dates are real dates now, picked from a calendar
   instead of typed as free text. They read the same on the site as
   before, but the admin can sort and filter projects by them.
+- Every product now has its own SKU. Six had none and three shared
+  placeholders ("N/A", "SKU-1"), which search engines read as one
+  product listed several times.
 - Customer reviews on product pages now carry a real date. They all
   read "7th June" before, with no year, so search engines got no
   review date at all; each review now shows the day it was written

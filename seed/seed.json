@@ -7206,7 +7206,7 @@
               ]
             }
           ],
-          "sku": "SKU-1",
+          "sku": "FOX-001",
           "gallery": [
             "/images/demo/poster_2_up-600x600.jpg",
             "/images/demo/Poster_2_flat-600x600.jpg"
@@ -7700,7 +7700,7 @@
               ]
             }
           ],
-          "sku": "N/A",
+          "sku": "SYI-001",
           "gallery": [
             "/images/demo/hoodie_5_front-600x600.jpg",
             "/images/demo/hoodie_5_back-600x600.jpg"
@@ -7760,7 +7760,8 @@
           "gallery": [
             "/images/demo/poster_1_up-600x600.jpg",
             "/images/demo/Poster_1_flat-600x600.jpg"
-          ]
+          ],
+          "sku": "SYI-002"
         },
         "taxonomies": {
           "product-category": [
@@ -7798,7 +7799,7 @@
               ]
             }
           ],
-          "sku": "N/A",
+          "sku": "SYI-003",
           "gallery": [
             "/images/demo/T_4_front-600x600.jpg",
             "/images/demo/T_4_back-600x600.jpg"
@@ -7864,7 +7865,8 @@
           "gallery": [
             "/images/demo/cd_6_angle-600x600.jpg",
             "/images/demo/cd_6_flat-600x600.jpg"
-          ]
+          ],
+          "sku": "ALB-001"
         },
         "taxonomies": {
           "product-category": [
@@ -8169,7 +8171,8 @@
           "gallery": [
             "/images/demo/poster_5_up-600x600.jpg",
             "/images/demo/Poster_5_flat-600x600.jpg"
-          ]
+          ],
+          "sku": "LGO-003"
         },
         "taxonomies": {
           "product-category": [
@@ -8209,7 +8212,8 @@
           "gallery": [
             "/images/demo/T_6_front-600x600.jpg",
             "/images/demo/T_6_back-600x600.jpg"
-          ]
+          ],
+          "sku": "FOX-007"
         },
         "taxonomies": {
           "product-category": [
@@ -8250,7 +8254,8 @@
           "gallery": [
             "/images/demo/poster_4_up-600x600.jpg",
             "/images/demo/Poster_4_flat-600x600.jpg"
-          ]
+          ],
+          "sku": "FOX-008"
         },
         "taxonomies": {
           "product-category": [
@@ -8343,7 +8348,8 @@
           "gallery": [
             "/images/demo/cd_3_angle-600x600.jpg",
             "/images/demo/cd_3_flat-600x600.jpg"
-          ]
+          ],
+          "sku": "SNG-001"
         },
         "taxonomies": {
           "product-category": [
