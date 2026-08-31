@@ -370,8 +370,14 @@ What this theme does today:
   any more.
 - **Every route you add has to state how it should be cached.** A page that
   says nothing is not left alone — it is cached anyway, on whatever the host
-  guesses. `/search` shows the shape: `Astro.cache?.set(false)` to keep it
-  out, and a `Cache-Control` for every other cache.
+  guesses. Add a rule for it in `routeRules`.
+- **To keep a route out of the cache, give it `maxAge: 0` in `routeRules`.**
+  `/search` is the example. Do not reach for `Astro.cache.set(false)` in the
+  page: HTML streams, so the footer's own cache hint runs afterwards and
+  clears it, and `set(false)` also wipes the rule you set. The two together
+  produce a page offered to the cache with no lifetime at all, which is read
+  as roughly two hours — the opposite of what you asked for. A rule survives,
+  because a hint only ever adds tags and never changes the lifetime.
 - **Pages that query content call `Astro.cache.set(cacheHint)`**, which is
   what lets a publish purge exactly the pages that showed an entry. On the
   Node build there is no cache provider, so those calls do nothing and cost

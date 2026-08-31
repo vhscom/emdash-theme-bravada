@@ -29,6 +29,11 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- The self-hosted build starts again. Version 0.9.0 moved the theme to
+  a newer Astro without moving the Node server alongside it, so
+  `node ./dist/server/entry.mjs` exited immediately with a type error
+  and the default way to run this theme did not work at all. Only the
+  Cloudflare deploy was unaffected.
 - Search results are kept out of the cache properly. They were being
   offered to it with no lifetime at all, which a cache is free to read
   as "keep this for a couple of hours" — the one page built from
