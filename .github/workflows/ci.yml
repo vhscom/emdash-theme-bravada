@@ -30,3 +30,33 @@ jobs:
 
       - name: Test
         run: pnpm run test
+
+      - name: Build
+        run: pnpm run build
+
+      # A green typecheck and test suite do not mean the site runs. v0.9.0
+      # shipped a self-hosted build that exited on boot -- the Astro floor
+      # moved without @astrojs/node alongside it, and the adapter read an
+      # internal Astro 7.2 had relocated. Both steps above passed on it,
+      # because the failure is at process startup and neither looks there.
+      # This starts the built server and asks it for one page.
+      - name: Smoke the self-hosted build
+        run: |
+          node ./dist/server/entry.mjs &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for _ in $(seq 1 30); do
+            if curl -sS -o /dev/null -m 2 http://localhost:4321/; then break; fi
+            if ! kill -0 "$server" 2>/dev/null; then
+              echo "::error::server exited during startup"
+              wait "$server" || true
+              exit 1
+            fi
+            sleep 1
+          done
+          code=$(curl -sS -o /dev/null -m 10 -w '%{http_code}' http://localhost:4321/ || echo 000)
+          echo "GET / -> $code"
+          case "$code" in
+            2*|3*) echo "self-hosted build serves" ;;
+            *) echo "::error::self-hosted build did not serve (got $code)"; exit 1 ;;
+          esac
