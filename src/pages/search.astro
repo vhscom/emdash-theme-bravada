@@ -58,19 +58,20 @@ const { entries: hydrated } = slugs.length
 	: { entries: [] };
 
 // Results are built from a user-supplied query string, so this page is not
-// shared between readers and must not be stored anywhere.
+// shared between readers and must not be served from cache.
 //
-// Opting out has to happen through Astro.cache, not through a header. This
-// page used to pass its cacheHint along, which sets tags and no maxAge —
-// and the Cloudflare provider always pushes `public` into its directives,
-// so the response went out as `Cloudflare-CDN-Cache-Control: public` with
-// no max-age. That is the RFC 9111 heuristic-freshness case, and Workers
-// Caching reads it as roughly two hours: the one route deliberately kept
-// out of the cache would have been the most aggressively cached on the
-// site. With nothing emitted, the adapter's own default-deny applies
-// instead. The Cache-Control below is for every cache that is not that one
-// — Workers Caching never reads it.
-Astro.cache?.set(false);
+// Deliberately NO Astro.cache.set(false) here. It looks right and is worse
+// than nothing: set(false) CLEARS the accumulated options, which wipes the
+// `maxAge: 0` route rule this page relies on — and it does not survive
+// anyway, because HTML streams and SiteFooter's cacheHint runs afterwards,
+// re-enabling the cache with tags but no maxAge. That combination emits
+// `public` with no max-age, which is RFC 9111 heuristic freshness: roughly
+// two hours for the one page that must never be stored.
+//
+// The `"/search": { maxAge: 0 }` rule in astro.config.mjs is what actually
+// holds, because a cacheHint only ever adds tags and never overwrites
+// maxAge. The header below is for every cache that is not Workers Caching,
+// which reads Cloudflare-CDN-Cache-Control and never this.
 Astro.response.headers.set("Cache-Control", "private, no-store");
 
 const bySlug = new Map(hydrated.map((e) => [e.id, e]));

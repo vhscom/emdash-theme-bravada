@@ -27,6 +27,13 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   inject it, so an editor would otherwise be handed the cached public
   copy without it.
 
+### Fixed
+
+- Search results are kept out of the cache properly. They were being
+  offered to it with no lifetime at all, which a cache is free to read
+  as "keep this for a couple of hours" — the one page built from
+  whatever the reader typed.
+
 ## [0.9.0] - 2026-08-31
 
 ### Changed

@@ -28,6 +28,12 @@ export default defineConfig({
 	routeRules: {
 		"/": { maxAge: 3_600, swr: 864_000 },
 		"/[...slug]": { maxAge: 3_600, swr: 864_000 },
+		// Results are built from whatever the reader typed, so this must not be
+		// served from cache. maxAge 0 rather than an opt-out in the page: HTML
+		// streams, so SiteFooter's cacheHint can run after any set(false) and
+		// clear it, and a hint only ever adds tags — it never overwrites
+		// maxAge. So this rule survives where an opt-out did not.
+		"/search": { maxAge: 0 },
 	},
 	image: {
 		layout: "constrained",

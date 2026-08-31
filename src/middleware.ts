@@ -18,6 +18,7 @@ import { defineMiddleware } from "astro:middleware";
  * EmDash's own routes are left alone; the admin owns its URL shapes.
  */
 export const onRequest = defineMiddleware(async (context, next) => {
+	const { cache } = context;
 	const { pathname, search } = context.url;
 
 	if (
@@ -29,6 +30,22 @@ export const onRequest = defineMiddleware(async (context, next) => {
 	}
 
 	const response = await next();
+
+	// Keep non-200s out of the cache. A 404 is the one answer that becomes
+	// wrong the moment that address is published, and it carries no tag for a
+	// publish to purge.
+	//
+	// Best-effort, and worth knowing why: HTML streams, so a component's
+	// frontmatter can still run after this does. SiteFooter sets a cacheHint
+	// on every page, and AstroCache.set() with an object clears a previous
+	// set(false) — so an opt-out here can be undone by a component that has
+	// not rendered yet. It holds for error pages in practice; a route that
+	// MUST stay out uses a maxAge-0 route rule instead, which a cacheHint
+	// cannot overwrite because hints carry tags and never maxAge. /search
+	// does exactly that.
+	if (cache?.enabled && response.status !== 200) {
+		cache.set(false);
+	}
 
 	// State a browser cache policy on public HTML. Without one the host
 	// decides: on Cloudflare the zone's Browser Cache TTL is stamped onto
