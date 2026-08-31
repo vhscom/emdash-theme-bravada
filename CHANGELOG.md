@@ -6,6 +6,13 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- EmDash 0.34.0 to 0.35.0. Database migrations run the first time you
+  start the site after updating.
+- Astro 7.0.7 to 7.2.9. The theme needs 7.2.5 or newer now: older
+  versions could cache a signed-in visitor's page for everyone.
+
 ### Documentation
 
 - The README explains how to point the CLI at a deployed site, and what
