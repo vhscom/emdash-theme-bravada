@@ -34,55 +34,45 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      # Typecheck and tests both pass on a server that cannot boot. v0.9.0
-      # shipped exactly that. Start it and ask for one page.
-      - name: Smoke the self-hosted build
-        if: github.ref != 'refs/heads/deploy/cloudflare'
+      # A build that succeeds can still produce something that cannot start.
+      # v0.9.0 shipped exactly that, with typecheck and tests both green.
+      #
+      # Which smoke to run is decided by what the build EMITTED, not by the
+      # branch: a branch-name gate skips silently if the name ever changes,
+      # and a skipped check is the failure mode this step exists to catch.
+      # Both adapters emit dist/server/entry.mjs, so that cannot tell them
+      # apart — only the Cloudflare one also emits dist/server/wrangler.json.
+      # Recognising neither is an error, never a skip.
+      - name: Smoke the built site
         run: |
-          node ./dist/server/entry.mjs &
+          if [ -f dist/server/wrangler.json ]; then
+            target=worker
+            npx wrangler dev --port 8787 --persist-to "$RUNNER_TEMP/wrangler-state" &
+          elif [ -f dist/server/entry.mjs ]; then
+            target=node
+            node ./dist/server/entry.mjs &
+          else
+            echo "::error::build emitted neither a Node server nor a Worker"
+            exit 1
+          fi
           server=$!
+          port=$([ "$target" = worker ] && echo 8787 || echo 4321)
           trap 'kill "$server" 2>/dev/null || true' EXIT
-          for _ in $(seq 1 30); do
-            if curl -sS -o /dev/null -m 2 http://localhost:4321/; then break; fi
+          echo "smoking the $target build on :$port"
+          for _ in $(seq 1 60); do
+            if curl -sS -o /dev/null -m 2 "http://localhost:$port/"; then break; fi
             if ! kill -0 "$server" 2>/dev/null; then
-              echo "::error::server exited during startup"
+              echo "::error::$target build exited during startup"
               wait "$server" || true
               exit 1
             fi
             sleep 1
           done
-          code=$(curl -sS -o /dev/null -m 10 -w '%{http_code}' http://localhost:4321/ || echo 000)
+          code=$(curl -sS -o /dev/null -m 15 -w '%{http_code}' "http://localhost:$port/" || echo 000)
+          # No database or .env on a clean checkout, so the site redirects to
+          # the setup wizard. The claim is that it serves HTTP, not what it says.
           echo "GET / -> $code"
           case "$code" in
-            2*|3*) echo "self-hosted build serves" ;;
-            *) echo "::error::self-hosted build did not serve (got $code)"; exit 1 ;;
-          esac
-
-      # This branch builds a Worker. A clean `astro build` does not prove it
-      # runs: the bundler pins exist because rolldown can emit a bare
-      # require() shim that throws at module init under workerd. Only the
-      # real runtime catches that.
-      #
-      # --persist-to gives miniflare scratch bindings. With no local state
-      # the site redirects to setup, so 3xx is a pass.
-      - name: Smoke the Worker under workerd
-        if: github.ref == 'refs/heads/deploy/cloudflare'
-        run: |
-          npx wrangler dev --port 8787 --persist-to "$RUNNER_TEMP/wrangler-state" &
-          worker=$!
-          trap 'kill "$worker" 2>/dev/null || true' EXIT
-          for _ in $(seq 1 60); do
-            if curl -sS -o /dev/null -m 2 http://localhost:8787/; then break; fi
-            if ! kill -0 "$worker" 2>/dev/null; then
-              echo "::error::wrangler dev exited during startup"
-              wait "$worker" || true
-              exit 1
-            fi
-            sleep 1
-          done
-          code=$(curl -sS -o /dev/null -m 15 -w '%{http_code}' http://localhost:8787/ || echo 000)
-          echo "GET / -> $code"
-          case "$code" in
-            2*|3*) echo "worker boots and serves under workerd" ;;
-            *) echo "::error::worker did not serve under workerd (got $code)"; exit 1 ;;
+            2*|3*) echo "$target build serves" ;;
+            *) echo "::error::$target build did not serve (got $code)"; exit 1 ;;
           esac
