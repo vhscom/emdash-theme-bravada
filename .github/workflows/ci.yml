@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, deploy/cloudflare]
   pull_request:
 
 jobs:
@@ -34,13 +34,10 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      # A green typecheck and test suite do not mean the site runs. v0.9.0
-      # shipped a self-hosted build that exited on boot -- the Astro floor
-      # moved without @astrojs/node alongside it, and the adapter read an
-      # internal Astro 7.2 had relocated. Both steps above passed on it,
-      # because the failure is at process startup and neither looks there.
-      # This starts the built server and asks it for one page.
+      # Typecheck and tests both pass on a server that cannot boot. v0.9.0
+      # shipped exactly that. Start it and ask for one page.
       - name: Smoke the self-hosted build
+        if: github.ref != 'refs/heads/deploy/cloudflare'
         run: |
           node ./dist/server/entry.mjs &
           server=$!
@@ -59,4 +56,33 @@ jobs:
           case "$code" in
             2*|3*) echo "self-hosted build serves" ;;
             *) echo "::error::self-hosted build did not serve (got $code)"; exit 1 ;;
+          esac
+
+      # This branch builds a Worker. A clean `astro build` does not prove it
+      # runs: the bundler pins exist because rolldown can emit a bare
+      # require() shim that throws at module init under workerd. Only the
+      # real runtime catches that.
+      #
+      # --persist-to gives miniflare scratch bindings. With no local state
+      # the site redirects to setup, so 3xx is a pass.
+      - name: Smoke the Worker under workerd
+        if: github.ref == 'refs/heads/deploy/cloudflare'
+        run: |
+          npx wrangler dev --port 8787 --persist-to "$RUNNER_TEMP/wrangler-state" &
+          worker=$!
+          trap 'kill "$worker" 2>/dev/null || true' EXIT
+          for _ in $(seq 1 60); do
+            if curl -sS -o /dev/null -m 2 http://localhost:8787/; then break; fi
+            if ! kill -0 "$worker" 2>/dev/null; then
+              echo "::error::wrangler dev exited during startup"
+              wait "$worker" || true
+              exit 1
+            fi
+            sleep 1
+          done
+          code=$(curl -sS -o /dev/null -m 15 -w '%{http_code}' http://localhost:8787/ || echo 000)
+          echo "GET / -> $code"
+          case "$code" in
+            2*|3*) echo "worker boots and serves under workerd" ;;
+            *) echo "::error::worker did not serve under workerd (got $code)"; exit 1 ;;
           esac
