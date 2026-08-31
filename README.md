@@ -354,14 +354,20 @@ passes the theme's own value straight through and looks correct.
 
 What this theme does today:
 
-- **Pages are held for five minutes**, with an hour in which a reader is
-  given the stored copy immediately while a fresh one is fetched behind
-  them. Publishing clears the pages an entry appears on, so that window
-  bounds only the things tags cannot see — site settings, menus, and the
-  theme itself.
-- **The route cache needs two secrets.** `CF_ZONE_ID` and
-  `CF_CACHE_PURGE_TOKEN` (a token scoped to Zone → Cache Purge → Edit).
-  Without them a content edit throws when it tries to purge.
+- **Pages are cached in front of the site, not inside it.** Two tiers sit
+  ahead of the Worker, so a reader is answered from their nearest data
+  centre and the site never runs. Measured on a sister site: a cached page
+  went from roughly 400ms to 95ms for a reader on the other side of the
+  world.
+- **Pages are held for an hour**, and for ten days after that a reader gets
+  the stored copy immediately while a fresh one is fetched behind them.
+  Publishing clears the pages an entry appears on, so that window bounds
+  only the things tags cannot see — site settings, menus, and the theme
+  itself. Change it in `routeRules` in `astro.config.mjs`.
+- **No secrets needed.** Purging happens from inside the Worker. Earlier
+  versions used the Cloudflare REST API and needed `CF_ZONE_ID` and a
+  cache-purge token; if you set those up for this theme, nothing reads them
+  any more.
 - **Every route you add has to state how it should be cached.** A page that
   says nothing is not left alone — it is cached anyway, on whatever the host
   guesses. `/search` shows the shape: `Astro.cache?.set(false)` to keep it
@@ -373,13 +379,12 @@ What this theme does today:
 
 **Smoke-test a deploy with a cache buster, then check the plain URL.** After
 `wrangler deploy` the plain URL keeps serving the previously cached page for
-up to the five minutes above, which references the `/_astro/*` filenames of
-the build before it — so a fix you just shipped can look unshipped, or the
-page can arrive unstyled. Fetch `?bust=<random>` to learn the current build's
-asset hash, then check the plain URL against it. A client
-`Cache-Control: no-cache` is ignored inside that window, and the purge
-secrets exist only inside the Worker, so an instant flush means purging from
-the Cloudflare dashboard.
+up to the hour above, which references the `/_astro/*` filenames of the build
+before it — so a fix you just shipped can look unshipped, or the page can
+arrive unstyled. Fetch `?bust=<random>` to learn the current build's asset
+hash, then check the plain URL against it. A client `Cache-Control: no-cache`
+is ignored inside that window, so an instant flush means purging from the
+Cloudflare dashboard.
 
 ### Working against a deployed site
 

@@ -10,6 +10,25 @@ export default defineConfig({
 	adapter: node({
 		mode: "standalone",
 	}),
+	// How long each kind of page may be held, declared next to the routes it
+	// applies to rather than in site code. Inert without a cache provider, so
+	// the Node build ignores this and the Cloudflare deploy uses it.
+	//
+	// An hour fresh, ten days stale-while-revalidate: within the hour a reader
+	// gets the stored copy outright, and for ten days after they get it
+	// immediately while a fresh one is fetched behind them. Publishing clears
+	// the pages an entry appears on, so this window only ever bounds what tags
+	// cannot see — site settings, menus, the theme itself. Matching the shape
+	// EmDash's own demos/cloudflare uses.
+	//
+	// Two rules cover every route: `/[...slug]` matches at any depth, and
+	// Astro sorts by route priority so a more specific rule would win. /search
+	// is absent on purpose — it opts itself out in the page, because a cache
+	// reads Cloudflare-CDN-Cache-Control and never the Cache-Control we set.
+	routeRules: {
+		"/": { maxAge: 3_600, swr: 864_000 },
+		"/[...slug]": { maxAge: 3_600, swr: 864_000 },
+	},
 	image: {
 		layout: "constrained",
 		responsiveStyles: true,
@@ -17,6 +36,13 @@ export default defineConfig({
 	integrations: [
 		react(),
 		emdash({
+			// Keep public HTML identical for every visitor so it is safe to
+			// cache. A cache in front of the site answers before any of this
+			// runs, so it cannot bypass on a cookie and a server-injected
+			// toolbar cannot survive a hit; the editor would be handed the
+			// cached anonymous page without it. Client mode ships one
+			// bootstrap and decides in the browser.
+			toolbar: "client",
 			database: sqlite({ url: "file:./data.db" }),
 			storage: local({
 				directory: "./uploads",

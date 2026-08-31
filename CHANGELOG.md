@@ -4,6 +4,29 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Pages are cached in front of the site now rather than inside it, so a
+  reader is answered from their nearest data centre and the site never
+  runs. On a sister site the same change took a cached page from about
+  400ms to 95ms for a reader on the other side of the world.
+- Pages are held for an hour now rather than five minutes, and for ten
+  days after that a reader gets the stored copy straight away while a
+  fresh one is fetched behind them. Publishing still clears every page
+  an entry appears on, so the longer window costs nothing in freshness.
+- Purging no longer needs Cloudflare API credentials. If you set up
+  `CF_ZONE_ID` and a cache-purge token for this theme, nothing reads
+  them any more.
+- How long each kind of page is held is set in `astro.config.mjs`, next
+  to the routes it applies to, rather than in the site's own code.
+- The editing toolbar is put together in your browser now instead of
+  arriving built into the page, on every build rather than only the
+  Cloudflare one. A cache that answers before the site runs cannot
+  inject it, so an editor would otherwise be handed the cached public
+  copy without it.
+
 ## [0.9.0] - 2026-08-31
 
 ### Changed
