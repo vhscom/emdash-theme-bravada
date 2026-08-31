@@ -67,7 +67,7 @@ async function settingsBlocks(ctx: RouteContext<unknown>) {
 
 const definition: PluginDefinition = {
 	id: "bravada-theme",
-	version: "0.9.0",
+	version: "0.10.0",
 
 	admin: {
 		pages: [{ path: "/settings", label: "Bravada Theme", icon: "settings" }],
