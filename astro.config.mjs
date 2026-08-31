@@ -1,15 +1,22 @@
-import node from "@astrojs/node";
+import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
+import { cacheCloudflare } from "@astrojs/cloudflare/cache";
+import { d1, kvCache, r2, sandbox } from "@emdash-cms/cloudflare";
 import auditLog from "@emdash-cms/plugin-audit-log";
 import { defineConfig, fontProviders } from "astro/config";
-import emdash, { local } from "emdash/astro";
-import { sqlite } from "emdash/db";
+import emdash from "emdash/astro";
 
 export default defineConfig({
 	output: "server",
-	adapter: node({
-		mode: "standalone",
-	}),
+	adapter: cloudflare(),
+	// Platform Workers Cache: two tiers in front of the Worker, so a hit is
+	// answered at the reader's nearest data centre and the Worker never runs.
+	// Pair with `"cache": {"enabled": true}` in wrangler.jsonc. Purging is
+	// cache.purge() from cloudflare:workers, so no credentials are needed.
+	// Needs @astrojs/cloudflare >= 14.2.0 for the /_image cache-hit crash fix.
+	cache: {
+		provider: cacheCloudflare(),
+	},
 	// How long each kind of page may be held, declared next to the routes it
 	// applies to rather than in site code. Inert without a cache provider, so
 	// the Node build ignores this and the Cloudflare deploy uses it.
@@ -49,11 +56,12 @@ export default defineConfig({
 			// cached anonymous page without it. Client mode ships one
 			// bootstrap and decides in the browser.
 			toolbar: "client",
-			database: sqlite({ url: "file:./data.db" }),
-			storage: local({
-				directory: "./uploads",
-				baseUrl: "/_emdash/api/media/file",
-			}),
+			database: d1({ binding: "DB", session: "auto" }),
+			storage: r2({ binding: "MEDIA" }),
+			// Query results shared across isolates — most page reads hit KV
+			// instead of D1.
+			objectCache: kvCache({ binding: "CACHE" }),
+			sandboxRunner: sandbox(),
 			plugins: [
 				auditLog,
 				{

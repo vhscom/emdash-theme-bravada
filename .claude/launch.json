@@ -4,9 +4,22 @@
 		{
 			"name": "bravada-dev",
 			"runtimeExecutable": "pnpm",
-			"runtimeArgs": ["dev"],
+			"runtimeArgs": [
+				"dev"
+			],
 			"port": 4321,
 			"autoPort": true
+		},
+		{
+			"name": "wrangler-dev",
+			"runtimeExecutable": "npx",
+			"runtimeArgs": [
+				"wrangler",
+				"dev",
+				"--port",
+				"8788"
+			],
+			"port": 8788
 		}
 	]
 }

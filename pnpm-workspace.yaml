@@ -13,4 +13,31 @@ minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - emdash
   - "@emdash-cms/*"
+# KNOWN EXCEPTION, accepted 2026-08-31. blockExoticSubdeps refuses to RESOLVE
+# @astrojs/cloudflare >= 14.2.0, because
+#   @astrojs/cloudflare -> @cloudflare/vite-plugin -> miniflare 5.x-alpha
+# and a stable release depending on a prerelease is what this setting is for.
+# Taken anyway: 14.2.0 fixes a crash on /_image cache hits under a cache
+# provider, and /_image is live on the demo, so it is a hard prerequisite for
+# the platform Workers Cache.
+#
+# The setting stays ON — it blocks at resolution time only, so the lockfile
+# carries the pin and ordinary installs pass. To re-resolve, run once:
+#
+#   pnpm install --config.blockExoticSubdeps=false
+#
+# THE ERROR MESSAGE LIES: pnpm reports "The latest release of <pkg> is <old
+# version>", meaning the newest the POLICY ALLOWS, not the newest published.
+# `pnpm view` and the registry both show newer ones, which sends you hunting a
+# stale cache or a registry fault. Neither is it. Suspect this setting first.
 blockExoticSubdeps: true
+
+# Pin the bundler to the combination the Workers runtime is known to
+# tolerate. vite 8.2.0 / rolldown 1.2.1 emit a bare `require("path")`
+# shim for CJS deps (postcss, via sanitize-html) that throws at module
+# init on Cloudflare -- the build succeeds and the Worker dies on the
+# first request. Revisit when a newer rolldown resolves CJS builtins to
+# node: specifiers under nodejs_compat.
+overrides:
+  vite: 8.1.3
+  rolldown: 1.1.5
