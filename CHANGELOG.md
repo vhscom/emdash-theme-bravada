@@ -25,24 +25,22 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Documentation
 
+- The README explains how the theme caches pages, what to set in
+  Cloudflare before deploying, and why a page you have just deployed
+  can still look old.
 - The README explains how to point the CLI at a deployed site, and what
   bites when you do: a content update writes a draft rather than
   publishing, and the CLI can delete a repeater or select field it has
   no way to recreate.
-- The README's description of the landing page matches the theme again.
-  It documented four block types when there are eighteen, omitting two
-  the demo home page itself uses, and described the page as built from
-  reusable sections when it holds its own inline copies — so editing a
-  section to change the homepage would not have worked. Blocks and
-  sections are now explained as the separate things they are, and the
-  seed inventory names the right collections and counts.
+- The README describes the landing page correctly. It listed four block
+  types out of eighteen, and implied that editing a reusable section
+  would change the home page — the page holds its own copies.
 - The README shows the admin alongside the front end, so you can see
   what editing the site actually looks like before installing it.
 - The robots.txt advice for uploaded images allows them by file
   extension instead of opening the whole media path, which would have
-  exposed PDFs and every other upload alongside them. It also says
-  plainly when the fix is unnecessary — images served from `public/`
-  or through a transform are never affected.
+  exposed every PDF too. Images in `public/` or served through a
+  transform were never affected.
 
 ## [0.8.0] - 2026-08-19
 

@@ -325,6 +325,62 @@ npx wrangler deploy
 For other targets (Postgres, S3 storage) see the
 [EmDash deployment docs](https://docs.emdashcms.com).
 
+The demo's database also has **D1 read replication** turned on, which no
+repository can carry for you. `session: "auto"` is already in the deploy
+branch's config, but that alone does nothing until replication is enabled on
+the database itself (Cloudflare dashboard → **Storage & Databases** → **D1**
+→ your database → **Settings** → **Enable Read Replication**). It is optional
+and currently in beta; skip it unless your readers are far from your
+database's region.
+
+### Caching
+
+On the Cloudflare deploy, rendered pages are cached at the edge and content
+edits purge the pages that showed them. Two documentation pages are the
+reference and stay current when this file will not:
+[Deploy to Cloudflare → Workers Cache](https://docs.emdashcms.com/deployment/cloudflare/)
+and [Object Cache](https://docs.emdashcms.com/deployment/object-cache/).
+
+**Set this before you deploy, or half of the caching below does not work.**
+In the Cloudflare dashboard, open your domain → **Caching** →
+**Configuration** → **Browser Cache TTL**, and set it to **Respect Existing
+Headers**. The theme tells each page how long a browser may keep it; the zone
+has its own value for that, defaulting to four hours, and Cloudflare serves
+whichever of the two is *higher*. So without this the theme's five minutes
+becomes four hours on the way out, an edit stays invisible to returning
+readers for that long, and no purge reaches a browser to fix it. It is easy
+to miss because it shows only on cached responses — a cache-busted request
+passes the theme's own value straight through and looks correct.
+
+What this theme does today:
+
+- **Pages are held for five minutes**, with an hour in which a reader is
+  given the stored copy immediately while a fresh one is fetched behind
+  them. Publishing clears the pages an entry appears on, so that window
+  bounds only the things tags cannot see — site settings, menus, and the
+  theme itself.
+- **The route cache needs two secrets.** `CF_ZONE_ID` and
+  `CF_CACHE_PURGE_TOKEN` (a token scoped to Zone → Cache Purge → Edit).
+  Without them a content edit throws when it tries to purge.
+- **Every route you add has to state how it should be cached.** A page that
+  says nothing is not left alone — it is cached anyway, on whatever the host
+  guesses. `/search` shows the shape: `Astro.cache?.set(false)` to keep it
+  out, and a `Cache-Control` for every other cache.
+- **Pages that query content call `Astro.cache.set(cacheHint)`**, which is
+  what lets a publish purge exactly the pages that showed an entry. On the
+  Node build there is no cache provider, so those calls do nothing and cost
+  nothing.
+
+**Smoke-test a deploy with a cache buster, then check the plain URL.** After
+`wrangler deploy` the plain URL keeps serving the previously cached page for
+up to the five minutes above, which references the `/_astro/*` filenames of
+the build before it — so a fix you just shipped can look unshipped, or the
+page can arrive unstyled. Fetch `?bust=<random>` to learn the current build's
+asset hash, then check the plain URL against it. A client
+`Cache-Control: no-cache` is ignored inside that window, and the purge
+secrets exist only inside the Worker, so an instant flush means purging from
+the Cloudflare dashboard.
+
 ### Working against a deployed site
 
 The CLI can talk to a live site, not just a local one, which beats editing
