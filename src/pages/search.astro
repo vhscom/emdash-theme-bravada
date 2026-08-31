@@ -50,13 +50,28 @@ const pageUrl = (n: number) =>
 // column — then restore the FTS ranking, and fetch every taxonomy's
 // terms for the whole set in one more query.
 const slugs = results.map((r) => r.slug ?? r.id);
-const { entries: hydrated, cacheHint } = slugs.length
+const { entries: hydrated } = slugs.length
 	? await getEmDashCollection("posts", {
 			where: { slug: slugs },
 			limit: slugs.length,
 		})
-	: { entries: [], cacheHint: undefined };
-if (cacheHint && Astro.cache?.enabled) Astro.cache.set(cacheHint);
+	: { entries: [] };
+
+// Results are built from a user-supplied query string, so this page is not
+// shared between readers and must not be stored anywhere.
+//
+// Opting out has to happen through Astro.cache, not through a header. This
+// page used to pass its cacheHint along, which sets tags and no maxAge —
+// and the Cloudflare provider always pushes `public` into its directives,
+// so the response went out as `Cloudflare-CDN-Cache-Control: public` with
+// no max-age. That is the RFC 9111 heuristic-freshness case, and Workers
+// Caching reads it as roughly two hours: the one route deliberately kept
+// out of the cache would have been the most aggressively cached on the
+// site. With nothing emitted, the adapter's own default-deny applies
+// instead. The Cache-Control below is for every cache that is not that one
+// — Workers Caching never reads it.
+Astro.cache?.set(false);
+Astro.response.headers.set("Cache-Control", "private, no-store");
 
 const bySlug = new Map(hydrated.map((e) => [e.id, e]));
 const entries = slugs.flatMap((slug) => {

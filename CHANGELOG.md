@@ -13,6 +13,16 @@ this project adheres to [Semantic Versioning](https://semver.org/).
 - Astro 7.0.7 to 7.2.9. The theme needs 7.2.5 or newer now: older
   versions could cache a signed-in visitor's page for everyone.
 
+### Fixed
+
+- Pages now tell browsers how long to keep them, and missing pages say
+  one minute. Without that Cloudflare's own four-hour default applied,
+  so an edit stayed invisible to returning readers for four hours with
+  no way to clear it. Set Browser Cache TTL to "Respect Existing
+  Headers" in Cloudflare too — the longer of the two wins.
+- Search results are no longer cached. They are built from whatever the
+  reader typed, so they belong to nobody else.
+
 ### Documentation
 
 - The README explains how to point the CLI at a deployed site, and what
