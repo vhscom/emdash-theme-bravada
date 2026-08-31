@@ -4,6 +4,21 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- The Node build now caches rendered pages. The hold times the theme
+  already declared applied only to the Cloudflare deploy; a plain
+  `node` server honours them too, and publishing clears them the same
+  way. Pages are held in the server's own memory, so if you run more
+  than one instance each keeps its own copy.
+- Links carrying campaign tags now reuse the cached page on the Node
+  build — `utm_source`, `fbclid`, `gclid` and the like are left out of
+  the decision about which stored copy to serve, so a post shared on
+  social does not re-render on every click. The Cloudflare deploy is
+  answered before the site runs, so it cannot do the same.
+
 ## [0.10.0] - 2026-08-31
 
 ### Changed

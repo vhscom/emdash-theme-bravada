@@ -1,7 +1,7 @@
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import auditLog from "@emdash-cms/plugin-audit-log";
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig, fontProviders, memoryCache } from "astro/config";
 import emdash, { local } from "emdash/astro";
 import { sqlite } from "emdash/db";
 
@@ -10,9 +10,30 @@ export default defineConfig({
 	adapter: node({
 		mode: "standalone",
 	}),
+	// Route caching for the Node build. The rules below declare the policy;
+	// without a provider nothing enforces them, which is what this template
+	// shipped through v0.10.0 — the Cloudflare deploy branch swaps in
+	// cacheCloudflare() and was the only build that honoured them.
+	//
+	// memoryCache() holds rendered pages in the server process: up to 1000 by
+	// default, and publishing invalidates the pages an entry appears on, so
+	// editors are not waiting out the hour below. Being in-process is the
+	// whole trade — it costs nothing to adopt and needs no platform, but each
+	// instance keeps its own copy, so a multi-instance deploy will see them
+	// diverge until each expires. Put a shared cache in front if you run more
+	// than one.
+	//
+	// It also drops tracking parameters (utm_*, fbclid, gclid and the rest)
+	// from the cache key by default, so a link shared with campaign tags hits
+	// the same entry as the clean URL. Worth knowing that this is a property
+	// of THIS provider, not of route caching: it can normalise the key because
+	// it is the cache and runs inside the app. A CDN cache in front of the app
+	// computes the key before any of your code runs, so it cannot.
+	cache: {
+		provider: memoryCache(),
+	},
 	// How long each kind of page may be held, declared next to the routes it
-	// applies to rather than in site code. Inert without a cache provider, so
-	// the Node build ignores this and the Cloudflare deploy uses it.
+	// applies to rather than in site code.
 	//
 	// An hour fresh, ten days stale-while-revalidate: within the hour a reader
 	// gets the stored copy outright, and for ten days after they get it
