@@ -79,7 +79,7 @@ export default defineConfig({
 				auditLog,
 				{
 					id: "bravada-theme",
-					version: "0.11.0",
+					version: "0.12.0",
 					// Absolute file:// URL so the virtual emdash/plugins module
 					// can resolve this at build time (relative paths fail because
 					// the virtual module has no on-disk location to anchor them).
