@@ -19,6 +19,18 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   social does not re-render on every click. The Cloudflare deploy is
   answered before the site runs, so it cannot do the same.
 
+### Changed
+
+- EmDash 0.35.0 to 1.6.0. Database migrations run the first time you
+  start the site after updating; back up the database first, as some
+  of them rewrite stored dates and cannot be undone.
+- If your site was set up from version 0.7.0 or earlier, one of those
+  migrations stops on the old product review dates. Those releases
+  seeded every review as "7th June", with no year, and the migration
+  refuses to guess one. Until the dates are corrected the site starts
+  without its content. The error names each affected product and
+  revision; give each review a full date and start the site again.
+
 ## [0.10.0] - 2026-08-31
 
 ### Changed
