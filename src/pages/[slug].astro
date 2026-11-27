@@ -1,6 +1,8 @@
 ---
 import { getEmDashEntry, getSeoMeta, getSiteSettings, decodeSlug } from "emdash";
 import RichText from "../components/RichText.astro";
+import PageBlocks from "../components/PageBlocks.astro";
+import { opensWithHero, pageHeroImage } from "../utils/hero";
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 import PageLayout from "../layouts/PageLayout.astro";
@@ -37,12 +39,17 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 // Pages that open with their own Bravada slider (e.g. a landing page)
 // skip the standard fullscreen page header.
-const firstBlock = page.data.content?.[0];
-const hasOwnHero = firstBlock?._type === "bravada.hero";
+const hasOwnHero = opensWithHero(page.data);
 
 // Social preview image: the page's leading hero slide, if it has one.
-const ogImage =
-	hasOwnHero && typeof firstBlock.image === "string" ? firstBlock.image : undefined;
+const ogImage = pageHeroImage(page.data);
+
+// Marketing blocks run full width above the page card; the card (and its
+// sidebars) appears only when the page also has body text, so a page
+// built purely from blocks is a landing page, not an empty card.
+const blocks = page.data.blocks ?? [];
+const content = page.data.content ?? [];
+const leadHero = blocks[0]?._type === "marketing_hero" ? blocks[0] : undefined;
 
 // Bravada per-page layout (the demo's Layouts pages): a select field
 // on the pages collection — none | left | right | two-left |
@@ -72,7 +79,8 @@ const seo = getSeoMeta(page, {
 	siteUrl: siteOrigin,
 	path: `/${slug}`,
 	defaultOgImage: ogImage,
-	defaultDescription: excerpt ?? metaDescription(page.data.content) ?? page.data.title,
+	defaultDescription:
+		excerpt ?? metaDescription(content) ?? leadHero?.subheadline ?? page.data.title,
 	titleSeparator: resolveTitleSeparator(siteSettings),
 });
 ---
@@ -100,7 +108,12 @@ const seo = getSeoMeta(page, {
 			/>
 		)
 	}
-	<PageLayout layout={layout} sidebar={page.data.sidebar as string | null}>
-		<RichText value={page.data.content} />
-	</PageLayout>
+	{blocks.length > 0 && <PageBlocks value={blocks} />}
+	{
+		(blocks.length === 0 || content.length > 0) && (
+			<PageLayout layout={layout} sidebar={page.data.sidebar as string | null}>
+				<RichText value={content} />
+			</PageLayout>
+		)
+	}
 </Base>

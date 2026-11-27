@@ -19,9 +19,9 @@ any Node.js server with SQLite and local file storage.
 The port carries Bravada's visual language — Playfair Display headings over
 Mulish body text, the teal/gold palette, the gold-ribbon wordmark, highlighter
 title sweeps, ghost section headers, the slow zoom-under-teal image hover, the
-dark footer — and rebuilds its **landing page as Portable Text blocks**:
-bands an editor can reorder or remove without touching code, with reusable
-groups of them saved as EmDash sections.
+dark footer — and builds its **landing page from EmDash marketing blocks**:
+bands an editor adds, reorders and configures from a form in the admin,
+without touching code.
 
 Most of the demo imagery — heroes, headers, shop and portfolio photography —
 is real CC0/CC BY photography rather than placeholder art, with some
@@ -30,37 +30,153 @@ attribution table. Local images ship with pre-built AVIF/WebP siblings
 served through `<picture>` for the hero, page headers, portfolio, and
 project-grid images.
 
-![The EmDash admin editing the home page: bravada.* blocks stacked in the Portable Text editor, each showing a preview of its content](.github/admin.png)
+![The EmDash admin editing the home page: its marketing blocks listed one per row, with the block picker open on the Hero & text and Features groups](.github/admin.png)
 
-The landing page's composition is content, not code. Its bands are
-`bravada.*` blocks in the admin's editor: drag to reorder them, delete the
-ones you don't want, or drop a saved section into any page. Their settings
-are not editable there yet — see [Blocks](#blocks). Posts, portfolio,
-products, menus, widgets and media all live in the same admin at
+The landing page's composition is content, not code. Each band is a block
+in the page's **Blocks** field: pick one from the grouped picker, drag it
+into place, and open it to edit its copy, images, buttons and style. Posts,
+portfolio, products, menus, widgets and media all live in the same admin at
 `/_emdash/admin`.
 
-## Blocks
+## Marketing blocks
 
-Bravada's page furniture is rebuilt as custom Portable Text block types.
-Components live in `src/components/blocks/` and are dispatched by
-`src/components/RichText.astro` — use that wherever editor content renders,
-and every block type comes with it.
+Thirteen block types, each drawn in Bravada's own idiom. Every one of them
+is on the [Marketing blocks](https://bravada.comfus.io/marketing-blocks)
+page of the demo; the home page uses the hero, icon blocks, text areas,
+featured boxes, portfolio and testimonials.
 
-The four that make up Bravada's front page:
+<table>
+<tr><th colspan="2" align="left">Hero & text</th></tr>
+<tr>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-hero.jpg"><img src=".github/blocks/marketing-hero.jpg" alt="A full-screen beach photo under the headline Built from blocks, top to bottom, with two buttons"></a>
+<br><b>Hero</b> · <code>marketing_hero</code><br>
+Full-screen photo, a headline whose letters break up in gold, up to two buttons. Pick the letter-effect colour.
+</td>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-split.jpg"><img src=".github/blocks/marketing-split.jpg" alt="A white card with the headline Words before pictures beside a black-and-white typewriter photo"></a>
+<br><b>Text area</b> · <code>marketing_split</code><br>
+A white card on a tinted band, with a photo poking out on either side and outlined buttons.
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-text.jpg"><img src=".github/blocks/marketing-text.jpg" alt="A centred column of text under the headline About this page"></a>
+<br><b>Text</b> · <code>marketing_text</code><br>
+Rich text in a centred column, for ordinary prose between bands.
+</td>
+<td width="50%"></td>
+</tr>
+<tr><th colspan="2" align="left">Features</th></tr>
+<tr>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-features.jpg"><img src=".github/blocks/marketing-features.jpg" alt="Four white cards with teal line icons: Identity, Websites, Print, Campaigns"></a>
+<br><b>Icon blocks</b> · <code>marketing_features</code><br>
+Line-icon cards, light or dark, two to four columns. The icons swap on hover.
+</td>
+<td valign="top" width="50%">
+<a href=".github/blocks/bravada-boxes.jpg"><img src=".github/blocks/bravada-boxes.jpg" alt="Four photo cards with gold tape strips on a gold backdrop"></a>
+<br><b>Featured boxes</b> · <code>bravada_boxes</code><br>
+Image cards in three styles (taped, zoom-under-teal, white overlay) over a gold or teal strip.
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-stats.jpg"><img src=".github/blocks/marketing-stats.jpg" alt="Four white cards with large teal figures: 86, 1,240, 14, 3 days"></a>
+<br><b>Stats</b> · <code>marketing_stats</code><br>
+Large Playfair figures with the gold highlighter under them.
+</td>
+<td width="50%"></td>
+</tr>
+<tr><th colspan="2" align="left">Showcase</th></tr>
+<tr>
+<td valign="top" width="50%">
+<a href=".github/blocks/bravada-portfolio.jpg"><img src=".github/blocks/bravada-portfolio.jpg" alt="A filter bar over a grid of eight portfolio cards"></a>
+<br><b>Portfolio</b> · <code>bravada_portfolio</code><br>
+A project grid with client-side filters drawn from each card's tags.
+</td>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-testimonials.jpg"><img src=".github/blocks/marketing-testimonials.jpg" alt="Three gold quote cards with round portraits and names"></a>
+<br><b>Testimonials</b> · <code>marketing_testimonials</code><br>
+Gold quote cards with a round portrait pulled over the edge.
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-logos.jpg"><img src=".github/blocks/marketing-logos.jpg" alt="A row of six studio names set as Playfair wordmarks"></a>
+<br><b>Logos</b> · <code>marketing_logos</code><br>
+Client marks in greyscale, coming up to colour on hover; a name alone becomes a wordmark.
+</td>
+<td width="50%"></td>
+</tr>
+<tr><th colspan="2" align="left">Conversion</th></tr>
+<tr>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-cta.jpg"><img src=".github/blocks/marketing-cta.jpg" alt="A banner over a night-time city crossing with the headline Have something to make?"></a>
+<br><b>Call to action</b> · <code>marketing_cta</code><br>
+A banner over a photo under a teal scrim, or on the footer's dark green.
+</td>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-pricing.jpg"><img src=".github/blocks/marketing-pricing.jpg" alt="Three plan cards, the middle one raised with a gold tape strip and a Most booked badge"></a>
+<br><b>Pricing</b> · <code>marketing_pricing</code><br>
+Plan cards with a feature list; the highlighted plan wears the gold tape.
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-faq.jpg"><img src=".github/blocks/marketing-faq.jpg" alt="An intro column beside four questions, the first one open"></a>
+<br><b>FAQ</b> · <code>marketing_faq</code><br>
+Questions that open one at a time, beside an optional intro.
+</td>
+<td valign="top" width="50%">
+<a href=".github/blocks/marketing-contact.jpg"><img src=".github/blocks/marketing-contact.jpg" alt="Three contact cards for email, phone and studio with icons and links"></a>
+<br><b>Contact options</b> · <code>marketing_contact</code><br>
+Ways to get in touch, each with an icon and a link.
+</td>
+</tr>
+</table>
 
-| Block type | Bravada original |
-|---|---|
-| `bravada.hero` | LP slider / static slider |
-| `bravada.blocks` | LP blocks |
-| `bravada.boxes` | LP boxes (animated) |
-| `bravada.text` | LP text areas |
+The eleven `marketing_*` types follow the field names of EmDash's marketing
+template (`headline`, `subheadline`, `primary_cta_label` and so on), so the
+admin lays their forms out well and content moves between the two with
+little rework. Where Bravada has a setting the template doesn't, it is an
+extra field on the block, and the icon list is Bravada's line set:
 
-The rest, with where the demo puts them:
+| Setting | On | Does |
+|---|---|---|
+| Letter effect colour | Hero | The colour the headline's letters flash: `bravada`, `ripley`, `sculpt`, `sundown` |
+| Style | Icon blocks, featured boxes | `light` / `dark`; `static` / `animated` / `overlay` |
+| Columns | Icon blocks, featured boxes, portfolio | Two to four across on desktop |
+| Accent strip | Featured boxes | The gold or teal band behind the grid |
+| Background tint | Text area, featured boxes, stats, logos, pricing | One of the demo's band colours: `warm`, `stone`, `lilac`, `grey`, `mist` |
+| Section ID | Every block | An `id` for in-page links such as `#plans` |
+
+Any page can use blocks, not just the home page. A page built only from
+blocks drops the usual page card and runs edge to edge; add body text as
+well and the card, with its sidebars, follows the blocks.
+
+**Adding your own block type** takes three steps: define it under
+`blockTypes` in the seed, add its slug to the Pages field's `allowedTypes`,
+and map its `_type` to a component in `src/components/PageBlocks.astro`.
+Typecheck fails if a type has no component. Plan the fields before shipping:
+EmDash keeps every block type and version for good (there is no delete), and
+a breaking change to a block means a new version, not an edit.
+
+Images in seeded blocks are external media values pointing at files in
+`public/images/demo/`, so the seed works on Cloudflare Workers too, where a
+seed cannot import local files into the media library. Images an editor picks
+in the admin are ordinary media-library items.
+
+## Portable Text blocks
+
+The bands that aren't page sections — sidebar and footer widgets, and the
+template pages' contact form, map, team, accordion and shop grid — remain
+custom Portable Text block types. Components live in `src/components/blocks/`
+and are dispatched by `src/components/RichText.astro`; use that wherever
+editor content renders, and every type comes with it.
 
 | Block type | Renders | Seeded on |
 |---|---|---|
-| `bravada.portfolio` | Portfolio grid band | home, portfolio |
-| `bravada.testimonials` | Testimonial carousel | home |
 | `bravada.team` | Team member grid | about-us |
 | `bravada.accordion` | Collapsible panels | about-us |
 | `bravada.contactform` | Contact form | contact |
@@ -73,39 +189,29 @@ The rest, with where the demo puts them:
 | `bravada.widgetportfolio` | Portfolio thumbnails | footer |
 | `bravada.projectgrid` | Project grid | used by project archives |
 | `bravada.projectfeatured` | Featured project | used by `/portfolio/:slug` |
+| `bravada.portfolio` | Portfolio grid band | portfolio, sections |
+| `bravada.hero`, `.blocks`, `.boxes`, `.text`, `.testimonials` | The other landing bands | sections only |
 
-Image fields on the hero and boxes blocks take a plain URL string — a
-media-library file URL or an external one — not the `{ src, alt }` object
-that entry image fields use.
-
-A block's own settings — a boxes band's `variant`, `columns`, `accent` and
-`tint`, a hero's `effect` — are edited in the seed or the page's stored
-content, not through a form in the admin. The types are not registered with
-the editor, so it can reorder and delete bands but has no field UI for them.
-Registering them is deliberately on hold: the upstream
-[blocks field type](https://github.com/emdash-cms/emdash/discussions/337)
-would supersede the plugin route, and the Block Kit element surface has
-moved twice recently.
+These types are not registered with the editor, so it can reorder and delete
+them but has no form for their settings, and their image fields take a plain
+URL string rather than a media object. The landing bands in the last two
+rows render the same components as their marketing-block counterparts; they
+stay so that a home page set up before blocks keeps rendering, and so the
+portfolio page and the seeded sections below still work.
 
 ### Blocks vs sections
 
-A **block** is one band of content sitting inside a Portable Text field. A
-**section** is a saved, reusable group of blocks that an editor drops into
-any Portable Text field with the `/section` command.
-
-The two are independent, which is worth knowing before you go editing:
-**the seeded home page holds its own inline blocks, not references to
-sections.** Editing the `hero-slider` section will not change the homepage.
-The seed ships nine sections — `hero-slider`, `icon-blocks`,
-`icon-blocks-dark`, `text-band`, `featured-boxes-static`,
-`featured-boxes-animated`, `portfolio-grid`, `testimonials` and
-`footer-portfolio` — as ready-made starting points, and several are
-variations on the same block type.
+A **section** is a saved, reusable group of Portable Text, which an editor
+drops into any rich-text field with the `/section` command. The seed ships
+nine — `hero-slider`, `icon-blocks`, `icon-blocks-dark`, `text-band`,
+`featured-boxes-static`, `featured-boxes-animated`, `portfolio-grid`,
+`testimonials` and `footer-portfolio` — as starting points for pages that
+are mostly prose. They are independent of the home page: editing a section
+changes neither the home page nor any page it was dropped into earlier.
 
 The homepage renders the page with slug `home` full-width above the latest
-posts; the seeded one is thirteen blocks across six types. Edit, reorder or
-delete bands there like any other content, or delete the page to fall back
-to a plain blog front page.
+posts: its blocks, then any rich text in its Content field. Delete or
+unpublish the page to fall back to a plain blog front page.
 
 ## Structure
 
@@ -114,9 +220,10 @@ to a plain blog front page.
 - `seed/seed.json` — four collections (posts, pages, portfolio, products),
   five taxonomies (category, tag, project-type, project-tag,
   product-category), primary/social/mobile menus, sidebar and footer widget
-  areas, nine Bravada sections, and the demo content: a `home` landing page,
-  twelve posts, twelve projects, twenty-three products and the template
-  pages.
+  areas, thirteen marketing block types, nine Bravada sections, and the demo
+  content: a `home` landing page and a `marketing-blocks` showcase built
+  from blocks, twelve posts, twelve projects, twenty-three products and the
+  template pages.
 - `src/styles/theme.css` — the Bravada design tokens and signature styles.
   All colors use `light-dark()`; dark mode is automatic.
 - `src/styles/tokens.css` — template defaults (don't edit; override in theme.css).
@@ -212,14 +319,16 @@ no rebuilds.
 ```mermaid
 flowchart LR
     V[Visitor] --> P["src/pages/*"] --> Q[EmDash] --> DB[(SQLite)]
-    P --> B["bravada.* blocks"]
+    P --> M["PageBlocks: marketing blocks"]
+    P --> B["RichText: bravada.* blocks"]
     E[Editor] --> A["/_emdash/admin"] --> DB
 ```
 
-The theme layer is deliberately thin: routes in `src/pages/` query EmDash and
-hand Portable Text to `RichText.astro`, which dispatches the
-`bravada.*` block types; design tokens in `src/styles/theme.css` restyle the
-base template without touching its layout primitives.
+The theme layer is deliberately thin: routes in `src/pages/` query EmDash,
+hand a page's Blocks field to `PageBlocks.astro` and its Portable Text to
+`RichText.astro`, and both draw with the same band components in
+`src/components/blocks/`. Design tokens in `src/styles/theme.css` restyle
+the base template without touching its layout primitives.
 
 ## First run
 

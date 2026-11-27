@@ -9,6 +9,993 @@
     "title": "Bravada for Astro",
     "tagline": "Clear, clean and simply gorgeous"
   },
+  "blockTypes": [
+    {
+      "slug": "marketing_hero",
+      "label": "Hero",
+      "description": "Full-screen image with an animated headline and up to two buttons",
+      "icon": "sparkle",
+      "category": "Hero & text",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "primary_cta_label",
+              "label": "Primary button text",
+              "type": "string"
+            },
+            {
+              "slug": "primary_cta_url",
+              "label": "Primary button link",
+              "type": "url"
+            },
+            {
+              "slug": "secondary_cta_label",
+              "label": "Secondary button text",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_cta_url",
+              "label": "Secondary button link",
+              "type": "url"
+            },
+            {
+              "slug": "image",
+              "label": "Background image",
+              "type": "image"
+            },
+            {
+              "slug": "effect",
+              "label": "Letter effect colour",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "bravada",
+                  "ripley",
+                  "sculpt",
+                  "sundown"
+                ]
+              },
+              "defaultValue": "bravada"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_split",
+      "label": "Text area",
+      "description": "A white card with copy and buttons, beside an optional photo",
+      "icon": "square-half",
+      "category": "Hero & text",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "body",
+              "label": "Body",
+              "type": "text"
+            },
+            {
+              "slug": "primary_cta_label",
+              "label": "Primary button text",
+              "type": "string"
+            },
+            {
+              "slug": "primary_cta_url",
+              "label": "Primary button link",
+              "type": "url"
+            },
+            {
+              "slug": "secondary_cta_label",
+              "label": "Secondary button text",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_cta_url",
+              "label": "Secondary button link",
+              "type": "url"
+            },
+            {
+              "slug": "image",
+              "label": "Photo",
+              "type": "image"
+            },
+            {
+              "slug": "image_first",
+              "label": "Photo on the left",
+              "type": "boolean",
+              "defaultValue": true
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_text",
+      "label": "Text",
+      "description": "A headline over rich text in a centred column",
+      "icon": "article",
+      "category": "Hero & text",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "body",
+              "label": "Body",
+              "type": "portableText"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_features",
+      "label": "Icon blocks",
+      "description": "Cards with a line icon, a title and a short description",
+      "icon": "squares-four",
+      "category": "Features",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "features",
+              "label": "Blocks",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "icon",
+                    "label": "Icon",
+                    "type": "select",
+                    "options": [
+                      "trophy",
+                      "briefcase",
+                      "notebook",
+                      "megaphone",
+                      "pointer",
+                      "smartphone",
+                      "screen",
+                      "layers",
+                      "folder",
+                      "check",
+                      "plus",
+                      "mail",
+                      "phone",
+                      "location",
+                      "chat"
+                    ]
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Title",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "description",
+                    "label": "Description",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "variant",
+              "label": "Style",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "light",
+                  "dark"
+                ]
+              },
+              "defaultValue": "light"
+            },
+            {
+              "slug": "columns",
+              "label": "Columns",
+              "type": "integer",
+              "validation": {
+                "min": 2,
+                "max": 4
+              },
+              "defaultValue": 3
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bravada_boxes",
+      "label": "Featured boxes",
+      "description": "Image cards with a title, an excerpt and a read-more link",
+      "icon": "grid-four",
+      "category": "Features",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "items",
+              "label": "Boxes",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "image",
+                    "label": "Image",
+                    "type": "image"
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Title",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "description",
+                    "label": "Excerpt",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "variant",
+              "label": "Style",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "static",
+                  "animated",
+                  "overlay"
+                ]
+              },
+              "defaultValue": "static"
+            },
+            {
+              "slug": "columns",
+              "label": "Columns",
+              "type": "integer",
+              "validation": {
+                "min": 2,
+                "max": 4
+              },
+              "defaultValue": 4
+            },
+            {
+              "slug": "accent",
+              "label": "Accent strip",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "gold",
+                  "teal"
+                ]
+              },
+              "defaultValue": "gold"
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_stats",
+      "label": "Stats",
+      "description": "A row of large figures, each with a short label",
+      "icon": "chart-bar",
+      "category": "Features",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "stats",
+              "label": "Figures",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "value",
+                    "label": "Figure",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "label",
+                    "label": "Label",
+                    "type": "string",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bravada_portfolio",
+      "label": "Portfolio",
+      "description": "A filterable grid of project cards",
+      "icon": "images",
+      "category": "Showcase",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "items",
+              "label": "Projects",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "image",
+                    "label": "Image",
+                    "type": "image"
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Title",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "tags",
+                    "label": "Filter tags (comma-separated)",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "columns",
+              "label": "Columns",
+              "type": "integer",
+              "validation": {
+                "min": 2,
+                "max": 4
+              },
+              "defaultValue": 4
+            },
+            {
+              "slug": "more_label",
+              "label": "Button text",
+              "type": "string"
+            },
+            {
+              "slug": "more_url",
+              "label": "Button link",
+              "type": "url"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_testimonials",
+      "label": "Testimonials",
+      "description": "Gold quote cards with a round portrait and a caption",
+      "icon": "quotes",
+      "category": "Showcase",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "testimonials",
+              "label": "Testimonials",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "quote",
+                    "label": "Quote",
+                    "type": "text",
+                    "required": true
+                  },
+                  {
+                    "slug": "author",
+                    "label": "Name or caption",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "avatar",
+                    "label": "Portrait",
+                    "type": "image"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_logos",
+      "label": "Logos",
+      "description": "A row of client or partner logos",
+      "icon": "buildings",
+      "category": "Showcase",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "logos",
+              "label": "Logos",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "name",
+                    "label": "Name",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "logo",
+                    "label": "Logo",
+                    "type": "image"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_cta",
+      "label": "Call to action",
+      "description": "A banner with a headline and buttons, over an optional photo",
+      "icon": "cursor-click",
+      "category": "Conversion",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "body",
+              "label": "Body",
+              "type": "text"
+            },
+            {
+              "slug": "primary_cta_label",
+              "label": "Primary button text",
+              "type": "string"
+            },
+            {
+              "slug": "primary_cta_url",
+              "label": "Primary button link",
+              "type": "url"
+            },
+            {
+              "slug": "secondary_cta_label",
+              "label": "Secondary button text",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_cta_url",
+              "label": "Secondary button link",
+              "type": "url"
+            },
+            {
+              "slug": "image",
+              "label": "Background image",
+              "type": "image"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_pricing",
+      "label": "Pricing",
+      "description": "Plan cards with a price, a feature list and a button",
+      "icon": "tag",
+      "category": "Conversion",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "plans",
+              "label": "Plans",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "name",
+                    "label": "Name",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "price",
+                    "label": "Price",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "period",
+                    "label": "Period",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "description",
+                    "label": "Description",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "features",
+                    "label": "Features (one per line)",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "cta_label",
+                    "label": "Button text",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "cta_url",
+                    "label": "Button link",
+                    "type": "url"
+                  },
+                  {
+                    "slug": "highlighted",
+                    "label": "Highlight this plan",
+                    "type": "boolean"
+                  },
+                  {
+                    "slug": "badge",
+                    "label": "Badge",
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_faq",
+      "label": "FAQ",
+      "description": "Questions that open to show their answers, beside an optional intro",
+      "icon": "question",
+      "category": "Conversion",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "items",
+              "label": "Questions",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "question",
+                    "label": "Question",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "answer",
+                    "label": "Answer",
+                    "type": "text",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_contact",
+      "label": "Contact options",
+      "description": "Ways to get in touch, each with an icon and a link",
+      "icon": "address-book",
+      "category": "Conversion",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "options",
+              "label": "Options",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "icon",
+                    "label": "Icon",
+                    "type": "select",
+                    "options": [
+                      "trophy",
+                      "briefcase",
+                      "notebook",
+                      "megaphone",
+                      "pointer",
+                      "smartphone",
+                      "screen",
+                      "layers",
+                      "folder",
+                      "check",
+                      "plus",
+                      "mail",
+                      "phone",
+                      "location",
+                      "chat"
+                    ]
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Title",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "description",
+                    "label": "Description",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "link_label",
+                    "label": "Link text",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "collections": [
     {
       "slug": "posts",
@@ -68,6 +1055,29 @@
           "slug": "header_image",
           "label": "Header image",
           "type": "image"
+        },
+        {
+          "slug": "blocks",
+          "label": "Blocks",
+          "type": "blocks",
+          "validation": {
+            "allowedTypes": [
+              "marketing_hero",
+              "marketing_split",
+              "marketing_text",
+              "marketing_features",
+              "bravada_boxes",
+              "marketing_stats",
+              "bravada_portfolio",
+              "marketing_testimonials",
+              "marketing_logos",
+              "marketing_cta",
+              "marketing_pricing",
+              "marketing_faq",
+              "marketing_contact"
+            ],
+            "maxItems": 40
+          }
         },
         {
           "slug": "content",

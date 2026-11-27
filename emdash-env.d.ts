@@ -5,12 +5,196 @@
 
 import type { BylineSummary, ContentBylineCredit, TaxonomyTerm, PortableTextBlock } from "emdash";
 
+export interface PageBlocksMarketingHeroV1Block {
+  _type: "marketing_hero";
+  _version: 1;
+  _key: string;
+  "headline": string;
+  "subheadline"?: string | null;
+  "primary_cta_label"?: string | null;
+  "primary_cta_url"?: string | null;
+  "secondary_cta_label"?: string | null;
+  "secondary_cta_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "effect"?: "bravada" | "ripley" | "sculpt" | "sundown" | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingHeroBlock = PageBlocksMarketingHeroV1Block;
+
+export interface PageBlocksMarketingSplitV1Block {
+  _type: "marketing_split";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "body"?: string | null;
+  "primary_cta_label"?: string | null;
+  "primary_cta_url"?: string | null;
+  "secondary_cta_label"?: string | null;
+  "secondary_cta_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "image_first"?: boolean | null;
+  "tint"?: "none" | "warm" | "stone" | "lilac" | "grey" | "mist" | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingSplitBlock = PageBlocksMarketingSplitV1Block;
+
+export interface PageBlocksMarketingTextV1Block {
+  _type: "marketing_text";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "body"?: PortableTextBlock[] | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingTextBlock = PageBlocksMarketingTextV1Block;
+
+export interface PageBlocksMarketingFeaturesV1Block {
+  _type: "marketing_features";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "subheadline"?: string | null;
+  "features"?: { "icon"?: "trophy" | "briefcase" | "notebook" | "megaphone" | "pointer" | "smartphone" | "screen" | "layers" | "folder" | "check" | "plus" | "mail" | "phone" | "location" | "chat" | null; "title": string; "description"?: string | null; "link_url"?: string | null }[] | null;
+  "variant"?: "light" | "dark" | null;
+  "columns"?: number | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingFeaturesBlock = PageBlocksMarketingFeaturesV1Block;
+
+export interface PageBlocksBravadaBoxesV1Block {
+  _type: "bravada_boxes";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "subheadline"?: string | null;
+  "items"?: { "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "title": string; "description"?: string | null; "link_url"?: string | null }[] | null;
+  "variant"?: "static" | "animated" | "overlay" | null;
+  "columns"?: number | null;
+  "accent"?: "gold" | "teal" | null;
+  "tint"?: "none" | "warm" | "stone" | "lilac" | "grey" | "mist" | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksBravadaBoxesBlock = PageBlocksBravadaBoxesV1Block;
+
+export interface PageBlocksMarketingStatsV1Block {
+  _type: "marketing_stats";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "subheadline"?: string | null;
+  "stats"?: { "value": string; "label": string }[] | null;
+  "tint"?: "none" | "warm" | "stone" | "lilac" | "grey" | "mist" | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingStatsBlock = PageBlocksMarketingStatsV1Block;
+
+export interface PageBlocksBravadaPortfolioV1Block {
+  _type: "bravada_portfolio";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "subheadline"?: string | null;
+  "items"?: { "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "title": string; "tags"?: string | null; "link_url"?: string | null }[] | null;
+  "columns"?: number | null;
+  "more_label"?: string | null;
+  "more_url"?: string | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksBravadaPortfolioBlock = PageBlocksBravadaPortfolioV1Block;
+
+export interface PageBlocksMarketingTestimonialsV1Block {
+  _type: "marketing_testimonials";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "subheadline"?: string | null;
+  "testimonials"?: { "quote": string; "author"?: string | null; "avatar"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null }[] | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingTestimonialsBlock = PageBlocksMarketingTestimonialsV1Block;
+
+export interface PageBlocksMarketingLogosV1Block {
+  _type: "marketing_logos";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "logos"?: { "name": string; "logo"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "link_url"?: string | null }[] | null;
+  "tint"?: "none" | "warm" | "stone" | "lilac" | "grey" | "mist" | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingLogosBlock = PageBlocksMarketingLogosV1Block;
+
+export interface PageBlocksMarketingCtaV1Block {
+  _type: "marketing_cta";
+  _version: 1;
+  _key: string;
+  "headline": string;
+  "body"?: string | null;
+  "primary_cta_label"?: string | null;
+  "primary_cta_url"?: string | null;
+  "secondary_cta_label"?: string | null;
+  "secondary_cta_url"?: string | null;
+  "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingCtaBlock = PageBlocksMarketingCtaV1Block;
+
+export interface PageBlocksMarketingPricingV1Block {
+  _type: "marketing_pricing";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "subheadline"?: string | null;
+  "plans"?: { "name": string; "price": string; "period"?: string | null; "description"?: string | null; "features"?: string | null; "cta_label"?: string | null; "cta_url"?: string | null; "highlighted"?: boolean | null; "badge"?: string | null }[] | null;
+  "tint"?: "none" | "warm" | "stone" | "lilac" | "grey" | "mist" | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingPricingBlock = PageBlocksMarketingPricingV1Block;
+
+export interface PageBlocksMarketingFaqV1Block {
+  _type: "marketing_faq";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "subheadline"?: string | null;
+  "items"?: { "question": string; "answer": string }[] | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingFaqBlock = PageBlocksMarketingFaqV1Block;
+
+export interface PageBlocksMarketingContactV1Block {
+  _type: "marketing_contact";
+  _version: 1;
+  _key: string;
+  "headline"?: string | null;
+  "subheadline"?: string | null;
+  "options"?: { "icon"?: "trophy" | "briefcase" | "notebook" | "megaphone" | "pointer" | "smartphone" | "screen" | "layers" | "folder" | "check" | "plus" | "mail" | "phone" | "location" | "chat" | null; "title": string; "description"?: string | null; "link_label"?: string | null; "link_url"?: string | null }[] | null;
+  "anchor_id"?: string | null;
+}
+
+export type PageBlocksMarketingContactBlock = PageBlocksMarketingContactV1Block;
+
+export type PageBlocksBlock = PageBlocksMarketingHeroBlock | PageBlocksMarketingSplitBlock | PageBlocksMarketingTextBlock | PageBlocksMarketingFeaturesBlock | PageBlocksBravadaBoxesBlock | PageBlocksMarketingStatsBlock | PageBlocksBravadaPortfolioBlock | PageBlocksMarketingTestimonialsBlock | PageBlocksMarketingLogosBlock | PageBlocksMarketingCtaBlock | PageBlocksMarketingPricingBlock | PageBlocksMarketingFaqBlock | PageBlocksMarketingContactBlock;
+
 export interface Page {
   id: string;
   slug: string | null;
   status: string;
   title: string;
   header_image?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
+  blocks?: PageBlocksBlock[];
   content?: PortableTextBlock[];
   layout?: string;
   sidebar?: string;

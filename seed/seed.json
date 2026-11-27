@@ -10,6 +10,993 @@
     "title": "Bravada for Astro",
     "tagline": "Clear, clean and simply gorgeous"
   },
+  "blockTypes": [
+    {
+      "slug": "marketing_hero",
+      "label": "Hero",
+      "description": "Full-screen image with an animated headline and up to two buttons",
+      "icon": "sparkle",
+      "category": "Hero & text",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "primary_cta_label",
+              "label": "Primary button text",
+              "type": "string"
+            },
+            {
+              "slug": "primary_cta_url",
+              "label": "Primary button link",
+              "type": "url"
+            },
+            {
+              "slug": "secondary_cta_label",
+              "label": "Secondary button text",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_cta_url",
+              "label": "Secondary button link",
+              "type": "url"
+            },
+            {
+              "slug": "image",
+              "label": "Background image",
+              "type": "image"
+            },
+            {
+              "slug": "effect",
+              "label": "Letter effect colour",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "bravada",
+                  "ripley",
+                  "sculpt",
+                  "sundown"
+                ]
+              },
+              "defaultValue": "bravada"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_split",
+      "label": "Text area",
+      "description": "A white card with copy and buttons, beside an optional photo",
+      "icon": "square-half",
+      "category": "Hero & text",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "body",
+              "label": "Body",
+              "type": "text"
+            },
+            {
+              "slug": "primary_cta_label",
+              "label": "Primary button text",
+              "type": "string"
+            },
+            {
+              "slug": "primary_cta_url",
+              "label": "Primary button link",
+              "type": "url"
+            },
+            {
+              "slug": "secondary_cta_label",
+              "label": "Secondary button text",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_cta_url",
+              "label": "Secondary button link",
+              "type": "url"
+            },
+            {
+              "slug": "image",
+              "label": "Photo",
+              "type": "image"
+            },
+            {
+              "slug": "image_first",
+              "label": "Photo on the left",
+              "type": "boolean",
+              "defaultValue": true
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_text",
+      "label": "Text",
+      "description": "A headline over rich text in a centred column",
+      "icon": "article",
+      "category": "Hero & text",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "body",
+              "label": "Body",
+              "type": "portableText"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_features",
+      "label": "Icon blocks",
+      "description": "Cards with a line icon, a title and a short description",
+      "icon": "squares-four",
+      "category": "Features",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "features",
+              "label": "Blocks",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "icon",
+                    "label": "Icon",
+                    "type": "select",
+                    "options": [
+                      "trophy",
+                      "briefcase",
+                      "notebook",
+                      "megaphone",
+                      "pointer",
+                      "smartphone",
+                      "screen",
+                      "layers",
+                      "folder",
+                      "check",
+                      "plus",
+                      "mail",
+                      "phone",
+                      "location",
+                      "chat"
+                    ]
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Title",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "description",
+                    "label": "Description",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "variant",
+              "label": "Style",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "light",
+                  "dark"
+                ]
+              },
+              "defaultValue": "light"
+            },
+            {
+              "slug": "columns",
+              "label": "Columns",
+              "type": "integer",
+              "validation": {
+                "min": 2,
+                "max": 4
+              },
+              "defaultValue": 3
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bravada_boxes",
+      "label": "Featured boxes",
+      "description": "Image cards with a title, an excerpt and a read-more link",
+      "icon": "grid-four",
+      "category": "Features",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "items",
+              "label": "Boxes",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "image",
+                    "label": "Image",
+                    "type": "image"
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Title",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "description",
+                    "label": "Excerpt",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "variant",
+              "label": "Style",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "static",
+                  "animated",
+                  "overlay"
+                ]
+              },
+              "defaultValue": "static"
+            },
+            {
+              "slug": "columns",
+              "label": "Columns",
+              "type": "integer",
+              "validation": {
+                "min": 2,
+                "max": 4
+              },
+              "defaultValue": 4
+            },
+            {
+              "slug": "accent",
+              "label": "Accent strip",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "gold",
+                  "teal"
+                ]
+              },
+              "defaultValue": "gold"
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_stats",
+      "label": "Stats",
+      "description": "A row of large figures, each with a short label",
+      "icon": "chart-bar",
+      "category": "Features",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "stats",
+              "label": "Figures",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "value",
+                    "label": "Figure",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "label",
+                    "label": "Label",
+                    "type": "string",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bravada_portfolio",
+      "label": "Portfolio",
+      "description": "A filterable grid of project cards",
+      "icon": "images",
+      "category": "Showcase",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "items",
+              "label": "Projects",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "image",
+                    "label": "Image",
+                    "type": "image"
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Title",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "tags",
+                    "label": "Filter tags (comma-separated)",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "columns",
+              "label": "Columns",
+              "type": "integer",
+              "validation": {
+                "min": 2,
+                "max": 4
+              },
+              "defaultValue": 4
+            },
+            {
+              "slug": "more_label",
+              "label": "Button text",
+              "type": "string"
+            },
+            {
+              "slug": "more_url",
+              "label": "Button link",
+              "type": "url"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_testimonials",
+      "label": "Testimonials",
+      "description": "Gold quote cards with a round portrait and a caption",
+      "icon": "quotes",
+      "category": "Showcase",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "testimonials",
+              "label": "Testimonials",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "quote",
+                    "label": "Quote",
+                    "type": "text",
+                    "required": true
+                  },
+                  {
+                    "slug": "author",
+                    "label": "Name or caption",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "avatar",
+                    "label": "Portrait",
+                    "type": "image"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_logos",
+      "label": "Logos",
+      "description": "A row of client or partner logos",
+      "icon": "buildings",
+      "category": "Showcase",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "logos",
+              "label": "Logos",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "name",
+                    "label": "Name",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "logo",
+                    "label": "Logo",
+                    "type": "image"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_cta",
+      "label": "Call to action",
+      "description": "A banner with a headline and buttons, over an optional photo",
+      "icon": "cursor-click",
+      "category": "Conversion",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "body",
+              "label": "Body",
+              "type": "text"
+            },
+            {
+              "slug": "primary_cta_label",
+              "label": "Primary button text",
+              "type": "string"
+            },
+            {
+              "slug": "primary_cta_url",
+              "label": "Primary button link",
+              "type": "url"
+            },
+            {
+              "slug": "secondary_cta_label",
+              "label": "Secondary button text",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_cta_url",
+              "label": "Secondary button link",
+              "type": "url"
+            },
+            {
+              "slug": "image",
+              "label": "Background image",
+              "type": "image"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_pricing",
+      "label": "Pricing",
+      "description": "Plan cards with a price, a feature list and a button",
+      "icon": "tag",
+      "category": "Conversion",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "plans",
+              "label": "Plans",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "name",
+                    "label": "Name",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "price",
+                    "label": "Price",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "period",
+                    "label": "Period",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "description",
+                    "label": "Description",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "features",
+                    "label": "Features (one per line)",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "cta_label",
+                    "label": "Button text",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "cta_url",
+                    "label": "Button link",
+                    "type": "url"
+                  },
+                  {
+                    "slug": "highlighted",
+                    "label": "Highlight this plan",
+                    "type": "boolean"
+                  },
+                  {
+                    "slug": "badge",
+                    "label": "Badge",
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "tint",
+              "label": "Background tint",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "none",
+                  "warm",
+                  "stone",
+                  "lilac",
+                  "grey",
+                  "mist"
+                ]
+              },
+              "defaultValue": "none"
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_faq",
+      "label": "FAQ",
+      "description": "Questions that open to show their answers, beside an optional intro",
+      "icon": "question",
+      "category": "Conversion",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "items",
+              "label": "Questions",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "question",
+                    "label": "Question",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "answer",
+                    "label": "Answer",
+                    "type": "text",
+                    "required": true
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "marketing_contact",
+      "label": "Contact options",
+      "description": "Ways to get in touch, each with an icon and a link",
+      "icon": "address-book",
+      "category": "Conversion",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "headline",
+              "label": "Headline",
+              "type": "string"
+            },
+            {
+              "slug": "subheadline",
+              "label": "Subheadline",
+              "type": "text"
+            },
+            {
+              "slug": "options",
+              "label": "Options",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "icon",
+                    "label": "Icon",
+                    "type": "select",
+                    "options": [
+                      "trophy",
+                      "briefcase",
+                      "notebook",
+                      "megaphone",
+                      "pointer",
+                      "smartphone",
+                      "screen",
+                      "layers",
+                      "folder",
+                      "check",
+                      "plus",
+                      "mail",
+                      "phone",
+                      "location",
+                      "chat"
+                    ]
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Title",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "description",
+                    "label": "Description",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "link_label",
+                    "label": "Link text",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "link_url",
+                    "label": "Link",
+                    "type": "url"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "anchor_id",
+              "label": "Section ID",
+              "type": "string",
+              "validation": {
+                "pattern": "^(?:$|[A-Za-z][A-Za-z0-9_-]*)$"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "collections": [
     {
       "slug": "posts",
@@ -72,6 +1059,29 @@
           "slug": "header_image",
           "label": "Header image",
           "type": "image"
+        },
+        {
+          "slug": "blocks",
+          "label": "Blocks",
+          "type": "blocks",
+          "validation": {
+            "allowedTypes": [
+              "marketing_hero",
+              "marketing_split",
+              "marketing_text",
+              "marketing_features",
+              "bravada_boxes",
+              "marketing_stats",
+              "bravada_portfolio",
+              "marketing_testimonials",
+              "marketing_logos",
+              "marketing_cta",
+              "marketing_pricing",
+              "marketing_faq",
+              "marketing_contact"
+            ],
+            "maxItems": 40
+          }
         },
         {
           "slug": "content",
@@ -662,6 +1672,11 @@
             {
               "label": "Portfolio",
               "url": "/portfolio",
+              "type": "custom"
+            },
+            {
+              "label": "Marketing blocks",
+              "url": "/marketing-blocks",
               "type": "custom"
             }
           ],
@@ -1684,455 +2699,857 @@
         "status": "published",
         "data": {
           "title": "Home",
-          "content": [
+          "blocks": [
             {
-              "_type": "bravada.hero",
-              "_key": "lp-slider",
-              "title": "Have enough courage to start and enough heart to finish.",
-              "subtitle": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum.",
-              "image": "/images/demo/static.jpg",
-              "imageAlt": "Have enough courage to start and enough heart to finish.",
-              "buttons": [
-                {
-                  "label": "Read more",
-                  "url": "/posts"
-                },
-                {
-                  "label": "See now",
-                  "url": "/about-us"
-                }
-              ],
-              "effect": "bravada"
+              "_type": "marketing_hero",
+              "headline": "Have enough courage to start and enough heart to finish.",
+              "subheadline": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum.",
+              "primary_cta_label": "Read more",
+              "primary_cta_url": "/posts",
+              "secondary_cta_label": "See now",
+              "secondary_cta_url": "/about-us",
+              "image": {
+                "provider": "external",
+                "id": "0WSM432ATCAXFVRXDM3QE56GGS",
+                "src": "/images/demo/static.jpg",
+                "alt": "Have enough courage to start and enough heart to finish."
+              },
+              "effect": "bravada",
+              "_version": 1,
+              "_key": "lp-slider"
             },
             {
-              "_type": "bravada.blocks",
-              "_key": "lp-blocks1",
+              "_type": "marketing_features",
               "variant": "light",
               "columns": 3,
-              "items": [
+              "features": [
                 {
                   "icon": "trophy",
                   "title": "Premium quality",
-                  "text": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere.",
-                  "url": "/posts/printing-your-dreams"
+                  "description": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere.",
+                  "link_url": "/posts/printing-your-dreams"
                 },
                 {
                   "icon": "briefcase",
                   "title": "Fast delivery",
-                  "text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis.",
-                  "url": "/posts/through-the-lens"
+                  "description": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis.",
+                  "link_url": "/posts/through-the-lens"
                 },
                 {
                   "icon": "notebook",
                   "title": "Great typography",
-                  "text": "Proin ornare ex tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sodales nec lorem a elementum.",
-                  "url": "/posts/everything-is-small"
+                  "description": "Proin ornare ex tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sodales nec lorem a elementum.",
+                  "link_url": "/posts/everything-is-small"
                 },
                 {
                   "icon": "megaphone",
                   "title": "Clean Code",
-                  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada velit augue, et mattis mauris sodales ullamcorper.",
-                  "url": "/posts/a-morning-with-technology"
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada velit augue, et mattis mauris sodales ullamcorper.",
+                  "link_url": "/posts/a-morning-with-technology"
                 },
                 {
                   "icon": "pointer",
                   "title": "Translations",
-                  "text": "Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui, interdum auctor libero dolor non orci. Aenean blandit molestie lacus a tempus.",
-                  "url": "/posts/everything-is-small"
+                  "description": "Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui, interdum auctor libero dolor non orci. Aenean blandit molestie lacus a tempus.",
+                  "link_url": "/posts/everything-is-small"
                 },
                 {
                   "icon": "smartphone",
                   "title": "Creative",
-                  "text": "Praesent ac libero id enim pulvinar mattis. Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
-                  "url": "/posts/everything-is-small"
+                  "description": "Praesent ac libero id enim pulvinar mattis. Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
+                  "link_url": "/posts/everything-is-small"
                 }
-              ]
-            },
-            {
-              "_type": "bravada.text",
-              "_key": "lp-text-one",
-              "title": "Keep your options open",
-              "image": "/images/demo/wheel_phone.jpg",
-              "imageAlt": "Photographing a ferris wheel with a phone",
-              "imageSide": "left",
-              "tint": "#F9F7F5",
-              "paragraphs": [
-                "Nulla feugiat condimentum neque, id laoreet ipsum posuere ac. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.",
-                "Fusce ac augue ut enim tincidunt blandit nec id velit. Maecenas sodales fringilla orci id fermentum. Vivamus porta fermentum tortor vitae bibendum. Ut blandit lacinia luctus."
               ],
-              "buttons": [
-                {
-                  "label": "Turn left",
-                  "url": "/posts/a-morning-with-technology",
-                  "style": "primary"
-                },
-                {
-                  "label": "Go right",
-                  "url": "/posts/a-morning-with-technology",
-                  "style": "secondary"
-                }
-              ]
+              "_version": 1,
+              "_key": "lp-blocks1"
             },
             {
-              "_type": "bravada.boxes",
-              "_key": "lp-boxes-1",
+              "_type": "marketing_split",
+              "headline": "Keep your options open",
+              "body": "Nulla feugiat condimentum neque, id laoreet ipsum posuere ac. In sagittis odio quis hendrerit cursus. Nam ac scelerisque quam.\n\nFusce ac augue ut enim tincidunt blandit nec id velit. Maecenas sodales fringilla orci id fermentum. Vivamus porta fermentum tortor vitae bibendum. Ut blandit lacinia luctus.",
+              "primary_cta_label": "Turn left",
+              "primary_cta_url": "/posts/a-morning-with-technology",
+              "secondary_cta_label": "Go right",
+              "secondary_cta_url": "/posts/a-morning-with-technology",
+              "image": {
+                "provider": "external",
+                "id": "0PW9X6XQ3RW5M9WCKA62A0QKJY",
+                "src": "/images/demo/wheel_phone.jpg",
+                "alt": "Photographing a ferris wheel with a phone"
+              },
+              "image_first": true,
+              "tint": "warm",
+              "_version": 1,
+              "_key": "lp-text-one"
+            },
+            {
+              "_type": "bravada_boxes",
+              "headline": "A glorious title",
+              "subheadline": "And a less glorious and more mundane description to go underneath",
               "variant": "static",
               "columns": 4,
               "accent": "gold",
-              "tint": "#F8F8F8",
-              "title": "A glorious title",
-              "description": "And a less glorious and more mundane description to go underneath",
+              "tint": "mist",
               "items": [
                 {
-                  "image": "/images/demo/featured-boxes-03-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "56GYJK1KQVSW9REJ09WKK6JT96",
+                    "src": "/images/demo/featured-boxes-03-413x300.jpg"
+                  },
                   "title": "Bedside table",
-                  "text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
-                  "url": "/posts/monday-meetings"
+                  "description": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
+                  "link_url": "/posts/monday-meetings"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-07-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0D0TYYSHS35ESDR8N1EMFC8V5R",
+                    "src": "/images/demo/featured-boxes-07-413x300.jpg"
+                  },
                   "title": "Orange feelings",
-                  "text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
-                  "url": "/posts/running-from-the-afternoon"
+                  "description": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
+                  "link_url": "/posts/running-from-the-afternoon"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-06-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0HA6AJSHHP3R4FC5Z63WN8MJCP",
+                    "src": "/images/demo/featured-boxes-06-413x300.jpg"
+                  },
                   "title": "Straw vase",
-                  "text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
-                  "url": "/posts/vacation-memories"
+                  "description": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
+                  "link_url": "/posts/vacation-memories"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-02-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0D1WR8T980298Y53MEDX7128GN",
+                    "src": "/images/demo/featured-boxes-02-413x300.jpg"
+                  },
                   "title": "Bagged emotions",
-                  "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
-                  "url": "/posts/through-the-lens"
+                  "description": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
+                  "link_url": "/posts/through-the-lens"
                 }
-              ]
+              ],
+              "_version": 1,
+              "_key": "lp-boxes-1"
             },
             {
-              "_type": "bravada.text",
-              "_key": "lp-text-four",
-              "title": "Checking it out",
-              "image": "/images/demo/square_forest.jpg",
-              "imageAlt": "Aerial view of an autumn forest",
-              "imageSide": "right",
-              "tint": "#EEEBE9",
-              "paragraphs": [
-                "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices."
-              ]
+              "_type": "marketing_split",
+              "headline": "Checking it out",
+              "body": "Donec aliquam laoreet dolor, non euismod dolor malesuada id. Vivamus hendrerit quis sem id dignissim. Nulla libero nisl, interdum sed volutpat at, imperdiet at lorem. Donec eu iaculis dolor, at aliquam libero. Nulla facilisi. Praesent consectetur dapibus ultrices.",
+              "image": {
+                "provider": "external",
+                "id": "09XHDTZ4W2E3XVJ4W3FBJKTGNH",
+                "src": "/images/demo/square_forest.jpg",
+                "alt": "Aerial view of an autumn forest"
+              },
+              "image_first": false,
+              "tint": "stone",
+              "_version": 1,
+              "_key": "lp-text-four"
             },
             {
-              "_type": "bravada.boxes",
-              "_key": "lp-boxes-2",
+              "_type": "bravada_boxes",
+              "headline": "And another one",
+              "subheadline": "I should've used a lorem ipsum generator for this",
               "variant": "animated",
               "columns": 3,
               "accent": "teal",
-              "tint": "#F8F8F8",
-              "title": "And another one",
-              "description": "I should've used a lorem ipsum generator for this",
+              "tint": "mist",
               "items": [
                 {
-                  "image": "/images/demo/demo-image-01-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0AK6HCFT7THZ2GQ0VT34KEP83K",
+                    "src": "/images/demo/demo-image-01-413x300.jpg"
+                  },
                   "title": "Some coffee art",
-                  "text": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
-                  "url": "/posts/some-coffee-art"
+                  "description": "Creatively Curated Curabitur eget erat enim. Ut et efficitur lorem, ut varius massa. Nulla vel vehicula nisi, vel pharetra sem. Vestibulum ligula libero, tincidunt nec.",
+                  "link_url": "/posts/some-coffee-art"
                 },
                 {
-                  "image": "/images/demo/demo-image-02-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0KB2ADQZCNZB82D95CH7T9SG43",
+                    "src": "/images/demo/demo-image-02-413x300.jpg"
+                  },
                   "title": "Through the lens",
-                  "text": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
-                  "url": "/posts/through-the-lens"
+                  "description": "Donec aliquam purus non euismod scelerisque. Suspendisse sed odio imperdiet, posuere purus ac, scelerisque metus. Nulla facilisi.",
+                  "link_url": "/posts/through-the-lens"
                 },
                 {
-                  "image": "/images/demo/demo-image-03-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "6AVE6VBGQ3Q8EXSNHGA0Z3HP26",
+                    "src": "/images/demo/demo-image-03-413x300.jpg"
+                  },
                   "title": "Everything is small",
-                  "text": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
-                  "url": "/posts/everything-is-small"
+                  "description": "Morbi pulvinar lectus pellentesque, tincidunt tortor quis, porttitor erat. In sit amet posuere justo. Praesent condimentum quam enim, ac posuere leo rutrum ac.",
+                  "link_url": "/posts/everything-is-small"
                 },
                 {
-                  "image": "/images/demo/demo-image-04-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0VNTM8HRZP40W7ZFJ5E3P50KVN",
+                    "src": "/images/demo/demo-image-04-413x300.jpg"
+                  },
                   "title": "A bird's eye view",
-                  "text": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc.",
-                  "url": "/posts/a-birds-eye-view"
+                  "description": "Fresh beginings Pellentesque lacinia, leo sed finibus rutrum, justo odio ultrices purus, in volutpat lacus dolor ac nunc.",
+                  "link_url": "/posts/a-birds-eye-view"
                 },
                 {
-                  "image": "/images/demo/demo-image-05-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0BYH856DZ5228414EDRRCYGWX8",
+                    "src": "/images/demo/demo-image-05-413x300.jpg"
+                  },
                   "title": "A morning with technology",
-                  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis.",
-                  "url": "/posts/a-morning-with-technology"
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquam ut est et convallis.",
+                  "link_url": "/posts/a-morning-with-technology"
                 },
                 {
-                  "image": "/images/demo/demo-image-15-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0EX2QN0BB0S3YXSFT9HN7FJYAV",
+                    "src": "/images/demo/demo-image-15-413x300.jpg"
+                  },
                   "title": "Running from the afternoon",
-                  "text": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna.",
-                  "url": "/posts/running-from-the-afternoon"
+                  "description": "Aenean molestie eleifend lorem, a consequat eros. Sed at enim turpis. Fusce sit amet venenatis urna.",
+                  "link_url": "/posts/running-from-the-afternoon"
                 }
-              ]
-            },
-            {
-              "_type": "bravada.text",
-              "_key": "lp-text-two",
-              "title": "The leader is a ghost",
-              "tint": "#F6F3F6",
-              "paragraphs": [
-                "Pellentesque placerat massa ac leo facilisis, vel convallis nisl condimentum. Donec nec leo eget urna fringilla pharetra. Vestibulum ultricies sapien sit amet massa interdum, vel gravida magna porta. Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat in turpis quis efficitur."
               ],
-              "buttons": [
-                {
-                  "label": "Follow",
-                  "url": "/posts/some-coffee-art",
-                  "style": "primary"
-                },
-                {
-                  "label": "Hold still",
-                  "url": "/posts/some-coffee-art",
-                  "style": "secondary"
-                }
-              ]
+              "_version": 1,
+              "_key": "lp-boxes-2"
             },
             {
-              "_type": "bravada.boxes",
-              "_key": "lp-boxes-3",
+              "_type": "marketing_split",
+              "headline": "The leader is a ghost",
+              "body": "Pellentesque placerat massa ac leo facilisis, vel convallis nisl condimentum. Donec nec leo eget urna fringilla pharetra. Vestibulum ultricies sapien sit amet massa interdum, vel gravida magna porta. Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat in turpis quis efficitur.",
+              "primary_cta_label": "Follow",
+              "primary_cta_url": "/posts/some-coffee-art",
+              "secondary_cta_label": "Hold still",
+              "secondary_cta_url": "/posts/some-coffee-art",
+              "image_first": true,
+              "tint": "lilac",
+              "_version": 1,
+              "_key": "lp-text-two"
+            },
+            {
+              "_type": "bravada_boxes",
               "variant": "overlay",
               "columns": 4,
               "accent": "gold",
-              "tint": "#F6F3F6",
+              "tint": "lilac",
               "items": [
                 {
-                  "image": "/images/demo/featured-boxes-03-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "56GYJK1KQVSW9REJ09WKK6JT96",
+                    "src": "/images/demo/featured-boxes-03-413x300.jpg"
+                  },
                   "title": "Bedside table",
-                  "text": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
-                  "url": "/posts/monday-meetings"
+                  "description": "Nulla eleifend posuere felis quis pellentesque. Duis in tellus non magna viverra vehicula.",
+                  "link_url": "/posts/monday-meetings"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-07-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0D0TYYSHS35ESDR8N1EMFC8V5R",
+                    "src": "/images/demo/featured-boxes-07-413x300.jpg"
+                  },
                   "title": "Orange feelings",
-                  "text": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
-                  "url": "/posts/running-from-the-afternoon"
+                  "description": "Vivamus purus justo, blandit volutpat mattis non, vulputate vitae diam. Phasellus libero urna, volutpat!",
+                  "link_url": "/posts/running-from-the-afternoon"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-06-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0HA6AJSHHP3R4FC5Z63WN8MJCP",
+                    "src": "/images/demo/featured-boxes-06-413x300.jpg"
+                  },
                   "title": "Straw vase",
-                  "text": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
-                  "url": "/posts/vacation-memories"
+                  "description": "Phasellus libero urna, volutpat ut pharetra non, dignissim sit amet mauris. Vivamus purus justo.",
+                  "link_url": "/posts/vacation-memories"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-02-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "0D1WR8T980298Y53MEDX7128GN",
+                    "src": "/images/demo/featured-boxes-02-413x300.jpg"
+                  },
                   "title": "Bagged emotions",
-                  "text": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
-                  "url": "/posts/through-the-lens"
+                  "description": "Duis lacinia varius ligula id hendrerit. Lacinia ligula is pastic, libero varius urna, volutpat.",
+                  "link_url": "/posts/through-the-lens"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-08-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "42S59C5YA7KQ88C54ERVFS70CH",
+                    "src": "/images/demo/featured-boxes-08-413x300.jpg"
+                  },
                   "title": "Miniature tree of life",
-                  "text": "Suspendisse congue eros neque, id condimentum quam porta id. Vivamus purus justo.",
-                  "url": "/posts/without-looking-both-ways"
+                  "description": "Suspendisse congue eros neque, id condimentum quam porta id. Vivamus purus justo.",
+                  "link_url": "/posts/without-looking-both-ways"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-05-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "004MJWCYDZH689AFA7A9D6T316",
+                    "src": "/images/demo/featured-boxes-05-413x300.jpg"
+                  },
                   "title": "Sweetest morning",
-                  "text": "Fusce id interdum lectus. Ut eu nisi mi. Nullam rhoncus mollis leo mollis feugiat.",
-                  "url": "/posts/a-morning-with-technology"
+                  "description": "Fusce id interdum lectus. Ut eu nisi mi. Nullam rhoncus mollis leo mollis feugiat.",
+                  "link_url": "/posts/a-morning-with-technology"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-01-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "00TPPB0QXSWMQ43N74EK2DYNYV",
+                    "src": "/images/demo/featured-boxes-01-413x300.jpg"
+                  },
                   "title": "Feeling lazy",
-                  "text": "Sed porttitor malesuada malesuada. Nullam vehicula sapien non dolor consequat.",
-                  "url": "/posts/chalk-ideas"
+                  "description": "Sed porttitor malesuada malesuada. Nullam vehicula sapien non dolor consequat.",
+                  "link_url": "/posts/chalk-ideas"
                 },
                 {
-                  "image": "/images/demo/featured-boxes-04-413x300.jpg",
+                  "image": {
+                    "provider": "external",
+                    "id": "6EBVXA07PVFA402XG4KZWYNW7T",
+                    "src": "/images/demo/featured-boxes-04-413x300.jpg"
+                  },
                   "title": "The living room",
-                  "text": "Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
-                  "url": "/posts/everything-must-be-in-order"
+                  "description": "Aenean consequat fringilla ipsum eu feugiat. Aenean vel convallis lacus, et scelerisque est.",
+                  "link_url": "/posts/everything-must-be-in-order"
                 }
-              ]
-            },
-            {
-              "_type": "bravada.portfolio",
-              "_key": "lp-portfolio",
-              "columns": 4,
-              "title": "Our Latest Work",
-              "description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
-              "more": {
-                "label": "All portfolios",
-                "url": "/portfolio"
-              },
-              "items": [
-                {
-                  "image": "/images/demo/portfolio-01-512x512.jpg",
-                  "title": "New York vol. 27",
-                  "tags": [
-                    "Brands",
-                    "Business Cards"
-                  ],
-                  "url": "/portfolio/new-york-vol-27"
-                },
-                {
-                  "image": "/images/demo/portfolio-02-512x512.jpg",
-                  "title": "Presentation Paper",
-                  "tags": [
-                    "Brands",
-                    "Sketch"
-                  ],
-                  "url": "/portfolio/presentation-paper"
-                },
-                {
-                  "image": "/images/demo/portfolio-03-512x512.jpg",
-                  "title": "Empty Cards",
-                  "tags": [
-                    "Business Cards"
-                  ],
-                  "url": "/portfolio/black-white-business-cards"
-                },
-                {
-                  "image": "/images/demo/portfolio-04-512x512.jpg",
-                  "title": "Notebook",
-                  "tags": [
-                    "Brands"
-                  ],
-                  "url": "/portfolio/notebook"
-                },
-                {
-                  "image": "/images/demo/portfolio-05-512x512.jpg",
-                  "title": "Disk cover",
-                  "tags": [
-                    "Discs"
-                  ],
-                  "url": "/portfolio/disk-cover"
-                },
-                {
-                  "image": "/images/demo/portfolio-06-512x512.jpg",
-                  "title": "Pen & Paper",
-                  "tags": [
-                    "Brands",
-                    "Sketch"
-                  ],
-                  "url": "/portfolio/pen-paper"
-                },
-                {
-                  "image": "/images/demo/portfolio-07-512x512.jpg",
-                  "title": "Flyer Presentation",
-                  "tags": [
-                    "Brands",
-                    "Sketch"
-                  ],
-                  "url": "/portfolio/flyer-presentation"
-                },
-                {
-                  "image": "/images/demo/portfolio-08-512x512.jpg",
-                  "title": "Brand Sketch",
-                  "tags": [
-                    "Brands",
-                    "Sketch"
-                  ],
-                  "url": "/portfolio/brand-sketch"
-                }
-              ]
-            },
-            {
-              "_type": "bravada.text",
-              "_key": "lp-text-three",
-              "title": "Never put it down",
-              "image": "/images/demo/square_presentation.jpg",
-              "imageAlt": "An open laptop with code on screen beside a cup of coffee",
-              "imageSide": "left",
-              "tint": "#EEEBE9",
-              "paragraphs": [
-                "Nunc vitae velit consequat, ultricies nisl vitae, pharetra eros. Morbi tincidunt felis id mauris mattis, at tristique risus ultrices. Sed cursus ornare est, nec interdum orci lacinia a."
               ],
-              "buttons": [
-                {
-                  "label": "Relaxation",
-                  "url": "/posts/everything-is-small",
-                  "style": "secondary"
-                }
-              ]
+              "_version": 1,
+              "_key": "lp-boxes-3"
             },
             {
-              "_type": "bravada.testimonials",
-              "_key": "lp-testimonials",
-              "title": "Honest reviews",
-              "description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
+              "_type": "bravada_portfolio",
+              "headline": "Our Latest Work",
+              "subheadline": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
+              "columns": 4,
+              "more_label": "All portfolios",
+              "more_url": "/portfolio",
               "items": [
                 {
-                  "image": "/images/demo/team-member03.jpeg",
-                  "title": "Constantly Great!",
-                  "text": "Duis finibus imperdiet diam. Aliquam elementum non massa non gravida. Maecenas vel tortor non ipsum pellentesque auctor. Integer turpis odio, pharetra ut ante non, iaculis egestas enim. Sed consequat ipsum non diam gravida viverra. Vivamus dolor eros, convallis ut sagittis a, dignissim et purus."
+                  "image": {
+                    "provider": "external",
+                    "id": "7ZBPB4MHRP0A1AYJWCKRF03KT8",
+                    "src": "/images/demo/portfolio-01-512x512.jpg"
+                  },
+                  "title": "New York vol. 27",
+                  "tags": "Brands, Business Cards",
+                  "link_url": "/portfolio/new-york-vol-27"
                 },
                 {
-                  "image": "/images/demo/team-member04.jpeg",
-                  "title": "Best theme",
-                  "text": "Voluptatem ut repellat sit optio sunt vitae fuga. Velit rerum aliquid temporibus. Ab quaerat et ducimus ut cum dolorem totam omnis. Nesciunt et non qui maiores quisquam et tenetur. Consequatur quo praesentium quia. Excepturi sequi minima eius ea explicabo explicabo non suscipit."
+                  "image": {
+                    "provider": "external",
+                    "id": "0D2S73H05PJWSZB94AED0C0KRN",
+                    "src": "/images/demo/portfolio-02-512x512.jpg"
+                  },
+                  "title": "Presentation Paper",
+                  "tags": "Brands, Sketch",
+                  "link_url": "/portfolio/presentation-paper"
                 },
                 {
-                  "image": "/images/demo/team-member02.jpeg",
-                  "title": "Amazing feedback",
-                  "text": "Iste laboriosam fugit quisquam sequi. Facilis consequuntur saepe quod dolor voluptate architecto modi aut. Modi fuga aliquid ut qui. Quia dolore non sed aut laborum. Aspernatur enim ut labore. Voluptatem dolorum laboriosam ea amet in."
+                  "image": {
+                    "provider": "external",
+                    "id": "0KZ6Y60YTD68708RCY2TZNQXJ2",
+                    "src": "/images/demo/portfolio-03-512x512.jpg"
+                  },
+                  "title": "Empty Cards",
+                  "tags": "Business Cards",
+                  "link_url": "/portfolio/black-white-business-cards"
+                },
+                {
+                  "image": {
+                    "provider": "external",
+                    "id": "082K7BN024GZPX3DWB5T861BBE",
+                    "src": "/images/demo/portfolio-04-512x512.jpg"
+                  },
+                  "title": "Notebook",
+                  "tags": "Brands",
+                  "link_url": "/portfolio/notebook"
+                },
+                {
+                  "image": {
+                    "provider": "external",
+                    "id": "5E4DHCA7MGRG1VW80YK0EG249X",
+                    "src": "/images/demo/portfolio-05-512x512.jpg"
+                  },
+                  "title": "Disk cover",
+                  "tags": "Discs",
+                  "link_url": "/portfolio/disk-cover"
+                },
+                {
+                  "image": {
+                    "provider": "external",
+                    "id": "0Q3S4SPFYS625NB53S6AD95YBK",
+                    "src": "/images/demo/portfolio-06-512x512.jpg"
+                  },
+                  "title": "Pen & Paper",
+                  "tags": "Brands, Sketch",
+                  "link_url": "/portfolio/pen-paper"
+                },
+                {
+                  "image": {
+                    "provider": "external",
+                    "id": "0QNWZ9P72XN8HVEHJBBPQE10H1",
+                    "src": "/images/demo/portfolio-07-512x512.jpg"
+                  },
+                  "title": "Flyer Presentation",
+                  "tags": "Brands, Sketch",
+                  "link_url": "/portfolio/flyer-presentation"
+                },
+                {
+                  "image": {
+                    "provider": "external",
+                    "id": "015TC7RFYDYQYCRD6AKACCKHJ7",
+                    "src": "/images/demo/portfolio-08-512x512.jpg"
+                  },
+                  "title": "Brand Sketch",
+                  "tags": "Brands, Sketch",
+                  "link_url": "/portfolio/brand-sketch"
                 }
-              ]
+              ],
+              "_version": 1,
+              "_key": "lp-portfolio"
             },
             {
-              "_type": "bravada.blocks",
-              "_key": "lp-blocks2",
+              "_type": "marketing_split",
+              "headline": "Never put it down",
+              "body": "Nunc vitae velit consequat, ultricies nisl vitae, pharetra eros. Morbi tincidunt felis id mauris mattis, at tristique risus ultrices. Sed cursus ornare est, nec interdum orci lacinia a.",
+              "secondary_cta_label": "Relaxation",
+              "secondary_cta_url": "/posts/everything-is-small",
+              "image": {
+                "provider": "external",
+                "id": "0BCAMZT491XBBM1209K7RWZ6Y5",
+                "src": "/images/demo/square_presentation.jpg",
+                "alt": "An open laptop with code on screen beside a cup of coffee"
+              },
+              "image_first": true,
+              "tint": "stone",
+              "_version": 1,
+              "_key": "lp-text-three"
+            },
+            {
+              "_type": "marketing_testimonials",
+              "headline": "Honest reviews",
+              "subheadline": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
+              "testimonials": [
+                {
+                  "quote": "Duis finibus imperdiet diam. Aliquam elementum non massa non gravida. Maecenas vel tortor non ipsum pellentesque auctor. Integer turpis odio, pharetra ut ante non, iaculis egestas enim. Sed consequat ipsum non diam gravida viverra. Vivamus dolor eros, convallis ut sagittis a, dignissim et purus.",
+                  "author": "Constantly Great!",
+                  "avatar": {
+                    "provider": "external",
+                    "id": "0R5AQXEHXHY4JT2RX1GH8ZCMBW",
+                    "src": "/images/demo/team-member03.jpeg",
+                    "alt": "Constantly Great!"
+                  }
+                },
+                {
+                  "quote": "Voluptatem ut repellat sit optio sunt vitae fuga. Velit rerum aliquid temporibus. Ab quaerat et ducimus ut cum dolorem totam omnis. Nesciunt et non qui maiores quisquam et tenetur. Consequatur quo praesentium quia. Excepturi sequi minima eius ea explicabo explicabo non suscipit.",
+                  "author": "Best theme",
+                  "avatar": {
+                    "provider": "external",
+                    "id": "0EB2Q3B1HT59P9F5HJKTFYWPA4",
+                    "src": "/images/demo/team-member04.jpeg",
+                    "alt": "Best theme"
+                  }
+                },
+                {
+                  "quote": "Iste laboriosam fugit quisquam sequi. Facilis consequuntur saepe quod dolor voluptate architecto modi aut. Modi fuga aliquid ut qui. Quia dolore non sed aut laborum. Aspernatur enim ut labore. Voluptatem dolorum laboriosam ea amet in.",
+                  "author": "Amazing feedback",
+                  "avatar": {
+                    "provider": "external",
+                    "id": "0VEE9W2S5JS4VZM4T3G7DPS867",
+                    "src": "/images/demo/team-member02.jpeg",
+                    "alt": "Amazing feedback"
+                  }
+                }
+              ],
+              "_version": 1,
+              "_key": "lp-testimonials"
+            },
+            {
+              "_type": "marketing_features",
+              "headline": "Amazing feedback",
+              "subheadline": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
               "variant": "dark",
               "columns": 3,
-              "description": "Mauris vestibulum ex sapien, id interdum arcu suscipit eu. Mauris volutpat.",
-              "items": [
+              "features": [
                 {
                   "icon": "screen",
                   "title": "Premium quality",
-                  "text": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere."
+                  "description": "Aenean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Morbi egestas dolor id dolor finibus porta. Pellentesque feugiat ultricies posuere."
                 },
                 {
                   "icon": "layers",
                   "title": "Fast delivery",
-                  "text": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis."
+                  "description": "Venean blandit molestie lacus a tempus. Pellentesque vel semper dolor. Vivamus non posuere elit. Vivamus sagittis lacinia felis."
                 },
                 {
                   "icon": "folder",
                   "title": "Great typography",
-                  "text": "Proin ornare ex tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sodales nec lorem a elementum."
+                  "description": "Proin ornare ex tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sodales nec lorem a elementum."
                 },
                 {
                   "icon": "megaphone",
                   "title": "Clean Code",
-                  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada velit augue, et mattis mauris sodales ullamcorper."
+                  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada velit augue, et mattis mauris sodales ullamcorper."
                 },
                 {
                   "icon": "check",
                   "title": "Unlimited Socials",
-                  "text": "Curabitur at convallis nisi. Aenean vel convallis lacus, et scelerisque est. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
+                  "description": "Curabitur at convallis nisi. Aenean vel convallis lacus, et scelerisque est. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
                 },
                 {
                   "icon": "plus",
                   "title": "Responsive",
-                  "text": "Nulla nec bibendum tellus. Sed rutrum nibh non odio efficitur, et faucibus metus porttitor. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
+                  "description": "Nulla nec bibendum tellus. Sed rutrum nibh non odio efficitur, et faucibus metus porttitor. Maecenas tristique, nibh non pharetra imperdiet, magna mi commodo dui."
                 }
               ],
-              "title": "Amazing feedback"
+              "_version": 1,
+              "_key": "lp-blocks2"
             },
             {
-              "_type": "bravada.text",
-              "_key": "lp-text-five",
-              "title": "A day in the life",
-              "image": "/images/demo/square_house.jpg",
-              "imageAlt": "A house at dusk",
-              "imageSide": "right",
-              "tint": "#EEEEEE",
-              "paragraphs": [
-                "Fusce semper, lectus vitae pulvinar luctus, nisi arcu luctus elit, et sodales metus metus auctor metus. Maecenas congue risus dolor."
-              ],
-              "buttons": [
+              "_type": "marketing_split",
+              "headline": "A day in the life",
+              "body": "Fusce semper, lectus vitae pulvinar luctus, nisi arcu luctus elit, et sodales metus metus auctor metus. Maecenas congue risus dolor.",
+              "primary_cta_label": "Work with us",
+              "primary_cta_url": "/contact",
+              "secondary_cta_label": "Ride with us",
+              "secondary_cta_url": "/contact",
+              "image": {
+                "provider": "external",
+                "id": "00FM819ZMS98ECV4PNFCQWGSW2",
+                "src": "/images/demo/square_house.jpg",
+                "alt": "A house at dusk"
+              },
+              "image_first": false,
+              "tint": "grey",
+              "_version": 1,
+              "_key": "lp-text-five"
+            }
+          ]
+        }
+      },
+      {
+        "id": "marketing-blocks",
+        "slug": "marketing-blocks",
+        "status": "published",
+        "data": {
+          "title": "Marketing blocks",
+          "excerpt": "Every marketing block the theme ships, on one page: a hero, logos, stats, pricing, an FAQ, a call to action and more, each editable from the admin.",
+          "blocks": [
+            {
+              "_type": "marketing_hero",
+              "_version": 1,
+              "_key": "mb-hero",
+              "headline": "Built from blocks, top to bottom.",
+              "subheadline": "Every band on this page is a marketing block. Open it in the admin to reorder them, change their style, or add another from the block picker.",
+              "primary_cta_label": "See the plans",
+              "primary_cta_url": "#plans",
+              "secondary_cta_label": "Back to home",
+              "secondary_cta_url": "/",
+              "image": {
+                "provider": "external",
+                "id": "01Y3C583HHR1M635HQ0GET5VF5",
+                "src": "/images/demo/demo-image-09.jpg",
+                "alt": "Bleached driftwood on a white beach under a blue sky"
+              },
+              "effect": "bravada"
+            },
+            {
+              "_type": "marketing_logos",
+              "_version": 1,
+              "_key": "mb-logos",
+              "headline": "Studios we have worked with",
+              "logos": [
                 {
-                  "label": "Work with us",
-                  "url": "/contact",
-                  "style": "primary"
+                  "name": "Northfold"
                 },
                 {
-                  "label": "Ride with us",
-                  "url": "/contact",
-                  "style": "secondary"
+                  "name": "Kettle & Co."
+                },
+                {
+                  "name": "Marrow Books"
+                },
+                {
+                  "name": "Oddhour"
+                },
+                {
+                  "name": "Saltmarsh"
+                },
+                {
+                  "name": "Lumen Supply"
+                }
+              ]
+            },
+            {
+              "_type": "marketing_split",
+              "_version": 1,
+              "_key": "mb-split",
+              "headline": "Words before pictures",
+              "body": "Every project starts with a page of plain sentences: who it is for, what it has to say, and what should happen next. The layout follows from that, not the other way round.\n\nIt is slower on the first day and faster on every day after.",
+              "primary_cta_label": "Read the journal",
+              "primary_cta_url": "/posts",
+              "secondary_cta_label": "Meet the team",
+              "secondary_cta_url": "/about-us",
+              "image": {
+                "provider": "external",
+                "id": "0C69ZA1WHNHW9NGB1RZ3ZKX91K",
+                "src": "/images/demo/demo-image-06.jpg",
+                "alt": "A vintage typewriter in black and white"
+              },
+              "image_first": true,
+              "tint": "warm"
+            },
+            {
+              "_type": "marketing_stats",
+              "_version": 1,
+              "_key": "mb-stats",
+              "headline": "By the numbers",
+              "subheadline": "What the last twelve months looked like.",
+              "stats": [
+                {
+                  "value": "86",
+                  "label": "Identities"
+                },
+                {
+                  "value": "1,240",
+                  "label": "Posters printed"
+                },
+                {
+                  "value": "14",
+                  "label": "Paper stocks"
+                },
+                {
+                  "value": "3 days",
+                  "label": "Typical turnaround"
+                }
+              ],
+              "tint": "stone"
+            },
+            {
+              "_type": "marketing_features",
+              "_version": 1,
+              "_key": "mb-features",
+              "headline": "What we do",
+              "subheadline": "Four things, done properly.",
+              "features": [
+                {
+                  "icon": "layers",
+                  "title": "Identity",
+                  "description": "Names, marks and the rules that keep them consistent once we have gone."
+                },
+                {
+                  "icon": "screen",
+                  "title": "Websites",
+                  "description": "Fast, accessible sites you can edit yourself, built on the content you already have."
+                },
+                {
+                  "icon": "notebook",
+                  "title": "Print",
+                  "description": "Posters, books and stationery, proofed on the stock they will be printed on."
+                },
+                {
+                  "icon": "megaphone",
+                  "title": "Campaigns",
+                  "description": "Launches that carry one idea across every place it needs to appear."
+                }
+              ],
+              "variant": "light",
+              "columns": 4
+            },
+            {
+              "_type": "marketing_pricing",
+              "_version": 1,
+              "_key": "mb-pricing",
+              "headline": "Plans",
+              "subheadline": "Fixed prices, agreed before we start.",
+              "plans": [
+                {
+                  "name": "Sketch",
+                  "price": "\u00a3480",
+                  "period": "per project",
+                  "description": "A focused piece of work with a clear edge.",
+                  "features": "One deliverable\nTwo rounds of changes\nPrint-ready files",
+                  "cta_label": "Start a sketch",
+                  "cta_url": "/contact"
+                },
+                {
+                  "name": "Studio",
+                  "price": "\u00a31,800",
+                  "period": "per project",
+                  "description": "An identity or site, from first sentence to launch.",
+                  "features": "Discovery workshop\nIdentity or website\nThree rounds of changes\nA style guide you can hand on",
+                  "cta_label": "Book the studio",
+                  "cta_url": "/contact",
+                  "highlighted": true,
+                  "badge": "Most booked"
+                },
+                {
+                  "name": "Retainer",
+                  "price": "\u00a3950",
+                  "period": "per month",
+                  "description": "Ongoing design for teams who ship every week.",
+                  "features": "Four days a month\nShared design backlog\nCancel any month",
+                  "cta_label": "Ask about retainers",
+                  "cta_url": "/contact"
+                }
+              ],
+              "tint": "mist",
+              "anchor_id": "plans"
+            },
+            {
+              "_type": "marketing_testimonials",
+              "_version": 1,
+              "_key": "mb-testimonials",
+              "headline": "Kind words",
+              "subheadline": "From people who came back for a second project.",
+              "testimonials": [
+                {
+                  "quote": "They asked better questions about our business than our accountant does. The identity came out of the answers.",
+                  "author": "Priya Nair",
+                  "avatar": {
+                    "provider": "external",
+                    "id": "0R5AQXEHXHY4JT2RX1GH8ZCMBW",
+                    "src": "/images/demo/team-member03.jpeg",
+                    "alt": "Priya Nair"
+                  }
+                },
+                {
+                  "quote": "The site launched on the day they said it would, and we have edited every page ourselves since.",
+                  "author": "Theo Brandt",
+                  "avatar": {
+                    "provider": "external",
+                    "id": "0EB2Q3B1HT59P9F5HJKTFYWPA4",
+                    "src": "/images/demo/team-member04.jpeg",
+                    "alt": "Theo Brandt"
+                  }
+                },
+                {
+                  "quote": "The posters were proofed on the real paper. Nobody had ever done that for us before.",
+                  "author": "Hana Sato",
+                  "avatar": {
+                    "provider": "external",
+                    "id": "0VEE9W2S5JS4VZM4T3G7DPS867",
+                    "src": "/images/demo/team-member02.jpeg",
+                    "alt": "Hana Sato"
+                  }
+                }
+              ]
+            },
+            {
+              "_type": "marketing_faq",
+              "_version": 1,
+              "_key": "mb-faq",
+              "headline": "Questions",
+              "subheadline": "The ones we hear most. If yours is not here, ask us directly.",
+              "items": [
+                {
+                  "question": "How long does a project take?",
+                  "answer": "A Sketch takes about a week. A Studio project takes six to eight weeks, most of it spent on the first two."
+                },
+                {
+                  "question": "Can we edit the website ourselves?",
+                  "answer": "Yes. Every page is built from blocks like the ones on this page, so you can reorder, rewrite and add sections without us."
+                },
+                {
+                  "question": "Do you print as well as design?",
+                  "answer": "We manage the print run with two local printers and proof every job on the stock it will be printed on."
+                },
+                {
+                  "question": "What happens after launch?",
+                  "answer": "You get the files, the style guide and a month of small fixes. A retainer is there if you want us to stay on."
+                }
+              ]
+            },
+            {
+              "_type": "marketing_cta",
+              "_version": 1,
+              "_key": "mb-cta",
+              "headline": "Have something to make?",
+              "body": "Tell us about it in a few sentences. We reply within two working days.",
+              "primary_cta_label": "Start a project",
+              "primary_cta_url": "/contact",
+              "secondary_cta_label": "Browse the shop",
+              "secondary_cta_url": "/shop",
+              "image": {
+                "provider": "external",
+                "id": "065HHF4G77765BZB4QRY0ZKPJ6",
+                "src": "/images/demo/demo-image-07.jpg",
+                "alt": "A busy city crossing at night under bright signs"
+              }
+            },
+            {
+              "_type": "marketing_contact",
+              "_version": 1,
+              "_key": "mb-contact",
+              "headline": "Get in touch",
+              "subheadline": "Whichever way suits you.",
+              "options": [
+                {
+                  "icon": "mail",
+                  "title": "Email",
+                  "description": "For briefs, questions and quotes.",
+                  "link_label": "hello@example.com",
+                  "link_url": "mailto:hello@example.com"
+                },
+                {
+                  "icon": "phone",
+                  "title": "Phone",
+                  "description": "Weekdays, nine to five.",
+                  "link_label": "+44 20 7946 0000",
+                  "link_url": "tel:+442079460000"
+                },
+                {
+                  "icon": "location",
+                  "title": "Studio",
+                  "description": "Visits by appointment.",
+                  "link_label": "Find us",
+                  "link_url": "/contact"
+                }
+              ]
+            },
+            {
+              "_type": "marketing_text",
+              "_version": 1,
+              "_key": "mb-text",
+              "headline": "About this page",
+              "body": [
+                {
+                  "_type": "block",
+                  "_key": "mb-text-0",
+                  "style": "normal",
+                  "markDefs": [],
+                  "children": [
+                    {
+                      "_type": "span",
+                      "_key": "mb-text-0-s",
+                      "text": "This page has no body text at all. It is the Blocks field of an ordinary page, so the theme drops the usual page card and lets the blocks run edge to edge.",
+                      "marks": []
+                    }
+                  ]
+                },
+                {
+                  "_type": "block",
+                  "_key": "mb-text-1",
+                  "style": "normal",
+                  "markDefs": [],
+                  "children": [
+                    {
+                      "_type": "span",
+                      "_key": "mb-text-1-s",
+                      "text": "The home page is built the same way. Add a block from the picker, fill in its fields, and it appears in the theme's own style: no Portable Text, no code.",
+                      "marks": []
+                    }
+                  ]
                 }
               ]
             }

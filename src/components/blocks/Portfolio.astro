@@ -24,6 +24,7 @@ interface PortfolioNode {
 	items?: PortItem[];
 	/** Optional trailing outline button ("All portfolios") */
 	more?: { label: string; url: string };
+	anchorId?: string;
 }
 
 // astro-portabletext hands custom type components the block as `node`
@@ -40,7 +41,7 @@ function modernSources(src?: string) {
 }
 ---
 
-<section class="lp-portfolio full-bleed" id="lp-portfolio">
+<section class="lp-portfolio full-bleed" id={node.anchorId ?? "lp-portfolio"}>
 	<SectionHeader title={title} description={description} />
 	<div class="lp-portfolio-inside" style={`--lp-port-cols: ${cols}`}>
 		{

@@ -1,0 +1,62 @@
+---
+/**
+ * The FAQ as a page band: the ghost section header its neighbours lead
+ * with, then the accordion centred beneath it. The accordion component was
+ * drawn for the About page's content card, which supplies its width; here
+ * the band supplies it.
+ */
+import type { BlockComponentProps } from "emdash/ui";
+import type { PageBlocksBlock } from "../../../emdash-env";
+import Accordion from "../blocks/Accordion.astro";
+import SectionHeader from "../SectionHeader.astro";
+import { faqProps } from "../../utils/marketing-blocks";
+
+type Props = BlockComponentProps<Extract<PageBlocksBlock, { _type: "marketing_faq" }>>;
+
+const { value, blockKey } = Astro.props;
+const { header, accordion, anchorId } = faqProps(value, blockKey);
+---
+
+<section class="lp-faq full-bleed" id={anchorId}>
+	<SectionHeader title={header.title} description={header.description} />
+	<div class:list={["lp-faq-inside", { "no-header": !header.title && !header.description }]}>
+		<Accordion node={accordion} />
+	</div>
+</section>
+
+<style>
+	/* flow-root keeps the ghost header's top margin inside the band */
+	.lp-faq {
+		display: flow-root;
+		background-color: var(--color-surface);
+		/* 6em closes the band like the featured boxes that open the same way */
+		padding-bottom: 6em;
+	}
+
+	.lp-faq-inside {
+		max-width: 860px;
+		margin: 0 auto;
+		padding: 0 2.5em;
+	}
+
+	/* The accordion's own 2.5em margin spaces it inside the About card;
+	   the band's header and padding do that job here. */
+	.lp-faq-inside :global(.cry-accordion-band) {
+		margin: 0;
+	}
+
+	.lp-faq-inside.no-header {
+		padding-top: 5em;
+	}
+
+	@media (max-width: 640px) {
+		/* the featured boxes close at 5em on a phone */
+		.lp-faq {
+			padding-bottom: 5em;
+		}
+
+		.lp-faq-inside {
+			padding: 0 1em;
+		}
+	}
+</style>

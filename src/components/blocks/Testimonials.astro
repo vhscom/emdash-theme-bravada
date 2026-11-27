@@ -18,6 +18,7 @@ interface TtNode {
 	title?: string;
 	description?: string;
 	items?: TtItem[];
+	anchorId?: string;
 }
 
 // astro-portabletext hands custom type components the block as `node`
@@ -25,7 +26,7 @@ const { node } = Astro.props as { node: TtNode };
 const { title, description, items = [] } = node;
 ---
 
-<section class="lp-testimonials full-bleed">
+<section class="lp-testimonials full-bleed" id={node.anchorId}>
 	<SectionHeader title={title} description={description} />
 	<div class="lp-testimonials-inside">
 		{

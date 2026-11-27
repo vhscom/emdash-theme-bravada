@@ -1,0 +1,46 @@
+---
+/**
+ * Renders a page's `blocks` field: the EmDash marketing blocks, drawn
+ * as Bravada bands. Each block type maps to a thin wrapper in
+ * ./marketing that turns the stored block into its band's props (see
+ * utils/marketing-blocks.ts). defineBlockComponents makes typecheck
+ * fail if a block type in the schema has no component here.
+ */
+import { Blocks, defineBlockComponents } from "emdash/ui";
+import type { PageBlocksBlock } from "../../emdash-env";
+import Hero from "./marketing/Hero.astro";
+import Split from "./marketing/Split.astro";
+import Text from "./marketing/Text.astro";
+import Features from "./marketing/Features.astro";
+import Boxes from "./marketing/Boxes.astro";
+import Stats from "./marketing/Stats.astro";
+import Portfolio from "./marketing/Portfolio.astro";
+import Testimonials from "./marketing/Testimonials.astro";
+import Logos from "./marketing/Logos.astro";
+import Cta from "./marketing/Cta.astro";
+import Pricing from "./marketing/Pricing.astro";
+import Faq from "./marketing/Faq.astro";
+import Contact from "./marketing/Contact.astro";
+
+interface Props {
+	value?: PageBlocksBlock[] | null;
+}
+
+const components = defineBlockComponents<PageBlocksBlock>({
+	marketing_hero: Hero,
+	marketing_split: Split,
+	marketing_text: Text,
+	marketing_features: Features,
+	bravada_boxes: Boxes,
+	marketing_stats: Stats,
+	bravada_portfolio: Portfolio,
+	marketing_testimonials: Testimonials,
+	marketing_logos: Logos,
+	marketing_cta: Cta,
+	marketing_pricing: Pricing,
+	marketing_faq: Faq,
+	marketing_contact: Contact,
+});
+---
+
+<Blocks value={Astro.props.value} components={components} />

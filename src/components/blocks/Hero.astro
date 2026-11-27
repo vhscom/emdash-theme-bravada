@@ -17,6 +17,8 @@ import MetaArrow from "../MetaArrow.astro";
 interface HeroButton {
 	label: string;
 	url: string;
+	/** primary = outline-white, secondary = gold; default alternates */
+	style?: "primary" | "secondary";
 }
 
 interface HeroNode {
@@ -28,6 +30,8 @@ interface HeroNode {
 	buttons?: HeroButton[];
 	/** Animated-letter accent: bravada | ripley | sculpt | sundown */
 	effect?: string;
+	/** Section ID for in-page links */
+	anchorId?: string;
 }
 
 // astro-portabletext hands custom type components the block as `node`
@@ -44,7 +48,7 @@ const heroAvif = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".avif"
 const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp") : undefined;
 ---
 
-<section class="lp-slider full-bleed" data-effect={effect}>
+<section class="lp-slider full-bleed" data-effect={effect} id={node.anchorId}>
 	<div class="lp-staticslider">
 		{
 			image && heroAvif && heroWebp ? (
@@ -80,7 +84,11 @@ const heroWebp = image?.startsWith("/images/") ? image.replace(/\.jpg$/, ".webp"
 						<div class="staticslider-caption-buttons">
 							{buttons.map((b, i) => (
 								<a
-									class={i % 2 === 0 ? "btn-outline-white" : "btn-gold"}
+									class={
+										(b.style ?? (i % 2 === 0 ? "primary" : "secondary")) === "primary"
+											? "btn-outline-white"
+											: "btn-gold"
+									}
 									href={b.url}
 								>
 									{b.label}

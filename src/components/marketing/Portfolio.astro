@@ -1,0 +1,12 @@
+---
+import type { BlockComponentProps } from "emdash/ui";
+import type { PageBlocksBlock } from "../../../emdash-env";
+import Portfolio from "../blocks/Portfolio.astro";
+import { portfolioProps } from "../../utils/marketing-blocks";
+
+type Props = BlockComponentProps<Extract<PageBlocksBlock, { _type: "bravada_portfolio" }>>;
+
+const { value } = Astro.props;
+---
+
+<Portfolio node={portfolioProps(value)} />

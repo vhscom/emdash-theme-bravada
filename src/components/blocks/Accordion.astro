@@ -18,6 +18,7 @@ interface AccordionNode {
 	paragraphs?: string[];
 	items?: AccordionItem[];
 	_key?: string;
+	anchorId?: string;
 }
 
 const { node } = Astro.props as { node: AccordionNode };
@@ -26,7 +27,7 @@ const hasIntro = heading || paragraphs.length > 0;
 const group = `acc-${node._key ?? "x"}`;
 ---
 
-<section class:list={["cry-accordion-band", { "has-intro": hasIntro }]}>
+<section class:list={["cry-accordion-band", { "has-intro": hasIntro }]} id={node.anchorId}>
 	{
 		hasIntro && (
 			<div class="cry-accordion-intro">

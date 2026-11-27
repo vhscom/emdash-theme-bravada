@@ -25,6 +25,7 @@ interface TextNode {
 	/** Band background tint (hex). Demo alternates warm neutrals. */
 	tint?: string;
 	buttons?: TextButton[];
+	anchorId?: string;
 }
 
 // astro-portabletext hands custom type components the block as `node`
@@ -49,6 +50,7 @@ const paras = paragraphs ?? (text ? [text] : []);
 		{ "has-image": !!image, "image-right": imageSide === "right" },
 	]}
 	style={tintStyle(tint)}
+	id={node.anchorId}
 >
 	<div class="lp-text-inside">
 		<div class="lp-text-background">

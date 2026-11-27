@@ -1,0 +1,12 @@
+---
+import type { BlockComponentProps } from "emdash/ui";
+import type { PageBlocksBlock } from "../../../emdash-env";
+import Pricing from "../blocks/Pricing.astro";
+import { pricingProps } from "../../utils/marketing-blocks";
+
+type Props = BlockComponentProps<Extract<PageBlocksBlock, { _type: "marketing_pricing" }>>;
+
+const { value } = Astro.props;
+---
+
+<Pricing {...pricingProps(value)} />

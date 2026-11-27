@@ -8,8 +8,9 @@ import {
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
 import RichText from "../components/RichText.astro";
+import PageBlocks from "../components/PageBlocks.astro";
 import { getReadingTime } from "../utils/reading-time";
-import { heroSlideImage } from "../utils/hero";
+import { opensWithHero, pageHeroImage } from "../utils/hero";
 import { resolveBlogSiteIdentity } from "../utils/site-identity";
 
 // Bravada's landing page shows a 6-post grid (#lp-posts) after the bands
@@ -17,9 +18,11 @@ const POSTS_PER_PAGE = 6;
 
 // Bravada landing page: a page with slug "home" supplies the landing
 // bands (slider, icon blocks, boxes, text areas, portfolio,
-// testimonials — inserted as sections in the editor). Rendered
+// testimonials) as marketing blocks in its Blocks field. Rendered
 // full-width above the posts; delete or unpublish the page to fall
-// back to a plain blog front page.
+// back to a plain blog front page. A home page set up before blocks
+// keeps its bands in the rich-text Content field, which still renders
+// after any blocks.
 const [{ entries: posts, cacheHint }, settings, homeResult] = await Promise.all([
 	getEmDashCollection("posts", {
 		orderBy: { published_at: "desc" },
@@ -38,11 +41,12 @@ if (Astro.cache?.enabled) {
 
 // The header floats transparent over the page when the landing content
 // leads with the Bravada slider (bravada-over-menu behavior)
-const firstBlock = home?.data.content?.[0];
-const overHero = firstBlock?._type === "bravada.hero";
+const overHero = opensWithHero(home?.data);
 
 // Social preview image: the landing hero's first slide, else the logo.
-const heroImage = heroSlideImage(home?.data.content) ?? settings?.logo?.url ?? undefined;
+const heroImage = pageHeroImage(home?.data) ?? settings?.logo?.url ?? undefined;
+const blocks = home?.data.blocks ?? [];
+const content = home?.data.content ?? [];
 
 const visiblePosts = posts.slice(0, POSTS_PER_PAGE);
 const hasMorePosts = posts.length > POSTS_PER_PAGE;
@@ -71,9 +75,10 @@ const cards = visiblePosts.map((post) => ({
 
 <Base title={siteTitle} description={siteTagline} image={heroImage} overHero={overHero}>
 	{
-		home?.data.content && (
+		(blocks.length > 0 || content.length > 0) && (
 			<div class="landing-content">
-				<RichText value={home.data.content} />
+				{blocks.length > 0 && <PageBlocks value={blocks} />}
+				{content.length > 0 && <RichText value={content} />}
 			</div>
 		)
 	}

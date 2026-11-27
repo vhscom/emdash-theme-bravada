@@ -1,0 +1,118 @@
+---
+/**
+ * marketing_stats — a row of figures on a tinted band, under the ghost
+ * section header. Each figure is Playfair teal on a white card, with the
+ * gold highlighter strip running under the digits and a small tracked
+ * label beneath.
+ */
+import SectionHeader from "../SectionHeader.astro";
+import { tintStyle } from "../../utils/tint";
+
+interface Props {
+	title?: string;
+	description?: string;
+	items?: { value: string; label: string }[];
+	tint?: string;
+	anchorId?: string;
+}
+
+const { title, description, items = [], tint, anchorId } = Astro.props;
+---
+
+<section class="lp-stats full-bleed" style={tintStyle(tint)} id={anchorId}>
+	<SectionHeader title={title} description={description} />
+	<dl class:list={["lp-stats-inside", { "no-header": !title && !description }]}>
+		{
+			items.map((s) => (
+				<div class="lp-stat aos aos-up">
+					<dt class="lp-stat-label">{s.label}</dt>
+					<dd class="lp-stat-value">
+						<span class="hl-gold">{s.value}</span>
+					</dd>
+				</div>
+			))
+		}
+	</dl>
+</section>
+
+<style>
+	/* flow-root keeps the ghost header's 5em top margin inside the band;
+	   without it the margin collapses through and opens a strip of page
+	   background above the band. */
+	.lp-stats {
+		display: flow-root;
+		background-color: var(--tint-warm);
+		/* 6em closes the band like the featured boxes that open the same way */
+		padding-bottom: 6em;
+	}
+
+	.lp-stats-inside {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+		gap: 2em;
+		max-width: calc(var(--wide-width) - 5em);
+		margin: 0 auto;
+		padding: 0 2.5em;
+	}
+
+	.lp-stats-inside.no-header {
+		padding-top: 5em;
+	}
+
+	/* Label is the <dt> for the reader; visually it sits under the figure.
+	   Reordered top-down (not column-reverse) so figures line up across
+	   the row even when one label wraps to two lines. */
+	.lp-stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2.5em 1.5em 2em;
+		background: var(--color-surface);
+		text-align: center;
+		transition:
+			transform 0.4s ease,
+			opacity 0.5s ease-out,
+			box-shadow 0.3s ease-out;
+	}
+
+	.lp-stat:hover {
+		box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.25);
+	}
+
+	.lp-stat-value {
+		order: -1;
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: clamp(2.4em, 5vw, 3.4em);
+		line-height: 1.1;
+		font-weight: var(--font-weight-display);
+		color: var(--color-teal);
+	}
+
+	.lp-stat-value .hl-gold {
+		background-size: 100% 0.3em;
+		background-position: 0 88%;
+	}
+
+	/* The team grid's job-title line: the theme's small caption under a name */
+	.lp-stat-label {
+		margin-top: 0.9em;
+		font-size: 0.8125em;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-text-secondary);
+	}
+
+	@media (max-width: 640px) {
+		/* the featured boxes close at 5em on a phone */
+		.lp-stats {
+			padding-bottom: 5em;
+		}
+
+		.lp-stats-inside {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1em;
+			padding: 0 1em;
+		}
+	}
+</style>

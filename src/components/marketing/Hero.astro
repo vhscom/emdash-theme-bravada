@@ -1,0 +1,12 @@
+---
+import type { BlockComponentProps } from "emdash/ui";
+import type { PageBlocksBlock } from "../../../emdash-env";
+import Hero from "../blocks/Hero.astro";
+import { heroProps } from "../../utils/marketing-blocks";
+
+type Props = BlockComponentProps<Extract<PageBlocksBlock, { _type: "marketing_hero" }>>;
+
+const { value } = Astro.props;
+---
+
+<Hero node={heroProps(value)} />

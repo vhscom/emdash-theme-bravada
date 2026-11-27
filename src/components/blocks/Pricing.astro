@@ -1,0 +1,238 @@
+---
+/**
+ * marketing_pricing — plan cards on a tinted band. White cards in the
+ * featured-boxes mould: Playfair plan name, a large teal price, a list
+ * of features ticked in gold, and a text-band button. The highlighted
+ * plan wears the static boxes' rotated gold tape and stands a little
+ * proud of the row.
+ */
+import SectionHeader from "../SectionHeader.astro";
+import { tintStyle } from "../../utils/tint";
+
+interface Plan {
+	name: string;
+	price: string;
+	period?: string;
+	description?: string[];
+	features?: string[];
+	cta?: { label: string; url: string };
+	highlighted?: boolean;
+	badge?: string;
+}
+
+interface Props {
+	title?: string;
+	description?: string;
+	plans?: Plan[];
+	tint?: string;
+	anchorId?: string;
+}
+
+const { title, description, plans = [], tint, anchorId } = Astro.props;
+const PlanHeading = title ? "h3" : "h2";
+---
+
+<section class="lp-pricing full-bleed" style={tintStyle(tint)} id={anchorId}>
+	<SectionHeader title={title} description={description} />
+	<div class:list={["lp-pricing-inside", { "no-header": !title && !description }]}>
+		{
+			plans.map((plan) => (
+				<article class:list={["lp-plan", "aos", "aos-up", { "is-highlighted": plan.highlighted }]}>
+					{plan.highlighted && <span class="lp-plan-tape" aria-hidden="true" />}
+					{plan.badge && <p class="lp-plan-badge">{plan.badge}</p>}
+					<PlanHeading class="lp-plan-name">{plan.name}</PlanHeading>
+					<p class="lp-plan-price">
+						<span class="lp-plan-amount">{plan.price}</span>
+						{plan.period && <span class="lp-plan-period">{plan.period}</span>}
+					</p>
+					{plan.description?.map((p) => <p class="lp-plan-text">{p}</p>)}
+					{
+						plan.features && plan.features.length > 0 && (
+							<ul class="lp-plan-features" role="list">
+								{plan.features.map((f) => (
+									<li>{f}</li>
+								))}
+							</ul>
+						)
+					}
+					{
+						plan.cta && (
+							<p class="lp-plan-action">
+								<a
+									class:list={[
+										"btn-cry",
+										plan.highlighted ? "btn-cry-primary" : "btn-cry-secondary",
+									]}
+									href={plan.cta.url}
+								>
+									{plan.cta.label}
+								</a>
+							</p>
+						)
+					}
+				</article>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	/* flow-root: see Stats.astro -- keeps the header margin in the band */
+	.lp-pricing {
+		display: flow-root;
+		background-color: var(--tint-boxes);
+		/* 6em closes the band like the featured boxes that open the same way */
+		padding-bottom: 6em;
+	}
+
+	.lp-pricing-inside {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		align-items: start;
+		gap: 2.5em;
+		max-width: calc(var(--wide-width) - 5em);
+		margin: 0 auto;
+		padding: 1em 2.5em 0;
+	}
+
+	.lp-pricing-inside.no-header {
+		padding-top: 5em;
+	}
+
+	.lp-plan {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		padding: 3em 2.25em 2.5em;
+		background: var(--color-surface);
+		text-align: center;
+		box-shadow: 0 4px 18px -10px rgba(0, 0, 0, 0.2);
+		transition:
+			transform 0.4s ease,
+			opacity 0.5s ease-out,
+			box-shadow 0.3s ease-out;
+	}
+
+	.lp-plan:hover {
+		box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.3);
+	}
+
+	.lp-plan.is-highlighted {
+		margin-top: -1em;
+		padding-top: 4em;
+		padding-bottom: 3.5em;
+		box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.32);
+	}
+
+	/* The static featured boxes' tape strip */
+	.lp-plan-tape {
+		position: absolute;
+		top: -7px;
+		left: 0;
+		right: 0;
+		width: 38%;
+		height: 14px;
+		margin: 0 auto;
+		background-color: var(--color-gold);
+		opacity: 0.75;
+		transform: rotate(-3deg);
+		transition: opacity 0.5s ease-out;
+	}
+
+	.lp-plan:hover .lp-plan-tape {
+		opacity: 1;
+	}
+
+	/* The team grid's job-title line, in gold and bold to read as a flag */
+	.lp-plan-badge {
+		margin: 0 0 0.75em;
+		font-size: 0.8125em;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-gold);
+	}
+
+	/* The featured boxes' card-title size */
+	.lp-plan-name {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 1.3em;
+		line-height: 1.3;
+		font-weight: var(--font-weight-heading);
+		color: var(--color-heading);
+	}
+
+	.lp-plan-price {
+		margin: 0.4em 0 0.6em;
+	}
+
+	.lp-plan-amount {
+		font-family: var(--font-heading);
+		font-size: 3em;
+		line-height: 1.1;
+		font-weight: var(--font-weight-display);
+		color: var(--color-teal);
+	}
+
+	.lp-plan-period {
+		margin-left: 0.35em;
+		font-size: 0.95em;
+		color: var(--color-muted);
+	}
+
+	.lp-plan-text {
+		margin: 0 0 1em;
+		line-height: 1.7;
+		color: var(--color-text);
+	}
+
+	.lp-plan-features {
+		margin: 0.5em 0 2em;
+		padding: 0;
+		list-style: none;
+		text-align: left;
+	}
+
+	.lp-plan-features li {
+		position: relative;
+		padding: 0.7em 0 0.7em 1.9em;
+		border-top: 1px solid var(--color-border-subtle);
+		line-height: 1.5;
+	}
+
+	.lp-plan-features li::before {
+		content: "";
+		position: absolute;
+		left: 0.2em;
+		top: 1.05em;
+		width: 0.85em;
+		height: 0.45em;
+		border-left: 2px solid var(--color-gold);
+		border-bottom: 2px solid var(--color-gold);
+		transform: rotate(-45deg);
+	}
+
+	.lp-plan-action {
+		margin: auto 0 0;
+	}
+
+	.lp-plan-action .btn-cry {
+		margin-right: 0;
+	}
+
+	@media (max-width: 640px) {
+		/* the featured boxes close at 5em on a phone */
+		.lp-pricing {
+			padding-bottom: 5em;
+		}
+
+		.lp-pricing-inside {
+			padding: 1em 1em 0;
+		}
+
+		.lp-plan.is-highlighted {
+			margin-top: 0;
+		}
+	}
+</style>

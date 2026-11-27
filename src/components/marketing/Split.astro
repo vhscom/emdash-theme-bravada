@@ -1,0 +1,12 @@
+---
+import type { BlockComponentProps } from "emdash/ui";
+import type { PageBlocksBlock } from "../../../emdash-env";
+import TextBand from "../blocks/TextBand.astro";
+import { splitProps } from "../../utils/marketing-blocks";
+
+type Props = BlockComponentProps<Extract<PageBlocksBlock, { _type: "marketing_split" }>>;
+
+const { value } = Astro.props;
+---
+
+<TextBand node={splitProps(value)} />

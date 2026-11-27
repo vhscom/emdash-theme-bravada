@@ -1,0 +1,12 @@
+---
+import type { BlockComponentProps } from "emdash/ui";
+import type { PageBlocksBlock } from "../../../emdash-env";
+import Cta from "../blocks/Cta.astro";
+import { ctaProps } from "../../utils/marketing-blocks";
+
+type Props = BlockComponentProps<Extract<PageBlocksBlock, { _type: "marketing_cta" }>>;
+
+const { value } = Astro.props;
+---
+
+<Cta {...ctaProps(value)} />

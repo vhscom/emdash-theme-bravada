@@ -4,6 +4,29 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Marketing blocks. The home page, and any other page, can be built from
+  thirteen block types drawn in Bravada's style: hero, text area, text,
+  icon blocks, featured boxes, stats, portfolio, testimonials, logos,
+  call to action, pricing, FAQ and contact options. Editors pick them
+  from a grouped list, drag them into order and change everything in a
+  form, including the band styles, tints and column counts that used to
+  need a developer.
+- A Marketing blocks page with one of every block, listed under
+  Templates in the menu.
+- Icon blocks offer mail, phone, location and chat icons, for contact
+  details.
+
+### Changed
+
+- The home page is built from blocks instead of bands inside its
+  rich-text Content field. It looks the same as before. A site set up
+  from an earlier release keeps its home page exactly as it is until it
+  moves to blocks; the README explains how.
+
 ## [0.11.0] - 2026-11-27
 
 ### Added
