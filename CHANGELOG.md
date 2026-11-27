@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format is
 based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Astro 7.2.9 to 7.4.13. The theme needs Node 22.23.4 or newer now, the
+  first release with Node's October 2026 security fixes, which Astro
+  itself requires. On the Node build, a page that failed with an empty
+  error response could be cached and served blank to every visitor
+  after it; it now shows the error page.
+- React 19.2.4 to 19.3.1, and patch updates to the Node adapter and
+  the type checker.
+
 ## [0.11.0] - 2026-11-27
 
 ### Added
