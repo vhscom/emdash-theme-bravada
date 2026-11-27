@@ -15,6 +15,10 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   after it; it now shows the error page.
 - React 19.2.4 to 19.3.1, and patch updates to the Node adapter and
   the type checker.
+- The React integration moves to version 7, which compiles JSX without
+  Babel. Nothing changes for the theme as shipped; if you added Babel
+  plugins through `react({ babel })` in `astro.config.mjs`, move them
+  to `@rolldown/plugin-babel` as Astro's release notes describe.
 
 ## [0.11.0] - 2026-11-27
 
