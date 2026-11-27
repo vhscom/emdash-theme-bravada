@@ -19,6 +19,10 @@ this project adheres to [Semantic Versioning](https://semver.org/).
   Babel. Nothing changes for the theme as shipped; if you added Babel
   plugins through `react({ babel })` in `astro.config.mjs`, move them
   to `@rolldown/plugin-babel` as Astro's release notes describe.
+- Installing the theme no longer builds `better-sqlite3`, a native
+  module nothing used any more: EmDash reads SQLite through Node's own
+  `node:sqlite` since 1.0. Installs are quicker, and no longer need a
+  C++ toolchain on platforms without a prebuilt binary.
 
 ## [0.11.0] - 2026-11-27
 

@@ -28,7 +28,6 @@
 		"@astrojs/react": "^7.1.9",
 		"@emdash-cms/plugin-audit-log": "^0.2.4",
 		"astro": "^7.4.13",
-		"better-sqlite3": "^12.8.0",
 		"emdash": "^1.6.0",
 		"react": "19.3.1",
 		"react-dom": "19.3.1"
