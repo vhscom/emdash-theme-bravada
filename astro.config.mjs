@@ -1,39 +1,25 @@
-import node from "@astrojs/node";
+import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
+import { cacheCloudflare } from "@astrojs/cloudflare/cache";
+import { d1, kvCache, r2, sandbox } from "@emdash-cms/cloudflare";
 import auditLog from "@emdash-cms/plugin-audit-log";
-import { defineConfig, fontProviders, memoryCache } from "astro/config";
-import emdash, { local } from "emdash/astro";
-import { sqlite } from "emdash/db";
+import { defineConfig, fontProviders } from "astro/config";
+import emdash from "emdash/astro";
 
 export default defineConfig({
 	output: "server",
-	adapter: node({
-		mode: "standalone",
-	}),
-	// Route caching for the Node build. The rules below declare the policy;
-	// without a provider nothing enforces them, which is what this template
-	// shipped through v0.10.0 — the Cloudflare deploy branch swaps in
-	// cacheCloudflare() and was the only build that honoured them.
-	//
-	// memoryCache() holds rendered pages in the server process: up to 1000 by
-	// default, and publishing invalidates the pages an entry appears on, so
-	// editors are not waiting out the hour below. Being in-process is the
-	// whole trade — it costs nothing to adopt and needs no platform, but each
-	// instance keeps its own copy, so a multi-instance deploy will see them
-	// diverge until each expires. Put a shared cache in front if you run more
-	// than one.
-	//
-	// It also drops tracking parameters (utm_*, fbclid, gclid and the rest)
-	// from the cache key by default, so a link shared with campaign tags hits
-	// the same entry as the clean URL. Worth knowing that this is a property
-	// of THIS provider, not of route caching: it can normalise the key because
-	// it is the cache and runs inside the app. A CDN cache in front of the app
-	// computes the key before any of your code runs, so it cannot.
+	adapter: cloudflare(),
+	// Platform Workers Cache: two tiers in front of the Worker, so a hit is
+	// answered at the reader's nearest data centre and the Worker never runs.
+	// Pair with `"cache": {"enabled": true}` in wrangler.jsonc. Purging is
+	// cache.purge() from cloudflare:workers, so no credentials are needed.
+	// Needs @astrojs/cloudflare >= 14.2.0 for the /_image cache-hit crash fix.
 	cache: {
-		provider: memoryCache(),
+		provider: cacheCloudflare(),
 	},
 	// How long each kind of page may be held, declared next to the routes it
-	// applies to rather than in site code.
+	// applies to rather than in site code. Inert without a cache provider, so
+	// the Node build ignores this and the Cloudflare deploy uses it.
 	//
 	// An hour fresh, ten days stale-while-revalidate: within the hour a reader
 	// gets the stored copy outright, and for ten days after they get it
@@ -70,11 +56,12 @@ export default defineConfig({
 			// cached anonymous page without it. Client mode ships one
 			// bootstrap and decides in the browser.
 			toolbar: "client",
-			database: sqlite({ url: "file:./data.db" }),
-			storage: local({
-				directory: "./uploads",
-				baseUrl: "/_emdash/api/media/file",
-			}),
+			database: d1({ binding: "DB", session: "auto" }),
+			storage: r2({ binding: "MEDIA" }),
+			// Query results shared across isolates — most page reads hit KV
+			// instead of D1.
+			objectCache: kvCache({ binding: "CACHE" }),
+			sandboxRunner: sandbox(),
 			plugins: [
 				auditLog,
 				{

@@ -12,7 +12,7 @@
 	},
 	"emdash": {
 		"label": "Bravada for Astro",
-		"description": "Bravada for Astro — a port of the Bravada WordPress theme (Cryout Creations) to Astro, powered by EmDash",
+		"description": "Bravada for Astro \u2014 a port of the Bravada WordPress theme (Cryout Creations) to Astro, powered by EmDash",
 		"seed": "seed/seed.json"
 	},
 	"scripts": {
@@ -21,11 +21,14 @@
 		"preview": "astro preview",
 		"start": "node ./dist/server/entry.mjs",
 		"typecheck": "astro check",
-		"test": "vitest run"
+		"test": "vitest run",
+		"deploy": "astro build && wrangler deploy"
 	},
 	"dependencies": {
+		"@astrojs/cloudflare": "^14.4.9",
 		"@astrojs/node": "^11.1.14",
 		"@astrojs/react": "^7.1.9",
+		"@emdash-cms/cloudflare": "^1.6.0",
 		"@emdash-cms/plugin-audit-log": "^0.2.4",
 		"astro": "^7.4.13",
 		"emdash": "^1.6.0",
@@ -34,7 +37,9 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.12",
-		"vitest": "^5.1.2"
+		"@cloudflare/workers-types": "^5.20261125.1",
+		"vitest": "^5.1.2",
+		"wrangler": "^4.168.0"
 	},
 	"packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
 	"engines": {

@@ -1,0 +1,49 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "bravada-demo",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-02-24",
+	"compatibility_flags": ["nodejs_compat"],
+	// Platform Workers Caching: two tiers in front of the Worker, so a hit is
+	// answered at the reader's nearest data centre without the Worker running.
+	// Pair with cacheCloudflare() in astro.config.mjs. Purge from inside the
+	// Worker with cache.purge() — no zone ID or API token.
+	"cache": {
+		"enabled": true,
+	},
+	"routes": [
+		{
+			"pattern": "bravada.comfus.io",
+			"custom_domain": true,
+		},
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "bravada-demo",
+			"database_id": "31fe29f5-68ec-4666-86d5-b5d78758229b",
+		},
+	],
+	"kv_namespaces": [
+		{
+			"binding": "CACHE",
+			"id": "c9ae0eaa807b47dda6605d22345cadcd",
+		},
+	],
+	"r2_buckets": [
+		{
+			"binding": "MEDIA",
+			"bucket_name": "bravada-demo-media",
+		},
+	],
+	// Worker Loader for plugin sandboxing
+	"worker_loaders": [
+		{
+			"binding": "LOADER",
+		},
+	],
+	// Drives scheduled publishing, plugin cron, and maintenance (see src/worker.ts)
+	"triggers": {
+		"crons": ["* * * * *"],
+	},
+}
